@@ -8,6 +8,8 @@
 
 		init: function () {
 
+			this.players = [];
+
 			for (var i = 0; i < 10; i++) {
 
 				this.players.push(new Player(-(i * 30)));

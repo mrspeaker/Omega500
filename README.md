@@ -9,11 +9,11 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Screen handling
 - [X] Classes with super()
 - [X] World object for tick()
+- [X] Input handling - keys
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Input handling - keys
 - [ ] Image loading
 - [ ] Image display
 - [ ] SpriteSheet display
@@ -28,6 +28,7 @@ Lower priority:
 - [ ] Input handling - mouse
 - [ ] Input handling - touch
 - [ ] Mobile compatibility
+- [ ] iCade/controller support
 
 
 ## (in)FAQ:
