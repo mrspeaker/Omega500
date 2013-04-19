@@ -11,7 +11,7 @@
 
 			var i;
 
-			this.players = [new Player(Ω.env.w / 2, "hsl(20, 90%, 20%)")];
+			this.players = [new Player(Ω.env.w / 2, true)];
 
 			for (i = 1; i < 10; i++) {
 				this.players.push(new Player(-(i * 30)));

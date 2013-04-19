@@ -20,7 +20,7 @@
 
 			var c = gfx.ctx;
 
-			c.fillStyle = "hsl(135, 40%, 50%)";
+			c.fillStyle = "hsl(195, 40%, 30%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 			c.fillStyle = "#fff";

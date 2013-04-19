@@ -10,25 +10,30 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Classes with super()
 - [X] World object for tick()
 - [X] Input handling - keys
+- [X] Image loading
+- [X] SpriteSheet display
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Image loading
+- [ ] Set canvas size!
 - [ ] Image display
-- [ ] SpriteSheet display
 - [ ] Entity collisions
 - [ ] Audio load/play
 - [ ] Helpful math functions
+- [ ] Preload assets
 
 Lower priority:
 
 - [ ] SpriteSheet animations
 - [ ] Screen transitions
+- [ ] Simple particl effect controller
 - [ ] Input handling - mouse
 - [ ] Input handling - touch
 - [ ] Mobile compatibility
 - [ ] iCade/controller support
+- [ ] mouse lock
+- [ ] fullscreen
 
 
 ## (in)FAQ:
