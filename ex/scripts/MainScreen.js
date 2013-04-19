@@ -8,19 +8,28 @@
 
 		init: function () {
 
-			this.players = [];
+			var i;
 
-			for (var i = 0; i < 10; i++) {
+			this.players = [new Player(Ω.env.w / 2, "hsl(20, 90%, 20%)")];
 
+			for (i = 1; i < 10; i++) {
 				this.players.push(new Player(-(i * 30)));
-
 			}
 
 		},
 
 		tick: function (d) {
 
-			this.players.forEach(function (p) {
+			if (Ω.input.isDown("left")) {
+				this.players[0].x -= 5;
+			}
+			if (Ω.input.isDown("right")) {
+				this.players[0].x += 5;
+			}
+
+			this.players.forEach(function (p, i) {
+
+				if (i === 0) { return }
 
 				p.tick(d);
 
@@ -30,7 +39,7 @@
 
 			});
 
-			if (Ω.input.pressed("enter")) {
+			if (Ω.input.pressed("escape")) {
 				game.setScreen(new TitleScreen());
 			}
 

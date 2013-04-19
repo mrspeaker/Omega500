@@ -10,14 +10,31 @@
 
 		KEYS: {
 			enter: 13,
-			space: 32
+			space: 32,
+			escape: 27,
+			up: 38,
+			down: 40,
+			left: 37,
+			right: 39
 		},
 
 		init: function () {
+
 			bindKeys();
+
 		},
 
 		reset: function () {
+
+		},
+
+		tick: function (d) {
+
+			var key;
+
+			for(key in keys) {
+				keys[key].wasDown = keys[key].isDown;
+			}
 
 		},
 

@@ -11,7 +11,9 @@
 			this._super();
 
 			Ω.input.bind(Ω.input.KEYS.space, "fire");
-			Ω.input.bind(13, "enter");
+			Ω.input.bind(Ω.input.KEYS.escape, "escape");
+			Ω.input.bind(Ω.input.KEYS.left, "left");
+			Ω.input.bind(Ω.input.KEYS.right, "right");
 
 			this.setScreen(new TitleScreen());
 

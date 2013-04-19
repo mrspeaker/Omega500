@@ -55,7 +55,10 @@
 		stop: function () {},
 
 		tick: function (d) {
+
 			this.screen.tick(d);
+			Ω.input.tick(d);
+
 		},
 
 		render: function () {
@@ -67,6 +70,7 @@
 
 		setScreen: function (screen) {
 
+			this.lastScreen = null;
 			this.lastScreen = this.screen;
 			this.screen = screen;
 
