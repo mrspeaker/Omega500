@@ -24,7 +24,7 @@
 			var c = gfx.ctx;
 
 			c.fillStyle = "#fff";
-			c.fillRect(this.x, 50 + Math.sin(this.x >> 2) * 20, 15, 35);
+			c.fillRect(this.x, 50 + Math.sin(this.x >> 2) * 20, 10, 35);
 
 		}
 

@@ -1,6 +1,6 @@
 # Ω500: Game thingo.
 
-v0.0.0.1 by Mr Speaker.
+v0.0.0.2 by Mr Speaker.
 
 Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. In so far:
 
@@ -8,14 +8,15 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Main game loop
 - [X] Screen handling
 - [X] Classes with super()
+- [X] World object for tick()
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
+- [ ] Input handling - keys
 - [ ] Image loading
 - [ ] Image display
 - [ ] SpriteSheet display
-- [ ] World object for tick()
 - [ ] Entity collisions
 - [ ] Audio load/play
 - [ ] Helpful math functions
@@ -24,6 +25,9 @@ Lower priority:
 
 - [ ] SpriteSheet animations
 - [ ] Screen transitions
+- [ ] Input handling - mouse
+- [ ] Input handling - touch
+- [ ] Mobile compatibility
 
 
 ## (in)FAQ:
@@ -38,4 +42,15 @@ ha ha.
 
 ### Ω.Game
 
-`canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`
+Extend `Ω.Game` to create ya game:
+
+    var myGame = Ω.Game.extend({
+
+    });
+    myGame.go();
+
+Canvas/DOM container:
+
+The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`
+
+

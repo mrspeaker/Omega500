@@ -10,7 +10,7 @@
 
 			this.time += d;
 
-			if (this.time > 80) {
+			if (Ω.input.pressed("fire") && this.time > 20) {
 				game.setScreen(new MainScreen());
 			}
 

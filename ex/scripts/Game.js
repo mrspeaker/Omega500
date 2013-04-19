@@ -9,6 +9,10 @@
 		init: function () {
 
 			this._super();
+
+			Ω.input.bind(Ω.input.KEYS.space, "fire");
+			Ω.input.bind(13, "enter");
+
 			this.setScreen(new TitleScreen());
 
 		}

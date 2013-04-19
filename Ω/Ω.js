@@ -5,7 +5,12 @@ var Ω = (function() {
 	var images = {},
 		audio = {};
 
-	return {};
+	return {
+		env: {
+			w: 0,
+			h: 0
+		}
+	};
 
 }());
 
