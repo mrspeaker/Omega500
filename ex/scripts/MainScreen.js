@@ -5,6 +5,7 @@
 	var MainScreen = Ω.Screen.extend({
 
 		players: [],
+		sheet: new Ω.SpriteSheet("res/tiles.png", 32),
 
 		init: function () {
 
@@ -58,8 +59,10 @@
 
 			});
 
-			c.fillStyle = "hsl(195, 40%, 30%)";
-			c.fillRect(0, 100, gfx.w, gfx.h - 100);
+			for (var i = 0; i < gfx.w / this.sheet.w; i++) {
+				this.sheet.drawTile(gfx, 0, 0, i * this.sheet.w, 100);
+				this.sheet.drawTile(gfx, 15, 0, i * this.sheet.w, 100 + this.sheet.h);
+			}
 		}
 	});
 

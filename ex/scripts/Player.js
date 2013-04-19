@@ -4,7 +4,7 @@
 
 	var Player = Ω.Entity.extend({
 
-		spriteSheet: new Ω.SpriteSheet("resources/main.png"),
+		sheet: new Ω.SpriteSheet("res/charzera.png", 24, 44),
 
 		init: function (startX, color) {
 
@@ -22,10 +22,7 @@
 
 		render: function (gfx) {
 
-			var c = gfx.ctx;
-
-			c.fillStyle = this.color;
-			c.fillRect(this.x, 50 + Math.sin(this.x >> 2) * 20, 10, 35);
+			this.sheet.drawTile(gfx, 3, 0, this.x, 40 + Math.sin(this.x >> 2) * 20);
 
 		}
 

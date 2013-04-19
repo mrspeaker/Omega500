@@ -2,6 +2,8 @@
 
 	"use strict";
 
+	var images = {};
+
 	var gfx = {
 
 		init: function (ctx) {
@@ -11,6 +13,23 @@
 
 			this.w = this.canvas.width;
 			this.h = this.canvas.height;
+
+		},
+
+		loadImage: function (path, cb) {
+
+			if (images[path]) {
+				return images[path];
+			}
+
+			var image = new Image();
+
+			image.src = path;
+			image.onload = function() {
+				cb && cb();
+			};
+			images[path] = image;
+			return image;
 
 		}
 
