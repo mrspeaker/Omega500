@@ -58,9 +58,7 @@
 				this.sheet.draw(gfx, 15, 0, i * this.sheet.w, 100 + this.sheet.h);
 			}
 
-			c.font = "7pt MonoSpace";
-			c.fillStyle = "#fff"
-			c.fillText("[esc]", 2, 10);
+			gfx.drawTextShadow("[esc]", 2, 10, 1, "7pt MonoSpace")
 		}
 	});
 

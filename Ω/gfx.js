@@ -39,7 +39,23 @@
 				img,
 				x,
 				y);
+		},
+
+		drawTextShadow: function (msg, x, y, shadow, font) {
+
+			var c = this.ctx;
+
+			shadow = shadow || 2;
+			if (font) {
+				c.font = font;
+			}
+			c.fillStyle = "#000";
+			c.fillText(msg, x + shadow, y + shadow);
+			c.fillStyle = "#fff";
+			c.fillText(msg, x, y);
+
 		}
+
 
 	};
 

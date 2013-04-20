@@ -31,12 +31,8 @@
 			this.bg.draw(gfx, -50, 0);
 
 			c.font = "20pt Monospace";
-
-			c.fillStyle = "#000";
-			c.fillText("Ω500: testin'", 32, 82);
-
-			c.fillStyle = "#fff";
-			c.fillText("Ω500: testin'", 30, 80);
+			gfx.drawTextShadow("Ω500: testin'", 30, 80);
+			gfx.drawTextShadow("[space]", gfx.w / 2 - 20, 110, 1, "8pt Monospace");
 
 		}
 
