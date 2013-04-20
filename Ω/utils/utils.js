@@ -4,6 +4,48 @@
 
 	Ω.utils = {
 
+		rand: function (min, max) {
+
+			return Math.floor(Math.random() * min);
+
+		},
+
+		now: function () {
+
+			return utils.now(); // window.game.time * 1000; //
+
+		},
+
+		since: function (time) {
+
+			return utils.now() - time;
+
+		},
+
+		toggle: function (time, steps, offset) {
+
+			return ((utils.now() + (offset || 0)) / time) % steps >> 0;
+
+		},
+
+		dist: function (a, b) {
+
+			var dx = a.x ? a.x - b.x : a[0] - b[0],
+				dy = a.y ? a.y - b.y : a[1] - b[1];
+
+			return Math.sqrt(dx * dx + dy * dy);
+
+		},
+
+		angleBetween: function (a, b) {
+
+			var dx = a.x - b.x,
+				dy = a.y - b.y;
+
+			return (Math.atan2(dy, dx) * 180 / Math.PI) % 360;
+
+		},
+
 		loadScripts: function (scripts, cb) {
 
 			var loaded = 0;

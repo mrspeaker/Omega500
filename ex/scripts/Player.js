@@ -6,7 +6,7 @@
 
 		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 		sounds: {
-			"crouch": new Ω.Sound("res/crouch.wav", 0.5)
+			"crouch": new Ω.Sound("res/crouch.wav", 0.1)
 		},
 
 		init: function (startX, isPlayer) {
@@ -14,7 +14,7 @@
 			this.isPlayer = isPlayer;
 
 			this.animAdd(new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]));
-			this.animAdd(new Ω.Anim("walk", this.sheet, 100, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]));
+			this.animAdd(new Ω.Anim("walk", this.sheet, 70, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]));
 
 			this.x = startX;
 			this.speed = 1 + Math.random() * 0.2;
@@ -48,7 +48,7 @@
 
 		render: function (gfx) {
 
-			this.anim.draw(gfx, this.x, 57);
+			this.anim.draw(gfx, this.x, 52);
 
 		}
 

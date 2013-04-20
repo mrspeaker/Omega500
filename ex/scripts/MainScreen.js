@@ -18,6 +18,14 @@
 				this.players.push(new Player(-(i * 40)));
 			}
 
+			this.map = new Ω.Map(this.sheet, [
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			   	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[ 0, 2, 0, 2, 0, 2, 0, 2, 0, 2]
+			]);
+
 		},
 
 		tick: function (d) {
@@ -47,18 +55,20 @@
 
 			this.bg.draw(gfx, -this.players[0].x / 20 - 20, 0);
 
+			this.map.draw(gfx);
+
 			this.players.forEach(function (p) {
 
 				p.render(gfx);
 
 			});
 
-			for (var i = 0; i < gfx.w / this.sheet.w; i++) {
-				this.sheet.draw(gfx, 0, 0, i * this.sheet.w, 100);
-				this.sheet.draw(gfx, 15, 0, i * this.sheet.w, 100 + this.sheet.h);
-			}
+			// for (var i = 0; i < gfx.w / this.sheet.w; i++) {
+			// 	this.sheet.draw(gfx, 0, 0, i * this.sheet.w, 100);
+			// 	this.sheet.draw(gfx, 15, 0, i * this.sheet.w, 100 + this.sheet.h);
+			// }
 
-			gfx.drawTextShadow("[esc]", 2, 10, 1, "7pt MonoSpace")
+			gfx.drawTextShadow("[esc]", 2, 10, 1, "7pt MonoSpace");
 		}
 	});
 
