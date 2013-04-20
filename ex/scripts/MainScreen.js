@@ -15,7 +15,7 @@
 			this.players = [new Player(Ω.env.w / 2, true)];
 
 			for (i = 1; i < 6; i++) {
-				//this.players.push(new Player(-(i * 40)));
+				this.players.push(new Player(-(i * 40)));
 			}
 
 		},
