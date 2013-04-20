@@ -6,6 +6,13 @@
 
 		time: 0,
 		bg: new Ω.Image("res/background.png"),
+		theme: new Ω.Sound("res/terminal.wav"),
+
+		init: function () {
+
+			this.theme.play();
+
+		},
 
 		tick: function (d) {
 

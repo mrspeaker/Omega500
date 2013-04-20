@@ -11,6 +11,8 @@
 			this.frames = frames;
 			this.speed = speed;
 
+			this.changed = false;
+
 			this.reset();
 
 		},
@@ -18,12 +20,14 @@
 		tick: function (d) {
 
 			var diff = Date.now() - this.frameTime;
+			this.changed = false;
 
 			if (diff > this.speed) {
 				this.frameTime = Date.now() + (Math.min(this.speed, diff - this.speed));
 				if (++this.curFrame > this.frames.length - 1) {
 					this.curFrame = 0;
 				};
+				this.changed = true;
 			};
 
 		},

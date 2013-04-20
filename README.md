@@ -14,13 +14,15 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Image display
 - [X] SpriteSheet display
 - [X] SpriteSheet animations
+- [X] Audio load/play
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Set canvas size!
+- [ ] Tiled map
+- [ ] Camera
+- [ ] Set canvas size
 - [ ] Entity collisions
-- [ ] Audio load/play
 - [ ] Helpful math functions
 - [ ] Preload assets
 
