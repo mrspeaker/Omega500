@@ -31,6 +31,14 @@
 			images[path] = image;
 			return image;
 
+		},
+
+		drawImage: function (img, x, y) {
+
+			this.ctx.drawImage(
+				img,
+				x,
+				y);
 		}
 
 	};

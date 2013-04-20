@@ -4,34 +4,47 @@
 
 	var Player = Ω.Entity.extend({
 
-		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 44),
+		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 
-		init: function (startX, anim) {
+		init: function (startX, isPlayer) {
+
+			this.isPlayer = isPlayer;
+
+			this.animAdd(new Ω.Anim("idle", this.sheet, 100, [[13, 0]]));
+			this.animAdd(new Ω.Anim("walk", this.sheet, 100, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]));
 
 			this.x = startX;
-			this.anim = anim
 			this.speed = 1 + Math.random() * 0.2;
+
+			this.animSet(isPlayer ? "idle" : "walk");
 
 		},
 
 		tick: function (d) {
 
-			this.x += d * this.speed;
+			this.anim.tick();
+
+			if (this.isPlayer) {
+				var inp = Ω.input;
+				if (Ω.input.isDown("left")) {
+					this.animSetIfNot("walk");
+					this.x -= this.speed;
+				} else if (Ω.input.isDown("right")) {
+					this.animSetIfNot("walk");
+					this.x += this.speed;
+				} else {
+					this.animSetIfNot("idle");
+				}
+			} else {
+				this.x += d * this.speed;
+			}
+
 
 		},
 
 		render: function (gfx) {
 
-			if (this.anim) {
-				var inp = Ω.input;
-				if (Ω.input.isDown("left") || Ω.input.isDown("right")) {
-					this.sheet.drawTile(gfx, (Date.now() >> 5 | 0) % 7, 0, this.x, 55);
-				} else {
-					this.sheet.drawTile(gfx, 0, 0, this.x, 55);
-				}
-			} else {
-				this.sheet.drawTile(gfx, 3, 0, this.x, 40 + Math.sin(this.x >> 2) * 20);
-			}
+			this.anim.draw(gfx, this.x, 57);
 
 		}
 

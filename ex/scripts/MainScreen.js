@@ -6,6 +6,7 @@
 
 		players: [],
 		sheet: new Ω.SpriteSheet("res/tiles.png", 32),
+		bg: new Ω.Image("res/background.png"),
 
 		init: function () {
 
@@ -13,24 +14,15 @@
 
 			this.players = [new Player(Ω.env.w / 2, true)];
 
-			for (i = 1; i < 10; i++) {
-				this.players.push(new Player(-(i * 30)));
+			for (i = 1; i < 6; i++) {
+				//this.players.push(new Player(-(i * 40)));
 			}
 
 		},
 
 		tick: function (d) {
 
-			if (Ω.input.isDown("left")) {
-				this.players[0].x -= 5;
-			}
-			if (Ω.input.isDown("right")) {
-				this.players[0].x += 5;
-			}
-
 			this.players.forEach(function (p, i) {
-
-				if (i === 0) { return }
 
 				p.tick(d);
 
@@ -53,6 +45,8 @@
 			c.fillStyle = "hsl(195, 40%, 50%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
+			this.bg.draw(gfx, -this.players[0].x / 20 - 20, 0);
+
 			this.players.forEach(function (p) {
 
 				p.render(gfx);
@@ -60,9 +54,13 @@
 			});
 
 			for (var i = 0; i < gfx.w / this.sheet.w; i++) {
-				this.sheet.drawTile(gfx, 0, 0, i * this.sheet.w, 100);
-				this.sheet.drawTile(gfx, 15, 0, i * this.sheet.w, 100 + this.sheet.h);
+				this.sheet.draw(gfx, 0, 0, i * this.sheet.w, 100);
+				this.sheet.draw(gfx, 15, 0, i * this.sheet.w, 100 + this.sheet.h);
 			}
+
+			c.font = "7pt MonoSpace";
+			c.fillStyle = "#fff"
+			c.fillText("[esc]", 2, 10);
 		}
 	});
 

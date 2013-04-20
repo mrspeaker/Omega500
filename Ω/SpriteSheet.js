@@ -14,7 +14,7 @@
 
 		},
 
-		drawTile: function (gfx, col, row, x, y, w, h, scale) {
+		draw: function (gfx, col, row, x, y, w, h, scale) {
 			if(col === -1) {
 				return;
 			}

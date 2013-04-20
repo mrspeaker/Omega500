@@ -1,6 +1,6 @@
 # Ω500: Game thingo.
 
-v0.0.0.2 by Mr Speaker.
+v0.0.1 by Mr Speaker.
 
 Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. In so far:
 
@@ -11,13 +11,14 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] World object for tick()
 - [X] Input handling - keys
 - [X] Image loading
+- [X] Image display
 - [X] SpriteSheet display
+- [X] SpriteSheet animations
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
 - [ ] Set canvas size!
-- [ ] Image display
 - [ ] Entity collisions
 - [ ] Audio load/play
 - [ ] Helpful math functions
@@ -25,15 +26,17 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 
 Lower priority:
 
-- [ ] SpriteSheet animations
 - [ ] Screen transitions
 - [ ] Simple particl effect controller
 - [ ] Input handling - mouse
 - [ ] Input handling - touch
+- [ ] Flip drawing
+- [ ] "Post" effects
 - [ ] Mobile compatibility
 - [ ] iCade/controller support
 - [ ] mouse lock
 - [ ] fullscreen
+- [ ] text measuring
 
 
 ## (in)FAQ:
