@@ -55,7 +55,7 @@
 				var row = b[1] / self.sheet.h | 0,
 					col = b[0] / self.sheet.w | 0;
 
-				if (row > self.cellH - 1) {
+				if (row < 0 || row > self.cellH - 1) {
 					return;
 				}
 
