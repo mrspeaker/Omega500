@@ -19,6 +19,7 @@
 		loadImage: function (path, cb) {
 
 			if (images[path]) {
+				cb && cb();
 				return images[path];
 			}
 

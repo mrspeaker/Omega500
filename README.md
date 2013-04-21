@@ -19,11 +19,12 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Helpful math/random functions
 - [X] Tiled map
 - [X] Camera'd map
+- [X] text measuring
+- [X] Preload assets
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Preload assets
 - [ ] Entity/Entity collisions
 - [ ] Entity/Map collisions
 - [ ] Dialogs
@@ -32,7 +33,8 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 Lower priority:
 
 - [ ] Screen transitions
-- [ ] Simple particl effect controller
+- [ ] Simple particle effect controller
+- [ ] Loading progress bar
 - [ ] Handle screen resizing
 - [ ] Input handling - mouse
 - [ ] Input handling - touch
@@ -45,9 +47,10 @@ Lower priority:
 - [ ] iCade/controller support
 - [ ] mouse lock
 - [ ] fullscreen
+- [ ] parralax backgrounds
+
 TODO:
 
-- [ ] text measuring
 - [ ] polyfill Array.isArray
 
 
@@ -63,7 +66,7 @@ ha ha.
 
 ### Ω.Game
 
-Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forget to pass the init arguments up to the super class:
+Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forget to pass the width and height arguments up to the super class:
 
     var myGame = Ω.Game.extend({
 
@@ -78,6 +81,6 @@ Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forge
 
 Canvas/DOM container:
 
-The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`
+The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or hieght is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
 
 

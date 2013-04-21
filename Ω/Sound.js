@@ -16,15 +16,9 @@
 			audio.loop = loop;
 
 			// FIXME: add to preload list
-			audio.addEventListener("canplaythrough", function () {
-
-				//audio.loaded = true;
-				//resources.toLoadLoaded++;
-				// if (!(--toLoad)) {
-				// 	cb && cb();
-				// }
-
-			});
+			audio.addEventListener("canplaythrough", (function (){
+				return Ω.env.preload();
+			}()));
 			audio.load();
 
 			this.audio = audio;

@@ -7,7 +7,9 @@
 		init: function (path) {
 
 			this.path = path;
-			this.img = Ω.gfx.loadImage(path);
+			this.img = Ω.gfx.loadImage(path, (function (){
+				return Ω.env.preload();
+			}()));
 
 		},
 

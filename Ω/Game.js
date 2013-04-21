@@ -21,13 +21,18 @@
 
 		init: function (w, h) {
 
-			var ctx = initCanvas(this.canvas, w, h);
+			var ctx = initCanvas(this.canvas, w, h),
+				self = this;
 
 			Ω.env.w = ctx.canvas.width;
 			Ω.env.h = ctx.canvas.height;
 
 			Ω.gfx.init(ctx);
 			Ω.input.init();
+
+			Ω.onload(function () {
+				self.go();
+			})
 
             this.running = true;
 
