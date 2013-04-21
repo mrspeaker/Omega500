@@ -26,13 +26,16 @@
 
 		render: function (gfx) {
 
-			var c = gfx.ctx;
+			var c = gfx.ctx,
+				title = "Ω500: testin'",
+				start = "[space]";
 
 			this.bg.draw(gfx, 0, 0);
 
 			c.font = "20pt Monospace";
-			gfx.drawTextShadow("Ω500: testin'", gfx.w / 2 - 100, 80);
-			gfx.drawTextShadow("[space]", gfx.w / 2 - 20, 110, 1, "8pt Monospace");
+			gfx.text.drawShadowed(title, gfx.w / 2 - gfx.text.getHalfWidth(title), gfx.h * 0.55);
+			c.font = "8pt Monospace";
+			gfx.text.drawShadowed(start, gfx.w / 2 - gfx.text.getHalfWidth(start), gfx.h * 0.75, 1);
 
 		}
 

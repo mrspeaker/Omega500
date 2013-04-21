@@ -41,21 +41,49 @@
 				y);
 		},
 
-		drawTextShadow: function (msg, x, y, shadow, font) {
+		text: {
 
-			var c = this.ctx;
+			drawShadowed: function (msg, x, y, shadow, font) {
 
-			shadow = shadow || 2;
-			if (font) {
-				c.font = font;
+				var c = gfx.ctx;
+
+				shadow = shadow || 2;
+				if (font) {
+					c.font = font;
+				}
+				c.fillStyle = "#000";
+				c.fillText(msg, x + shadow, y + shadow);
+				c.fillStyle = "#fff";
+				c.fillText(msg, x, y);
+
+			},
+
+
+			getWidth: function (msg) {
+
+				return gfx.ctx.measureText(msg).width;
+
+			},
+
+			getHalfWidth: function (msg) {
+
+				return this.getWidth(msg) / 2;
+
+			},
+
+			getHeight: function (msg) {
+
+				return gfx.ctx.measureText(msg).height;
+
+			},
+
+			getHalfHeight: function (msg) {
+
+				return this.getHeight(msg) / 2;
+
 			}
-			c.fillStyle = "#000";
-			c.fillText(msg, x + shadow, y + shadow);
-			c.fillStyle = "#fff";
-			c.fillText(msg, x, y);
 
 		}
-
 
 	};
 

@@ -73,7 +73,7 @@
 				this.players
 			]);
 
-			gfx.drawTextShadow("[esc]", 2, 10, 1, "7pt MonoSpace");
+			gfx.text.drawShadowed("[esc]", 2, 10, 1, "7pt MonoSpace");
 		}
 	});
 
