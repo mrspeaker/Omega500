@@ -30,9 +30,9 @@
 			Ω.gfx.init(ctx);
 			Ω.input.init();
 
-			Ω.onload(function () {
+			Ω._onload = function () {
 				self.run(Date.now());
-			})
+			};
 
             this.running = true;
 

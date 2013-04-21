@@ -3,29 +3,25 @@ var Ω = (function() {
 	"use strict";
 
 	var preloading = true,
-		assetsToLoad = 0,
-		onload = null;
+		assetsToLoad = 0;
 
 	return {
-		onload: function (cb) {
-			onload = cb;
-		},
+		_onload: null,
 		env: {
 			w: 0,
-			h: 0,
-			preload: function () {
-				if (!preloading) {
-					return function () {};
-				}
+			h: 0
+		},
+		preload: function () {
+			if (!preloading) {
+				return function () {};
+			}
 
-				assetsToLoad++;
-				return function () {
-					if (--assetsToLoad === 0) {
-						preloading = false;
-						// TODO: call go
-						onload && onload();
-					};
-				}
+			assetsToLoad++;
+			return function () {
+				if (--assetsToLoad === 0) {
+					preloading = false;
+					Ω._onload && Ω._onload();
+				};
 			}
 		}
 	};

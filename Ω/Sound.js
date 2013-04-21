@@ -17,7 +17,7 @@
 
 			// FIXME: add to preload list
 			audio.addEventListener("canplaythrough", (function (){
-				return Ω.env.preload();
+				return Ω.preload();
 			}()));
 			audio.load();
 
