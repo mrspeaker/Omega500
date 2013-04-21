@@ -18,6 +18,7 @@
 
 			this.animAdd(new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]));
 			this.animAdd(new Ω.Anim("walk", this.sheet, 70, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]));
+			this.animAdd(new Ω.Anim("walkLeft", this.sheet, 70, [[13, 3], [12, 3], [11, 3], [10, 3], [9, 3], [8, 3], [7, 3], [6, 3]]));
 
 			this.x = startX;
 			this.speed = 1 + Math.random() * 0.2;
@@ -32,7 +33,7 @@
 
 			if (this.isPlayer) {
 				if (Ω.input.isDown("left")) {
-					this.animSetIfNot("walk");
+					this.animSetIfNot("walkLeft");
 					this.x -= this.speed;
 				} else if (Ω.input.isDown("right")) {
 					this.animSetIfNot("walk");

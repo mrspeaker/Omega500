@@ -31,7 +31,7 @@
 			Ω.input.init();
 
 			Ω.onload(function () {
-				self.go();
+				self.run(Date.now());
 			})
 
             this.running = true;
@@ -39,10 +39,6 @@
 		},
 
 		reset: function () {},
-
-		go: function () {
-			this.run(Date.now());
-		},
 
 		run: function () {
 

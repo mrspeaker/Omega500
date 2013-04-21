@@ -29,6 +29,7 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 - [ ] Entity/Map collisions
 - [ ] Dialogs
 - [ ] FPS count
+- [ ] Input handling - mouse
 
 Lower priority:
 
@@ -36,7 +37,6 @@ Lower priority:
 - [ ] Simple particle effect controller
 - [ ] Loading progress bar
 - [ ] Handle screen resizing
-- [ ] Input handling - mouse
 - [ ] Input handling - touch
 - [ ] Flip drawing
 - [ ] "Post" effects
@@ -77,7 +77,7 @@ Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forge
     	}
 
     });
-    new myGame(640, 480).go();
+    new myGame(640, 480);
 
 Canvas/DOM container:
 
