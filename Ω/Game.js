@@ -19,9 +19,9 @@
 
 		time: 0,
 
-		init: function () {
+		init: function (w, h) {
 
-			var ctx = initCanvas(this.canvas);
+			var ctx = initCanvas(this.canvas, w, h);
 
 			Ω.env.w = ctx.canvas.width;
 			Ω.env.h = ctx.canvas.height;
@@ -80,7 +80,10 @@
 	/*
 		Create or assign the canvas element
 	*/
-	function initCanvas(canvasSelector) {
+	function initCanvas(canvasSelector, w, h) {
+
+		w = w || 400;
+		h = h || 225;
 
 		var selCanvas = document.querySelector(canvasSelector),
 			newCanvas,
@@ -93,9 +96,20 @@
 		}
 
 		if (selCanvas.nodeName.toUpperCase() === "CANVAS") {
+			var explicitWidth = selCanvas.getAttribute("width"),
+				explicitHeight = selCanvas.getAttribute("height");
+
+			if (explicitWidth === null) {
+				selCanvas.setAttribute("width", w);
+			}
+			if (explicitHeight === null) {
+				selCanvas.setAttribute("height", h);
+			}
 			ctx = selCanvas.getContext("2d");
 		} else {
 			newCanvas = document.createElement("canvas");
+			newCanvas.setAttribute("width", w);
+			newCanvas.setAttribute("height", h);
 			selCanvas.appendChild(newCanvas);
 			ctx = newCanvas.getContext("2d");
 		}

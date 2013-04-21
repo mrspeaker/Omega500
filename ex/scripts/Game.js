@@ -6,9 +6,9 @@
 
 		canvas: "#board",
 
-		init: function () {
+		init: function (w, h) {
 
-			this._super();
+			this._super(w, h);
 
 			Ω.input.bind(Ω.input.KEYS.space, "fire");
 			Ω.input.bind(Ω.input.KEYS.escape, "escape");

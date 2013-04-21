@@ -5,6 +5,7 @@ v0.0.1 by Mr Speaker.
 Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. In so far:
 
 - [X] Canvas setup
+- [X] Set canvas size
 - [X] Main game loop
 - [X] Screen handling
 - [X] Classes with super()
@@ -22,26 +23,31 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Set canvas size
-- [ ] Entity collisions
 - [ ] Preload assets
+- [ ] Entity/Entity collisions
+- [ ] Entity/Map collisions
 - [ ] Dialogs
+- [ ] FPS count
 
 Lower priority:
 
 - [ ] Screen transitions
 - [ ] Simple particl effect controller
+- [ ] Handle screen resizing
 - [ ] Input handling - mouse
 - [ ] Input handling - touch
 - [ ] Flip drawing
 - [ ] "Post" effects
+- [ ] Tracked camera (with box)
+- [ ] Spring camera
+- [ ] Some DSP on spritesheets
 - [ ] Mobile compatibility
 - [ ] iCade/controller support
 - [ ] mouse lock
 - [ ] fullscreen
-- [ ] text measuring
-
 TODO:
+
+- [ ] text measuring
 - [ ] polyfill Array.isArray
 
 
@@ -57,12 +63,18 @@ ha ha.
 
 ### Ω.Game
 
-Extend `Ω.Game` to create ya game:
+Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forget to pass the init arguments up to the super class:
 
     var myGame = Ω.Game.extend({
 
+    	init: function (w, h) {
+
+    		this._super(w, h);
+
+    	}
+
     });
-    myGame.go();
+    new myGame(640, 480).go();
 
 Canvas/DOM container:
 

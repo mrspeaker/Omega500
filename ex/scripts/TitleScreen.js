@@ -28,10 +28,10 @@
 
 			var c = gfx.ctx;
 
-			this.bg.draw(gfx, -50, 0);
+			this.bg.draw(gfx, 0, 0);
 
 			c.font = "20pt Monospace";
-			gfx.drawTextShadow("Ω500: testin'", 30, 80);
+			gfx.drawTextShadow("Ω500: testin'", gfx.w / 2 - 100, 80);
 			gfx.drawTextShadow("[space]", gfx.w / 2 - 20, 110, 1, "8pt Monospace");
 
 		}
