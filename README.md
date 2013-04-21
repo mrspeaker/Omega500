@@ -21,6 +21,7 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Camera'd map
 - [X] text measuring
 - [X] Preload assets
+- [X] Loading progress bar
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
@@ -35,7 +36,6 @@ Lower priority:
 
 - [ ] Screen transitions
 - [ ] Simple particle effect controller
-- [ ] Loading progress bar
 - [ ] Handle screen resizing
 - [ ] Input handling - touch
 - [ ] Flip drawing
@@ -48,9 +48,7 @@ Lower priority:
 - [ ] mouse lock
 - [ ] fullscreen
 - [ ] parralax backgrounds
-
-TODO:
-
+- [ ] default preload screen - start tick immediately
 - [ ] polyfill Array.isArray
 
 

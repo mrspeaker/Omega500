@@ -16,31 +16,33 @@
 
 			this.isPlayer = isPlayer;
 
-			this.animAdd(new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]));
-			this.animAdd(new Ω.Anim("walk", this.sheet, 70, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]));
-			this.animAdd(new Ω.Anim("walkLeft", this.sheet, 70, [[13, 3], [12, 3], [11, 3], [10, 3], [9, 3], [8, 3], [7, 3], [6, 3]]));
+			this.anims = new Ω.Anims([
+				new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
+				new Ω.Anim("walk", this.sheet, 70, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]),
+				new Ω.Anim("walkLeft", this.sheet, 70, [[13, 3], [12, 3], [11, 3], [10, 3], [9, 3], [8, 3], [7, 3], [6, 3]])
+			]);
 
 			this.x = startX;
 			this.speed = 1 + Math.random() * 0.2;
 
-			this.animSet(isPlayer ? "idle" : "walk");
+			this.anims.set(isPlayer ? "idle" : "walk");
 
 		},
 
 		tick: function (d) {
 
-			this.anim.tick();
+			this.anims.tick();
 
 			if (this.isPlayer) {
 				if (Ω.input.isDown("left")) {
-					this.animSetIfNot("walkLeft");
+					this.anims.setTo("walkLeft");
 					this.x -= this.speed;
 				} else if (Ω.input.isDown("right")) {
-					this.animSetIfNot("walk");
+					this.anims.setTo("walk");
 					this.x += this.speed;
 				} else {
-					this.animSetIfNot("idle");
-					if (this.anim.changed) {
+					this.anims.setTo("idle");
+					if (this.anims.changed) {
 						this.sounds.crouch.play();
 					}
 				}
@@ -52,7 +54,7 @@
 
 		render: function (gfx) {
 
-			this.anim.draw(gfx, this.x, 52);
+			this.anims.render(gfx, this.x, 52);
 
 		}
 

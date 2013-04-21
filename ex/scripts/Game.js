@@ -10,6 +10,11 @@
 
 			this._super(w, h);
 
+			Ω._progress = function (cur, max) {
+				// use for progress bar
+			};
+
+
 			Ω.input.bind(Ω.input.KEYS.space, "fire");
 			Ω.input.bind(Ω.input.KEYS.escape, "escape");
 			Ω.input.bind(Ω.input.KEYS.left, "left");
