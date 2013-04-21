@@ -38,18 +38,32 @@
 			this.anims.tick();
 
 			if (this.isPlayer) {
+				this.speed = Math.abs(this.speed);
+
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
 					x1 -= this.speed;
-				} else if (Ω.input.isDown("right")) {
+				}
+
+				if (Ω.input.isDown("right")) {
 					this.anims.setTo("walk");
 					x1 += this.speed;
-				} else {
+				}
+
+				if (Ω.input.isDown("up")) {
+					y1 -= this.speed;
+				}
+				if (Ω.input.isDown("down")) {
+					y1 += this.speed;
+				}
+
+				if(x1 === 0 && y1 === 0) {
 					this.anims.setTo("idle");
 					if (this.anims.changed) {
 						this.sounds.crouch.play();
 					}
 				}
+
 			} else {
 				x1 += d * this.speed;
 			}
@@ -67,6 +81,8 @@
 		render: function (gfx) {
 
 			this.anims.render(gfx, this.x, this.y);
+			gfx.ctx.strokeStyle = "red";
+			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
 
 		}
 

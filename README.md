@@ -1,6 +1,6 @@
 # Ω500: Game thingo.
 
-v0.0.1 by Mr Speaker.
+v0.1 by Mr Speaker.
 
 Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. In so far:
 
@@ -35,6 +35,7 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 Lower priority:
 
 - [ ] Screen transitions
+- [ ] Custom bounding box
 - [ ] Simple particle effect controller
 - [ ] Handle screen resizing
 - [ ] Input handling - touch

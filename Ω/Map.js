@@ -24,10 +24,11 @@
 				endx = stx + (camera.w / tw | 0) + 1,
 				endy = sty + (camera.h / th | 0) + 1,
 				j,
-				i;
+				i,
+				cell;
 
 			for (j = sty; j <= endy; j++) {
-				if (j > this.cellH - 1) {
+				if (j < 0 || j > this.cellH - 1) {
 					continue;
 				}
 				for (i = stx; i <= endx; i++) {
@@ -35,7 +36,7 @@
 						continue;
 					}
 
-					var cell = this.cells[j][i];
+					cell = this.cells[j][i];
 					if (cell === 0) {
 						continue;
 					}
@@ -58,11 +59,7 @@
 					return;
 				}
 
-				var bb = self.cells[row][col];
-				if (bb) {
-					//console.log(b, "D", b[1], (b[1] / self.sheet.h | 0));
-				}
-				return bb;
+				return self.cells[row][col];
 			});
 
 		},

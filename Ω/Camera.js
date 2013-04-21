@@ -54,9 +54,6 @@
 
 				});
 
-			c.strokeStyle = "red";
-			c.strokeRect(this.x, this.y, this.w, this.h);
-
 			c.translate(this.x, this.y);
 
 		}
