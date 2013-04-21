@@ -43,6 +43,36 @@
 				}
 			}
 
+		},
+
+		getBlocks: function (blocks) {
+
+			var self = this;
+
+			return blocks.map(function (b, i) {
+
+				var row = b[1] / self.sheet.h | 0,
+					col = b[0] / self.sheet.w | 0;
+
+				if (row > self.cellH - 1) {
+					return;
+				}
+
+				var bb = self.cells[row][col];
+				if (bb) {
+					//console.log(b, "D", b[1], (b[1] / self.sheet.h | 0));
+				}
+				return bb;
+			});
+
+		},
+
+		getBlockEdge: function(pos, vertical) {
+
+			var snapTo = vertical ? this.sheet.h : this.sheet.w;
+
+		    return Ω.utils.snap(pos, snapTo);
+
 		}
 
 	});

@@ -46,6 +46,12 @@
 
 		},
 
+		snap: function(value, snapSize) {
+
+			return (value / snapSize) * snapSize | 0;
+
+		},
+
 		loadScripts: function (scripts, cb) {
 
 			var loaded = 0;

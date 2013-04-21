@@ -23,23 +23,27 @@
 			]);
 
 			this.x = startX;
+			this.y = 51;
 			this.speed = 1 + Math.random() * 0.2;
 
 			this.anims.set(isPlayer ? "idle" : "walk");
 
 		},
 
-		tick: function (d) {
+		tick: function (d, map) {
+
+			var x1 = 0,
+				y1 = 0;
 
 			this.anims.tick();
 
 			if (this.isPlayer) {
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
-					this.x -= this.speed;
+					x1 -= this.speed;
 				} else if (Ω.input.isDown("right")) {
 					this.anims.setTo("walk");
-					this.x += this.speed;
+					x1 += this.speed;
 				} else {
 					this.anims.setTo("idle");
 					if (this.anims.changed) {
@@ -47,14 +51,22 @@
 					}
 				}
 			} else {
-				this.x += d * this.speed;
+				x1 += d * this.speed;
 			}
+
+			this.move(x1, y1, map);
+
+		},
+
+		hitBlocks: function (blocks) {
+
+			this.speed *= -1;
 
 		},
 
 		render: function (gfx) {
 
-			this.anims.render(gfx, this.x, 52);
+			this.anims.render(gfx, this.x, this.y);
 
 		}
 

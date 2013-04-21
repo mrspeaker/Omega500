@@ -15,14 +15,14 @@
 			this.players = [new Player(Ω.env.w, true)];
 
 			for (i = 1; i < 6; i++) {
-				this.players.push(new Player(-(i * 40)));
+				this.players.push(new Player((i * 40)));
 			}
 
 			this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
 
 			this.map = new Ω.Map(this.sheet, [
-				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			   	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9, 0, 0, 0, 0, 0, 0, 0, 3, 9],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			   	[ 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[ 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 				[ 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
@@ -41,7 +41,7 @@
 
 			this.players.forEach(function (p, i) {
 
-				p.tick(d);
+				p.tick(d, self.map);
 
 				if (p.x > self.map.w) {
 					p.x = -20;

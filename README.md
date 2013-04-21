@@ -22,12 +22,12 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] text measuring
 - [X] Preload assets
 - [X] Loading progress bar
+- [X] Entity/Map collisions
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
 - [ ] Entity/Entity collisions
-- [ ] Entity/Map collisions
 - [ ] Dialogs
 - [ ] FPS count
 - [ ] Input handling - mouse
