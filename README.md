@@ -17,11 +17,11 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Audio load/play
 - [X] Helpful math/random functions
 - [X] Tiled map
+- [X] Camera'd map
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Camera'd map
 - [ ] Set canvas size
 - [ ] Entity collisions
 - [ ] Preload assets

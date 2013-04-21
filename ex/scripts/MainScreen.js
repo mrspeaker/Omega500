@@ -12,24 +12,22 @@
 
 			var i;
 
-			this.players = [new Player(Ω.env.w / 2, true)];
+			this.players = [new Player(Ω.env.w, true)];
 
 			for (i = 1; i < 6; i++) {
 				this.players.push(new Player(-(i * 40)));
 			}
 
-			this.camera = new Ω.Camera(0, 0, Ω.env.w * 0.85, Ω.env.h * 0.70);
+			this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
 
 			this.map = new Ω.Map(this.sheet, [
 				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			   	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+			   	[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9, 0, 0, 0, 0, 0, 0, 0, 3, 9],
 				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[ 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 				[ 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
 				[ 7, 0, 0, 1, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
-				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-				[ 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2]
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 			]);
 
 		},
@@ -38,8 +36,8 @@
 
 			var self = this;
 
-			this.camera.x = (Math.sin(Date.now() / 1000) * 20) + 20;
-			this.camera.y = (Math.cos(Date.now() / 2000) * 20) + 20;
+			this.camera.x = this.players[0].x + (Math.sin(Date.now() / 1000) * 20) - (Ω.env.w / 2);
+			this.camera.y = (Math.cos(Date.now() / 2000) * 20);
 
 			this.players.forEach(function (p, i) {
 
@@ -47,6 +45,9 @@
 
 				if (p.x > self.map.w) {
 					p.x = -20;
+				}
+				if (p.x < -32) {
+					p.x = self.map.w - p.w;
 				}
 
 			});
