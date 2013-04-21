@@ -25,6 +25,7 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 - [ ] Set canvas size
 - [ ] Entity collisions
 - [ ] Preload assets
+- [ ] Dialogs
 
 Lower priority:
 
@@ -39,6 +40,9 @@ Lower priority:
 - [ ] mouse lock
 - [ ] fullscreen
 - [ ] text measuring
+
+TODO:
+- [ ] polyfill Array.isArray
 
 
 ## (in)FAQ:

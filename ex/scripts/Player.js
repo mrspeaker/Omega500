@@ -4,6 +4,9 @@
 
 	var Player = Ω.Entity.extend({
 
+		w: 25,
+		h: 45,
+
 		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 		sounds: {
 			"crouch": new Ω.Sound("res/crouch.wav", 0.1)
