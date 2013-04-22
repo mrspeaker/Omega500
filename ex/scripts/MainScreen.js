@@ -35,7 +35,8 @@
 
 			this.physics = new Ω.Physics();
 
-			this.trig = new Teleporter(19, 2, -17, 0);
+			this.trig = new Teleporter(19, 2, -15, 5);
+			this.trig2 = new Teleporter(1, 7, -1, -5);
 
 		},
 
@@ -52,9 +53,13 @@
 
 			});
 
+			this.trig.tick(d);
+			this.trig2.tick(d);
+
 			this.physics.checkCollisions([
 				this.players,
-				this.trig
+				this.trig,
+				this.trig2
 			]);
 
 			if (Ω.input.pressed("escape")) {
@@ -76,7 +81,8 @@
 			this.camera.render(gfx, [
 				this.map,
 				this.players,
-				this.trig
+				this.trig,
+				this.trig2
 			]);
 
 			gfx.text.drawShadowed("[esc]", 2, 10, 1, "7pt MonoSpace");

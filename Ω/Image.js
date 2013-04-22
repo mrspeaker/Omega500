@@ -18,7 +18,8 @@
 			gfx.ctx.drawImage(
 				this.img,
 				x,
-				y);
+				y
+			);
 		}
 
 	});
