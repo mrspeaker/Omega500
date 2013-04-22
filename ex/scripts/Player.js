@@ -47,12 +47,10 @@
 					this.anims.setTo("walkLeft");
 					x1 -= this.speed;
 				}
-
 				if (Ω.input.isDown("right")) {
 					this.anims.setTo("walk");
 					x1 += this.speed;
 				}
-
 				if (Ω.input.isDown("up")) {
 					y1 -= this.speed;
 				}

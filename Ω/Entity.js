@@ -11,6 +11,8 @@
 
 		tick: function (d) {},
 
+		hit: function (entity) {},
+
 		hitBlocks: function(blocks) {},
 
 		move: function (x, y, map) {

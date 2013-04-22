@@ -17,6 +17,8 @@
 
 		render: function (gfx, camera) {
 
+			// TODO: shouldn't mandate a camera. Draw to current view port?
+
 			var tw = this.sheet.w,
 				th = this.sheet.h,
 				stx = camera.x / tw | 0,

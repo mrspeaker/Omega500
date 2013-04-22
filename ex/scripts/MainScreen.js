@@ -35,6 +35,8 @@
 
 			this.physics = new Ω.Physics();
 
+			this.trig = new DoorTrigger(10, 3);
+
 		},
 
 		tick: function (d) {
@@ -48,6 +50,7 @@
 
 				p.tick(d, self.map);
 
+				// TODO: replace this with some kind of trigger block
 				if (p.x > self.map.w) {
 					p.x = -20;
 				}
@@ -57,7 +60,9 @@
 
 			});
 
-			this.physics.checkCollisions(this.players);
+			this.physics.checkCollisions([
+				this.players,
+				this.trig]);
 
 			if (Ω.input.pressed("escape")) {
 				game.setScreen(new TitleScreen());
@@ -77,7 +82,8 @@
 
 			this.camera.render(gfx, [
 				this.map,
-				this.players
+				this.players,
+				this.trig
 			]);
 
 			gfx.text.drawShadowed("[esc]", 2, 10, 1, "7pt MonoSpace");
