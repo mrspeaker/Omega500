@@ -42,7 +42,7 @@
 					if (cell === 0) {
 						continue;
 					}
-					this.sheet.draw(gfx, cell - 1, 0, i * tw, j * th);
+					this.sheet.render(gfx, cell - 1, 0, i * tw, j * th);
 				}
 			}
 

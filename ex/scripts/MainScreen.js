@@ -71,7 +71,7 @@
 			c.fillStyle = "hsl(195, 40%, 50%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
-			this.bg.draw(gfx, 0, 0);
+			this.bg.render(gfx, 0, 0);
 
 			this.camera.render(gfx, [
 				this.map,

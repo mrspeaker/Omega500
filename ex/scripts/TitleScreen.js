@@ -30,7 +30,7 @@
 				title = "Ω500: testin'",
 				start = "[space]";
 
-			this.bg.draw(gfx, 0, 0);
+			this.bg.render(gfx, 0, 0);
 
 			c.font = "20pt Monospace";
 			gfx.text.drawShadowed(title, gfx.w / 2 - gfx.text.getHalfWidth(title), gfx.h * 0.55);

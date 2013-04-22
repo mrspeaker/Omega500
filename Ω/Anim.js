@@ -37,9 +37,9 @@
 			this.frameTime = Date.now();
 		},
 
-		draw: function (gfx, x, y) {
+		render: function (gfx, x, y) {
 
-			this.sheet.draw(
+			this.sheet.render(
 				gfx,
 				this.frames[this.curFrame][0],
 				this.frames[this.curFrame][1],

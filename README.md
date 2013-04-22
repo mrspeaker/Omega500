@@ -24,6 +24,8 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Loading progress bar
 - [X] Entity/Map collisions
 - [X] Entity/Entity collisions
+- [X] Simple particle controller
+
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
@@ -31,15 +33,16 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 - [ ] Dialogs
 - [ ] FPS count
 - [ ] Input handling - mouse
+- [ ] BUG: no map collision if entity taller than block
 
 Lower priority:
 
 - [ ] Screen transitions
 - [ ] Custom bounding box
-- [ ] Simple particle effect controller
 - [ ] Handle screen resizing
 - [ ] Input handling - touch
 - [ ] Flip drawing
+- [ ] Work in Ejecta
 - [ ] "Post" effects (webgl etc)
 - [ ] Shake effects etc
 - [ ] Tracked camera (with box)

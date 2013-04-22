@@ -10,13 +10,12 @@
 
 		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 		sounds: {
-			"crouch": new Ω.Sound("res/crouch.wav", 0.1)
+			"crouch": new Ω.Sound("res/crouch.wav", 1)
 		},
 
 		init: function (startX, startY, isPlayer) {
 
 			this.isPlayer = isPlayer;
-			this.showHitBackground = false;
 
 			this.anims = new Ω.Anims([
 				new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
@@ -44,7 +43,6 @@
 
 			if (this.isPlayer) {
 				this.speed = Math.abs(this.speed);
-				this.showHitBackground = false;
 
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
@@ -63,8 +61,8 @@
 
 				if(x1 === 0 && y1 === 0) {
 					this.anims.setTo("idle");
-					if (this.anims.changed) {
-						this.sounds.crouch.play();
+					if (this.anims.changed()) {
+						//this.anims.setTo("idleLeft");
 					}
 				}
 
@@ -88,20 +86,15 @@
 		hit: function (by) {
 
 			if (this.isPlayer) {
-				this.showHitBackground = true;
 				if (!this.particle.running) {
 					this.particle.play(this.x + (this.w / 2), this.y + 10);
+					this.sounds.crouch.play();
 				}
 			}
 
 		},
 
 		render: function (gfx) {
-
-			if (this.showHitBackground) {
-				gfx.ctx.fillStyle = "rgba(0,0,0,0.4)";
-				gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
-			}
 
 			this.anims.render(gfx, this.x, this.y);
 			this.particle.render(gfx);

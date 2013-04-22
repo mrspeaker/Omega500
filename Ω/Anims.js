@@ -59,9 +59,15 @@
 
 		},
 
+		changed: function () {
+
+			return this.current.changed;
+
+		},
+
 		render: function (gfx, x, y) {
 
-			this.current.draw(gfx, x, y);
+			this.current.render(gfx, x, y);
 
 		}
 

@@ -14,7 +14,7 @@
 
 		},
 
-		draw: function (gfx, col, row, x, y, w, h, scale) {
+		render: function (gfx, col, row, x, y, w, h, scale) {
 			if(col === -1) {
 				return;
 			}

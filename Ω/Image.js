@@ -13,7 +13,7 @@
 
 		},
 
-		draw: function (gfx, x, y) {
+		render: function (gfx, x, y) {
 
 			gfx.ctx.drawImage(
 				this.img,

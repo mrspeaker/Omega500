@@ -9,7 +9,7 @@
 
 		init: function (opts, cb) {
 
-			this.maxLife = opts.life || 50;
+			this.maxLife = opts.life || 40;
 			this.life = this.maxLife;
 			this.cb = cb;
 
@@ -97,7 +97,7 @@
 		render: function (gfx, x, y) {
 
 			var c = gfx.ctx;
-			c.fillStyle = "rgba(150, 0, 0, " + (0.3 + this.parent.life / this.parent.maxLife) + ")";
+			c.fillStyle = "rgba(100, 0, 0, " + (0.3 + this.parent.life / this.parent.maxLife) + ")";
 			c.fillRect(this.x + x, this.y + y, this.w, this.h);
 
 		}
