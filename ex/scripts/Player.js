@@ -6,6 +6,7 @@
 
 		w: 25,
 		h: 45,
+		dir: 1,
 
 		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 		sounds: {
@@ -67,7 +68,7 @@
 				}
 
 			} else {
-				x1 += d * this.speed;
+				x1 += d * (this.speed * this.dir);
 			}
 
 			this.move(x1, y1, map);
@@ -76,7 +77,10 @@
 
 		hitBlocks: function (blocks) {
 
-			this.speed *= -1;
+			if (!this.isPlayer) {
+				this.dir *= -1;
+				this.anims.setTo(this.dir > 0 ? "walk" : "walkLeft");
+			}
 
 		},
 
