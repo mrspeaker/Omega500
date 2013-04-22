@@ -15,12 +15,14 @@
 			};
 
 
-			Ω.input.bind(Ω.input.KEYS.space, "fire");
-			Ω.input.bind(Ω.input.KEYS.escape, "escape");
-			Ω.input.bind(Ω.input.KEYS.left, "left");
-			Ω.input.bind(Ω.input.KEYS.right, "right");
-			Ω.input.bind(Ω.input.KEYS.up, "up");
-			Ω.input.bind(Ω.input.KEYS.down, "down");
+			Ω.input.binds([
+				["space", "fire"],
+				["escape", "escape"],
+				["left", "left"],
+				["right", "right"],
+				["up", "up"],
+				["down", "down"]
+			]);
 
 			this.setScreen(new TitleScreen());
 

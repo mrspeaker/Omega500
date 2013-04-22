@@ -39,6 +39,15 @@
 		},
 
 		bind: function (code, action) {
+
+			if (typeof code !== "number") {
+				code = this.KEYS[code];
+				if (!code) {
+					console.error("Could not bind key ", code);
+					return;
+				}
+			}
+
 			keys[code] = {
 				action: action,
 				isDown: false,
@@ -48,6 +57,18 @@
 				keyActions[action] = [];
 			}
 			keyActions[action].push(code);
+
+		},
+
+		binds: function (keys) {
+
+			var self = this;
+
+			keys.forEach(function (k) {
+
+				self.bind(k[0], k[1]);
+
+			});
 
 		},
 
