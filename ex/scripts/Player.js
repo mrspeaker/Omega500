@@ -30,6 +30,8 @@
 
 			this.anims.set(isPlayer ? "idle" : "walk");
 
+			this.particle = new Ω.Particle({});
+
 		},
 
 		tick: function (d, map) {
@@ -37,7 +39,8 @@
 			var x1 = 0,
 				y1 = 0;
 
-			this.anims.tick();
+			this.anims.tick(d);
+			this.particle.tick(d);
 
 			if (this.isPlayer) {
 				this.speed = Math.abs(this.speed);
@@ -86,6 +89,9 @@
 
 			if (this.isPlayer) {
 				this.showHitBackground = true;
+				if (!this.particle.running) {
+					this.particle.play(this.x + (this.w / 2), this.y + 10);
+				}
 			}
 
 		},
@@ -98,7 +104,8 @@
 			}
 
 			this.anims.render(gfx, this.x, this.y);
-			gfx.ctx.strokeStyle = "red";
+			this.particle.render(gfx);
+			gfx.ctx.strokeStyle = "rgba(100, 0, 0, 0.3)";
 			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
 
 		}

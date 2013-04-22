@@ -50,19 +50,12 @@
 
 				p.tick(d, self.map);
 
-				// TODO: replace this with some kind of trigger block
-				if (p.x > self.map.w) {
-					p.x = -20;
-				}
-				if (p.x < -32) {
-					p.x = self.map.w - p.w;
-				}
-
 			});
 
 			this.physics.checkCollisions([
 				this.players,
-				this.trig]);
+				this.trig
+			]);
 
 			if (Ω.input.pressed("escape")) {
 				game.setScreen(new TitleScreen());
