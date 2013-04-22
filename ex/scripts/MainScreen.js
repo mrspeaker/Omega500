@@ -12,23 +12,28 @@
 
 			var i;
 
-			this.players = [new Player(Ω.env.w, true)];
+			this.players = [new Player(Ω.env.w, 51, true)];
 
-			for (i = 1; i < 6; i++) {
-				this.players.push(new Player((i * 40)));
+			for (i = 1; i < 3; i++) {
+				this.players.push(new Player(i * 40, 51));
+				this.players.push(new Player(i * 40, 211));
 			}
 
 			this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
 
 			this.map = new Ω.Map(this.sheet, [
 				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-			   	[ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[ 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 				[ 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2],
 				[ 7, 0, 0, 1, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 3, 9, 0, 0, 3],
-				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+				[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+				[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+				[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 			]);
+
+			this.physics = new Ω.Physics();
 
 		},
 
@@ -51,6 +56,8 @@
 				}
 
 			});
+
+			this.physics.checkCollisions(this.players);
 
 			if (Ω.input.pressed("escape")) {
 				game.setScreen(new TitleScreen());

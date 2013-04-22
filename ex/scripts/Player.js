@@ -12,9 +12,10 @@
 			"crouch": new Ω.Sound("res/crouch.wav", 0.1)
 		},
 
-		init: function (startX, isPlayer) {
+		init: function (startX, startY, isPlayer) {
 
 			this.isPlayer = isPlayer;
+			this.showHitBackground = false;
 
 			this.anims = new Ω.Anims([
 				new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
@@ -23,7 +24,7 @@
 			]);
 
 			this.x = startX;
-			this.y = 51;
+			this.y = startY;
 			this.speed = 1 + Math.random() * 0.2;
 
 			this.anims.set(isPlayer ? "idle" : "walk");
@@ -39,6 +40,7 @@
 
 			if (this.isPlayer) {
 				this.speed = Math.abs(this.speed);
+				this.showHitBackground = false;
 
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
@@ -78,7 +80,20 @@
 
 		},
 
+		hit: function (by) {
+
+			if (this.isPlayer) {
+				this.showHitBackground = true;
+			}
+
+		},
+
 		render: function (gfx) {
+
+			if (this.showHitBackground) {
+				gfx.ctx.fillStyle = "rgba(0,0,0,0.4)";
+				gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
+			}
 
 			this.anims.render(gfx, this.x, this.y);
 			gfx.ctx.strokeStyle = "red";

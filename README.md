@@ -2,7 +2,7 @@
 
 v0.1 by Mr Speaker.
 
-Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. In so far:
+Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. Checkout the code in /ex for an example how to use it. Included so far (in order of me adding them!):
 
 - [X] Canvas setup
 - [X] Set canvas size
@@ -23,11 +23,11 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Preload assets
 - [X] Loading progress bar
 - [X] Entity/Map collisions
+- [X] Entity/Entity collisions
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
-- [ ] Entity/Entity collisions
 - [ ] Dialogs
 - [ ] FPS count
 - [ ] Input handling - mouse
@@ -40,7 +40,8 @@ Lower priority:
 - [ ] Handle screen resizing
 - [ ] Input handling - touch
 - [ ] Flip drawing
-- [ ] "Post" effects
+- [ ] "Post" effects (webgl etc)
+- [ ] Shake effects etc
 - [ ] Tracked camera (with box)
 - [ ] Spring camera
 - [ ] Some DSP on spritesheets
