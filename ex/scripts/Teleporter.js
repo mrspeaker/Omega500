@@ -2,15 +2,17 @@
 
 	"use strict";
 
-	var DoorTrigger = Ω.Entity.extend({
+	var Teleporter = Ω.Entity.extend({
 
 		w: 32,
 		h: 32,
 
-		init: function (x, y) {
+		init: function (x, y, moveX, moveY) {
 
 			this.x = x * this.w;
 			this.y = y * this.h;
+			this.moveX = moveX * this.w;
+			this.moveY = moveY * this.h;
 
 		},
 
@@ -21,14 +23,13 @@
 
 		hit: function (e) {
 
-			if (e.isPlayer) {
-
-			}
+			e.x += this.moveX;
+			e.y += this.moveY;
 
 		}
 
 	});
 
-	window.DoorTrigger = DoorTrigger;
+	window.Teleporter = Teleporter;
 
 }(Ω));
