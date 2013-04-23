@@ -34,7 +34,7 @@
 
 			this.splat.play(this.x + this.w / 2, this.y + this.h / 2);
 
-			new Ω.Timer(2, function () {
+			Ω.timer(2, function () {
 
 				e.particle && e.particle.play(e.x + e.w / 2, e.y + e.h / 2);
 

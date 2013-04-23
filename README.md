@@ -40,7 +40,6 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 - [ ] FPS count
 - [ ] Input handling - mouse
 - [ ] Fullscreen canvas
-- [ ] Map block selecting (iso & grid)
 
 - [ ] BUG: bad map collision if entity taller than block
 - [ ] BUG: ensure preload fires onload
@@ -55,6 +54,7 @@ Lower priority:
 - [ ] Work in Ejecta
 - [ ] "Post" effects (webgl etc)
 - [ ] Shake effects etc
+- [ ] Map block selecting (iso & grid)
 - [ ] Spring camera
 - [ ] Pathfinding algo
 - [ ] Swarm/flock algo

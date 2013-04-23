@@ -25,6 +25,8 @@
 
 	});
 
-	Ω.Timer = Timer;
+	Ω.timer = function (time, cb) {
+		return new Timer(time, cb);
+	};
 
 }(Ω));
