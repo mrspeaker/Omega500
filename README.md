@@ -18,6 +18,7 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Audio load/play
 - [X] Helpful math/random functions
 - [X] Tiled map
+- [X] Iso map
 - [X] Camera'd map
 - [X] text measuring
 - [X] Preload assets
@@ -26,14 +27,19 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Entity/Entity collisions
 - [X] Simple particle controller
 
-
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Proper timestep for loop
 - [ ] Dialogs
 - [ ] FPS count
 - [ ] Input handling - mouse
+- [ ] Fullscreen canvas
+- [ ] Pathfinding algo
+- [ ] Swarm/flock algo
+- [ ] Map block selecting (iso & grid)
+
 - [ ] BUG: no map collision if entity taller than block
+- [ ] BUG: ensure preload fires onload
 
 Lower priority:
 
@@ -50,8 +56,8 @@ Lower priority:
 - [ ] Some DSP on spritesheets
 - [ ] Mobile compatibility
 - [ ] iCade/controller support
-- [ ] mouse lock
-- [ ] fullscreen
+- [ ] mouse lock API
+- [ ] fullscreen API
 - [ ] parralax backgrounds
 - [ ] default preload screen - start tick immediately
 - [ ] polyfill Array.isArray

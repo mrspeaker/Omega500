@@ -1,0 +1,28 @@
+body {
+	background: url("../platform/res/background.png");
+	background-size: cover;
+	font-family: courier, monospace;
+}
+
+a {
+	color: hsl(200, 40%, 40%);
+}
+
+section {
+	border-radius: 5px;
+	background-color: #fefefe;
+	width: 410px;
+	margin: 40px auto;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0 15px 20px rgba(0,0,0,0.5)
+}
+
+ul {
+	list-style: none;
+	line-height: 30px;
+}
+
+#board {
+	border: 1px solid #800;
+}
