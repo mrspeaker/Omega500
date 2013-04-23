@@ -19,7 +19,7 @@
 				this.players.push(new Player(i * 40, 211));
 			}
 
-			this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
+			this.camera = new Ω.TrackingCamera(this.players[0], 0, 0, Ω.env.w, Ω.env.h);
 
 			this.map = new Ω.Map(this.sheet, [
 				[ 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -44,8 +44,9 @@
 
 			var self = this;
 
-			this.camera.x = this.players[0].x + (Math.sin(Date.now() / 1000) * 20) - (Ω.env.w / 2);
-			this.camera.y = this.players[0].y + (Math.cos(Date.now() / 2000) * 20) - (Ω.env.h / 2) + (this.players[0].h / 2);
+			this.camera.tick(d);
+			this.camera.x += (Math.sin(Date.now() / 1000) * 20);
+			this.camera.y += (Math.cos(Date.now() / 2000) * 20);
 
 			this.players.forEach(function (p, i) {
 

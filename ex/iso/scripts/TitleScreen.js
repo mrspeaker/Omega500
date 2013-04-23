@@ -6,10 +6,6 @@
 
 		time: 0,
 
-		init: function () {
-
-		},
-
 		tick: function (d) {
 
 			this.time += d;
@@ -23,12 +19,12 @@
 		render: function (gfx) {
 
 			var c = gfx.ctx,
-				title = "Ω500: iso test'",
+				title = "Ω500: iso test",
 				msg = "DOES NOTHIN' YET!",
 				start = "[space]";
 
 
-			c.fillStyle = "hsl(140, 40%, 50%)";
+			c.fillStyle = "hsl(120, 10%, 20%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 			c.font = "20pt Monospace";
