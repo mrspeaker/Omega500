@@ -45,8 +45,8 @@
 			var self = this;
 
 			this.camera.tick(d);
-			this.camera.x += (Math.sin(Date.now() / 1000) * 20);
-			this.camera.y += (Math.cos(Date.now() / 2000) * 20);
+			//this.camera.x += (Math.sin(Date.now() / 1000) * 20);
+			//this.camera.y += (Math.cos(Date.now() / 2000) * 20);
 
 			this.players.forEach(function (p, i) {
 
