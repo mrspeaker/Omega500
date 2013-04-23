@@ -10,7 +10,9 @@
 			this.w = width;
 			this.h = height || width;
 
-			this.sheet = Ω.gfx.loadImage(path);
+			this.sheet = Ω.gfx.loadImage(path,(function (){
+				return Ω.preload();
+			}()));
 
 		},
 

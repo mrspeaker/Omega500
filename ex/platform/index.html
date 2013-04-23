@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+		<style type="text/css">
+			#board {
+				border: 1px solid #800;
+			}
+		</style>
+	</head>
+	<body>
+
+		<canvas id="board"></canvas>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/utils/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/utils/utils.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/gfx.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/input.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/assets/Image.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/assets/Sound.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/cameras/Camera.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/Physics.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/effects/Particle.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/Screen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/SpriteSheet.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/anim/Anims.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/anim/Anim.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/maps/Map.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/entities/Entity.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/Game.js" type="text/javascript" charset="utf-8"></script>
+
+		<!-- test game files -->
+		<script src="scripts/TitleScreen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="scripts/MainScreen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="scripts/Player.js" type="text/javascript" charset="utf-8"></script>
+		<script src="scripts/Teleporter.js" type="text/javascript" charset="utf-8"></script>
+		<script src="scripts/PlatformGame.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript" charset="utf-8">
+
+			var game = new PlatformGame(400, 150);
+
+		</script>
+	</body>
+</html>

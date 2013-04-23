@@ -18,13 +18,17 @@
 		render: function (gfx, camera) {
 
 			// TODO: shouldn't mandate a camera. Draw to current view port?
+			if (!camera) {
+				console.error("Map needs a camera to render with");
+				return;
+			}
 
 			var tw = this.sheet.w,
 				th = this.sheet.h,
 				stx = camera.x / tw | 0,
 				sty = camera.y / th | 0,
-				endx = stx + (camera.w / tw | 0) + 1,
-				endy = sty + (camera.h / th | 0) + 1,
+				endx = stx + (camera.w / camera.zoom / tw | 0) + 1,
+				endy = sty + (camera.h / camera.zoom / th | 0) + 1,
 				j,
 				i,
 				cell;

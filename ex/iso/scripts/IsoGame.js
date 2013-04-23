@@ -2,7 +2,7 @@
 
 	"use strict";
 
-	var TestGame = Ω.Game.extend({
+	var IsoGame = Ω.Game.extend({
 
 		canvas: "#board",
 
@@ -13,7 +13,6 @@
 			Ω._progress = function (cur, max) {
 				// use for progress bar
 			};
-
 
 			Ω.input.binds([
 				["space", "fire"],
@@ -30,6 +29,6 @@
 
 	});
 
-	window.TestGame = TestGame;
+	window.IsoGame = IsoGame;
 
 }(Ω));

@@ -14,6 +14,7 @@ var Ω = (function() {
 			h: 0
 		},
 		preload: function () {
+
 			if (!preloading) {
 				return function () {};
 			}

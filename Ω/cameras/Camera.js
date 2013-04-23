@@ -14,6 +14,7 @@
 			this.y = y;
 			this.w = w;
 			this.h = h;
+			this.zoom = 1;
 		},
 
 		render: function (gfx, renderables) {
@@ -24,7 +25,9 @@
 				maxX = this.x + this.w,
 				maxY = this.y + this.h;
 
+			c.save();
 			c.translate(-this.x, -this.y);
+			c.scale(this.zoom, this.zoom);
 
 			renderables
 				// Flatten to an array
@@ -54,7 +57,7 @@
 
 				});
 
-			c.translate(this.x, this.y);
+			c.restore();
 
 		}
 
