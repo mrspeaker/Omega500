@@ -1,6 +1,6 @@
 # Ω500: Game thingo.
 
-v0.1 by Mr Speaker.
+v0.1.1 by Mr Speaker.
 
 *See the things!* http://mrspeaker.github.io/Omega500/
 
@@ -38,11 +38,10 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 - [ ] FPS count
 - [ ] Input handling - mouse
 - [ ] Fullscreen canvas
-- [ ] Pathfinding algo
-- [ ] Swarm/flock algo
 - [ ] Map block selecting (iso & grid)
+- [ ] General purpose timer
 
-- [ ] BUG: no map collision if entity taller than block
+- [ ] BUG: bad map collision if entity taller than block
 - [ ] BUG: ensure preload fires onload
 
 Lower priority:
@@ -57,6 +56,8 @@ Lower priority:
 - [ ] Shake effects etc
 - [ ] Tracked camera (with box)
 - [ ] Spring camera
+- [ ] Pathfinding algo
+- [ ] Swarm/flock algo
 - [ ] Some DSP on spritesheets
 - [ ] Mobile compatibility
 - [ ] iCade/controller support
