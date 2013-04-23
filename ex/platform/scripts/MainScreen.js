@@ -63,6 +63,12 @@
 				this.trig2
 			]);
 
+			if (Ω.input.pressed("space")) {
+				// Track a random fellow!
+				this.camera.track(
+					this.players[Ω.utils.rand(this.players.length)]
+				);
+			}
 			if (Ω.input.pressed("escape")) {
 				game.setScreen(new TitleScreen());
 			}

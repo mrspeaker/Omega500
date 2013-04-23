@@ -68,6 +68,11 @@
 
 			} else {
 				x1 += d * (this.speed * this.dir);
+
+				if (Ω.utils.rand(500) === 1) {
+					this.dir *= -1;
+					this.anims.setTo(this.dir > 0 ? "walk" : "walkLeft");
+				}
 			}
 
 			this.move(x1, y1, map);

@@ -18,7 +18,7 @@
 
 			this.time += d;
 
-			if (Ω.input.pressed("fire") && this.time > 20) {
+			if (Ω.input.pressed("space") && this.time > 20) {
 				game.setScreen(new MainScreen());
 			}
 

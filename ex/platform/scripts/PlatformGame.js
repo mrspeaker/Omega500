@@ -16,7 +16,7 @@
 
 
 			Ω.input.binds([
-				["space", "fire"],
+				["space", "space"],
 				["escape", "escape"],
 				["left", "left"],
 				["right", "right"],

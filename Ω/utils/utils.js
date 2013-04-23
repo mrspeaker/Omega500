@@ -37,6 +37,15 @@
 
 		},
 
+		center: function (e) {
+
+			return {
+				x: e.x + e.w / 2,
+				y: e.y + e.h / 2
+			};
+
+		},
+
 		angleBetween: function (a, b) {
 
 			var dx = a.x - b.x,

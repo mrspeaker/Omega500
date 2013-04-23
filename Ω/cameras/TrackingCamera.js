@@ -8,25 +8,28 @@
 		y: 0,
 		w: 0,
 		h: 0,
+		xRange: 40,
+		yRange: 30,
 
 		init: function (entity, x, y, w, h) {
-			this.entity = entity;
-			this.x = x;
-			this.y = y;
+
 			this.w = w;
 			this.h = h;
-			this.xRange = 40;
-			this.yRange = 30;
 			this.zoom = 1;
+
+			this.track(entity);
+
+		},
+
+		track: function (entity) {
+			this.entity = entity;
+			this.x = entity.x - (Ω.env.w / 2) + (entity.w / 2);
+			this.y = entity.y - (Ω.env.h / 2);
 		},
 
 		tick: function (d) {
 
-			// TODO: add non-moving box area (like Mario)
-			var center = {
-					x: this.x + this.w / 2,
-					y: this.y + this.h / 2
-				},
+			var center = Ω.utils.center(this),
 				e = this.entity,
 				xr = this.xRange,
 				yr = this.yRange;
@@ -52,11 +55,9 @@
 				render: function (gfx, cam) {
 
 					// Temp rendering to show tracking box
-					var center = {
-						x: cam.x + cam.w / 2,
-						y: cam.y + cam.h / 2
-					}
-					gfx.ctx.strokeStyle = "red";
+					var center = Ω.utils.center(cam);
+
+					gfx.ctx.strokeStyle = "rgba(200, 0, 0, 0.6)";
 					gfx.ctx.strokeRect(
 						center.x - cam.xRange,
 						center.y - cam.yRange,
