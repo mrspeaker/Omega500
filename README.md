@@ -36,9 +36,9 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
+- [ ] Default preload screen (start tick immediately)
 - [ ] Timestep for game loop
 - [ ] Input: mouse handling
-- [ ] Default preload screen (start tick immediately)
 
 - [ ] BUG: bad map collision if entity taller than block
 - [ ] BUG: ensure preload fires onload (even with no assets)
@@ -47,30 +47,23 @@ Lower priority:
 
 - [ ] Screen transitions
 - [ ] "Post" effects (webgl)
-
 - [ ] Anims: Custom bounding box
-
 - [ ] Input: touch handling
 - [ ] Input: iCade/controller support
 - [ ] Input: mouse lock API
-
 - [ ] Physics: gravity
 - [ ] Physics: platform functions
-
 - [ ] Canvas: Flip drawing
-- [ ] Canvas: Some DSP on spritesheets
+- [ ] Canvas: DSP on spritesheets
 - [ ] Canvas: Shake effects etc
 - [ ] Canvas: parralax backgrounds
 - [ ] Canvas: Fullscreen canvas
 - [ ] Canvas: fullscreen resizing
-
 - [ ] Maps: block selecting (iso)
-
 - [ ] Math: Spring algo (for camera)
 - [ ] Math: pathfinding algo
 - [ ] Math: Swarm/flock algo
 - [ ] Math: add smoothstep helper
-
 - [ ] Support: FPS count
 - [ ] Support: fullscreen API
 - [ ] Support: Work in Ejecta

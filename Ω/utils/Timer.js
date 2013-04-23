@@ -4,29 +4,38 @@
 
 	var Timer = Ω.Class.extend({
 
-		init: function (time, cb) {
+		init: function (time, cb, done) {
 
 			Ω.timers.add(this);
 
 			this.time = time;
+			if (!done) {
+				done = cb;
+				cb = null
+			}
+			this.max = time;
 			this.cb = cb;
+			this.done = done;
+
 		},
 
 		tick: function (d) {
 
 			this.time -= d;
+
 			if (this.time < 0) {
-				this.cb && this.cb();
+				this.done && this.done();
 				return false;
 			}
+			this.cb && this.cb(1 - (this.time / this.max));
 
 			return true;
 		}
 
 	});
 
-	Ω.timer = function (time, cb) {
-		return new Timer(time, cb);
+	Ω.timer = function (time, cb, done) {
+		return new Timer(time, cb, done);
 	};
 
 }(Ω));
