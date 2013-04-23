@@ -10,14 +10,18 @@
 
 			this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
 			this.camera.zoom = 0.5;
-			this.map = new Ω.Map(this.sheet, [
-				[0, 1, 1, 1, 1, 1, 1, 1],
+			this.map = new Ω.IsoMap(this.sheet, [
+				[1, 1, 1, 1, 1, 1, 1, 1],
 				[1, 1, 1, 1, 1, 1, 1, 1],
 				[1, 1, 0, 1, 1, 1, 1, 1],
-				[1, 1, 1, 1, 1, 0, 1, 1],
+				[1, 1, 0, 1, 1, 0, 1, 1],
+				[1, 1, 0, 1, 1, 1, 1, 1],
+				[1, 1, 2, 0, 1, 1, 1, 1],
+				[1, 1, 2, 2, 1, 1, 1, 1],
+				[1, 1, 2, 1, 1, 1, 1, 1],
 				[1, 1, 1, 1, 1, 1, 1, 1],
-				[1, 1, 2, 2, 1, 1, 1, 1],
-				[1, 1, 2, 2, 1, 1, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1],
 				[1, 1, 1, 1, 1, 1, 1, 1]
 			]);
 
@@ -29,7 +33,7 @@
 				game.setScreen(new TitleScreen());
 			}
 
-			this.camera.zoom = Math.sin(Date.now() /1000) * 0.25 + 0.75;
+			this.camera.zoom = Math.sin(Date.now() / 2000) * 0.25 + 0.75;
 
 		},
 
@@ -38,19 +42,12 @@
 			var c = gfx.ctx,
 				title = "Ω500: iso main'";
 
-			c.fillStyle = "hsl(120, 40%, 30%)";
+			c.fillStyle = "hsl(120, 10%, 20%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 			this.camera.render(gfx, [
 				this.map
-			])
-
-
-			/*this.sheet.render(gfx, 0, 0, 0, 0);
-			this.sheet.render(gfx, 0, 0, 128, 0);
-			this.sheet.render(gfx, 0, 0, 64, 32);
-			this.sheet.render(gfx, 1, 0, 192, 32);
-			this.sheet.render(gfx, 0, 0, 128, 64);*/
+			]);
 
 		}
 
