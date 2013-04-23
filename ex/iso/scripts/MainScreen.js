@@ -30,7 +30,7 @@
 		tick: function (d) {
 
 			if (Ω.input.pressed("escape")) {
-				game.setScreen(new TitleScreen());
+				game.setDialog(new MainDialog());
 			}
 
 			this.camera.zoom = Math.sin(Date.now() / 2000) * 0.35 + 0.65;

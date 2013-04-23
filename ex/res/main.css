@@ -13,7 +13,7 @@ section {
 	background-color: #fefefe;
 	width: 410px;
 	margin: 40px auto;
-	padding: 15px;
+	padding: 15px 15px 8px 15px;
 	text-align: center;
 	box-shadow: 0 15px 20px rgba(0,0,0,0.5)
 }
@@ -25,4 +25,11 @@ ul {
 
 #board {
 	border: 1px solid #800;
+}
+
+a.home {
+	display: block;
+	font-size: 7pt;
+	text-align: left;
+	padding-left: 4px;
 }

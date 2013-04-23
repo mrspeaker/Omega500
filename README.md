@@ -32,41 +32,50 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Simple particle controller
 - [X] Tracked camera (with box)
 - [X] General purpose timer
+- [X] Dialogs
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
-- [ ] Proper timestep for loop
-- [ ] Dialogs
-- [ ] FPS count
-- [ ] Input handling - mouse
-- [ ] Fullscreen canvas
+- [ ] Timestep for game loop
+- [ ] Input: mouse handling
+- [ ] Default preload screen (start tick immediately)
 
 - [ ] BUG: bad map collision if entity taller than block
-- [ ] BUG: ensure preload fires onload
+- [ ] BUG: ensure preload fires onload (even with no assets)
 
 Lower priority:
 
 - [ ] Screen transitions
-- [ ] Custom bounding box
-- [ ] Handle screen resizing
-- [ ] Input handling - touch
-- [ ] Flip drawing
-- [ ] Work in Ejecta
-- [ ] "Post" effects (webgl etc)
-- [ ] Shake effects etc
-- [ ] Map block selecting (iso & grid)
-- [ ] Spring camera
-- [ ] Pathfinding algo
-- [ ] Swarm/flock algo
-- [ ] Some DSP on spritesheets
-- [ ] Mobile compatibility
-- [ ] iCade/controller support
-- [ ] mouse lock API
-- [ ] fullscreen API
-- [ ] parralax backgrounds
-- [ ] default preload screen - start tick immediately
-- [ ] polyfill Array.isArray
+- [ ] "Post" effects (webgl)
 
+- [ ] Anims: Custom bounding box
+
+- [ ] Input: touch handling
+- [ ] Input: iCade/controller support
+- [ ] Input: mouse lock API
+
+- [ ] Physics: gravity
+- [ ] Physics: platform functions
+
+- [ ] Canvas: Flip drawing
+- [ ] Canvas: Some DSP on spritesheets
+- [ ] Canvas: Shake effects etc
+- [ ] Canvas: parralax backgrounds
+- [ ] Canvas: Fullscreen canvas
+- [ ] Canvas: fullscreen resizing
+
+- [ ] Maps: block selecting (iso)
+
+- [ ] Math: Spring algo (for camera)
+- [ ] Math: pathfinding algo
+- [ ] Math: Swarm/flock algo
+- [ ] Math: add smoothstep helper
+
+- [ ] Support: FPS count
+- [ ] Support: fullscreen API
+- [ ] Support: Work in Ejecta
+- [ ] Support: Mobile compatibility
+- [ ] Support: polyfill Array.isArray
 
 ## (in)FAQ:
 

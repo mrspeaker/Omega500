@@ -4,16 +4,12 @@
 		<title></title>
 		<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="../res/main.css">
-		<style type="text/css">
-			#board {
-				border: 1px solid #800;
-			}
-		</style>
 	</head>
 	<body>
 
 		<section>
 			<canvas id="board"></canvas>
+			<a class="home" href="../index.html">back</a>
 		</section>
 
 		<!-- lib files -->
@@ -29,7 +25,8 @@
 		<script src="../../Ω/cameras/TrackingCamera.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../Ω/Physics.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../Ω/effects/Particle.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../Ω/Screen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/screens/Screen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/screens/Dialog.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../Ω/SpriteSheet.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../Ω/anim/Anims.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../Ω/anim/Anim.js" type="text/javascript" charset="utf-8"></script>
@@ -41,14 +38,12 @@
 		<!-- test game files -->
 		<script src="scripts/TitleScreen.js" type="text/javascript" charset="utf-8"></script>
 		<script src="scripts/MainScreen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="scripts/MainDialog.js" type="text/javascript" charset="utf-8"></script>
 		<script src="scripts/IsoGame.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript" charset="utf-8">
 
 			var game = new IsoGame(400, 300);
-
-			// FIXME: onload not fired if nothing to preload.
-			//Ω._onload();
 
 		</script>
 	</body>
