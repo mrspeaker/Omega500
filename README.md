@@ -2,6 +2,10 @@
 
 v0.1 by Mr Speaker.
 
+*See the things!* http://mrspeaker.github.io/Omega500/
+
+*Read the codez!* https://github.com/mrspeaker/Omega500/
+
 Simple game framework for making 2D games. So I don't have to type this all out for Ludum Dare. Checkout the code in /ex for an example how to use it. Included so far (in order of me adding them!):
 
 - [X] Canvas setup
