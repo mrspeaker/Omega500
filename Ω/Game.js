@@ -59,6 +59,7 @@
 
 			this.screen.tick(d);
 			Ω.input.tick(d);
+			Ω.timers.tick(d);
 
 		},
 

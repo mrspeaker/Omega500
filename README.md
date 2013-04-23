@@ -30,6 +30,8 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Entity/Map collisions
 - [X] Entity/Entity collisions
 - [X] Simple particle controller
+- [X] Tracked camera (with box)
+- [X] General purpose timer
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
@@ -39,7 +41,6 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 - [ ] Input handling - mouse
 - [ ] Fullscreen canvas
 - [ ] Map block selecting (iso & grid)
-- [ ] General purpose timer
 
 - [ ] BUG: bad map collision if entity taller than block
 - [ ] BUG: ensure preload fires onload
@@ -54,7 +55,6 @@ Lower priority:
 - [ ] Work in Ejecta
 - [ ] "Post" effects (webgl etc)
 - [ ] Shake effects etc
-- [ ] Tracked camera (with box)
 - [ ] Spring camera
 - [ ] Pathfinding algo
 - [ ] Swarm/flock algo

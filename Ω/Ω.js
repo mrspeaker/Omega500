@@ -4,7 +4,8 @@ var Ω = (function() {
 
 	var preloading = true,
 		assetsToLoad = 0,
-		maxAssets = 0;
+		maxAssets = 0,
+		timers = []
 
 	return {
 		_onload: null,
@@ -28,7 +29,18 @@ var Ω = (function() {
 					Ω._progress && Ω._progress(assetsToLoad, maxAssets)
 				}
 			}
+		},
+		timers: {
+			add: function (timer) {
+				timers.push(timer);
+			},
+			tick: function (d) {
+				timers = timers.filter(function (t) {
+					return t.tick(d);
+				});
+			}
 		}
+
 	};
 
 }());
