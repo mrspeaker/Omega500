@@ -13,7 +13,8 @@
 		accumulator: 0,
 
 		screen: new Ω.Screen(),
-		lastScreen: null,
+		_screenPrev: null,
+		_screenFade: 0,
 		dialog: null,
 
 		init: function (w, h) {
@@ -69,15 +70,35 @@
 			var gfx = Ω.gfx;
 
 			this.screen.render(gfx);
+			if (this.screenFade > 0) {
+				gfx.ctx.globalAlpha = this.screenFade;
+				this.screenPrev.render(gfx);
+				gfx.ctx.globalAlpha = 1;
+			}
 			this.dialog && this.dialog.render(gfx);
 
 		},
 
 		setScreen: function (screen) {
 
-			this.lastScreen = null;
-			this.lastScreen = this.screen;
+
+			var self = this;
+
+			this.screenPrev = this.screen;
 			this.screen = screen;
+
+			if (this.screenPrev) {
+			    this.screenFade = 1;
+			    Ω.timer(10, function (ratio) {
+
+			        self.screenFade = 1 - ratio;
+
+			    }, function () {
+
+			        self.screenFade = 0;
+
+			    });
+			}
 
 		},
 

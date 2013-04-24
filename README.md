@@ -34,6 +34,7 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] General purpose timer
 - [X] Dialogs
 - [X] Raycast against maps
+- [X] Screen transitions
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
@@ -46,7 +47,6 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most impo
 
 Lower priority:
 
-- [ ] Screen transitions
 - [ ] "Post" effects (webgl)
 - [ ] Anims: Custom bounding box
 - [ ] Input: touch handling

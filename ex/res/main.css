@@ -1,5 +1,5 @@
 body {
-	background: url("../platform/res/background.png");
+	background: rgb(155, 230, 255) url("../platform/res/background.png") no-repeat;
 	background-size: cover;
 	font-family: courier, monospace;
 }
