@@ -8,6 +8,7 @@
 		y: 0,
 		w: 0,
 		h: 0,
+		debug: false,
 
 		init: function (x, y, w, h) {
 			this.x = x;

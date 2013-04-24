@@ -51,6 +51,11 @@
 
 		render: function (gfx, renderables) {
 
+			if (!this.debug) {
+				this._super(gfx, renderables);
+				return;
+			}
+
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
