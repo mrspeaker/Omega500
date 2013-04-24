@@ -4,9 +4,9 @@
 
 	var MainDialog = Ω.Dialog.extend({
 
-		tick: function (d) {
+		tick: function () {
 
-			this._super(d);
+			this._super();
 
 		},
 

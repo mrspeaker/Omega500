@@ -31,15 +31,21 @@
 
 			this.particle = new Ω.Particle({});
 
+			this.rays = [];
+
 		},
 
-		tick: function (d, map) {
+		setMap: function (map) {
+			this.map = map;
+		},
+
+		tick: function (map) {
 
 			var x1 = 0,
 				y1 = 0;
 
-			this.anims.tick(d);
-			this.particle.tick(d);
+			this.anims.tick();
+			this.particle.tick();
 
 			if (this.isPlayer) {
 				this.speed = Math.abs(this.speed);
@@ -67,7 +73,7 @@
 				}
 
 			} else {
-				x1 += d * (this.speed * this.dir);
+				x1 += this.speed * this.dir;
 
 				if (Ω.utils.rand(500) === 1) {
 					this.dir *= -1;
@@ -99,12 +105,23 @@
 
 		},
 
-		render: function (gfx) {
+		render: function (gfx, map) {
 
 			this.anims.render(gfx, this.x, this.y);
 			this.particle.render(gfx);
 			gfx.ctx.strokeStyle = "rgba(100, 0, 0, 0.3)";
 			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
+
+			// Test raycastin'
+			if (this.isPlayer) {
+				for (var i = 0; i < Math.PI * 2; i+= 0.2) {
+					var hit = Ω.rays.cast(i, this.x + this.w / 2, this.y + this.h / 2, this.map);
+
+					if (hit) {
+						Ω.rays.draw(gfx, this.x + this.w / 2, this.y + this.h / 2, hit.x, hit.y, this.map);
+					}
+				}
+			}
 
 		}
 

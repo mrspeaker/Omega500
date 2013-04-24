@@ -17,8 +17,8 @@
 
 		},
 
-		tick: function (d) {
-			this.splat.tick(d);
+		tick: function () {
+			this.splat.tick();
 		},
 
 		render: function (gfx) {

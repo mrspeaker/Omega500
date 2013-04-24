@@ -9,7 +9,7 @@
 
 		init: function () {},
 
-		tick: function (d) {},
+		tick: function () {},
 
 		hit: function (entity) {},
 

@@ -40,28 +40,44 @@
 
 		run: function () {
 
-			this.tick(1);
-			this.render();
+            var now = Date.now(),
+                frameTime = Math.min((now - this.currentTime) / 1000, this.preset_dt),
+                c;
 
-			var self = this;
+            this.currentTime = now;
+            this.accumulator += frameTime;
 
-			window.requestAnimationFrame(function () {
-            	self.run(Date.now());
+            if (this.running) {
+                c = 0;
+                while (this.accumulator >= this.preset_dt) {
+                    c++;
+                    this.tick();
+                    this.accumulator -= this.preset_dt;
+                }
+                if (c > 1) {
+                    console.log("ran " + c + " ticks");
+                }
+
+                this.render();
+            }
+
+            window.requestAnimationFrame(function () {
+                game.run(Date.now());
             });
 
 		},
 
 		stop: function () {},
 
-		tick: function (d) {
+		tick: function () {
 
 			if (this.dialog) {
-				this.dialog.tick(d);
+				this.dialog.tick();
 			} else {
-				this.screen.tick(d);
-				Ω.timers.tick(d);
+				this.screen.tick();
+				Ω.timers.tick();
 			}
-			Ω.input.tick(d);
+			Ω.input.tick();
 
 		},
 

@@ -28,7 +28,7 @@
 
 		},
 
-		tick: function (d) {
+		tick: function () {
 
 			var key;
 

@@ -27,7 +27,7 @@
 			this.y = entity.y - (Ω.env.h / 2);
 		},
 
-		tick: function (d) {
+		tick: function () {
 
 			var center = Ω.utils.center(this),
 				e = this.entity,

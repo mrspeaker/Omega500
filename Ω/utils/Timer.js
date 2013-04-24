@@ -19,9 +19,9 @@
 
 		},
 
-		tick: function (d) {
+		tick: function () {
 
-			this.time -= d;
+			this.time -= 1;
 
 			if (this.time < 0) {
 				this.done && this.done();

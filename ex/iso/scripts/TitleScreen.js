@@ -6,9 +6,9 @@
 
 		time: 0,
 
-		tick: function (d) {
+		tick: function () {
 
-			this.time += d;
+			this.time += 1;
 
 			if (Ω.input.pressed("fire") && this.time > 20) {
 				game.setScreen(new MainScreen());

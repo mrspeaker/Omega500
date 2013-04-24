@@ -17,7 +17,7 @@
 
 		},
 
-		tick: function (d) {
+		tick: function () {
 
 			var diff = Date.now() - this.frameTime;
 			this.changed = false;

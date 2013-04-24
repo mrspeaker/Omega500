@@ -6,7 +6,7 @@
 
 		killKey: "escape",
 
-		tick: function (d) {
+		tick: function () {
 
 			if (Ω.input.pressed(this.killKey)) {
 				game.clearDialog();

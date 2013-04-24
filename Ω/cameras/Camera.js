@@ -18,7 +18,7 @@
 			this.zoom = 1;
 		},
 
-		tick: function (d) {},
+		tick: function () {},
 
 		render: function (gfx, renderables) {
 			var c = gfx.ctx,

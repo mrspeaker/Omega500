@@ -34,16 +34,16 @@
 
 		},
 
-		tick: function (d) {
+		tick: function () {
 
 			if (!this.running) {
 				return;
 			}
 
-			this.life -= d;
+			this.life -= 1;
 
 			this.particles.forEach(function (p) {
-				p.tick(d);
+				p.tick();
 			});
 
 			if (this.life < 0) {
@@ -88,7 +88,7 @@
 			this.ySpeed = Math.random() * 2 - 1 - 3;
 		},
 
-		tick: function (d) {
+		tick: function () {
 			this.x += this.xSpeed;
 			this.y += this.ySpeed;
 			this.ySpeed += 0.2;

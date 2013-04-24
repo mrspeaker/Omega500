@@ -35,11 +35,11 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Dialogs
 - [X] Raycast against maps
 - [X] Screen transitions
+- [X] Timestep for game loop
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
-- [ ] Default preload screen (start tick immediately)
-- [ ] Timestep for game loop
+- [ ] Default preload screen (+ start tick immediately)
 - [ ] Input: mouse handling
 
 - [ ] BUG: bad map collision if entity taller than block
@@ -54,22 +54,27 @@ Lower priority:
 - [ ] Input: mouse lock API
 - [ ] Physics: gravity
 - [ ] Physics: platform functions
-- [ ] Canvas: Flip drawing
-- [ ] Canvas: DSP on spritesheets
-- [ ] Canvas: Shake effects etc
-- [ ] Canvas: parralax backgrounds
-- [ ] Canvas: Fullscreen canvas
-- [ ] Canvas: fullscreen resizing
+- [ ] Gfx: Flip drawing
+- [ ] Gfx: DSP on spritesheets
+- [ ] Gfx: Shake effect
+- [ ] Gfx: Flash effect
+- [ ] Gfx: Blur effect
+- [ ] Gfx: parralax backgrounds
+- [ ] Gfx: Fullscreen canvas
+- [ ] Gfx: fullscreen resizing
+- [ ] Gfx: destructable terrain masks
+- [ ] Math: add smoothstep helper
 - [ ] Maps: block selecting (iso)
 - [ ] Math: Spring algo (for camera)
 - [ ] Math: pathfinding algo
 - [ ] Math: Swarm/flock algo
-- [ ] Math: add smoothstep helper
 - [ ] Support: FPS count
 - [ ] Support: fullscreen API
 - [ ] Support: Work in Ejecta
 - [ ] Support: Mobile compatibility
 - [ ] Support: polyfill Array.isArray
+- [ ] GUI: custom mouse pointer
+- [ ] GUI: button
 
 ## (in)FAQ:
 

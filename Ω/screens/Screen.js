@@ -4,13 +4,13 @@
 
 	var Screen = Ω.Class.extend({
 
-		tick: function (d) {},
+		tick: function () {},
 
 		render: function (gfx) {
 
 			var c = gfx.ctx;
 
-			c.fillStyle = "hsl(0, 40%, 50%)";
+			c.fillStyle = "hsl(0, 0%, 0%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 		}

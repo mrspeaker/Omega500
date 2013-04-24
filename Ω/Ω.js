@@ -34,9 +34,9 @@ var Ω = (function() {
 			add: function (timer) {
 				timers.push(timer);
 			},
-			tick: function (d) {
+			tick: function () {
 				timers = timers.filter(function (t) {
-					return t.tick(d);
+					return t.tick();
 				});
 			}
 		}

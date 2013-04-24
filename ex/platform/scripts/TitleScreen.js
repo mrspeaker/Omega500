@@ -14,9 +14,9 @@
 
 		},
 
-		tick: function (d) {
+		tick: function () {
 
-			this.time += d;
+			this.time += 1;
 
 			if (Ω.input.pressed("space") && this.time > 20) {
 				game.setScreen(new MainScreen());

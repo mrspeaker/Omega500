@@ -27,7 +27,7 @@
 
 		},
 
-		tick: function (d) {
+		tick: function () {
 
 			if (Ω.input.pressed("escape")) {
 				game.setDialog(new MainDialog());
