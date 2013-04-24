@@ -7,17 +7,18 @@
 		players: [],
 		sheet: new Ω.SpriteSheet("res/tiles.png", 32),
 		bg: new Ω.Image("res/background.png"),
+		shake: null,
 
 		init: function () {
 
 			var i,
 				self = this;
 
-			this.players = [new Player(Ω.env.w, 51, true)];
+			this.players = [new Player(Ω.env.w, 51, true, this)];
 
 			for (i = 1; i < 3; i++) {
-				this.players.push(new Player(i * 40, 51));
-				this.players.push(new Player(i * 40, 211));
+				this.players.push(new Player(i * 40, 51, false, self));
+				this.players.push(new Player(i * 40, 211, false, self));
 			}
 
 			this.camera = new Ω.TrackingCamera(this.players[0], 0, 0, Ω.env.w, Ω.env.h);
@@ -69,6 +70,10 @@
 				this.trig2
 			]);
 
+			if (this.shake && !this.shake.tick()) {
+				this.shake = null;
+			}
+
 			if (Ω.input.pressed("space")) {
 				// Track a random fellow!
 				this.camera.track(
@@ -89,7 +94,11 @@
 			c.fillStyle = "hsl(195, 40%, 50%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
+			c.save();
+
 			this.bg.render(gfx, 0, 0);
+
+			this.shake && this.shake.render(gfx);
 
 			this.camera.render(gfx, [
 				this.map,
@@ -99,6 +108,8 @@
 			]);
 
 			gfx.text.drawShadowed("[esc]", 2, 10, 1, "7pt MonoSpace");
+
+			c.restore();
 		}
 	});
 

@@ -13,7 +13,10 @@
 			"crouch": new Ω.Sound("res/crouch.wav", 1)
 		},
 
-		init: function (startX, startY, isPlayer) {
+		init: function (startX, startY, isPlayer, screen) {
+
+			// FIXME: need event system (or something) instead of this.
+			this.screen = screen;
 
 			this.isPlayer = isPlayer;
 
@@ -101,16 +104,13 @@
 					this.particle.play(this.x + (this.w / 2), this.y + 10);
 					this.sounds.crouch.play();
 				}
+				this.screen.shake = new Ω.Shake(6);
 			}
 
 		},
 
 		render: function (gfx, map) {
 
-			this.anims.render(gfx, this.x, this.y);
-			this.particle.render(gfx);
-			gfx.ctx.strokeStyle = "rgba(100, 0, 0, 0.3)";
-			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
 
 			// Test raycastin'
 			if (this.isPlayer) {
@@ -122,6 +122,11 @@
 					}
 				}
 			}
+
+			this.anims.render(gfx, this.x, this.y);
+			this.particle.render(gfx);
+			gfx.ctx.strokeStyle = "rgba(100, 0, 0, 0.3)";
+			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
 
 		}
 

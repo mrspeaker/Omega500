@@ -36,6 +36,7 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Raycast against maps
 - [X] Screen transitions
 - [X] Timestep for game loop
+- [X] Shake effect
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
@@ -56,7 +57,6 @@ Lower priority:
 - [ ] Physics: platform functions
 - [ ] Gfx: Flip drawing
 - [ ] Gfx: DSP on spritesheets
-- [ ] Gfx: Shake effect
 - [ ] Gfx: Flash effect
 - [ ] Gfx: Blur effect
 - [ ] Gfx: parralax backgrounds
