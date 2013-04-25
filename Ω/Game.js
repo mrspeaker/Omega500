@@ -26,7 +26,7 @@
 			Ω.env.h = ctx.canvas.height;
 
 			Ω.gfx.init(ctx);
-			Ω.input.init();
+			Ω.input.init(ctx.canvas);
 
 			Ω._onload = function () {
 				self.run(Date.now());

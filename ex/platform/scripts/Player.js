@@ -78,7 +78,6 @@
 						//this.anims.setTo("idleLeft");
 					}
 				}
-				console.log(y1);
 
 			} else {
 				x1 += this.speed * this.dir;

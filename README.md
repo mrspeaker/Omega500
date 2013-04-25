@@ -37,11 +37,12 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Screen transitions
 - [X] Timestep for game loop
 - [X] Shake effect
+- [X] Spring algo (for camera & entities)
+- [X] Input: mouse handling
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Default preload screen (+ start tick immediately)
-- [ ] Input: mouse handling
 
 - [ ] BUG: bad map collision if entity taller than block
 - [ ] BUG: ensure preload fires onload (even with no assets)
@@ -65,7 +66,6 @@ Lower priority:
 - [ ] Gfx: destructable terrain masks
 - [ ] Math: add smoothstep helper
 - [ ] Maps: block selecting (iso)
-- [ ] Math: Spring algo (for camera)
 - [ ] Math: pathfinding algo
 - [ ] Math: Swarm/flock algo
 - [ ] Support: FPS count

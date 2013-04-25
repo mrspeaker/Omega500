@@ -3,8 +3,13 @@
 	"use strict";
 
 	var keys = {},
-		keyActions = {},
-		input;
+		mouse = {
+			x: null,
+			y: null
+		},
+		actions = {},
+		input,
+		el;
 
 	input = {
 
@@ -15,12 +20,23 @@
 			up: 38,
 			down: 40,
 			left: 37,
-			right: 39
+			right: 39,
+
+			mouse1: -1,
+			mouse2: -2,
+			mouse3: -3,
+			wheelUp: -4,
+			wheelDown: -5
 		},
 
-		init: function () {
+		mouse: mouse,
+
+		init: function (dom) {
+
+			el = dom;
 
 			bindKeys();
+			bindMouse();
 
 		},
 
@@ -43,7 +59,7 @@
 			if (typeof code !== "number") {
 				code = this.KEYS[code];
 				if (!code) {
-					console.error("Could not bind key ", code);
+					console.error("Could not bind input: ", code);
 					return;
 				}
 			}
@@ -53,10 +69,10 @@
 				isDown: false,
 				wasDown: false
 			};
-			if (!keyActions[action]) {
-				keyActions[action] = [];
+			if (!actions[action]) {
+				actions[action] = [];
 			}
-			keyActions[action].push(code);
+			actions[action].push(code);
 
 		},
 
@@ -79,7 +95,7 @@
 		},
 
 		isDown: function (action) {
-			var actionCodes = keyActions[action];
+			var actionCodes = actions[action] || [];
 			var back = actionCodes.some(function (code) {
 				return keys[code].isDown;
 			});
@@ -88,7 +104,7 @@
 		},
 
 		wasDown: function (action) {
-			var actionCodes = keyActions[action];
+			var actionCodes = actions[action] || [];
 			return actionCodes.some(function (k) {
 				return keys[k].wasDown;
 			});
@@ -96,19 +112,68 @@
 	}
 
 	function keyed(code, isDown) {
+
 		if (keys[code]) {
 			keys[code].wasDown = keys[code].isDown;
 			keys[code].isDown = isDown;
 		}
+
 	}
 
 	function bindKeys() {
+
 		document.addEventListener('keydown', function(e){
 			keyed(e.keyCode, true);
 		}, false );
+
 		document.addEventListener('keyup', function(e){
 			keyed(e.keyCode, false);
 		}, false );
+
+	}
+
+	function bindMouse() {
+
+		function setPos(e) {
+
+			var relX = e.clientX - el.offsetLeft,
+				relY = e.clientY - el.offsetTop;
+
+			mouse.diff = {
+				x: mouse.x - relX,
+				y: mouse.y - relY
+			};
+			mouse.prev = {
+				x: mouse.x,
+				y: mouse.y
+			};
+			mouse.x = relX;
+			mouse.y = relY;
+		}
+
+		document.addEventListener('mousedown', function(e){
+
+			if (e.which === 1) {
+				setPos(e);
+				keyed(-1, true);
+			}
+
+		});
+
+		document.addEventListener('mousemove', function(e){
+
+			setPos(e);
+
+		});
+
+		document.addEventListener('mouseup', function(e){
+
+			if (e.which === 1) {
+				setPos(e);
+				keyed(-1, false);
+			}
+
+		});
 	}
 
 	Ω.input = input;

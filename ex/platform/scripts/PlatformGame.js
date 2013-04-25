@@ -21,7 +21,8 @@
 				["left", "left"],
 				["right", "right"],
 				["up", "up"],
-				["down", "down"]
+				["down", "down"],
+				["mouse1", "mouse1"]
 			]);
 
 			this.setScreen(new TitleScreen());

@@ -59,7 +59,6 @@
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
-					// Temp rendering to show tracking box
 					var center = Ω.utils.center(cam);
 
 					gfx.ctx.strokeStyle = "rgba(200, 0, 0, 0.6)";
