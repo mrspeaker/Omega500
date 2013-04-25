@@ -21,6 +21,8 @@
 				this.players.push(new Player(i * 40, 211, false, self));
 			}
 
+			this.spring = new Spring(100, 0.3, 0.9, 0);
+
 			this.camera = new Ω.TrackingCamera(this.players[0], 0, 0, Ω.env.w, Ω.env.h);
 
 			this.map = new Ω.Map(this.sheet, [
@@ -55,11 +57,14 @@
 			//this.camera.x += (Math.sin(Date.now() / 1000) * 20);
 			//this.camera.y += (Math.cos(Date.now() / 2000) * 20);
 
+			var vel = this.spring.tick(this.players[1], this.players[0]);
+
 			this.players.forEach(function (p, i) {
 
-				p.tick(self.map);
+				p.tick(self.map, vel);
 
 			});
+
 
 			this.trig.tick();
 			this.trig2.tick();

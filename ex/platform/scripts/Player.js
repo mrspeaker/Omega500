@@ -8,6 +8,8 @@
 		h: 45,
 		dir: 1,
 
+		vel: [0, 0],
+
 		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 		sounds: {
 			"crouch": new Ω.Sound("res/crouch.wav", 1)
@@ -42,7 +44,7 @@
 			this.map = map;
 		},
 
-		tick: function (map) {
+		tick: function (map, spring) {
 
 			var x1 = 0,
 				y1 = 0;
@@ -51,15 +53,17 @@
 			this.particle.tick();
 
 			if (this.isPlayer) {
-				this.speed = Math.abs(this.speed);
+				//this.speed = Math.abs(this.speed);
+				x1 += spring[0];
+				y1 += spring[1];
 
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
-					x1 -= this.speed;
+					x1 -= this.speed * 30;
 				}
 				if (Ω.input.isDown("right")) {
 					this.anims.setTo("walk");
-					x1 += this.speed;
+					x1 += this.speed * 30;
 				}
 				if (Ω.input.isDown("up")) {
 					y1 -= this.speed;
@@ -74,6 +78,7 @@
 						//this.anims.setTo("idleLeft");
 					}
 				}
+				console.log(y1);
 
 			} else {
 				x1 += this.speed * this.dir;
