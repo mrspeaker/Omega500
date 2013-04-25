@@ -39,13 +39,12 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Shake effect
 - [X] Spring algo (for camera & entities)
 - [X] Input: mouse handling
+- [X] BUG: ensure preload fires onload (even with no assets)
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Default preload screen (+ start tick immediately)
-
 - [ ] BUG: bad map collision if entity taller than block
-- [ ] BUG: ensure preload fires onload (even with no assets)
 
 Lower priority:
 

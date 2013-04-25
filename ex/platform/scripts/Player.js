@@ -54,16 +54,16 @@
 
 			if (this.isPlayer) {
 				//this.speed = Math.abs(this.speed);
-				x1 += spring[0];
-				y1 += spring[1];
+				//x1 += spring[0];
+				//y1 += spring[1];
 
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
-					x1 -= this.speed * 30;
+					x1 -= this.speed;
 				}
 				if (Ω.input.isDown("right")) {
 					this.anims.setTo("walk");
-					x1 += this.speed * 30;
+					x1 += this.speed;
 				}
 				if (Ω.input.isDown("up")) {
 					y1 -= this.speed;

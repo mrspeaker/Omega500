@@ -53,13 +53,11 @@
 
 			var self = this;
 
-			//console.log(Ω.input.mouse.diff.x, Ω.input.mouse.diff.y);
-
 			this.camera.tick();
-			this.camera.x += (Math.sin(Date.now() / 1000) * 20);
-			this.camera.y += (Math.cos(Date.now() / 2000) * 20);
+			//this.camera.x += (Math.sin(Date.now() / 1000) * 20);
+			//this.camera.y += (Math.cos(Date.now() / 2000) * 20);
 
-			var vel = this.spring.tick(this.players[1], this.players[0]);
+			var vel = this.spring.tick(this.players[1], this.players[2]);
 
 			this.players.forEach(function (p, i) {
 
