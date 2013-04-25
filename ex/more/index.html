@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="../index.html">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/utils/base.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/utils/utils.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/utils/rays.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/utils/Timer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/gfx.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/input.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/assets/Image.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/assets/Sound.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/cameras/Camera.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/cameras/TrackingCamera.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/Physics.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/effects/Particle.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/effects/Spring.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/effects/Shake.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/screens/Screen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/screens/Dialog.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/SpriteSheet.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/anim/Anims.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/anim/Anim.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/maps/Map.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/maps/IsoMap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/entities/Entity.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../Ω/Game.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript" charset="utf-8">
+
+			var game = new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				init: function (w, h) {
+
+					this._super(w, h);
+
+					Ω._progress = function (cur, max) {
+						// use for progress bar
+						var gfx = Ω.gfx;
+							c = gfx.ctx;
+						c.fillStyle = "#fff";
+						c.fillText(cur + ":" + max, gfx.w / 2, gfx.h / 2);
+					};
+
+				},
+
+				render: function () {
+
+					this._super();
+
+					var gfx = Ω.gfx;
+						c = gfx.ctx;
+
+					c.fillStyle = "#fff";
+					c.fillText("Test", gfx.w / 2, gfx.h / 2);
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>

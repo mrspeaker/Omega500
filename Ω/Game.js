@@ -17,7 +17,7 @@
 		_screenFade: 0,
 		dialog: null,
 
-		init: function (w, h) {
+		init: function (w, h, bgColor) {
 
 			var ctx = initCanvas(this.canvas, w, h),
 				self = this;
@@ -25,12 +25,19 @@
 			Ω.env.w = ctx.canvas.width;
 			Ω.env.h = ctx.canvas.height;
 
+			ctx.fillStyle = bgColor || "#333";
+			ctx.fillRect(0, 0, Ω.env.w, Ω.env.h);
+
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
 			Ω._onload = function () {
 				self.run(Date.now());
 			};
+
+			if (!Ω.preloading) {
+				Ω._onload();
+			}
 
             this.running = true;
 
