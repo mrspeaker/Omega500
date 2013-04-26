@@ -108,7 +108,7 @@
 			c.closePath();
 			c.stroke();
 
-		},
+		}
 
 	}
 
