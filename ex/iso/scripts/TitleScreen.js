@@ -6,6 +6,8 @@
 
 		time: 0,
 
+		bg: new Ω.Image("res/minecraft.png"),
+
 		tick: function () {
 
 			this.time += 1;
@@ -26,6 +28,8 @@
 
 			c.fillStyle = "hsl(120, 10%, 20%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
+
+			this.bg.render(gfx, 0, 0);
 
 			c.font = "20pt Monospace";
 			gfx.text.drawShadowed(title, gfx.w / 2 - gfx.text.getHalfWidth(title), gfx.h * 0.45);

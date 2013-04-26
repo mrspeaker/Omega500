@@ -40,11 +40,15 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 - [X] Spring algo (for camera & entities)
 - [X] Input: mouse handling
 - [X] BUG: ensure preload fires onload (even with no assets)
+- [X] Support: polyfill Array.isArray
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
 - [ ] Default preload screen (+ start tick immediately)
 - [ ] BUG: bad map collision if entity taller than block
+
+- [ ] layer spritesheet test
+- [ ] multiple canvas test
 
 Lower priority:
 
@@ -65,13 +69,12 @@ Lower priority:
 - [ ] Gfx: destructable terrain masks
 - [ ] Math: add smoothstep helper
 - [ ] Maps: block selecting (iso)
-- [ ] Math: pathfinding algo
+- [ ] Math: pathfinding algo (or integrate https://github.com/bgrins/javascript-astar)
 - [ ] Math: Swarm/flock algo
 - [ ] Support: FPS count
 - [ ] Support: fullscreen API
 - [ ] Support: Work in Ejecta
 - [ ] Support: Mobile compatibility
-- [ ] Support: polyfill Array.isArray
 - [ ] GUI: custom mouse pointer
 - [ ] GUI: button
 
