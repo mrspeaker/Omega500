@@ -10,8 +10,14 @@
 			this.w = width;
 			this.h = height || width;
 
+			var self = this;
+
 			this.sheet = Ω.gfx.loadImage(path,(function (){
-				return Ω.preload();
+				return function () {
+					self.cellW = self.sheet.width / self.w | 0;
+					self.cellH = self.sheet.height / self.h | 0;
+					Ω.preload();
+				}
 			}()));
 
 		},

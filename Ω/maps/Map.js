@@ -25,6 +25,8 @@
 
 			var tw = this.sheet.w,
 				th = this.sheet.h,
+				cellW = this.sheet.cellW,
+				cellH = this.sheet.cellH,
 				stx = camera.x / tw | 0,
 				sty = camera.y / th | 0,
 				endx = stx + (camera.w / camera.zoom / tw | 0) + 1,
@@ -46,7 +48,12 @@
 					if (cell === 0) {
 						continue;
 					}
-					this.sheet.render(gfx, cell - 1, 0, i * tw, j * th);
+					this.sheet.render(
+						gfx,
+						(cell - 1) % cellW  | 0,
+						(cell - 1) / cellW | 0,
+						i * tw,
+						j * th);
 				}
 			}
 
