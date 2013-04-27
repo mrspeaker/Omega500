@@ -115,7 +115,6 @@
 
 		render: function (gfx, map) {
 
-
 			// Test raycastin'
 			if (this.isPlayer) {
 				for (var i = 0; i < Math.PI * 2; i+= 0.2) {

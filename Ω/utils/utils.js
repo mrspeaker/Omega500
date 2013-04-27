@@ -57,7 +57,7 @@
 
 		snap: function(value, snapSize) {
 
-			return (value / snapSize) * snapSize | 0;
+			return Math.floor(value / snapSize) * snapSize;
 
 		},
 
