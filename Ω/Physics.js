@@ -4,13 +4,13 @@
 
 	var Physics = Ω.Class.extend({
 
-		checkCollisions: function (entities) {
-
+		checkCollisions: function (entities, cbName) {
 
 			var i,
 				j,
 				a,
 				b,
+				cbName = cbName || "hit",
 				all = entities.reduce(function (ac, e) {
 					if (Array.isArray(e)) {
 						return ac.concat(e);
@@ -30,8 +30,8 @@
 					    a.x <= b.x + b.w &&
 					    a.y + a.h >= b.y &&
 					    a.y <= b.y + b.h) {
-						a.hit(b);
-						b.hit(a);
+						a[cbName](b);
+						b[cbName](a);
 					}
 				}
 			}
