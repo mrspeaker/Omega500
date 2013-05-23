@@ -81,7 +81,7 @@
 			if (this.dialog) {
 				this.dialog.tick();
 			} else {
-				this.screen.tick();
+				this.screen.loaded && this.screen.tick();
 				Ω.timers.tick();
 			}
 			Ω.input.tick();
@@ -91,6 +91,10 @@
 		render: function () {
 
 			var gfx = Ω.gfx;
+
+			if (!this.screen.loaded) {
+				return;
+			}
 
 			this.screen.render(gfx);
 			if (this.screenFade > 0) {

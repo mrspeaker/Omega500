@@ -4,6 +4,8 @@
 
 	var Screen = Ω.Class.extend({
 
+		loaded: true,
+
 		tick: function () {},
 
 		render: function (gfx) {
