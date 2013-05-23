@@ -4,6 +4,30 @@
 
 	var Physics = Ω.Class.extend({
 
+		checkCollision: function (entity, entities, cbName) {
+
+			var i,
+				j,
+				a = entity,
+				b,
+				cbName = cbName || "hit",
+				len = entities.length;
+
+			for (i = 0; i < len; i++) {
+
+				b = entities[i];
+
+				if (a.x + a.w >= b.x &&
+				    a.x <= b.x + b.w &&
+				    a.y + a.h >= b.y &&
+				    a.y <= b.y + b.h) {
+					a[cbName](b);
+					b[cbName](a);
+				}
+			}
+
+		},
+
 		checkCollisions: function (entities, cbName) {
 
 			var i,
@@ -42,5 +66,3 @@
 	Ω.Physics = Physics;
 
 }(Ω));
-
-
