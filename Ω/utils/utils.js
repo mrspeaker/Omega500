@@ -49,9 +49,10 @@
 		angleBetween: function (a, b) {
 
 			var dx = a.x - b.x,
-				dy = a.y - b.y;
+				dy = a.y - b.y,
+				angle = Math.atan2(dy, dx);
 
-			return (Math.atan2(dy, dx) * 180 / Math.PI) % 360;
+			return angle;// % Math.PI;
 
 		},
 
@@ -82,7 +83,24 @@
 
 			});
 
+		},
+
+		getByKeyValue: function (arrayOfObj, key, value) {
+
+			return this.getAllByKeyValue(arrayOfObj, key, value)[0];
+
+		},
+
+		getAllByKeyValue: function (arrayOfObj, key, value) {
+
+			return arrayOfObj.filter(function (o) {
+				if (o[key] && o[key] === value) {
+					return true;
+				}
+			});
+
 		}
+
 	};
 
 }(Ω));

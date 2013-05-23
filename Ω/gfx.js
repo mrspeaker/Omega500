@@ -19,7 +19,9 @@
 		loadImage: function (path, cb) {
 
 			if (images[path]) {
-				cb && cb();
+				setTimeout(function () {
+					cb && cb(images[path]);
+				}, 0);
 				return images[path];
 			}
 
@@ -40,6 +42,13 @@
 				img,
 				x,
 				y);
+		},
+
+		createCanvas: function (w, h) {
+			var cn = document.createElement("canvas");
+			cn.setAttribute("width", w);
+			cn.setAttribute("height", h);
+			return cn.getContext("2d");
 		},
 
 		text: {
