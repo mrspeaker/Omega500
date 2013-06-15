@@ -14,28 +14,13 @@
 
 			var self = this;
 
-			//console.log("Sheet cellw not set yet...", path);
+			Ω.gfx.loadImage(path, function (img) {
 
-			this.sheet = Ω.gfx.loadImage(path, (function (){
-				return function (img) {
-					console.log("here", arguments, path);
-					// Holy poopballs - fix this mess! if image already
-					// loaded by gfx.load image then its returned before load event...
-					if (img) {
-						img.addEventListener("load", function(){
-							self.cellW = img.width / self.w | 0;
-							self.cellH = img.height / self.h | 0;
-							//console.log("Sheet loaded via img.add", self.cellW, self.cellH, path);
-							Ω.preload();
-						}, false);
-					} else {
-						self.cellW = self.sheet.width / self.w | 0;
-						self.cellH = self.sheet.height / self.h | 0;
-						//console.log("Sheet loaded via callback", self.cellW, self.cellH, path);
-						Ω.preload();
-					}
-				}
-			}()));
+				self.sheet = img;
+				self.cellW = img.width / self.w | 0;
+				self.cellH = img.height / self.h | 0;
+
+			});
 
 		},
 

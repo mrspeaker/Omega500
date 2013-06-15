@@ -45,7 +45,7 @@
 			this.physics = new Ω.Physics();
 
 			this.trig = new Teleporter(19, 2, -15, 5);
-			this.trig2 = new Teleporter(1, 7, -1, -5);
+			this.trig2 = new Teleporter(1, 7, 0, -5);
 
 		},
 

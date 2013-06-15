@@ -19,20 +19,29 @@
 		loadImage: function (path, cb) {
 
 			if (images[path]) {
-				setTimeout(function () {
+				if (!images[path]._loaded) {
+					cb && images[path].addEventListener("load", function() {
+						cb(images[path])
+					}, false);
+				} else {
 					cb && cb(images[path]);
-				}, 0);
+				}
 				return images[path];
 			}
 
-			var image = new Image();
+			var resolve = Ω.preload(),
+				image = new Image();
 
+			image._loaded = false;
 			image.src = path;
-			image.onload = function() {
-				cb && cb();
-			};
+			image.addEventListener("load", function() {
+
+				this._loaded = true;
+				cb && cb(image);
+				resolve();
+
+			}, false);
 			images[path] = image;
-			return image;
 
 		},
 

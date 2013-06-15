@@ -9,19 +9,29 @@
 
 		init: function (path, volume, loop) {
 
-			var audio = new window.Audio();
+			if (sounds[path]) {
+				self.audio = sounds[path];
+				return;
+			}
 
-			audio.src = path;
+			var audio = new window.Audio(),
+				resolve = Ω.preload();
+
+			audio.src = path + this.ext;
 			audio.volume = volume || 1;
+			audio._volume = audio.volume;
+			audio._loaded = false;
 			audio.loop = loop;
 
-			// FIXME: add to preload list
-			audio.addEventListener("canplaythrough", (function (){
-				return Ω.preload();
-			}()));
+			audio.addEventListener("canplaythrough", function (){
+				audio._loaded = true;
+				resolve();
+			});
 			audio.load();
 
 			this.audio = audio;
+
+			sounds[path] = audio;
 
 		},
 
