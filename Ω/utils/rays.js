@@ -104,7 +104,7 @@
 
 			c.beginPath();
 			c.moveTo(ox, oy);
-			c.lineTo(rayX * map.cellW, rayY * map.cellH);
+			c.lineTo(rayX * map.sheet.w, rayY * map.sheet.h);
 			c.closePath();
 			c.stroke();
 
