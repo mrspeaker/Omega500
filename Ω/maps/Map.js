@@ -4,6 +4,9 @@
 
 	var Map = Ω.Class.extend({
 
+		x: 0, // Position required for camera rendering check
+		y: 0,
+
 		init: function (sheet, data) {
 
 			this.sheet = sheet;

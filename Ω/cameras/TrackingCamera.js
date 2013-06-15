@@ -22,9 +22,19 @@
 		},
 
 		track: function (entity) {
+
 			this.entity = entity;
 			this.x = entity.x - (Ω.env.w / 2) + (entity.w / 2);
+
+			/// TODO: block to bottom/right as well
+			if (this.x < 0) {
+				this.x = 0;
+			}
 			this.y = entity.y - (Ω.env.h / 2);
+			if (this.y < 0) {
+				this.y = 0;
+			}
+
 		},
 
 		tick: function () {
@@ -32,16 +42,26 @@
 			var center = Ω.utils.center(this),
 				e = this.entity,
 				xr = this.xRange,
-				yr = this.yRange;
+				yr = this.yRange,
+				newX,
+				newY;
 
+
+			/// TODO: block to bottom/right as well
 			if(e.x < center.x - xr) {
 				this.x = e.x - (Ω.env.w / 2) + xr;
+				if (this.x < 0) {
+					this.x = 0;
+				}
 			}
 			if(e.x + e.w > center.x + xr) {
 				this.x = e.x + e.w - (Ω.env.w / 2) - xr;
 			}
 			if(e.y < center.y - yr) {
 				this.y = e.y - (Ω.env.h / 2) + yr;
+				if (this.y < 0) {
+					this.y = 0;
+				}
 			}
 			if(e.y + e.h > center.y + yr) {
 				this.y = e.y + e.h - (Ω.env.h / 2) - yr;

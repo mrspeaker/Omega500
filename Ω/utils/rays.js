@@ -95,7 +95,7 @@
 
 		},
 
-		draw: function (gfx, ox, oy, rayX, rayY) {
+		draw: function (gfx, ox, oy, rayX, rayY, map) {
 
 			var c = gfx.ctx;
 
@@ -104,7 +104,7 @@
 
 			c.beginPath();
 			c.moveTo(ox, oy);
-			c.lineTo(rayX, rayY);
+			c.lineTo(rayX * map.cellW, rayY * map.cellH);
 			c.closePath();
 			c.stroke();
 
