@@ -56,6 +56,17 @@
 
 		bind: function (code, action) {
 
+			var self = this;
+
+			if (Array.isArray(code)) {
+				code.forEach(function (k) {
+
+					self.bind(k[0], k[1]);
+
+				});
+				return;
+			}
+
 			if (typeof code !== "number") {
 				code = this.KEYS[code];
 				if (!code) {
@@ -73,18 +84,6 @@
 				actions[action] = [];
 			}
 			actions[action].push(code);
-
-		},
-
-		binds: function (keys) {
-
-			var self = this;
-
-			keys.forEach(function (k) {
-
-				self.bind(k[0], k[1]);
-
-			});
 
 		},
 

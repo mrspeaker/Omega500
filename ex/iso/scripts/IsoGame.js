@@ -14,7 +14,7 @@
 				// use for progress bar
 			});
 
-			Ω.input.binds([
+			Ω.input.bind([
 				["space", "fire"],
 				["escape", "escape"],
 				["left", "left"],

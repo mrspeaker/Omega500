@@ -17,7 +17,7 @@
 			});
 
 
-			Ω.input.binds([
+			Ω.input.bind([
 				["space", "space"],
 				["escape", "escape"],
 				["left", "left"],

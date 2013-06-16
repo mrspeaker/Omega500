@@ -22,10 +22,6 @@
 			var ctx = initCanvas(this.canvas, w, h),
 				self = this;
 
-			window.addEventListener("load", function () {
-				Ω.pageLoad();
-			}, false);
-
 			Ω.env.w = ctx.canvas.width;
 			Ω.env.h = ctx.canvas.height;
 
@@ -35,10 +31,15 @@
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
+			// Fixme: thing preloading can be done before it gets here!
 			Ω.evt.onload.push(function () {
 				self.load();
 				self.run(Date.now());
 			});
+
+			window.addEventListener("load", function () {
+				Ω.pageLoad();
+			}, false);
 
             this.running = true;
 
