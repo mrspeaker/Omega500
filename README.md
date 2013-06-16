@@ -98,13 +98,66 @@ Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forge
 
     		this._super(w, h);
 
+    	},
+
+    	load: function () {
+
+    		// Called when all resources have loaded
+
     	}
 
     });
     new myGame(640, 480);
 
+
 Canvas/DOM container:
 
 The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or hieght is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
+
+
+### Entity
+
+### Input
+
+Bind keys to "actions"
+
+	Ω.input.bind([
+		["space", "fire"],
+		["escape", "escape"],
+		["left", "left"],
+		["right", "right"],
+		["up", "up"],
+		["down", "down"]
+	]);
+
+Then to test:
+
+	if (Ω.input.pressed("fire")) {
+		// Fire button pressed
+	}
+
+### Image
+
+### Sound
+
+### Screen
+
+	game.setScreen(new TitleScreen());
+
+### SpriteSheet
+
+	sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45)
+
+### Animation
+
+### Map
+
+### Dialog
+
+### Camera
+
+### Ray casting
+
+### Effects
 
 
