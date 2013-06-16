@@ -12,9 +12,9 @@
 
 			this._super(w, h);
 
-			Ω.evt.progress = function (cur, max) {
-				console.log(cur / max);
-			};
+			Ω.evt.progress.push(function (remaining, max) {
+				// console.log(remaining, max);
+			});
 
 
 			Ω.input.binds([
@@ -27,9 +27,9 @@
 				["mouse1", "mouse1"]
 			]);
 
-			Ω.evt.onload = function () {
+			Ω.evt.onload.push(function () {
 				self.setScreen(new TitleScreen());
-			}
+			});
 
 		}
 

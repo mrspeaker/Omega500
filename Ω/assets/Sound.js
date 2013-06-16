@@ -17,7 +17,11 @@
 			}
 
 			var audio = new window.Audio(),
-				resolve = Ω.preload();
+				resolve = Ω.preload(),
+				onload = function () {
+					this._loaded = true;
+					resolve();
+				};
 
 			audio.src = path.indexOf(".") > 0 ? path : path + this.ext;
 
@@ -26,9 +30,10 @@
 			audio._loaded = false;
 			audio.loop = loop;
 
-			audio.addEventListener("canplaythrough", function (){
-				audio._loaded = true;
-				resolve();
+			audio.addEventListener("canplaythrough", onload, false);
+			audio.addEventListener("error", function () {
+				console.error("Error loading audio resource:", audio.src);
+				onload.call(this);
 			});
 			audio.load();
 

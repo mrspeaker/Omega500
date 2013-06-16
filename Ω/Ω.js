@@ -10,8 +10,8 @@ var Ω = (function() {
 	return {
 
 		evt: {
-			onload: null,
-			progress: null
+			onload: [],
+			progress: []
 		},
 
 		env: {
@@ -31,17 +31,35 @@ var Ω = (function() {
 
 				assetsToLoad -= 1;
 
-				Ω._progress && Ω._progress(assetsToLoad, maxAssets);
+				Ω.evt.progress.map(function (p) {
+					return p(assetsToLoad, maxAssets);
+				});
 
-				// FIXME: this could fire if first resource finishes
-				// loading before second added to queue
 				if (assetsToLoad === 0) {
+					// FIXME: onload could fire if first resource finishes
+					// loading before second added to queue
+					if (!preloading) {
+						console.error("Preloading finished (onload called) multiple times!");
+					}
 					preloading = false;
-					Ω.evt.onload && Ω.evt.onload();
+					Ω.evt.onload.map(function (o) {
+						o();
+					});
 				}
 
 
 			}
+		},
+
+		pageLoad: function () {
+
+			if (maxAssets === 0) {
+				// No assets to load, so fire onload
+				Ω.evt.onload.map(function (o) {
+					o();
+				});
+			}
+
 		},
 
 		timers: {

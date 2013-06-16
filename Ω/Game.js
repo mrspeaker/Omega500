@@ -22,6 +22,10 @@
 			var ctx = initCanvas(this.canvas, w, h),
 				self = this;
 
+			window.addEventListener("load", function () {
+				Ω.pageLoad();
+			}, false);
+
 			Ω.env.w = ctx.canvas.width;
 			Ω.env.h = ctx.canvas.height;
 
@@ -31,14 +35,9 @@
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
-			Ω.evt.onload = function () {
+			Ω.evt.onload.push(function () {
 				self.run(Date.now());
-			};
-
-			// FIXME: best place for this? If nothing to preload, then fire onload.
-			if (!Ω.preloading) {
-				Ω.evt.onload();
-			}
+			});
 
             this.running = true;
 

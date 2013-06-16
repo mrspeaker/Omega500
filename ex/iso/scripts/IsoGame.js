@@ -10,9 +10,9 @@
 
 			this._super(w, h);
 
-			Ω._progress = function (cur, max) {
+			Ω.evt.progress.push(function (cur, max) {
 				// use for progress bar
-			};
+			});
 
 			Ω.input.binds([
 				["space", "fire"],

@@ -18,29 +18,39 @@
 
 		loadImage: function (path, cb) {
 
-			console.log(path);
+			var cachedImage = images[path];
 
-			if (images[path]) {
-				if (!images[path]._loaded) {
-					cb && images[path].addEventListener("load", function() {
-						cb(images[path]);
+			if (cachedImage) {
+				if (!cachedImage._loaded) {
+					cachedImage.addEventListener("load", function() {
+						cb && cb(cachedImage);
+					}, false);
+					cachedImage.addEventListener("load", function() {
+						cb && cb(cachedImage);
 					}, false);
 				} else {
-					cb && cb(images[path]);
+					cb && cb(cachedImage);
 				}
 				return;
 			}
 
 			var resolve = Ω.preload(),
-				image = new Image();
+				image = new Image(),
+				onload = function () {
+
+					this._loaded = true;
+					cb && cb(image);
+					resolve();
+
+				}
 
 			image._loaded = false;
 			image.src = path;
-			image.addEventListener("load", function() {
+			image.addEventListener("load", onload, false);
+			image.addEventListener("error", function() {
 
-				this._loaded = true;
-				cb && cb(image);
-				resolve();
+				console.error("Error loading image", path);
+				onload.call(this);
 
 			}, false);
 			images[path] = image;

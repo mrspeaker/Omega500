@@ -48,13 +48,13 @@
 
 					this._super(w, h);
 
-					Ω._progress = function (cur, max) {
+					Ω.evt.progress.push(function (cur, max) {
 						// use for progress bar
 						var gfx = Ω.gfx;
 							c = gfx.ctx;
 						c.fillStyle = "#fff";
 						c.fillText(cur + ":" + max, gfx.w / 2, gfx.h / 2);
-					};
+					});
 
 				},
 
