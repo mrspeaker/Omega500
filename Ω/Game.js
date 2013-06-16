@@ -31,12 +31,13 @@
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
-			Ω._onload = function () {
+			Ω.evt.onload = function () {
 				self.run(Date.now());
 			};
 
+			// FIXME: best place for this? If nothing to preload, then fire onload.
 			if (!Ω.preloading) {
-				Ω._onload();
+				Ω.evt.onload();
 			}
 
             this.running = true;

@@ -8,8 +8,11 @@ var Ω = (function() {
 		timers = []
 
 	return {
-		_onload: null,
-		_progress: null,
+
+		evt: {
+			onload: null,
+			progress: null
+		},
 
 		env: {
 			w: 0,
@@ -30,9 +33,11 @@ var Ω = (function() {
 
 				Ω._progress && Ω._progress(assetsToLoad, maxAssets);
 
+				// FIXME: this could fire if first resource finishes
+				// loading before second added to queue
 				if (assetsToLoad === 0) {
 					preloading = false;
-					Ω._onload && Ω._onload();
+					Ω.evt.onload && Ω.evt.onload();
 				}
 
 

@@ -12,7 +12,7 @@
 
 			this._super(w, h);
 
-			Ω._progress = function (cur, max) {
+			Ω.evt.progress = function (cur, max) {
 				console.log(cur / max);
 			};
 
@@ -27,7 +27,7 @@
 				["mouse1", "mouse1"]
 			]);
 
-			Ω._onload = function () {
+			Ω.evt.onload = function () {
 				self.setScreen(new TitleScreen());
 			}
 
