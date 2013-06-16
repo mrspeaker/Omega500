@@ -26,12 +26,15 @@ var Ω = (function() {
 
 			return function () {
 
-				if (--assetsToLoad === 0) {
+				assetsToLoad -= 1;
+
+				Ω._progress && Ω._progress(assetsToLoad, maxAssets);
+
+				if (assetsToLoad === 0) {
 					preloading = false;
 					Ω._onload && Ω._onload();
-				} else {
-					Ω._progress && Ω._progress(assetsToLoad, maxAssets)
 				}
+
 
 			}
 		},

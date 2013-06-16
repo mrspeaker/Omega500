@@ -18,15 +18,17 @@
 
 		loadImage: function (path, cb) {
 
+			console.log(path);
+
 			if (images[path]) {
 				if (!images[path]._loaded) {
 					cb && images[path].addEventListener("load", function() {
-						cb(images[path])
+						cb(images[path]);
 					}, false);
 				} else {
 					cb && cb(images[path]);
 				}
-				return images[path];
+				return;
 			}
 
 			var resolve = Ω.preload(),

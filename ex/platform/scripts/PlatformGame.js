@@ -8,10 +8,12 @@
 
 		init: function (w, h) {
 
+			var self = this;
+
 			this._super(w, h);
 
 			Ω._progress = function (cur, max) {
-				// use for progress bar
+				console.log(cur / max);
 			};
 
 
@@ -25,7 +27,9 @@
 				["mouse1", "mouse1"]
 			]);
 
-			this.setScreen(new TitleScreen());
+			Ω._onload = function () {
+				self.setScreen(new TitleScreen());
+			}
 
 		}
 
