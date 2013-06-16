@@ -27,9 +27,11 @@
 				["mouse1", "mouse1"]
 			]);
 
-			Ω.evt.onload.push(function () {
-				self.setScreen(new TitleScreen());
-			});
+		},
+
+		load: function () {
+
+			this.setScreen(new TitleScreen());
 
 		}
 

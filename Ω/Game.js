@@ -36,6 +36,7 @@
 			Ω.input.init(ctx.canvas);
 
 			Ω.evt.onload.push(function () {
+				self.load();
 				self.run(Date.now());
 			});
 
@@ -45,9 +46,12 @@
 
 		reset: function () {},
 
+		load: function () {},
+
 		run: function () {
 
-            var now = Date.now(),
+            var self = this,
+            	now = Date.now(),
                 frameTime = Math.min((now - this.currentTime) / 1000, this.preset_dt),
                 c;
 
@@ -69,7 +73,7 @@
             }
 
             window.requestAnimationFrame(function () {
-                game.run(Date.now());
+                self.run(Date.now());
             });
 
 		},

@@ -2,6 +2,8 @@
 
 	"use strict";
 
+	/* WIP: map for doing Wolf3D style games */
+
 	var RayCastMap = Ω.Map.extend({
 
 		init: function (sheet, data, entity) {

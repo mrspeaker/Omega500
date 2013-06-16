@@ -1,6 +1,6 @@
 # Ω500: Game thingo.
 
-v0.1.1 by Mr Speaker.
+v0.1.2 by Mr Speaker.
 
 *See the things!* http://mrspeaker.github.io/Omega500/
 
@@ -44,39 +44,39 @@ Simple game framework for making 2D games. So I don't have to type this all out 
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Most important before LD are:
 
-- [ ] Default preload screen (+ start tick immediately)
 - [ ] BUG: bad map collision if entity taller than block
-
-- [ ] layer spritesheet test
-- [ ] multiple canvas test
 
 Lower priority:
 
-- [ ] "Post" effects (webgl)
 - [ ] Anims: Custom bounding box
 - [ ] Input: touch handling
-- [ ] Input: iCade/controller support
-- [ ] Input: mouse lock API
 - [ ] Physics: gravity
 - [ ] Physics: platform functions
 - [ ] Gfx: Flip drawing
+- [ ] Gfx: Fullscreen canvas
+- [ ] Gfx: fullscreen resizing
+- [ ] Math: add smoothstep helper
+- [ ] Maps: block selecting (iso)
+- [ ] Support: FPS count
+- [ ] Support: Work in Ejecta
+- [ ] Support: Mobile compatibility
+
+Maybe later:
+
+- [ ] "Post" effects (webgl)
+- [ ] Input: iCade/controller support
+- [ ] Input: mouse lock API
 - [ ] Gfx: DSP on spritesheets
 - [ ] Gfx: Flash effect
 - [ ] Gfx: Blur effect
 - [ ] Gfx: parralax backgrounds
-- [ ] Gfx: Fullscreen canvas
-- [ ] Gfx: fullscreen resizing
 - [ ] Gfx: destructable terrain masks
-- [ ] Math: add smoothstep helper
-- [ ] Maps: block selecting (iso)
 - [ ] Math: pathfinding algo (or integrate https://github.com/bgrins/javascript-astar)
 - [ ] Math: Swarm/flock algo
-- [ ] Support: FPS count
 - [ ] Support: fullscreen API
-- [ ] Support: Work in Ejecta
-- [ ] Support: Mobile compatibility
 - [ ] GUI: custom mouse pointer
 - [ ] GUI: button
+
 
 ## (in)FAQ:
 

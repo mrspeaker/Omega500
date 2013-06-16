@@ -23,6 +23,10 @@
 				["down", "down"]
 			]);
 
+		},
+
+		load: function () {
+
 			this.setScreen(new TitleScreen());
 
 		}
