@@ -11,40 +11,42 @@
 
 		init: function (path, volume, loop) {
 
-			if (sounds[path]) {
-				self.audio = sounds[path];
-				return;
-			}
+			var audio,
+				resolve,
+				onload;
 
-			var audio = new window.Audio(),
-				resolve = Ω.preload(),
+			if (!sounds[path]) {
+				audio = new window.Audio();
+				resolve = Ω.preload();
 				onload = function () {
 					this._loaded = true;
 					resolve();
 				};
 
-			audio.src = path.indexOf(".") > 0 ? path : path + this.ext;
+				audio.src = path.indexOf(".") > 0 ? path : path + this.ext;
 
+				audio._loaded = false;
+
+				audio.addEventListener("canplaythrough", onload, false);
+				audio.addEventListener("error", function () {
+					console.error("Error loading audio resource:", audio.src);
+					onload.call(this);
+				});
+				audio.load();
+
+				sounds[path] = audio;
+			}
+
+			audio = sounds[path];
 			audio.volume = volume || 1;
 			audio._volume = audio.volume;
-			audio._loaded = false;
 			audio.loop = loop;
 
-			audio.addEventListener("canplaythrough", onload, false);
-			audio.addEventListener("error", function () {
-				console.error("Error loading audio resource:", audio.src);
-				onload.call(this);
-			});
-			audio.load();
-
 			this.audio = audio;
-
-			sounds[path] = audio;
 
 		},
 
 		rewind: function () {
-
 			this.audio.pause();
 			try{
 	        	this.audio.currentTime = 0;
@@ -64,11 +66,16 @@
 
 	Sound._reset = function () {
 
+		var path,
+			sound;
+
 		// Should check for canplaythrough before doing anything...
-		for (var path in sounds) {
-			sounds[path].pause();
+		for (path in sounds) {
+			sound = sounds[path];
+			if (!sound._loaded) continue;
+			sound.pause();
 			try {
-				sounds[path].currentTime = 0;
+				sound.currentTime = 0;
 			} catch (err) {
 				console.log("err");
 			}
