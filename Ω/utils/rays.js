@@ -16,7 +16,7 @@
 				up = angle > Math.PI,
 				sin = Math.sin(angle),
 				cos = Math.cos(angle),
-				dist = 0,
+				dist = null,
 				distVertical = 0,
 				distX,
 				distY,
@@ -64,16 +64,12 @@
 				wallY = Math.floor(y + (up ? -1 : 0));
 				wallX = Math.floor(x);
 
-				if(wallY < 0) {
-					break;
-				}
-
-				cell = map.cells[wallY][wallX];
-				if (cell > 0) {
+				cell = wallY < 0 ? null : map.cells[wallY][wallX];
+				if (cell) {
 					distX = x - ox;
 					distY = y - oy;
 					distVertical = Math.sqrt(distX * distX + distY * distY);
-					if (!dist || distVertical < dist) {
+					if (dist === null || distVertical < dist) {
 						dist = distVertical;
 						xHit = x;
 						yHit = y;
