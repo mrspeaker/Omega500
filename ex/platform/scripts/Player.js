@@ -53,10 +53,6 @@
 			this.particle.tick();
 
 			if (this.isPlayer) {
-				//this.speed = Math.abs(this.speed);
-				//x1 += spring[0];
-				//y1 += spring[1];
-
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
 					x1 -= this.speed;

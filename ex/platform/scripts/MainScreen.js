@@ -54,8 +54,6 @@
 			var self = this;
 
 			this.camera.tick();
-			//this.camera.x += (Math.sin(Date.now() / 1000) * 20);
-			//this.camera.y += (Math.cos(Date.now() / 2000) * 20);
 
 			var vel = this.spring.tick(this.players[1], this.players[2]);
 
@@ -90,7 +88,7 @@
 			}
 
 			if (Ω.input.pressed("mouse1")) {
-				console.log(Ω.input.mouse.x | 0);
+				console.log(Ω.input.mouse.x);
 			}
 
 		},
