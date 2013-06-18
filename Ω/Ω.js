@@ -3,9 +3,10 @@ var Ω = (function() {
 	"use strict";
 
 	var preloading = true,
+		pageLoaded = false,
 		assetsToLoad = 0,
 		maxAssets = 0,
-		timers = []
+		timers = [];
 
 	return {
 
@@ -42,6 +43,7 @@ var Ω = (function() {
 						console.error("Preloading finished (onload called) multiple times!");
 					}
 					preloading = false;
+
 					Ω.evt.onload.map(function (o) {
 						o();
 					});
@@ -52,6 +54,8 @@ var Ω = (function() {
 		},
 
 		pageLoad: function () {
+
+			pageLoaded = true;
 
 			if (maxAssets === 0) {
 				// No assets to load, so fire onload
@@ -80,7 +84,22 @@ var Ω = (function() {
 
 			}
 
-		}
+		},
+
+		urlParams: (function () {
+			var params = {},
+				match,
+				pl = /\+/g,  // Regex for replacing addition symbol with a space
+				search = /([^&=]+)=?([^&]*)/g,
+				decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+				query = window.location.search.substring(1);
+
+			while (match = search.exec(query)) {
+			   params[decode(match[1])] = decode(match[2]);
+			}
+
+			return params;
+		}())
 
 	};
 

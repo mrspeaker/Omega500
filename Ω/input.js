@@ -42,9 +42,10 @@
 		mouse: mouse,
 
 		init: function (dom, icade) {
-			//icade = true;
 
 			el = dom;
+
+			icade = icade || Ω.urlParams.icade;
 
 			bindKeys(!icade ? keyed : keyedIcade);
 			bindMouse();
@@ -62,7 +63,8 @@
 			for(key in keys) {
 				keys[key].wasDown = keys[key].isDown;
 			}
-
+			if (keys[input.KEYS.wheelUp]) keyed(input.KEYS.wheelUp, false);
+			if (keys[input.KEYS.wheelDown]) keyed(input.KEYS.wheelDown, false);
 		},
 
 		bind: function (code, action) {
@@ -139,12 +141,16 @@
 
 	function keyedIcade(code, isDown) {
 
-		console.log(code);
-
 		var icadeCodes = [87, 69, 88, 90, 68, 67, 65, 81, 89, 84],
 			KEYS = input.KEYS;
 
 		if (icadeCodes.indexOf(code) > -1) {
+
+			if (!isDown) {
+				// Don't handle key up with iCade!
+				return;
+			}
+
 			switch (code) {
 			case 87:
 				// Up
