@@ -20,10 +20,14 @@
 
 		render: function (gfx, camera) {
 
-			// TODO: shouldn't mandate a camera. Draw to current view port?
 			if (!camera) {
-				console.error("Map needs a camera to render with");
-				return;
+				camera = {
+					x: 0,
+					y: 0,
+					w: gfx.w,
+					h: gfx.h,
+					zoom: 1
+				}
 			}
 
 			var tw = this.sheet.w,

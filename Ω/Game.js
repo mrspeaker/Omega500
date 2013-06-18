@@ -184,6 +184,10 @@
 			ctx = newCanvas.getContext("2d");
 		}
 
+		ctx.imageSmoothingEnabled = false;
+		ctx.mozImageSmoothingEnabled = false;
+		ctx.webkitImageSmoothingEnabled = false;
+
 		if (!ctx) {
 			console.error("Could not get 2D context.");
 		}
