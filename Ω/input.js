@@ -22,6 +22,16 @@
 			left: 37,
 			right: 39,
 
+			w: 87,
+			a: 65,
+			s: 83,
+			d: 68,
+
+			az_w: 90,
+			az_a: 81,
+			az_s: 83,
+			az_d: 68,
+
 			mouse1: -1,
 			mouse2: -2,
 			mouse3: -3,
@@ -31,11 +41,12 @@
 
 		mouse: mouse,
 
-		init: function (dom) {
+		init: function (dom, icade) {
+			//icade = true;
 
 			el = dom;
 
-			bindKeys();
+			bindKeys(!icade ? keyed : keyedIcade);
 			bindMouse();
 
 		},
@@ -107,6 +118,13 @@
 			return actionCodes.some(function (k) {
 				return keys[k].wasDown;
 			});
+		},
+
+		release: function (action) {
+			var actionCodes = actions[action] || [];
+			actionCodes.forEach(function (code) {
+				keyed(code, false);
+			});
 		}
 	}
 
@@ -119,14 +137,76 @@
 
 	}
 
-	function bindKeys() {
+	function keyedIcade(code, isDown) {
+
+		console.log(code);
+
+		var icadeCodes = [87, 69, 88, 90, 68, 67, 65, 81, 89, 84],
+			KEYS = input.KEYS;
+
+		if (icadeCodes.indexOf(code) > -1) {
+			switch (code) {
+			case 87:
+				// Up
+				code = KEYS.up;
+				isDown = true;
+				break;
+			case 69:
+				code = KEYS.up;
+				isDown = false;
+				break;
+				// Down
+			case 88:
+				code = KEYS.down;
+				isDown = true;
+				break;
+			case 90:
+				code = KEYS.down;
+				isDown = false;
+				break;
+				// Right
+			case 68:
+				code = KEYS.right;
+				isDown = true;
+				break;
+			case 67:
+				code = KEYS.right;
+				isDown = false;
+				break;
+				// Left
+			case 65:
+				code = KEYS.left;
+				isDown = true;
+				break;
+			case 81:
+				code = KEYS.left;
+				isDown = false;
+				break;
+
+			// Fire
+			case 89:
+				code = KEYS.space;
+				isDown = true;
+				break;
+			case 84:
+				code = KEYS.space;
+				isDown = false;
+				break;
+			}
+		}
+
+		keyed(code, isDown);
+
+	}
+
+	function bindKeys(keyHandler) {
 
 		document.addEventListener('keydown', function(e){
-			keyed(e.keyCode, true);
+			keyHandler(e.keyCode, true);
 		}, false );
 
 		document.addEventListener('keyup', function(e){
-			keyed(e.keyCode, false);
+			keyHandler(e.keyCode, false);
 		}, false );
 
 	}
@@ -173,6 +253,17 @@
 			}
 
 		});
+
+		function mousewheel(e) {
+
+			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+			if (delta === -1) keyed(input.KEYS.wheelUp, true);
+			if (delta === 1) keyed(input.KEYS.wheelDown, true);
+		}
+		document.addEventListener("mousewheel", mousewheel, false);
+		document.addEventListener("DOMMouseScroll", mousewheel, false);
+
 	}
 
 	Ω.input = input;
