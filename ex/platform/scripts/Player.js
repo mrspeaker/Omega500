@@ -17,7 +17,6 @@
 
 		init: function (startX, startY, isPlayer, screen) {
 
-			// FIXME: need event system (or something) instead of this.
 			this.screen = screen;
 
 			this.isPlayer = isPlayer;

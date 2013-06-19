@@ -21,8 +21,6 @@
 				this.players.push(new Player(i * 40, 211, false, self));
 			}
 
-			this.spring = new Spring(100, 0.3, 0.9, 0);
-
 			this.camera = new Ω.TrackingCamera(this.players[0], 0, 0, Ω.env.w, Ω.env.h);
 
 			this.map = new Ω.Map(this.sheet, [
@@ -44,8 +42,8 @@
 
 			this.physics = new Ω.Physics();
 
-			this.trig = new Teleporter(19, 2, -15, 5);
-			this.trig2 = new Teleporter(1, 7, 0, -5);
+			this.teleport1 = new Teleporter(19, 2, -15, 5);
+			this.teleport2 = new Teleporter(1, 7, 0, -5);
 
 		},
 
@@ -55,28 +53,26 @@
 
 			this.camera.tick();
 
-			var vel = this.spring.tick(this.players[1], this.players[2]);
-
 			this.players.forEach(function (p, i) {
 
 				p.tick(self.map, vel);
 
 			});
 
-
-			this.trig.tick();
-			this.trig2.tick();
+			this.teleport1.tick();
+			this.teleport2.tick();
 
 			this.physics.checkCollisions([
 				this.players,
-				this.trig,
-				this.trig2
+				this.teleport1,
+				this.teleport2
 			]);
 
 			if (this.shake && !this.shake.tick()) {
 				this.shake = null;
 			}
 
+			// Handle some inputs
 			if (Ω.input.pressed("space")) {
 				// Track a random fellow!
 				this.camera.track(
@@ -87,7 +83,7 @@
 				game.setScreen(new TitleScreen());
 			}
 
-			if (Ω.input.pressed("mouse1")) {
+			if (Ω.input.pressed("moused")) {
 				console.log(Ω.input.mouse.x);
 			}
 
@@ -110,8 +106,8 @@
 			this.camera.render(gfx, [
 				this.map,
 				this.players,
-				this.trig,
-				this.trig2
+				this.teleport1,
+				this.teleport2
 			]);
 
 			gfx.text.drawShadowed("[esc]", 2, 10, 1, "7pt MonoSpace");

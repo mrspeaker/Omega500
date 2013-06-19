@@ -8,14 +8,7 @@
 
 		init: function (w, h) {
 
-			var self = this;
-
 			this._super(w, h);
-
-			Ω.evt.progress.push(function (remaining, max) {
-				// console.log(remaining, max);
-			});
-
 
 			Ω.input.bind([
 				["space", "space"],
@@ -24,7 +17,7 @@
 				["right", "right"],
 				["up", "up"],
 				["down", "down"],
-				["mouse1", "mouse1"]
+				["mouse1", "moused"]
 			]);
 
 		},
