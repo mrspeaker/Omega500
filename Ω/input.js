@@ -106,6 +106,12 @@
 
 		},
 
+		released: function (action) {
+
+			return this.wasDown(action) && !(this.isDown(action));
+
+		},
+
 		isDown: function (action) {
 			var actionCodes = actions[action] || [];
 			var back = actionCodes.some(function (code) {
