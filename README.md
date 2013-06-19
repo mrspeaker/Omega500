@@ -102,13 +102,13 @@ The `canvas` property to sets the game canvas: can be a CSS selector to either t
 
 Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
 
-      game
-       |
-   level screen
-       |
-     level
-       |
-player, baddies, map
+    .       game
+    .        |
+    .    level screen
+    .        |
+    .      level
+    .        |
+    . player, baddies, map
 
 
 ### Entity
