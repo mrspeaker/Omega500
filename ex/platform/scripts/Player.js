@@ -43,7 +43,7 @@
 			this.map = map;
 		},
 
-		tick: function (map, spring) {
+		tick: function (map) {
 
 			var x1 = 0,
 				y1 = 0;

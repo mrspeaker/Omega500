@@ -55,7 +55,7 @@
 
 			this.players.forEach(function (p, i) {
 
-				p.tick(self.map, vel);
+				p.tick(self.map);
 
 			});
 
