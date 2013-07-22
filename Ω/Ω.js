@@ -20,14 +20,15 @@ var Ω = (function() {
 			h: 0
 		},
 
-		preload: function () {
+		preload: function (name) {
 
 			if (!preloading) {
-				return function () {};
+				return function () {
+					console.error("empty preloading func called:", name);
+				};
 			}
 
 			maxAssets = Math.max(++assetsToLoad, maxAssets);
-
 			return function () {
 
 				assetsToLoad -= 1;
@@ -36,9 +37,7 @@ var Ω = (function() {
 					return p(assetsToLoad, maxAssets);
 				});
 
-				if (assetsToLoad === 0) {
-					// FIXME: onload could fire if first resource finishes
-					// loading before second added to queue
+				if (assetsToLoad === 0 && pageLoaded) {
 					if (!preloading) {
 						console.error("Preloading finished (onload called) multiple times!");
 					}
@@ -49,7 +48,6 @@ var Ω = (function() {
 					});
 				}
 
-
 			}
 		},
 
@@ -57,7 +55,9 @@ var Ω = (function() {
 
 			pageLoaded = true;
 
-			if (maxAssets === 0) {
+			// Errgh! Hack cuase firefox loads chacehed things way before load ;)
+
+			if (maxAssets === 0 || maxAssets > 10 && assetsToLoad === 0) {
 				// No assets to load, so fire onload
 				Ω.evt.onload.map(function (o) {
 					o();

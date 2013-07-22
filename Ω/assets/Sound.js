@@ -17,8 +17,12 @@
 
 			if (!sounds[path]) {
 				audio = new window.Audio();
-				resolve = Ω.preload();
+				resolve = Ω.preload(path);
 				onload = function () {
+					// Check if already loaded, 'cause Firefox fires twice
+					if (this._loaded) {
+						return;
+					}
 					this._loaded = true;
 					resolve();
 				};
@@ -27,7 +31,9 @@
 
 				audio._loaded = false;
 
+				// Fixme: crazyies in firefox... fires twice?
 				audio.addEventListener("canplaythrough", onload, false);
+
 				audio.addEventListener("error", function () {
 					console.error("Error loading audio resource:", audio.src);
 					onload.call(this);
@@ -60,6 +66,12 @@
 
 			this.rewind();
 			this.audio.play();
+		},
+
+		stop: function () {
+
+			this.audio.pause();
+
 		}
 
 	});
@@ -87,7 +99,7 @@
 		for (var path in sounds) {
 			sounds[path].pause();
 			try {
-				sounds[path].volume = sounds[path]._volume * v;;
+				sounds[path].volume = sounds[path]._volume * v;
 			} catch (err) {
 				console.log("err");
 			}
