@@ -6,8 +6,15 @@
 
 		x: 0,
 		y: 0,
+		w: 32,
+		h: 32,
 
-		init: function () {},
+		falling: false,
+		wasFalling: false,
+
+		init: function () {
+
+		},
 
 		tick: function () {},
 
@@ -18,11 +25,11 @@
 		move: function (x, y, map) {
 
 			// Temp holder for movement
-			var xo = x,
-				yo = y,
+			var xo,
+				yo,
 
-				xv = this.x + xo,
-				yv = this.y + yo,
+				xv,
+				yv,
 
 				hitX = false,
 				hitY = false,
@@ -30,6 +37,14 @@
 				xBlocks,
 				yBlocks;
 
+			if (this.falling) {
+				y += this.ySpeed * 2;
+			}
+			xo = x;
+			yo = y;
+
+			xv = this.x + xo;
+			yv = this.y + yo;
 
 			// check blocks given vertical movement
 			yBlocks = map.getBlocks([
@@ -47,6 +62,7 @@
 			if (y > 0 && (yBlocks[1] || yBlocks[3])) {
 				yo = map.getBlockEdge(yv + (this.h - 1), "VERT") - this.y - this.h;
 				hitY = true;
+				this.falling = false;
 			}
 
 			// Now check blocks given horizontal movement
@@ -75,6 +91,7 @@
 			this.x += xo;
 			this.y += yo;
 
+			return [xo, yo];
 		},
 
 		render: function (gfx) {}
