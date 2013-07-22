@@ -73,6 +73,23 @@ A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib
 
 ha ha.
 
+### General idea/notes
+
+Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
+
+    .       game
+    .        |
+    .    level screen
+    .        |
+    .      level
+    .        |
+    . player, baddies, map
+
+Every loop the engine calls "tick" on the main game object. This calls "tick" on its current screen. The screen (manually) calls "tick" on its main child object (level). Level (manually) calls "tick" on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with "render".
+
+Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them - but it means some stuff only works in one situtation. For example, spritesheets can't contain any margins; no custom bounding boxes; only tile 0 is "walkable" in a map. These are all easy to fix, but because I'm focusing on finishin' games - it'll take a while before I address everything. Also, it explains why you there are some weirder functions - like map ray casting... because I needed them!
+
+
 ### Ω.Game
 
 Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forget to pass the width and height arguments up to the super class:
@@ -94,22 +111,11 @@ Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forge
     });
     new myGame(640, 480);
 
+The Game super class has some boilerplate, such as accepting a "screen" object to display as well as the "tick" and "render" methods described above (you can override them of course).
+
 Canvas/DOM container:
 
 The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or hieght is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
-
-### General idea
-
-Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
-
-    .       game
-    .        |
-    .    level screen
-    .        |
-    .      level
-    .        |
-    . player, baddies, map
-
 
 ### Entity
 
