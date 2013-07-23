@@ -6,11 +6,26 @@
 
 		killKey: "escape",
 
+		init: function (key) {
+
+			if (key) {
+				this.killKey = key;
+			}
+
+		},
+
 		tick: function () {
 
-			if (Ω.input.pressed(this.killKey)) {
-				game.clearDialog();
+			if (this.killKey && Ω.input.pressed(this.killKey)) {
+				Ω.input.release(this.killKey);
+				this.done();
 			}
+
+		},
+
+		done: function () {
+
+			game.clearDialog();
 
 		},
 
