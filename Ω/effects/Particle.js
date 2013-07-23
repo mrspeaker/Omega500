@@ -12,11 +12,12 @@
 			this.maxLife = opts.life || 40;
 			this.life = this.maxLife;
 			this.cb = cb;
+			this.col = opts.col || "100, 0, 0";
 
 			this.particles = [];
 			for(var i = 0; i < 20; i++) {
 				this.particles.push(
-					new Part({}, this)
+					new Part({col: this.col}, this)
 				);
 			}
 
@@ -75,6 +76,7 @@
 		this.y = 0;
 		this.w = 4;
 		this.h = 4;
+		this.col = opts.col;
 		this.xSpeed = Math.random() * 2 - 1;
 		this.ySpeed = Math.random() * 2 - 1 - 1;
 	}
@@ -97,7 +99,8 @@
 		render: function (gfx, x, y) {
 
 			var c = gfx.ctx;
-			c.fillStyle = "rgba(100, 0, 0, " + (0.3 + this.parent.life / this.parent.maxLife) + ")";
+
+			c.fillStyle = "rgba(" + this.col + ", " + (0.3 + this.parent.life / this.parent.maxLife) + ")";
 			c.fillRect(this.x + x, this.y + y, this.w, this.h);
 
 		}

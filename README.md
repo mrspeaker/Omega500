@@ -23,6 +23,7 @@ Simple framework for making 2D canvas-based games. Checkout the code in /ex for 
 - [X] Text helpers
 - [X] Spring algo (for camera & entities)
 - [X] Shake effect
+- [X] State machine helper
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
@@ -36,10 +37,11 @@ Lower priority:
 - [ ] Input: touch handling
 - [ ] Physics: gravity
 - [ ] Physics: platform functions
+- [ ] Partial loader (don't load all resources on init)
 - [ ] Gfx: Flip drawing
 - [ ] Gfx: Fullscreen canvas
 - [ ] Gfx: fullscreen resizing
-- [ ] Math: add smoothstep helper
+- [ ] Math: add smoothstep/lerp helper
 - [ ] Maps: block selecting (iso)
 - [ ] Support: FPS count
 - [ ] Support: Work in Ejecta
