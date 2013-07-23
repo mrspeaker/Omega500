@@ -38,6 +38,7 @@ var Ω = (function() {
 				});
 
 				if (assetsToLoad === 0 && pageLoaded) {
+					console.log("loaded from reslove");
 					if (!preloading) {
 						console.error("Preloading finished (onload called) multiple times!");
 					}
@@ -56,8 +57,8 @@ var Ω = (function() {
 			pageLoaded = true;
 
 			// Errgh! Hack cuase firefox loads chacehed things way before load ;)
-
-			if (maxAssets === 0 || maxAssets > 10 && assetsToLoad === 0) {
+			if (maxAssets === 0 || assetsToLoad === 0) {
+				console.log("laoded from pageLoad");
 				// No assets to load, so fire onload
 				Ω.evt.onload.map(function (o) {
 					o();

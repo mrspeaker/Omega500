@@ -34,7 +34,7 @@
 				return;
 			}
 
-			var resolve = Ω.preload(),
+			var resolve = Ω.preload(path),
 				image = new Image(),
 				onload = function () {
 

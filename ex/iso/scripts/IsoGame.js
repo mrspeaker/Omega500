@@ -11,7 +11,7 @@
 			this._super(w, h);
 
 			Ω.evt.progress.push(function (cur, max) {
-				// use for progress bar
+				//console.log(cur, max);
 			});
 
 			Ω.input.bind([

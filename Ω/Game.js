@@ -17,7 +17,7 @@
 		_screenFade: 0,
 		dialog: null,
 
-		init: function (w, h, bgColor) {
+		init: function (w, h) {
 
 			var ctx = initCanvas(this.canvas, w, h),
 				self = this;
@@ -25,12 +25,10 @@
 			Ω.env.w = ctx.canvas.width;
 			Ω.env.h = ctx.canvas.height;
 
-			ctx.fillStyle = bgColor || "#333";
-			ctx.fillRect(0, 0, Ω.env.w, Ω.env.h);
-
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
+			console.log("am here.")
 			// Fixme: thing preloading can be done before it gets here!
 			Ω.evt.onload.push(function () {
 				self.load();
@@ -93,9 +91,9 @@
 
 		},
 
-		render: function () {
+		render: function (gfx) {
 
-			var gfx = Ω.gfx;
+			gfx = gfx || Ω.gfx;
 
 			if (!this.screen.loaded) {
 				return;
@@ -112,7 +110,6 @@
 		},
 
 		setScreen: function (screen) {
-
 
 			var self = this;
 
@@ -183,7 +180,6 @@
 			selCanvas.appendChild(newCanvas);
 			ctx = newCanvas.getContext("2d");
 		}
-
 		ctx.imageSmoothingEnabled = false;
 		ctx.mozImageSmoothingEnabled = false;
 		ctx.webkitImageSmoothingEnabled = false;
