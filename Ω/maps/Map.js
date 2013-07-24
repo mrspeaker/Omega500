@@ -66,6 +66,19 @@
 
 		},
 
+		getBlock: function (block) {
+
+			var row = block[1] / this.sheet.h | 0,
+				col = block[0] / this.sheet.w | 0;
+
+			if (row < 0 || row > this.cellH - 1) {
+				return;
+			}
+
+			return this.cells[row][col];
+
+		},
+
 		getBlocks: function (blocks) {
 
 			var self = this;
@@ -89,6 +102,19 @@
 			var snapTo = vertical ? this.sheet.h : this.sheet.w;
 
 		    return Ω.utils.snap(pos, snapTo);
+
+		},
+
+		setBlock: function (pos, block) {
+
+			var row = pos[1] / this.sheet.h | 0,
+				col = pos[0] / this.sheet.w | 0;
+
+			if (row < 0 || row > this.cellH - 1 || col < 0 || col > this.cellW - 1) {
+				return;
+			}
+
+			this.cells[row][col] = block;
 
 		}
 

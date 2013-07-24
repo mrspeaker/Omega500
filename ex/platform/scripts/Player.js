@@ -87,7 +87,7 @@
 
 		},
 
-		hitBlocks: function (blocks) {
+		hitBlocks: function (xBlocks, yBlocks) {
 
 			if (!this.isPlayer) {
 				this.dir *= -1;

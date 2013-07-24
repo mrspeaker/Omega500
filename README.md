@@ -5,7 +5,7 @@ v0.1.2 by Mr Speaker.
 *See the things!* http://mrspeaker.github.io/Omega500/
 *Read the codez!* https://github.com/mrspeaker/Omega500/
 
-Simple framework for making 2D canvas-based games. Checkout the code in /ex for an example how to use it (or play my LD#26 entry: http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26). Included in the library so far:
+Simple framework for me to make 2D canvas-based games. Not for general consumption! Checkout the code in /ex for an example how to use it (or play some games I've made with it... DIGIBOTS & CO. http://www.mrspeaker.net/dev/game/digibots / https://github.com/mrspeaker/digibots or my LD#26 entry: http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26). Included in the library so far:
 
 - [X] Main game loop
 - [X] Screens, dialogs, and transitions
@@ -24,12 +24,14 @@ Simple framework for making 2D canvas-based games. Checkout the code in /ex for 
 - [X] Spring algo (for camera & entities)
 - [X] Shake effect
 - [X] State machine helper
+- [X] Font plotter
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
 - [ ] BUG: bad map collision if entity taller than block
 - [ ] Better system to allow walkable tiles (currently just tile 0)
 - [ ] Helpers for loading Tiled levels
+- [ ] Pass time counter around, rather than using real life time
 
 Lower priority:
 

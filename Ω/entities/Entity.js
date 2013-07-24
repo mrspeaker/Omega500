@@ -20,7 +20,7 @@
 
 		hit: function (entity) {},
 
-		hitBlocks: function(blocks) {},
+		hitBlocks: function(xBlocks, yBlocks) {},
 
 		move: function (x, y, map) {
 
@@ -46,7 +46,7 @@
 			xv = this.x + xo;
 			yv = this.y + yo;
 
-			// check blocks given vertical movement
+			// check blocks given vertical movement TL, BL, TR, BR
 			yBlocks = map.getBlocks([
 				[this.x, yv],
 				[this.x, yv + (this.h - 1)],
@@ -65,7 +65,7 @@
 				this.falling = false;
 			}
 
-			// Now check blocks given horizontal movement
+			// Now check blocks given horizontal movement TL, BL, TR, BR
 			xBlocks = map.getBlocks([
 				[xv, this.y],
 				[xv, this.y + (this.h - 1)],

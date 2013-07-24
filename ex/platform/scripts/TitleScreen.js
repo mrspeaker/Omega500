@@ -8,6 +8,8 @@
 		bg: new Ω.Image("res/background.png"),
 		theme: new Ω.Sound("res/terminal.wav"),
 
+		font: new Ω.Font("res/mamefont.png", 16, 16),
+
 		init: function () {
 
 			this.theme.play();
@@ -32,8 +34,7 @@
 
 			this.bg.render(gfx, 0, 0);
 
-			c.font = "20pt Monospace";
-			gfx.text.drawShadowed(title, gfx.w / 2 - gfx.text.getHalfWidth(title), gfx.h * 0.55);
+			this.font.write(gfx, title, gfx.w / 2 - this.font.w * (title.length / 2), gfx.h * 0.4);
 			c.font = "8pt Monospace";
 			gfx.text.drawShadowed(start, gfx.w / 2 - gfx.text.getHalfWidth(start), gfx.h * 0.75, 1);
 
