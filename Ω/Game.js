@@ -29,13 +29,10 @@
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
-			console.log("am here.")
-			// Fixme: thing preloading can be done before it gets here!
 			Ω.evt.onload.push(function () {
 				self.load();
 				self.run(Date.now());
 			});
-
 			window.addEventListener("load", function () {
 				Ω.pageLoad();
 			}, false);

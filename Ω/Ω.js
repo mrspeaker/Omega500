@@ -56,9 +56,7 @@ var Ω = (function() {
 
 			pageLoaded = true;
 
-			// Errgh! Hack cuase firefox loads chacehed things way before load ;)
 			if (maxAssets === 0 || assetsToLoad === 0) {
-				console.log("laoded from pageLoad");
 				// No assets to load, so fire onload
 				Ω.evt.onload.map(function (o) {
 					o();

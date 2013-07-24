@@ -1,6 +1,6 @@
 # Ω500: Game thingo.
 
-v0.1.2 by Mr Speaker.
+v0.2 by Mr Speaker.
 
 *See the things!* http://mrspeaker.github.io/Omega500/
 *Read the codez!* https://github.com/mrspeaker/Omega500/
@@ -24,14 +24,13 @@ Simple framework for me to make 2D canvas-based games. Not for general consumpti
 - Spring algo (for camera & entities)
 - Shake effect
 - State machine helper
-- Font plotter
+- Font plotter (very specific! fix this)
+- "Tiled" map editor level support
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
 - BUG: bad map collision if entity taller than block
 - Better system to allow walkable tiles (currently just tile 0)
-- Helpers for loading Tiled levels
-- Pass time counter around, rather than using real life time
 
 Lower priority:
 
@@ -44,7 +43,6 @@ Lower priority:
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
 - Math: add smoothstep/lerp helper
-- Maps: block selecting (iso)
 - Support: FPS count
 - Support: Work in Ejecta
 - Support: Mobile compatibility
@@ -62,6 +60,7 @@ Maybe later:
 - Math: pathfinding algo (or integrate https://github.com/bgrins/javascript-astar)
 - Math: Swarm/flock algo
 - Maps: multi-layered maps
+- Maps: block selecting (iso)
 - Support: fullscreen API
 - GUI: custom mouse pointer
 - GUI: button
@@ -71,10 +70,13 @@ Maybe later:
 Q. How do you do that omega symbol thing?
 A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
 
+Q. When do we get a version bump?
+A. Every time I finish a game with it. Version 1.0 in 8 more games!
 
 ## Docs
 
 ha ha.
+
 
 ### General idea/notes
 
