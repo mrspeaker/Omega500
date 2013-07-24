@@ -92,8 +92,7 @@
 			var c = gfx.ctx,
 				self = this;
 
-			c.fillStyle = "hsl(195, 40%, 50%)";
-			c.fillRect(0, 0, gfx.w, gfx.h);
+			this.clear(gfx, "hsl(195, 40%, 50%)");
 
 			c.save();
 

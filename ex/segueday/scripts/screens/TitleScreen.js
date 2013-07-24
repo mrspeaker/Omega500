@@ -17,7 +17,7 @@
 			this.time += 1;
 
 			if (Ω.input.pressed("space") && this.time > 20) {
-				//game.setScreen(new MainScreen());
+				game.setScreen(new LevelScreen());
 			}
 
 		},
@@ -34,9 +34,6 @@
 
 			this.font.write(gfx, title, gfx.w / 2 - this.font.w * (title.length / 2), gfx.h * 0.4);
 			this.font.write(gfx, coming, gfx.w / 2 - this.font.w * (coming.length / 2), gfx.h * 0.6);
-
-			//c.font = "8pt Monospace";
-			//gfx.text.drawShadowed(start, gfx.w / 2 - gfx.text.getHalfWidth(start), gfx.h * 0.75, 1);
 
 		}
 
