@@ -27,7 +27,7 @@
 					resolve();
 				};
 
-				audio.src = path.indexOf(".") > 0 ? path : path + this.ext;
+				audio.src = path.slice(-4).slice(0, 1) === "." ? path : path + this.ext;
 
 				audio._loaded = false;
 
