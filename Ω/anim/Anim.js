@@ -19,11 +19,11 @@
 
 		tick: function () {
 
-			var diff = Date.now() - this.frameTime;
+			var diff = Ω.utils.now() - this.frameTime;
 			this.changed = false;
 
 			if (diff > this.speed) {
-				this.frameTime = Date.now() + (Math.min(this.speed, diff - this.speed));
+				this.frameTime = Ω.utils.now() + (Math.min(this.speed, diff - this.speed));
 				if (++this.curFrame > this.frames.length - 1) {
 					this.curFrame = 0;
 				};
@@ -34,7 +34,7 @@
 
 		reset: function () {
 			this.curFrame = 0;
-			this.frameTime = Date.now();
+			this.frameTime = Ω.utils.now();
 		},
 
 		render: function (gfx, x, y) {

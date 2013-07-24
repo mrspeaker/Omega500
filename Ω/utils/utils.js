@@ -16,21 +16,22 @@
 
 		},
 
+		// Overwrite this with the game.now
 		now: function () {
 
-			return utils.now(); // window.game.time * 1000; //
+			return Date.now();
 
 		},
 
 		since: function (time) {
 
-			return utils.now() - time;
+			return this.now() - time;
 
 		},
 
 		toggle: function (time, steps, offset) {
 
-			return ((utils.now() + (offset || 0)) / time) % steps >> 0;
+			return ((this.now() + (offset || 0)) / time) % steps >> 0;
 
 		},
 

@@ -7,65 +7,64 @@ v0.1.2 by Mr Speaker.
 
 Simple framework for me to make 2D canvas-based games. Not for general consumption! Checkout the code in /ex for an example how to use it (or play some games I've made with it... DIGIBOTS & CO. http://www.mrspeaker.net/dev/game/digibots / https://github.com/mrspeaker/digibots or my LD#26 entry: http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26). Included in the library so far:
 
-- [X] Main game loop
-- [X] Screens, dialogs, and transitions
-- [X] Input handling - keys, mouse, iCade
-- [X] Image loading and display
-- [X] SpriteSheet animations
-- [X] Tile and isometric maps
-- [X] Entity/Map and Entity/Entity collisions
-- [X] Camera'd map, Tracked camera (with box)
-- [X] Audio load/play
-- [X] Math/random/timer helpers
-- [X] Asset preloader/progress
-- [X] Simple (VERY simple) particle controller
-- [X] Raycast against maps
-- [X] Text helpers
-- [X] Spring algo (for camera & entities)
-- [X] Shake effect
-- [X] State machine helper
-- [X] Font plotter
+- Main game loop
+- Screens, dialogs, and transitions
+- Input handling - keys, mouse, iCade
+- Image loading and display
+- SpriteSheet animations
+- Tile and isometric maps
+- Entity/Map and Entity/Entity collisions
+- Camera'd map, Tracked camera (with box)
+- Audio load/play
+- Math/random/timer helpers
+- Asset preloader/progress
+- Simple (VERY simple) particle controller
+- Raycast against maps
+- Text helpers
+- Spring algo (for camera & entities)
+- Shake effect
+- State machine helper
+- Font plotter
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
-- [ ] BUG: bad map collision if entity taller than block
-- [ ] Better system to allow walkable tiles (currently just tile 0)
-- [ ] Helpers for loading Tiled levels
-- [ ] Pass time counter around, rather than using real life time
+- BUG: bad map collision if entity taller than block
+- Better system to allow walkable tiles (currently just tile 0)
+- Helpers for loading Tiled levels
+- Pass time counter around, rather than using real life time
 
 Lower priority:
 
-- [ ] Anims: Custom bounding box
-- [ ] Input: touch handling
-- [ ] Physics: gravity
-- [ ] Physics: platform functions
-- [ ] Partial loader (don't load all resources on init)
-- [ ] Gfx: Flip drawing
-- [ ] Gfx: Fullscreen canvas
-- [ ] Gfx: fullscreen resizing
-- [ ] Math: add smoothstep/lerp helper
-- [ ] Maps: block selecting (iso)
-- [ ] Support: FPS count
-- [ ] Support: Work in Ejecta
-- [ ] Support: Mobile compatibility
+- Anims: Custom bounding box
+- Input: touch handling
+- Physics: gravity
+- Physics: platform functions
+- Partial loader (don't load all resources on init)
+- Gfx: Flip drawing
+- Gfx: Fullscreen canvas
+- Gfx: fullscreen resizing
+- Math: add smoothstep/lerp helper
+- Maps: block selecting (iso)
+- Support: FPS count
+- Support: Work in Ejecta
+- Support: Mobile compatibility
 
 Maybe later:
 
-- [ ] "Post" effects (webgl)
-- [ ] Input: Game controller support
-- [ ] Input: mouse lock API
-- [ ] Gfx: DSP on spritesheets
-- [ ] Gfx: Flash effect
-- [ ] Gfx: Blur effect
-- [ ] Gfx: parralax backgrounds
-- [ ] Gfx: destructable terrain masks
-- [ ] Math: pathfinding algo (or integrate https://github.com/bgrins/javascript-astar)
-- [ ] Math: Swarm/flock algo
-- [ ] Maps: multi-layered maps
-- [ ] Support: fullscreen API
-- [ ] GUI: custom mouse pointer
-- [ ] GUI: button
-
+- "Post" effects in webgl (see DIGIBOTS & CO.)
+- Input: Game controller support
+- Input: mouse lock API
+- Gfx: DSP on spritesheets
+- Gfx: Flash effect
+- Gfx: Blur effect
+- Gfx: parralax backgrounds
+- Gfx: destructable terrain masks
+- Math: pathfinding algo (or integrate https://github.com/bgrins/javascript-astar)
+- Math: Swarm/flock algo
+- Maps: multi-layered maps
+- Support: fullscreen API
+- GUI: custom mouse pointer
+- GUI: button
 
 ## (in)FAQ:
 

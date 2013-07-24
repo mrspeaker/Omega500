@@ -33,8 +33,8 @@
 				game.setDialog(new MainDialog());
 			}
 
-			this.camera.zoom = Math.sin(Date.now() / 2000) * 0.35 + 0.65;
-			this.camera.x = Math.sin(Date.now() / 3000) * 200;
+			this.camera.zoom = Math.sin(Ω.utils.now() / 2000) * 0.35 + 0.65;
+			this.camera.x = Math.sin(Ω.utils.now() / 3000) * 200;
 
 		},
 

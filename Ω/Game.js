@@ -7,6 +7,7 @@
 		canvas: "body",
 
 		running: false,
+		time: 0,
 
 		preset_dt: 1 / 60,
 		currentTime: Date.now(),
@@ -41,9 +42,24 @@
 
             this.running = true;
 
+            // Use the game time, rather than Date.now()
+			Ω.utils.now = function () {
+				return self.now();
+			}
+
 		},
 
-		reset: function () {},
+		reset: function () {
+
+			this.time = 0;
+
+		},
+
+		now: function () {
+
+			return this.time * 1000;
+
+		},
 
 		load: function () {},
 
@@ -61,7 +77,7 @@
                 c = 0;
                 while (this.accumulator >= this.preset_dt) {
                     c++;
-                    this.tick();
+                    this.tick(this.preset_dt);
                     this.accumulator -= this.preset_dt;
                 }
                 if (c > 1) {
@@ -79,11 +95,12 @@
 
 		stop: function () {},
 
-		tick: function () {
+		tick: function (delta) {
 
 			if (this.dialog) {
 				this.dialog.tick();
 			} else {
+				this.time += delta;
 				this.screen.loaded && this.screen.tick();
 				Ω.timers.tick();
 			}
