@@ -5,14 +5,10 @@
 	var TitleScreen = Ω.Screen.extend({
 
 		time: 0,
-		bg: new Ω.Image("../res/images/background.png"),
-		theme: new Ω.Sound("../res/audio/terminal.wav"),
 
 		font: new Ω.Font("../res/fonts/mamefont.png", 16, 16),
 
 		init: function () {
-
-			this.theme.play();
 
 		},
 
@@ -21,7 +17,7 @@
 			this.time += 1;
 
 			if (Ω.input.pressed("space") && this.time > 20) {
-				game.setScreen(new MainScreen());
+				//game.setScreen(new MainScreen());
 			}
 
 		},
@@ -29,14 +25,18 @@
 		render: function (gfx) {
 
 			var c = gfx.ctx,
-				title = "Ω500: testin'",
+				title = "segueday",
+				coming = "coming soon!",
 				start = "[space]";
 
-			this.bg.render(gfx, 0, 0);
+			this.clear(gfx, "#123");
+
 
 			this.font.write(gfx, title, gfx.w / 2 - this.font.w * (title.length / 2), gfx.h * 0.4);
-			c.font = "8pt Monospace";
-			gfx.text.drawShadowed(start, gfx.w / 2 - gfx.text.getHalfWidth(start), gfx.h * 0.75, 1);
+			this.font.write(gfx, coming, gfx.w / 2 - this.font.w * (coming.length / 2), gfx.h * 0.6);
+
+			//c.font = "8pt Monospace";
+			//gfx.text.drawShadowed(start, gfx.w / 2 - gfx.text.getHalfWidth(start), gfx.h * 0.75, 1);
 
 		}
 

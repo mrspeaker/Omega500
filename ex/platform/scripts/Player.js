@@ -12,7 +12,7 @@
 
 		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
 		sounds: {
-			"crouch": new Ω.Sound("res/crouch.wav", 1)
+			"crouch": new Ω.Sound("../res/audio/crouch.wav", 1)
 		},
 
 		init: function (startX, startY, isPlayer, screen) {

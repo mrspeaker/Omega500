@@ -6,7 +6,7 @@
 
 		players: [],
 		sheet: new Ω.SpriteSheet("res/tiles.png", 32),
-		bg: new Ω.Image("res/background.png"),
+		bg: new Ω.Image("../res/images/background.png"),
 		shake: null,
 
 		init: function () {
