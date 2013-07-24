@@ -18,7 +18,7 @@ Simple framework for making 2D canvas-based games. Checkout the code in /ex for 
 - [X] Audio load/play
 - [X] Math/random/timer helpers
 - [X] Asset preloader/progress
-- [X] Simple particle controller
+- [X] Simple (VERY simple) particle controller
 - [X] Raycast against maps
 - [X] Text helpers
 - [X] Spring algo (for camera & entities)

@@ -2,7 +2,7 @@
 
 	"use strict";
 
-	var Physics = Ω.Class.extend({
+	var Physics = {
 
 		checkCollision: function (entity, entities, cbName) {
 
@@ -10,19 +10,25 @@
 				j,
 				a = entity,
 				b,
+				ax,
+				bx,
 				cbName = cbName || "hit",
 				len = entities.length;
+
 
 			for (i = 0; i < len; i++) {
 
 				b = entities[i];
 
-				if (a.x + a.w >= b.x &&
-				    a.x <= b.x + b.w &&
-				    a.y + a.h >= b.y &&
-				    a.y <= b.y + b.h) {
-					a[cbName](b);
-					b[cbName](a);
+				ax = a.x + (a.xbb || 0);
+				bx = b.x + (b.xbb || 0);
+
+				if (ax + a.w - 1 > bx &&
+				    ax < bx + b.w - 1 &&
+				    a.y + a.h - 1 > b.y &&
+				    a.y < b.y + b.h - 1) {
+					a[cbName] && a[cbName](b);
+					b[cbName] && b[cbName](a);
 				}
 			}
 
@@ -54,14 +60,14 @@
 					    a.x <= b.x + b.w &&
 					    a.y + a.h >= b.y &&
 					    a.y <= b.y + b.h) {
-						a[cbName](b);
-						b[cbName](a);
+						a[cbName] && a[cbName](b);
+						b[cbName] && b[cbName](a);
 					}
 				}
 			}
 		}
 
-	});
+	};
 
 	Ω.Physics = Physics;
 

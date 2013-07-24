@@ -40,8 +40,6 @@
 
 			});
 
-			this.physics = new Ω.Physics();
-
 			this.teleport1 = new Teleporter(19, 2, -15, 5);
 			this.teleport2 = new Teleporter(1, 7, 0, -5);
 
@@ -62,7 +60,7 @@
 			this.teleport1.tick();
 			this.teleport2.tick();
 
-			this.physics.checkCollisions([
+			Ω.Physics.checkCollisions([
 				this.players,
 				this.teleport1,
 				this.teleport2
