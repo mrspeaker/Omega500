@@ -7,7 +7,9 @@
 		x: 0, // Position required for camera rendering check
 		y: 0,
 
-		init: function (sheet, data) {
+		walkable: 0,
+
+		init: function (sheet, data, walkable) {
 
 			this.sheet = sheet;
 			this.cells = data;
@@ -15,6 +17,8 @@
 			this.cellW = this.cells[0].length;
 			this.h = this.cellH * this.sheet.h;
 			this.w = this.cellW * this.sheet.w;
+
+			this.walkable = walkable || 0;
 
 		},
 
