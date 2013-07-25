@@ -25,7 +25,7 @@
 		render: function (gfx) {
 
 			var c = gfx.ctx,
-				title = "segueday",
+				title = "segfault",
 				coming = "coming soon!",
 				start = "[space]";
 

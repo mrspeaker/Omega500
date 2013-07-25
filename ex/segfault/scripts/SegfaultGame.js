@@ -2,7 +2,7 @@
 
 	"use strict";
 
-	var SeguedayGame = Ω.Game.extend({
+	var SegfaultGame = Ω.Game.extend({
 
 		canvas: "#board",
 
@@ -25,6 +25,11 @@
 
 		},
 
+		reset: function () {
+			this._super();
+			this.load();
+		},
+
 		load: function () {
 
 			this.setScreen(new TitleScreen());
@@ -33,6 +38,6 @@
 
 	});
 
-	window.SeguedayGame = SeguedayGame;
+	window.SegfaultGame = SegfaultGame;
 
 }(Ω));

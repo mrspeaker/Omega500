@@ -9,9 +9,12 @@
 		dir: 1,
 		speed: 10,
 
-		init: function (start, dir) {
+		remove: false,
+
+		init: function (start, dir, map) {
 
 			this.dir = dir;
+			this.map = map;
 
 			this.x = start[0];
 			this.y = start[1];
@@ -32,20 +35,29 @@
 			this.x += this.xSpeed;
 			this.y += this.ySpeed;
 
-			if (this.x > Ω.env.w) {
+			if (this.x > this.map.w || this.x < 0 || this.y < 0 || this.y > this.map.h) {
 				return false;
 			}
 
-			return true;
+			return !(this.remove);
 		},
 
+		hit: function (by) {
+
+			this.remove = true;
+
+		},
 
 		render: function (gfx) {
 
 			var c = gfx.ctx;
 
-			c.fillStyle = "#fff";
-			c.fillRect(this.x, this.y, this.w, this.h);
+			c.fillStyle = "#555";
+			c.strokeStyle = "#111";
+			c.beginPath();
+			c.arc(this.x, this.y, 5, 0, Math.PI * 2, true)
+			c.stroke();
+			c.fill();
 
 		}
 

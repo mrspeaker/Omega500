@@ -31,6 +31,14 @@
 
 		},
 
+		hit: function (by) {
+
+			if (by instanceof Car) {
+				this.screen.killed();
+			}
+
+		},
+
 		tick: function () {
 
 			var xo = 0,
@@ -57,7 +65,7 @@
 			if (Ω.input.isDown("space")) {
 				if (this.fireTime < 0) {
 					this.bullets.push(
-						new Bullet([this.x, this.y], this.dir)
+						new Bullet([this.x + this.w / 2 - 3, this.y + 5], this.dir, this.map)
 					)
 					this.fireTime = 5;
 				}
@@ -92,7 +100,7 @@
 				case 5:
 				case 4:
 				case 6:
-				frame = 6 + ((Ω.utils.now() / 200 | 0) % 2);
+					frame = 6 + ((Ω.utils.now() / 200 | 0) % 2);
 					break;
 				case 3:
 					frame = 4;
