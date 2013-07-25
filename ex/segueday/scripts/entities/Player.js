@@ -9,11 +9,16 @@
 		dir: 1,
 		speed: 4,
 
+		bullets: null,
+		fireTime: 0,
+
 		sheet: new Ω.SpriteSheet("res/entities.png", 32, 48),
 
 		init: function (start, screen) {
 
 			this.screen = screen;
+
+			this.bullets = [];
 
 			this.x = start[0];
 			this.y = start[1];
@@ -48,10 +53,24 @@
 				this.dir = this.dir === 7 ? 6 : this.dir === 3 ? 4 : 5;
 			}
 
+			this.fireTime--;
+			if (Ω.input.isDown("space")) {
+				if (this.fireTime < 0) {
+					this.bullets.push(
+						new Bullet([this.x, this.y], this.dir)
+					)
+					this.fireTime = 5;
+				}
+			}
+
 			if (xo !== 0 && yo !== 0) {
 				xo /= Math.sqrt(2);
 				yo /= Math.sqrt(2);
 			}
+
+			this.bullets = this.bullets.filter(function (b) {
+				return b.tick();
+			});
 
 			this.move(xo, yo, this.map);
 
@@ -83,6 +102,11 @@
 					break;
 			}
 
+			this.bullets.map(function (b) {
+
+				b.render(gfx);
+
+			});
 
 			this.sheet.render(gfx, frame, 0, this.x | 0, (this.y | 0) - 16);
 
