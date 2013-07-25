@@ -53,8 +53,7 @@
 				yo /= Math.sqrt(2);
 			}
 
-			this.x += xo;
-			this.y += yo;
+			this.move(xo, yo, this.map);
 
 		},
 
@@ -85,7 +84,7 @@
 			}
 
 
-			this.sheet.render(gfx, frame, 0, this.x | 0, this.y | 0);
+			this.sheet.render(gfx, frame, 0, this.x | 0, (this.y | 0) - 16);
 
 		}
 
