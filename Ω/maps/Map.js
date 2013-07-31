@@ -9,10 +9,10 @@
 
 		walkable: 0,
 
-		init: function (sheet, data, walkable) {
+		init: function (sheet, cells, walkable) {
 
 			this.sheet = sheet;
-			this.cells = data;
+			this.cells = cells;
 			this.cellH = this.cells.length;
 			this.cellW = this.cells[0].length;
 			this.h = this.cellH * this.sheet.h;

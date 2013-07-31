@@ -56,11 +56,11 @@
 
 			// if overlapping edges, move back a little
 			if (y < 0 && (yBlocks[0] > map.walkable || yBlocks[2] > map.walkable)) {
-				yo = map.getBlockEdge(this.y, "VERT") - this.y;
+				yo = map.getBlockEdge(yv + map.sheet.h, "VERT") - this.y;
 				hitY = true;
 			}
 			if (y > 0 && (yBlocks[1] > map.walkable || yBlocks[3] > map.walkable)) {
-				yo = map.getBlockEdge(yv + (this.h - 1), "VERT") - this.y - this.h;
+				yo = map.getBlockEdge(yv + this.h, "VERT") - this.y - this.h;
 				hitY = true;
 				this.falling = false;
 			}
@@ -75,11 +75,11 @@
 
 			// if overlapping edges, move back a little
 			if (x < 0 && (xBlocks[0] > map.walkable || xBlocks[1] > map.walkable)) {
-				xo = map.getBlockEdge(this.x) - this.x;
+				xo = map.getBlockEdge(xv + map.sheet.w) - this.x;
 				hitX = true;
 			}
 			if (x > 0 && (xBlocks[2] > map.walkable || xBlocks[3] > map.walkable)) {
-				xo = map.getBlockEdge(xv + (this.w - 1)) - this.x - this.w;
+				xo = map.getBlockEdge(xv + this.w) - this.x - this.w;
 				hitX = true;
 			}
 
