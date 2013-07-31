@@ -30,7 +30,6 @@ Simple framework for me to make 2D canvas-based games. Not for general consumpti
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
 - BUG: bad map collision if entity taller than block
-- Better system to allow walkable tiles (currently just tile 0)
 
 Lower priority:
 
@@ -38,7 +37,7 @@ Lower priority:
 - Input: touch handling
 - Physics: gravity
 - Physics: platform functions
-- Partial loader (don't load all resources on init)
+- Partial loader (don't load all resources on init - maybe "no preload" flag)
 - Gfx: Flip drawing
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
@@ -53,13 +52,8 @@ Maybe later:
 - Input: Game controller support
 - Input: mouse lock API
 - Gfx: DSP on spritesheets
-- Gfx: Flash effect
-- Gfx: Blur effect
-- Gfx: parralax backgrounds
-- Gfx: destructable terrain masks
-- Math: pathfinding algo (or integrate https://github.com/bgrins/javascript-astar)
+- Math: pathfinding algo
 - Math: Swarm/flock algo
-- Maps: multi-layered maps
 - Maps: block selecting (iso)
 - Support: fullscreen API
 - GUI: custom mouse pointer
@@ -150,6 +144,8 @@ Then to test:
 ### Screen
 
 	game.setScreen(new TitleScreen());
+
+If you need to do async stuff on load, then set the screen's `loaded` property to false. When you're done, set it to true.
 
 ### SpriteSheet
 

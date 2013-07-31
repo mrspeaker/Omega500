@@ -116,7 +116,7 @@
 
 			});
 
-			this.sheet.render(gfx, frame, 0, this.x | 0, (this.y | 0) - 16);
+			this.sheet.render(gfx, frame, 0, this.x, this.y - 16);
 
 		}
 
