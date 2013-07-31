@@ -64,6 +64,8 @@
 				hitY = true;
 				this.falling = false;
 			}
+			// Add the allowed Y movement
+			this.y += yo;
 
 			// Now check blocks given horizontal movement TL, BL, TR, BR
 			xBlocks = map.getBlocks([
@@ -87,9 +89,8 @@
 				this.hitBlocks(hitX ? xBlocks : null, hitY ? yBlocks : null);
 			}
 
-			// Add the allowed movement
+			// Add the allowed X movement
 			this.x += xo;
-			this.y += yo;
 
 			return [xo, yo];
 		},
