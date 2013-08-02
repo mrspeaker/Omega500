@@ -12,11 +12,17 @@
 		falling: false,
 		wasFalling: false,
 
+		remove: false,
+
 		init: function () {
 
 		},
 
-		tick: function () {},
+		tick: function () {
+
+			return !(this.remove);
+
+		},
 
 		hit: function (entity) {},
 
@@ -35,7 +41,8 @@
 				hitY = false,
 
 				xBlocks,
-				yBlocks;
+				yBlocks,
+				yBlocksWithXMove;
 
 			if (this.falling) {
 				y += this.ySpeed * 2;
@@ -64,6 +71,7 @@
 				hitY = true;
 				this.falling = false;
 			}
+
 			// Add the allowed Y movement
 			this.y += yo;
 
