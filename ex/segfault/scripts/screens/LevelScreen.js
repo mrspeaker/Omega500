@@ -73,6 +73,7 @@
 				this.cars
 			);
 
+			// Add some random enemies
 			if (Math.random() < 0.01) {
 				this.baddies.push(
 					new BusinessMan([Math.random() * 400, Math.random() * 400], (Math.random() * 7 | 0) + 1, this.map)
@@ -110,13 +111,18 @@
 				this.baddies,
 				this.player,
 				{
+					// Custom render function to draw the green network lines
 					render: function(gfx) {
 
-						var a, b;
+						var a,
+							b,
+							i,
+							j,
+							len;
 
-						for (var i = 0, len = self.baddies.length; i < len; i++) {
+						for (i = 0, len = self.baddies.length; i < len; i++) {
 							a = self.baddies[i];
-							for (var j = 0; j < i; j++) {
+							for (j = 0; j < i; j++) {
 								b = self.baddies[j];
 
 								if (a.state.is("RUNNING") && b.state.is("RUNNING")) {

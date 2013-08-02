@@ -71,6 +71,7 @@
 				}
 			}
 
+			// Slow down if moving diagonally
 			if (xo !== 0 && yo !== 0) {
 				xo /= Math.sqrt(2);
 				yo /= Math.sqrt(2);
@@ -81,10 +82,6 @@
 			});
 
 			this.move(xo, yo, this.map);
-
-		},
-
-		hitBlocks: function (xBlocks, yBlocks) {
 
 		},
 

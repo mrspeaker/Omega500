@@ -26,8 +26,10 @@
 		},
 
 		reset: function () {
+
 			this._super();
 			this.load();
+
 		},
 
 		load: function () {

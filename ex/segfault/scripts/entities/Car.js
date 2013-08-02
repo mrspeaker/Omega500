@@ -7,11 +7,7 @@
 		w: 44,
 		h: 48 * 2,
 
-		dir: 1,
 		speed: Math.random() * 5 + 2,
-
-		remove: false,
-
 
 		sheet: new Ω.SpriteSheet("res/entities.png", 32, 48),
 
@@ -19,26 +15,11 @@
 
 			this.map = map;
 
-			this.dir = dir;
+			this.xSpeed = 0;
+			this.ySpeed = -this.speed;
 
 			this.x = start[0];
 			this.y = start[1];
-
-			this.setDir(dir);
-
-		},
-
-		setDir: function (dir) {
-
-			if (!dir) {
-				dir = (Math.random() * 7 | 0 ) + 1;
-			}
-
-			var x = [0, this.speed / Math.sqrt(2), this.speed, this.speed / Math.sqrt(2) , 0, -(this.speed / Math.sqrt(2)), -this.speed, -(this.speed / Math.sqrt(2))],
-				y = [-this.speed, -(this.speed / Math.sqrt(2)), 0, this.speed / Math.sqrt(2), this.speed, this.speed / Math.sqrt(2), 0, -(this.speed / Math.sqrt(2))];
-
-			this.xSpeed = x[dir - 1];
-			this.ySpeed = y[dir - 1];
 
 		},
 

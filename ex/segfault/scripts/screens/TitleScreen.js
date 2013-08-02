@@ -31,7 +31,6 @@
 
 			this.clear(gfx, "#123");
 
-
 			this.font.write(gfx, title, gfx.w / 2 - this.font.w * (title.length / 2), gfx.h * 0.4);
 			this.font.write(gfx, coming, gfx.w / 2 - this.font.w * (coming.length / 2), gfx.h * 0.6);
 
