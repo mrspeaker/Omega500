@@ -29,7 +29,7 @@
 				maxY = this.y + this.h;
 
 			c.save();
-			c.translate(-this.x, -this.y);
+			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
 			c.scale(this.zoom, this.zoom);
 
 			renderables
