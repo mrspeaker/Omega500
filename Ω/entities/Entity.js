@@ -63,7 +63,9 @@
 
 			// if overlapping edges, move back a little
 			if (y < 0 && (yBlocks[0] > map.walkable || yBlocks[2] > map.walkable)) {
-				yo = map.getBlockEdge(yv + map.sheet.h, "VERT") - this.y;
+
+				// Hmmm... why only this guy needs to be floored?
+				yo = map.getBlockEdge((yv | 0) + map.sheet.h, "VERT") - this.y;
 				hitY = true;
 			}
 			if (y > 0 && (yBlocks[1] > map.walkable || yBlocks[3] > map.walkable)) {
