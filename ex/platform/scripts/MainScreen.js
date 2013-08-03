@@ -21,8 +21,6 @@
 				this.players.push(new Player(i * 40, 211, false, self));
 			}
 
-			this.camera = new Ω.TrackingCamera(this.players[0], 0, 0, Ω.env.w, Ω.env.h);
-
 			this.map = new Ω.Map(this.sheet, [
 				[ 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,6 +32,16 @@
 				[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				[ 1, 1, 1, 1, 1, 1, 1, 1, 1,19,19,19, 1, 1, 1, 1, 1, 1, 1, 1]
 			]);
+
+			this.camera = new Ω.TrackingCamera(
+				this.players[0],
+				0,
+				0,
+				Ω.env.w,
+				Ω.env.h,
+				[this.map.w, this.map.h]);
+
+
 			this.players.forEach(function (p) {
 
 				p.setMap(self.map);

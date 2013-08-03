@@ -4,8 +4,8 @@
 
 	var Player = Ω.Entity.extend({
 
-		w: 32,
-		h: 32,
+		w: 28,
+		h: 28,
 		dir: 1,
 		speed: 4,
 
@@ -113,7 +113,7 @@
 
 			});
 
-			this.sheet.render(gfx, frame, 0, this.x, this.y - 16);
+			this.sheet.render(gfx, frame, 0, this.x - 2, this.y - 20);
 
 		}
 
