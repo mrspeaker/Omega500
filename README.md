@@ -30,7 +30,6 @@ Simple framework for me to make 2D canvas-based games. Checkout the code in /ex 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
 - BUG: bad map collision if entity taller than block
-- BUG: Tracked camera scrolls past bottom/right of map
 - Sprite: Custom bounding box
 - BUG: Time is stopped in dialogs
 
@@ -83,7 +82,7 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .            |
     .       level screen
     .            |
-    .      ___level____
+    .      ____level____
     .     |      |     |
     .  player baddies  map
     .     |

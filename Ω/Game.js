@@ -85,7 +85,9 @@
             }
 
             window.requestAnimationFrame(function () {
+
                 self.run(Date.now());
+
             });
 
 		},
@@ -95,7 +97,7 @@
 		tick: function (delta) {
 
 			if (this.dialog) {
-				this.dialog.tick();
+				this.dialog.tick(delta);
 			} else {
 				this.time += delta;
 				this.screen.loaded && this.screen.tick();

@@ -5,6 +5,7 @@
 	var Dialog = Ω.Class.extend({
 
 		killKey: "escape",
+		time: 0,
 
 		init: function (key) {
 
@@ -14,7 +15,9 @@
 
 		},
 
-		tick: function () {
+		tick: function (delta) {
+
+			this.time += delta;
 
 			if (this.killKey && Ω.input.pressed(this.killKey)) {
 				Ω.input.release(this.killKey);
