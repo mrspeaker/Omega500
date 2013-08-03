@@ -79,13 +79,13 @@ Check the examples.
 
 Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
 
-    .          game
-    .           |
+    .           game
+    .            |
     .       level screen
-    .           |
+    .            |
     .      ___level____
     .     |      |     |
-    . player  baddies  map
+    .  player baddies  map
     .     |
     .  bullets
 
@@ -139,7 +139,7 @@ If you need to do async stuff on load, then set the screen's `loaded` property t
 
 ### Input
 
-Bind keys to "actions"
+Bind keys to "actions". The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a label like "up", "down" - see Ω.input for the list) to the action:
 
 	Ω.input.bind([
 		["space", "fire"],
@@ -149,6 +149,8 @@ Bind keys to "actions"
 		["up", "up"],
 		["down", "down"]
 	]);
+
+This lets you have multiple keys bind to the same action.
 
 Then to test:
 
@@ -166,7 +168,11 @@ If you don't put an extension it'll choose .mp3 if supported, else .ogg
 
 ### SpriteSheet
 
+Specify tile sheet, tile w and tile h.
+
 	var sheet = new Ω.SpriteSheet("res/chars.png", 25, 45);
+
+To draw a tile:
 
 	sheet.render(gfx, frameX, frameY, posX, posY);
 
