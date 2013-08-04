@@ -8,8 +8,14 @@ v0.2 by Mr Speaker.
 
 Simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it. Or play some games I've made with it:
 
-    DIGIBOTS & CO: http://www.mrspeaker.net/dev/game/digibots / https://github.com/mrspeaker/digibots
-    Zmore (my LD#26 entry): http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg)
+![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
+![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
+
+[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): lemmings-ish game. [src](https://github.com/mrspeaker/digibots)
+[Zmore](http://mrspeaker.net/dev/ld26): My LD#26 entry. [src](https://github.com/mrspeaker/ld26)
+
+http://www.mrspeaker.net/images/digibots-level.jpg
 
 Included in the library so far:
 
@@ -179,7 +185,12 @@ To draw a tile:
 
 	sheet.render(gfx, frameX, frameY, posX, posY);
 
-flipFlags: x=1, y=2, both=3
+optional param: flipFlags: only flip x = 1, only flip y = 2, flip both=3
+
+    new Ω.SpriteSheet("res/chars.png", 25, 45, 3)
+
+This will create a spritesheet twice as wide, and twice as high as the original. The top left part of the sheet will be the original sprites. The top right will have each cell flipped horizontally. The bottom left will have each cell flipped verticallys, and the bottom right will be flipped both horizonatlly and vertically.
+
 
 ### Animation
 
