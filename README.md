@@ -16,28 +16,7 @@
 
 ## Features:
 
-- Main game loop
-- Screens, dialogs, and transitions
-- Input handling - keys, mouse, iCade
-- Image loading and display
-- SpriteSheet animations
-- Tile and isometric maps
-- Repeating maps, with parallax
-- Entity/Map and Entity/Entity collisions
-- Entity gravity/falling
-- Camera'd map, Tracked camera (with box)
-- Audio load/play
-- Math/random/timer helpers
-- Asset preloader/progress
-- Simple particle controller
-- Raycast against maps
-- Text helpers
-- Font plotter (very specific! fix this)
-- State machine helper
-- "Tiled" map editor level support
-- Flipped spritesheets and images
-- Spring algo (for camera & entities)
-- Shake effect
+Main game loop. Screens, dialogs, and transitions. Input handling - keys, mouse, iCade. Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
 
 Highest priority and WIP are ("In the works" and ideas are at the bottom of this document):
 
@@ -45,17 +24,7 @@ Highest priority and WIP are ("In the works" and ideas are at the bottom of this
 - Sprite: Custom bounding box
 
 
-## inFAQ:
-
-Q. How do you do that omega symbol thing?
-A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
-
-Q. When do we get a version bump?
-A. Every time I finish a game with it. Version 1.0 in 8 more games!
-
 ## Docs
-
-Check the examples.
 
 ### General idea/notes
 
@@ -230,4 +199,13 @@ Low prority:
 - Maps: block selecting (iso)
 - Support: fullscreen API
 - "Post" effects in webgl (see DIGIBOTS & CO.)
+
+## inFAQ:
+
+Q. How do you do that omega symbol thing?
+A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
+
+Q. When do we get a version bump?
+A. Every time I finish a game with it. Version 1.0 in 8 more games!
+
 
