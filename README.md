@@ -1,6 +1,6 @@
 # Ω500: JS Game Library
 
-v0.2 by Mr Speaker. Ω500 is a simple framework for me to make 2D canvas-based games. Check out the online examples and games: http://mrspeaker.github.io/Omega500/.
+Ω500 is a simple framework for me to make 2D canvas-based games. It focuses on providing an architecturally simple set of tools for creating games in an old-school, straightforward way. Check out the online examples and games: http://mrspeaker.github.io/Omega500/.
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
@@ -14,7 +14,7 @@ v0.2 by Mr Speaker. Ω500 is a simple framework for me to make 2D canvas-based g
 
 ![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
 
-## Included in the library so far:
+## Features:
 
 - Main game loop
 - Screens, dialogs, and transitions
@@ -39,36 +39,11 @@ v0.2 by Mr Speaker. Ω500 is a simple framework for me to make 2D canvas-based g
 - Spring algo (for camera & entities)
 - Shake effect
 
-Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
+Highest priority and WIP are ("In the works" and ideas are at the bottom of this document):
 
 - BUG: bad map collision if entity taller/wider than block
 - Sprite: Custom bounding box
 
-Lower priority:
-
-- Input: touch handling
-- Partial loader (don't load all resources on init - maybe a "no preload" flag)
-- GUI: button
-- Gfx: Fullscreen canvas
-- Gfx: screen resizing
-- Math: add smoothstep/lerp helper
-- Support: FPS count
-- Support: Work in Ejecta
-- Support: Mobile compatibility
-- Multiple screens (as layers)
-
-Maybe later:
-
-- Input: Game controller support
-- Input: mouse lock API
-- Gfx: DSP on spritesheets
-- Gfx: dirty rect optimisations
-- Physics: quadtree or map-by-map ents
-- Math: pathfinding algo
-- Math: Swarm/flock algo
-- Maps: block selecting (iso)
-- Support: fullscreen API
-- "Post" effects in webgl (see DIGIBOTS & CO.)
 
 ## inFAQ:
 
@@ -226,4 +201,33 @@ There's also a TrackingCamera that will follow the entity you pass to it.
 
 ### Effects
 
+shake.
+
+## TODO/ideas
+
+High priority:
+
+- Input: touch handling
+- Partial loader (don't load all resources on init - maybe a "no preload" flag)
+- GUI: button
+- Gfx: Fullscreen canvas
+- Gfx: screen resizing
+- Math: add smoothstep/lerp helper
+- Support: FPS count
+- Support: Work in Ejecta
+- Support: Mobile compatibility
+- Multiple screens (as layers)
+
+Low prority:
+
+- Input: Game controller support
+- Input: mouse lock API
+- Gfx: DSP on spritesheets
+- Gfx: dirty rect optimisations
+- Physics: quadtree or map-by-map ents
+- Math: pathfinding algo
+- Math: Swarm/flock algo
+- Maps: block selecting (iso)
+- Support: fullscreen API
+- "Post" effects in webgl (see DIGIBOTS & CO.)
 
