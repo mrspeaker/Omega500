@@ -42,7 +42,7 @@
 				cellW = this.sheet.cellW,
 				cellH = this.sheet.cellH,
 				stx = (camera.x - (camera.x * this.parallax)) / tw | 0,
-				sty = camera.y / th | 0,
+				sty = (camera.y - (camera.y * this.parallax)) / th | 0,
 				endx = stx + (camera.w / camera.zoom / tw | 0) + 1,
 				endy = sty + (camera.h / camera.zoom / th | 0) + 1,
 				j,
@@ -51,11 +51,11 @@
 
 			if (this.parallax) {
 				gfx.ctx.save();
-				gfx.ctx.translate((camera.x * this.parallax), 0);
+				gfx.ctx.translate(camera.x * this.parallax | 0, camera.y * this.parallax | 0);
 			}
 
 			for (j = sty; j <= endy; j++) {
-				if (j < 0 || j > this.cellH - 1) {
+				if (j < 0 || (!this.repeat && j > this.cellH - 1)) {
 					continue;
 				}
 				for (i = stx; i <= endx; i++) {
@@ -63,7 +63,7 @@
 						continue;
 					}
 
-					cell = this.cells[j][i % this.cellW];
+					cell = this.cells[j % this.cellH][i % this.cellW];
 					if (cell === 0) {
 						continue;
 					}

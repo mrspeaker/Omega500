@@ -44,6 +44,7 @@ Lower priority:
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
 - Math: add smoothstep/lerp helper
+- Map: parallax with repeating background
 - Support: FPS count
 - Support: Work in Ejecta
 - Support: Mobile compatibility

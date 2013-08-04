@@ -29,7 +29,7 @@
 
 			this.x = startX;
 			this.y = startY;
-			this.speed = 1 + Math.random() * 0.2;
+			this.speed = isPlayer ? 2 : 1 + Math.random() * 0.2;
 
 			this.anims.set(isPlayer ? "idle" : "walk");
 
