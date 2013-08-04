@@ -75,8 +75,9 @@
 
 			// Add some random enemies
 			if (Math.random() < 0.01) {
+				var b = Math.random() < 0.5 ? BusinessMan : BusinessWoman
 				this.baddies.push(
-					new BusinessMan([Math.random() * 400, Math.random() * 400], (Math.random() * 7 | 0) + 1, this.map)
+					new b([Math.random() * 400, Math.random() * 400], (Math.random() * 7 | 0) + 1, this.map)
 				);
 			}
 

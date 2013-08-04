@@ -69,6 +69,13 @@
 					)
 					this.fireTime = 5;
 				}
+			} else if (Ω.input.isDown("launch")) {
+				if (this.fireTime < 0) {
+					this.bullets.push(
+						new Grenade([this.x + this.w / 2 - 3, this.y + 5], this.dir, this.map)
+					)
+					this.fireTime = 5;
+				}
 			}
 
 			// Slow down if moving diagonally

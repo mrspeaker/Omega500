@@ -26,6 +26,7 @@ Simple framework for me to make 2D canvas-based games. Checkout the code in /ex 
 - State machine helper
 - Font plotter (very specific! fix this)
 - "Tiled" map editor level support
+- Repeating maps, with parallax
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
@@ -44,7 +45,6 @@ Lower priority:
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
 - Math: add smoothstep/lerp helper
-- Map: parallax with repeating background
 - Support: FPS count
 - Support: Work in Ejecta
 - Support: Mobile compatibility
