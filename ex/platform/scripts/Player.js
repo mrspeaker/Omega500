@@ -21,6 +21,8 @@
 
 			this.isPlayer = isPlayer;
 
+			this.gravity = 3;
+
 			this.anims = new Ω.Anims([
 				new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
 				new Ω.Anim("walk", this.sheet, 60, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]),
@@ -75,7 +77,9 @@
 				}
 
 			} else {
-				x1 += this.speed * this.dir;
+				if (!this.falling) {
+					x1 += this.speed * this.dir;
+				}
 
 				if (Ω.utils.rand(500) === 1) {
 					this.dir *= -1;
@@ -89,10 +93,16 @@
 
 		hitBlocks: function (xBlocks, yBlocks) {
 
-			if (!this.isPlayer) {
-				this.dir *= -1;
-				this.anims.setTo(this.dir > 0 ? "walk" : "walkLeft");
+			if (xBlocks && !this.isPlayer) {
+				this.flip();
 			}
+
+		},
+
+		flip: function () {
+
+			this.dir *= -1;
+			this.anims.setTo(this.dir > 0 ? "walk" : "walkLeft");
 
 		},
 
@@ -121,7 +131,11 @@
 				}
 			}
 
-			this.anims.render(gfx, this.x, this.y);
+			if (this.falling) {
+				this.sheet.render(gfx, 9, 0, this.x, this.y);
+			} else {
+				this.anims.render(gfx, this.x, this.y);
+			}
 			this.particle.render(gfx);
 			gfx.ctx.strokeStyle = "rgba(100, 0, 0, 0.3)";
 			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);

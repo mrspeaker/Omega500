@@ -35,6 +35,7 @@
 
 			e.x += this.moveX;
 			e.y += this.moveY;
+			e.flip();
 
 			this.splat.play(this.x + this.w / 2, this.y + this.h / 2);
 
