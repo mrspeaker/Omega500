@@ -2,8 +2,9 @@
 
 v0.2 by Mr Speaker.
 
-*See the things!* http://mrspeaker.github.io/Omega500/.
-*Read the codez!* https://github.com/mrspeaker/Omega500/.
+ *See the things!* http://mrspeaker.github.io/Omega500/.
+ *Read the codez!* https://github.com/mrspeaker/Omega500/.
+
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
 Ω500 is a simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it. Or play some games I've made with it:
