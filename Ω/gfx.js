@@ -16,9 +16,10 @@
 
 		},
 
-		loadImage: function (path, cb) {
+		loadImage: function (path, cb, flipFlags) {
 
-			var cachedImage = images[path];
+			// TODO: don't need to reload if non-flipped image exists
+			var cachedImage = images[path + (flipFlags ? ":" + flipFlags : "")];
 
 			if (cachedImage) {
 				if (!cachedImage._loaded) {
@@ -36,10 +37,17 @@
 
 			var resolve = Ω.preload(path),
 				image = new Image(),
+				self = this,
 				onload = function () {
 
+					var procImage;
+
+					if (flipFlags) {
+						procImage = self.flipImage(image, flipFlags);
+					}
+
 					this._loaded = true;
-					cb && cb(image);
+					cb && cb(procImage || image);
 					resolve();
 
 				}
@@ -53,7 +61,7 @@
 				onload.call(this);
 
 			}, false);
-			images[path] = image;
+			images[path + (flipFlags ? ":" + flipFlags : "")] = image;
 
 		},
 
@@ -65,11 +73,29 @@
 				y);
 		},
 
+		flipImage: function (img, flags) {
+
+			// flip x = 1, y = 2, both = 3
+			var ctx = this.createCanvas(img.width, img.height);
+
+			ctx.save();
+			ctx.translate(flags & 1 ? img.width : 0, flags & 2 ? img.height : 0);
+			ctx.scale(flags & 1 ? -1 : 1, flags & 2 ? -1 : 1);
+			ctx.drawImage(img, 0, 0);
+			ctx.restore();
+
+			return ctx.canvas;
+
+		},
+
 		createCanvas: function (w, h) {
+
 			var cn = document.createElement("canvas");
+
 			cn.setAttribute("width", w);
 			cn.setAttribute("height", h);
 			return cn.getContext("2d");
+
 		},
 
 		text: {

@@ -4,7 +4,7 @@
 
 	var Image = Ω.Class.extend({
 
-		init: function (path) {
+		init: function (path, flipFlags) {
 
 			var self = this;
 
@@ -14,7 +14,7 @@
 
 				self.img = img;
 
-			});
+			}, flipFlags);
 
 		},
 

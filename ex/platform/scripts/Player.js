@@ -10,7 +10,7 @@
 
 		vel: [0, 0],
 
-		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45),
+		sheet: new Ω.SpriteSheet("res/charzera.png", 25, 45, 1),
 		sounds: {
 			"crouch": new Ω.Sound("../res/audio/crouch.wav", 1)
 		},
@@ -24,7 +24,7 @@
 			this.anims = new Ω.Anims([
 				new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
 				new Ω.Anim("walk", this.sheet, 70, [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]),
-				new Ω.Anim("walkLeft", this.sheet, 70, [[13, 3], [12, 3], [11, 3], [10, 3], [9, 3], [8, 3], [7, 3], [6, 3]])
+				new Ω.Anim("walkLeft", this.sheet, 70, [[27, 0], [26, 0], [25, 0], [24, 0], [23, 0], [22, 0], [21, 0], [20, 0]])
 			]);
 
 			this.x = startX;
