@@ -4,7 +4,7 @@ v0.2 by Mr Speaker. Ω500 is a simple framework for me to make 2D canvas-based g
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
- ## Some games using Ω500
+## Some games using Ω500
 
 [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots)
 
