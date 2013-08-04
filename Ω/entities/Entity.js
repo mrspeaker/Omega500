@@ -9,6 +9,7 @@
 		w: 32,
 		h: 32,
 
+		gravity: 0,
 		falling: false,
 		wasFalling: false,
 
@@ -45,7 +46,7 @@
 				yBlocksWithXMove;
 
 			if (this.falling) {
-				y += this.ySpeed * 2;
+				y += this.gravity;
 			}
 			xo = x;
 			yo = y;
@@ -101,6 +102,15 @@
 
 			// Add the allowed X movement
 			this.x += xo;
+
+			// check if we're falling
+			yBlocks = map.getBlocks([
+				[this.x, this.y + this.h],
+				[this.x + (this.w - 1), this.y + this.h]
+			]);
+			if (yBlocks[0] <= map.walkable && yBlocks[1] <= map.walkable) {
+				this.falling = true;
+			}
 
 			return [xo, yo];
 		},

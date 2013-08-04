@@ -38,7 +38,6 @@ var Ω = (function() {
 				});
 
 				if (assetsToLoad === 0 && pageLoaded) {
-					console.log("loaded from reslove");
 					if (!preloading) {
 						console.error("Preloading finished (onload called) multiple times!");
 					}
