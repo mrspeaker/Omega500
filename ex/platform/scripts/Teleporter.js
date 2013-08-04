@@ -7,6 +7,8 @@
 		w: 32,
 		h: 32,
 
+		sheet: new Ω.SpriteSheet("res/tiles.png", 32, 32),
+
 		init: function (x, y, moveX, moveY) {
 
 			this.splat = new Ω.Particle({});
@@ -22,7 +24,9 @@
 		},
 
 		render: function (gfx) {
-			gfx.ctx.fillStyle = "rgba(0,0,0,0.4)";
+			var alpha = ((Math.sin(Ω.utils.now() / 200) + 1) / 5);
+			gfx.ctx.fillStyle = "rgba(0,0,0," + alpha + ")";
+			this.sheet.render(gfx, 16, 0, this.x, this.y);
 			gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
 			this.splat.render(gfx);
 		},

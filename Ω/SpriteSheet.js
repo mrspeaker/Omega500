@@ -16,13 +16,13 @@
 
 			Ω.gfx.loadImage(path, function (img) {
 
+				self.sheet = img;
 				if (flipFlags) {
 
-					img = self.flipImage(img.canvas || img, flipFlags);
+					self.sheet = self.flipImage(img.canvas || img, flipFlags);
 
 				}
 
-				self.sheet = img;
 				self.cellW = img.width / self.w | 0;
 				self.cellH = img.height / self.h | 0;
 
@@ -34,36 +34,60 @@
 
 			// flip x = 1, y = 2, both = 3
 
-			// TODO: flip each cell, rather than the entire image
-
 			var ctx = Ω.gfx.createCanvas(
-				img.width * (flags & 1 ? 2 : 1),
-				img.height * (flags & 2 ? 2 : 1));
+					img.width * (flags & 1 ? 2 : 1),
+					img.height * (flags & 2 ? 2 : 1)
+				),
+				cellW = img.width / this.w | 0,
+				cellH = img.height / this.h | 0,
+				i,
+				j;
 
+			// Draw the original
 			ctx.drawImage(img, 0, 0);
 
 			if (flags & 1) {
-				ctx.save();
-				ctx.translate(img.width, 0);
-				ctx.scale(-1, 1);
-				ctx.drawImage(img, -img.width, 0);
-				ctx.restore();
+				// Flipped X
+				for (j = 0; j < cellH; j++) {
+					for (i = 0; i < cellW; i++) {
+						ctx.save();
+						ctx.translate(i * this.w * 0.5, j * this.h);
+						ctx.scale(-1 , 1);
+						this.render({ctx:ctx}, i, j, -(i * this.w * 0.5) - img.width - this.w, 0);
+						ctx.restore();
+					}
+				}
 			}
 
 			if (flags & 2) {
-				ctx.save();
-				ctx.translate(0, img.height);
-				ctx.scale(1, -1);
-				ctx.drawImage(img, 0, -img.height);
-				ctx.restore();
+				// Flipped Y
+				for (j = 0; j < cellH; j++) {
+					for (i = 0; i < cellW; i++) {
+						ctx.save();
+						ctx.translate(i * this.w, j * this.h * 0.5);
+						ctx.scale(1 , -1);
+						this.render({ctx:ctx}, i, j, 0, -(j * this.h * 0.5) - img.height - this.h);
+						ctx.restore();
+					}
+				}
 			}
 
 			if (flags & 3) {
-				ctx.save();
-				ctx.translate(img.width, img.height);
-				ctx.scale(-1, -1);
-				ctx.drawImage(img, -img.width, -img.height);
-				ctx.restore();
+				// Flipped both
+				for (j = 0; j < cellH; j++) {
+					for (i = 0; i < cellW; i++) {
+						ctx.save();
+						ctx.translate(i * this.w * 0.5, j * this.h * 0.5);
+						ctx.scale(-1 , -1);
+						this.render(
+							{ctx:ctx},
+							i,
+							j,
+							-(i * this.w * 0.5) - img.width - this.w,
+							-(j * this.h * 0.5) - img.height - this.h);
+						ctx.restore();
+					}
+				}
 			}
 
 			return ctx.canvas;
