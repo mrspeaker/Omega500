@@ -4,15 +4,13 @@ v0.2 by Mr Speaker.
 
 *See the things!* http://mrspeaker.github.io/Omega500/.
 
-*Read the codez!* https://github.com/mrspeaker/Omega500/.
-
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
 Ω500 is a simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it. Or play some games I've made with it:
 
 [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): lemmings-ish game. [src](https://github.com/mrspeaker/digibots)
 
-![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg)
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg?a=1)
 
 [Zmore](http://mrspeaker.net/dev/ld26): My LD#26 entry. [src](https://github.com/mrspeaker/ld26)
 
