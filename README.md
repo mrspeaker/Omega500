@@ -1,18 +1,16 @@
 # Ω500: JS Game Library
 
-v0.2 by Mr Speaker.
-
-*See the things!* http://mrspeaker.github.io/Omega500/.
+v0.2 by Mr Speaker. Ω500 is a simple framework for me to make 2D canvas-based games. Check out the online examples and games: http://mrspeaker.github.io/Omega500/.
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
-Ω500 is a simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it. Or play some games I've made with it:
+ ## Some games using Ω500
 
-[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): lemmings-ish game. [src](https://github.com/mrspeaker/digibots)
+[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots)
 
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg?a=1)
 
-[Zmore](http://mrspeaker.net/dev/ld26): My LD#26 entry. [src](https://github.com/mrspeaker/ld26)
+[Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26)
 
 ![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
 
@@ -26,6 +24,7 @@ v0.2 by Mr Speaker.
 - Tile and isometric maps
 - Repeating maps, with parallax
 - Entity/Map and Entity/Entity collisions
+- Entity gravity/falling
 - Camera'd map, Tracked camera (with box)
 - Audio load/play
 - Math/random/timer helpers
@@ -51,7 +50,7 @@ Lower priority:
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - GUI: button
 - Gfx: Fullscreen canvas
-- Gfx: fullscreen resizing
+- Gfx: screen resizing
 - Math: add smoothstep/lerp helper
 - Support: FPS count
 - Support: Work in Ejecta
