@@ -8,19 +8,21 @@
 		y: 0,
 		w: 0,
 		h: 0,
-		debug: false,
 
 		init: function (x, y, w, h) {
+
 			this.x = x;
 			this.y = y;
 			this.w = w;
 			this.h = h;
 			this.zoom = 1;
+
 		},
 
 		tick: function () {},
 
 		render: function (gfx, renderables) {
+
 			var c = gfx.ctx,
 				self = this,
 				minX = this.x,
@@ -46,7 +48,7 @@
 				// Remove out-of-view entites
 				.filter(function (r) {
 
-					return !(
+					return r.repeat || !(
 						r.x + r.w < self.x ||
 						r.y + r.h < self.y ||
 						r.x > self.x + self.w ||

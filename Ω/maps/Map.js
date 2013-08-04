@@ -9,6 +9,9 @@
 
 		walkable: 0,
 
+		repeat: false,
+		parallax: 0,
+
 		init: function (sheet, cells, walkable) {
 
 			this.sheet = sheet;
@@ -38,7 +41,7 @@
 				th = this.sheet.h,
 				cellW = this.sheet.cellW,
 				cellH = this.sheet.cellH,
-				stx = camera.x / tw | 0,
+				stx = (camera.x - (camera.x * this.parallax)) / tw | 0,
 				sty = camera.y / th | 0,
 				endx = stx + (camera.w / camera.zoom / tw | 0) + 1,
 				endy = sty + (camera.h / camera.zoom / th | 0) + 1,
@@ -46,16 +49,21 @@
 				i,
 				cell;
 
+			if (this.parallax) {
+				gfx.ctx.save();
+				gfx.ctx.translate((camera.x * this.parallax), 0);
+			}
+
 			for (j = sty; j <= endy; j++) {
 				if (j < 0 || j > this.cellH - 1) {
 					continue;
 				}
 				for (i = stx; i <= endx; i++) {
-					if (i > this.cellW - 1) {
+					if (!this.repeat && i > this.cellW - 1) {
 						continue;
 					}
 
-					cell = this.cells[j][i];
+					cell = this.cells[j][i % this.cellW];
 					if (cell === 0) {
 						continue;
 					}
@@ -66,6 +74,10 @@
 						i * tw,
 						j * th);
 				}
+			}
+
+			if (this.parallax) {
+				gfx.ctx.restore();
 			}
 
 		},

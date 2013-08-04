@@ -31,15 +31,15 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest p
 
 - BUG: bad map collision if entity taller than block
 - Sprite: Custom bounding box
-- BUG: Time is stopped in dialogs
 
 Lower priority:
 
-- Anims: Custom bounding box
 - Input: touch handling
 - Physics: gravity
 - Physics: platform functions
 - Partial loader (don't load all resources on init - maybe "no preload" flag)
+- Gfx: dirty rects
+- Physics: quadtree or map-by-map ents
 - Gfx: Flip drawing
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
@@ -82,7 +82,7 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .            |
     .       level screen
     .            |
-    .      ____level____
+    .      ___ level __
     .     |      |     |
     .  player baddies  map
     .     |

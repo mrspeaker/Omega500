@@ -52,6 +52,46 @@
 
 			var game = new PlatformGame(400, 165);
 
+			var conswatch = (function () {
+
+				var out,
+					active = false,
+					api;
+
+				out = document.createElement("div");
+				out.style.backgroundColor = "#fff";
+				out.style.display = "none";
+				out.style.position = "absolute";
+				out.style.top = "2px";
+				out.style.right = "2px";
+				out.style.width = "100px";
+				out.style.height = "30px";
+				out.style.font = "7pt monospace";
+				document.body.appendChild(out);
+
+				console.watch = function () {
+					if (!active) {
+						active = true;
+						api.show();
+					}
+					var msg = Array.prototype.slice.call(arguments, 0).map(function (v) {
+						return v.toString();
+					}).join(" ");
+					out.innerText = msg;
+				}
+
+				api = {
+					show: function () {
+						out.style.display = "block";
+					},
+					hide: function () {
+						out.style.display = "none";
+					}
+				};
+
+				return api;
+			}());
+
 		</script>
 	</body>
 </html>
