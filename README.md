@@ -3,6 +3,7 @@
 v0.2 by Mr Speaker.
 
 *See the things!* http://mrspeaker.github.io/Omega500/
+
 *Read the codez!* https://github.com/mrspeaker/Omega500/
 
 Simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it (or play some games I've made with it... DIGIBOTS & CO. http://www.mrspeaker.net/dev/game/digibots / https://github.com/mrspeaker/digibots or my LD#26 entry: http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26). Included in the library so far:
@@ -13,25 +14,25 @@ Simple framework for me to make 2D canvas-based games. Checkout the code in /ex 
 - Image loading and display
 - SpriteSheet animations
 - Tile and isometric maps
+- Repeating maps, with parallax
 - Entity/Map and Entity/Entity collisions
 - Camera'd map, Tracked camera (with box)
 - Audio load/play
 - Math/random/timer helpers
 - Asset preloader/progress
-- Simple (VERY simple) particle controller
+- Simple particle controller
 - Raycast against maps
 - Text helpers
+- Font plotter (very specific! fix this)
+- State machine helper
+- "Tiled" map editor level support
+- Flipped spritesheets and images
 - Spring algo (for camera & entities)
 - Shake effect
-- State machine helper
-- Font plotter (very specific! fix this)
-- "Tiled" map editor level support
-- Repeating maps, with parallax
-- Flipped spritesheets and images
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
-- BUG: bad map collision if entity taller than block
+- BUG: bad map collision if entity taller/wider than block
 - Sprite: Custom bounding box
 
 Lower priority:
@@ -39,9 +40,8 @@ Lower priority:
 - Input: touch handling
 - Physics: gravity
 - Physics: platform functions
-- Partial loader (don't load all resources on init - maybe "no preload" flag)
-- Gfx: dirty rects
-- Physics: quadtree or map-by-map ents
+- Partial loader (don't load all resources on init - maybe a "no preload" flag)
+- GUI: button
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
 - Math: add smoothstep/lerp helper
@@ -55,12 +55,12 @@ Maybe later:
 - Input: Game controller support
 - Input: mouse lock API
 - Gfx: DSP on spritesheets
+- Gfx: dirty rect optimisations
+- Physics: quadtree or map-by-map ents
 - Math: pathfinding algo
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - Support: fullscreen API
-- GUI: custom mouse pointer
-- GUI: button
 - "Post" effects in webgl (see DIGIBOTS & CO.)
 
 ## inFAQ:
