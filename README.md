@@ -6,7 +6,12 @@ v0.2 by Mr Speaker.
 
 *Read the codez!* https://github.com/mrspeaker/Omega500/
 
-Simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it (or play some games I've made with it... DIGIBOTS & CO. http://www.mrspeaker.net/dev/game/digibots / https://github.com/mrspeaker/digibots or my LD#26 entry: http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26). Included in the library so far:
+Simple framework for me to make 2D canvas-based games. Checkout the code in /ex for an example how to use it. Or play some games I've made with it:
+
+    DIGIBOTS & CO: http://www.mrspeaker.net/dev/game/digibots / https://github.com/mrspeaker/digibots
+    Zmore (my LD#26 entry): http://mrspeaker.net/dev/ld26 / https://github.com/mrspeaker/ld26
+
+Included in the library so far:
 
 - Main game loop
 - Screens, dialogs, and transitions
@@ -38,8 +43,6 @@ Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest p
 Lower priority:
 
 - Input: touch handling
-- Physics: gravity
-- Physics: platform functions
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - GUI: button
 - Gfx: Fullscreen canvas
@@ -175,6 +178,8 @@ Specify tile sheet, tile w and tile h.
 To draw a tile:
 
 	sheet.render(gfx, frameX, frameY, posX, posY);
+
+flipFlags: x=1, y=2, both=3
 
 ### Animation
 
