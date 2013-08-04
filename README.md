@@ -27,6 +27,7 @@ Simple framework for me to make 2D canvas-based games. Checkout the code in /ex 
 - Font plotter (very specific! fix this)
 - "Tiled" map editor level support
 - Repeating maps, with parallax
+- Flipped spritesheets and images
 
 Infinite amount of things to add/fix. Stay tuned as I slowly add them. Highest priority and WIP:
 
@@ -41,7 +42,6 @@ Lower priority:
 - Partial loader (don't load all resources on init - maybe "no preload" flag)
 - Gfx: dirty rects
 - Physics: quadtree or map-by-map ents
-- Gfx: Flip drawing
 - Gfx: Fullscreen canvas
 - Gfx: fullscreen resizing
 - Math: add smoothstep/lerp helper

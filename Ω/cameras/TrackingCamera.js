@@ -29,11 +29,27 @@
 			this.x = entity.x - (this.w / 2) + (entity.w / 2);
 			this.y = entity.y - (this.h / 2);
 
+			this.constrainToBounds();
+
+		},
+
+		constrainToBounds: function () {
+
 			if (this.x < 0) {
 				this.x = 0;
 			}
+			if (this.x > 0) {
+				if (this.bounds && this.x + this.w > this.bounds[0]) {
+					this.x = this.bounds[0] - this.w;
+				};
+			}
 			if (this.y < 0) {
 				this.y = 0;
+			}
+			if (this.y > 0) {
+				if (this.bounds && this.y + this.h > this.bounds[1]) {
+					this.y = this.bounds[1] - this.h;
+				};
 			}
 
 		},
@@ -49,28 +65,18 @@
 
 			if(e.x < center.x - xr) {
 				this.x = e.x - (this.w / 2) + xr;
-				if (this.x < 0) {
-					this.x = 0;
-				}
 			}
 			if(e.x + e.w > center.x + xr) {
 				this.x = e.x + e.w - (this.w / 2) - xr;
-				if (this.bounds && this.x + this.w > this.bounds[0]) {
-					this.x = this.bounds[0] - this.w;
-				};
 			}
 			if(e.y < center.y - yr) {
 				this.y = e.y - (this.h / 2) + yr;
-				if (this.y < 0) {
-					this.y = 0;
-				}
 			}
 			if(e.y + e.h > center.y + yr) {
 				this.y = e.y + e.h - (this.h / 2) - yr;
-				if (this.bounds && this.y + this.h > this.bounds[1]) {
-					this.y = this.bounds[1] - this.h;
-				};
 			}
+
+			this.constrainToBounds();
 
 		},
 
