@@ -8,6 +8,7 @@
 
 [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots)
 
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg)
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg?a=1)
 
 [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26)
