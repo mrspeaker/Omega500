@@ -15,8 +15,6 @@ Simple framework for me to make 2D canvas-based games. Checkout the code in /ex 
 [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): lemmings-ish game. [src](https://github.com/mrspeaker/digibots)
 [Zmore](http://mrspeaker.net/dev/ld26): My LD#26 entry. [src](https://github.com/mrspeaker/ld26)
 
-http://www.mrspeaker.net/images/digibots-level.jpg
-
 Included in the library so far:
 
 - Main game loop
