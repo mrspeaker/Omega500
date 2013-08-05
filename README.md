@@ -1,6 +1,6 @@
 # Ω500: JS Game Library
 
-Ω500 is a simple framework for me to make 2D canvas-based games. It focuses on providing an architecturally simple set of tools for creating games in an old-school, straightforward way. Check out the online examples and games: http://mrspeaker.github.io/Omega500/.
+Ω500 is a simple framework for me to make 2D canvas-based games. It focuses on providing an architecturally simple set of tools for creating games in an old-school, straightforward way. Check out the online examples: http://mrspeaker.github.io/Omega500/.
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
@@ -15,15 +15,9 @@
 
 ![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
 
-## Features:
+## Ω500 Features:
 
-Main game loop. Screens, dialogs, and transitions. Input handling - keys, mouse, iCade. Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
-
-Highest priority and WIP are ("In the works" and ideas are at the bottom of this document):
-
-- BUG: bad map collision if entity taller/wider than block
-- Sprite: Custom bounding box
-
+Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
 
 ## Docs
 
@@ -50,7 +44,7 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 
 Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forget to pass the width and height arguments up to the super class:
 
-    var game = Ω.Game.extend({
+    var MyGame = Ω.Game.extend({
 
     	init: function (w, h) {
 
@@ -66,28 +60,31 @@ Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forge
 
     });
 
-    new game(640, 480);
+    var game = new MyGame(640, 480);
 
-The Game super class has some boilerplate, such as accepting a "screen" object to display as well as the "tick" and "render" methods described above (you can override them of course).
+The Game super class has some boilerplate, such as accepting a "screen" object to display as well as the "tick" and "render" methods described above (you can override them if you need).
 
 Canvas/DOM container:
 
 The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or hieght is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
 
-### Entity
-
-has x, y, width and height (w, h)
-
 ### Screen
 
-A scene to display stuff in. You don't reallly need it but it's helpful. Also has a small fade transition between screens:
+A scene to display stuff in. Tick and Render will be called automatically by the game if you set using `game.setScreen`. Changing screens will use a small fade transition between the current and the new:
 
     game.setScreen(new TitleScreen());
 
 If you need to do async stuff on load, then set the screen's `loaded` property to false. When you're done, set it to true.
 
-    this.clear("#333"); // for clearing
+In render, can clear the screen to a color (if you need to):
 
+    this.clear(gfx, "#333"); // for clearing
+
+### Entity
+
+Can move inside maps
+
+has x, y, width and height (w, h) properties
 
 ### Input
 
@@ -114,6 +111,8 @@ Also: released (== wasDown && !isDown), isDown, wasDown, release (forces a key t
 
 ### Image
 
+Can be loaded "flipped" (flip x=1, flip 2=2, flip both=3)
+
 ### Sound
 
 If you don't put an extension it'll choose .mp3 if supported, else .ogg
@@ -128,7 +127,7 @@ To draw a tile:
 
 	sheet.render(gfx, frameX, frameY, posX, posY);
 
-optional param: flipFlags: only flip x = 1, only flip y = 2, flip both=3
+Optional param: flipFlags: only flip x = 1, only flip y = 2, flip both=3
 
     new Ω.SpriteSheet("res/chars.png", 25, 45, 3)
 
@@ -136,6 +135,29 @@ This will create a spritesheet twice as wide, and twice as high as the original.
 
 
 ### Animation
+
+Takes a name, a spritesheet, a time-per-frame, and an array of [x,y] offsets into the spritesheet.
+
+Can be grouped with `Ω.Anims`:
+
+    this.anims = new Ω.Anims([
+        new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
+        new Ω.Anim("walk", this.sheet, 60, [[0, 0], [1, 0], [2, 0]])
+    ]);
+
+In the example, the "idle" animation will loop over the spritesheet frames 8,0 and 9,0 showing each frame for 500 milliseconds.
+
+Set the anim you want to use (defaults to first). You don't have to do this if you are just using a single Anim, rather than grouped Ω.Anims:
+
+    this.anims.set("walk");
+
+Tick it inside the container's tick:
+
+    this.anims.tick();
+
+Render it inside the container's render:
+
+    this.anims.render(gfx, this.x, this.y);
 
 ### Map
 
@@ -173,7 +195,16 @@ There's also a TrackingCamera that will follow the entity you pass to it.
 
 shake.
 
+### Utils
+
+### State helper
+
 ## TODO/ideas
+
+Highest priority and WIP:
+
+- BUG: bad map collision if entity taller/wider than block
+- Sprite: Custom bounding box
 
 High priority:
 
@@ -194,7 +225,7 @@ Low prority:
 - Input: mouse lock API
 - Gfx: DSP on spritesheets
 - Gfx: dirty rect optimisations
-- Physics: quadtree or map-by-map ents
+- Physics: quadtree or map-by-map ents optimisiation
 - Math: pathfinding algo
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Screens</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			var TitleScreen = Ω.Screen.extend({
+
+				tick: function () {
+
+					this.msgX = (Math.sin(Date.now() / 100) * 3) + Ω.env.w * 0.4;
+					this.msgY = (Math.cos(Date.now() / 100) * 3) + Ω.env.h * 0.5;
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+
+					c.fillStyle = "#fff";
+					c.fillText("Hello, Ω500 Screens.", this.msgX, this.msgY);
+
+				}
+
+			});
+
+			/*
+
+				Simplest "game" with Screen
+
+			*/
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				init: function (w, h) {
+
+					this._super(w, h);
+
+					Ω.input.bind([
+						["space", "space"],
+						["left", "left"],
+						["right", "right"],
+						["up", "up"],
+						["down", "down"]
+					]);
+
+					this.setScreen(new TitleScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>

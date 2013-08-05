@@ -81,7 +81,7 @@
                     console.log("ran " + c + " ticks");
                 }
 
-                this.render();
+                this.render(Ω.gfx);
             }
 
             window.requestAnimationFrame(function () {
@@ -108,8 +108,6 @@
 		},
 
 		render: function (gfx) {
-
-			gfx = gfx || Ω.gfx;
 
 			if (!this.screen.loaded) {
 				return;

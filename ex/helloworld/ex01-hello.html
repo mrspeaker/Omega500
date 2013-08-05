@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hello, Ω500 world</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			/*
+
+				Simplest "game"
+
+				Note: In most games you won't override "tick" or "render" in your base game.
+				You should create a "Ω.Screen" which is automagically gets ticked and rendered (so
+				you shouldn't have to call "this._super()")
+
+			*/
+
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				tick: function (dt) {
+
+					this._super(dt);
+
+					this.msgX = (Math.sin(Date.now() / 100) * 3) + Ω.env.w * 0.4;
+					this.msgY = (Math.cos(Date.now() / 100) * 3) + Ω.env.h * 0.5;
+
+				},
+
+				render: function (gfx) {
+
+					this._super(gfx);
+
+					var c = gfx.ctx;
+
+					c.fillStyle = "#fff";
+					c.fillText("Hello, Ω500 World.", this.msgX, this.msgY);
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
