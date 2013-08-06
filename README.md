@@ -35,7 +35,7 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .     |
     .  bullets
 
-Every loop the engine calls "tick" on the main game object. This calls "tick" on its current screen. The screen (manually) calls "tick" on its main child object (level). Level (manually) calls "tick" on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with "render". I might generalise this later, so evertying really has a concept of "children", but for now it's good enough.
+Every loop the engine calls "tick" on the main game object. This (automatically) calls "tick" on its current screen. The screen (manually) calls "tick" on its main child object (level). Level (manually) calls "tick" on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with "render". I might generalise this later, so everything really has a concept of "children", but for now it's good enough: if you want something ticked, then tick it. If you want something rendered, then render it!
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them - but it means some stuff only works in one situtation. For example, spritesheets can't contain any margins; no custom bounding boxes etc. These are all easy to fix, but because I'm focusing on finishin' games - it'll take a while before I address everything. Also, it explains why you there are some weirder functions - like map ray casting... because I needed them!
 
@@ -82,9 +82,45 @@ In render, can clear the screen to a color (if you need to):
 
 ### Entity
 
-Can move inside maps
+Players, bad guys, monsters etc should inherit from Entity. Entities know how to move inside maps, and can have collision detection with other entities.
 
 has x, y, width and height (w, h) properties
+
+I use a couple of conventions for updating collections of entities. For "ticking", I call tick on each object and inside the object's tick method I return `true` if it's still alive, and `false` if it should be removed:
+
+    this.baddies = this.baddies.filter(function (baddie) {
+        return baddie.tick();
+    });
+
+The `entity` base class has a `remove` flag which you can set anywhere in the entity, and return it (negatively) from the tick method:
+
+    ...
+    remove: false,
+
+    tick: function () {
+
+        return !(this.remove);
+
+    },
+    ...
+
+For rendering I just `forEach` them:
+
+    this.baddies.forEach(function (baddie) {
+        baddie.tick(gfx);
+    });
+
+How things are rendered is completely up to you. You get the passed the `gfx` object which has the 2D graphics context as property `ctx`. You can draw with canvas primitives, or render images (see images), sprite sheets (see sprite sheets), or animation frames (see animations).
+
+*Bounding boxes*
+
+Sometimes it's useful to see where the bounding box of your entity is. There's nothing built in for this (and at the moment there is no easy way to change a bounding box for animation frames etc), so for now just do it yourself at the end of the render method:
+
+    gfx.ctx.strokeStyle = "red";
+    gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
+
+And you'll get a red box showing where the collision detection is used.
+
 
 ### Input
 
