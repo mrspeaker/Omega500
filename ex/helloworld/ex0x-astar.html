@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Screens</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../vendor/graph.js"></script>
+		<script src="../../vendor/astar.js"></script>
+		<script>
+
+			var graph = new Graph([
+					[0,1,1,1,0,0],
+					[0,1,1,0,1,0],
+					[0,0,1,1,0,0],
+					[1,0,0,0,0,1]
+				]),
+				start = graph.nodes[0][0];
+				end = graph.nodes[0][4];
+				result = astar.search(graph.nodes, start, end);
+
+			console.log(result.map(function(gn) {
+				return gn.toString();
+			}));
+
+		</script>
+	</body>
+</html>
