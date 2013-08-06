@@ -18,7 +18,7 @@
 
 		render: function (gfx, x, y) {
 
-			gfx.ctx.translate(Math.random() * 8, Math.random() * 4);
+			gfx.ctx.translate(Math.random() * 8 | 0, Math.random() * 4 | 0);
 
 		}
 
