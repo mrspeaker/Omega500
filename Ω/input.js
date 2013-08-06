@@ -317,16 +317,17 @@
 
 		document.addEventListener('touchstart', function (e) {
 			setPos(e);
-			keyed(-6, true);
+			keyed(input.KEYS.touch, true);
 		}, false);
 		document.addEventListener('touchmove', function (e) {
+			e.preventDefault();
 			setPos(e);
-			keyed(-7, true);
+			keyed(input.KEYS.touchMove, true);
 		}, false);
 		document.addEventListener('touchend', function (e) {
 			setPos(e);
-			keyed(-6, false);
-			keyed(-7, false);
+			keyed(input.KEYS.touch, false);
+			keyed(input.KEYS.touchMove, false);
 		}, false);
 	}
 
