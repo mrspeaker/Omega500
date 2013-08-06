@@ -20,7 +20,7 @@
 
 			this.time += 1;
 
-			if (Ω.input.pressed("space") && this.time > 20) {
+			if ((Ω.input.pressed("space") || Ω.input.isDown("touch")) && this.time > 20) {
 				game.setScreen(new MainScreen());
 			}
 

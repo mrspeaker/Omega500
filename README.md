@@ -205,10 +205,10 @@ Highest priority and WIP:
 
 - BUG: bad map collision if entity taller/wider than block
 - Sprite: Custom bounding box
+- Input: touch handling
 
 High priority:
 
-- Input: touch handling
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - GUI: button
 - Gfx: Fullscreen canvas

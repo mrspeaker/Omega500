@@ -54,6 +54,18 @@
 			this.particle.tick();
 
 			if (this.isPlayer) {
+
+				if (Ω.input.isDown("touch")) {
+					if (Ω.input.touch.x < this.x - this.screen.camera.x) {
+						this.anims.setTo("walkLeft");
+						x1 -= this.speed;
+					}
+					if (Ω.input.touch.x > this.x - this.screen.camera.x) {
+						this.anims.setTo("walk");
+						x1 += this.speed;
+					}
+				}
+
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
 					x1 -= this.speed;

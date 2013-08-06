@@ -7,6 +7,10 @@
 			x: null,
 			y: null
 		},
+		touch = {
+			x: null,
+			y: null
+		},
 		actions = {},
 		input,
 		el;
@@ -36,10 +40,14 @@
 			mouse2: -2,
 			mouse3: -3,
 			wheelUp: -4,
-			wheelDown: -5
+			wheelDown: -5,
+
+			touch: -6,
+			touchMove: -7
 		},
 
 		mouse: mouse,
+		touch: touch,
 
 		init: function (dom, icade) {
 
@@ -49,6 +57,7 @@
 
 			bindKeys(!icade ? keyed : keyedIcade);
 			bindMouse();
+			bindTouch();
 
 		},
 
@@ -276,6 +285,49 @@
 		document.addEventListener("mousewheel", mousewheel, false);
 		document.addEventListener("DOMMouseScroll", mousewheel, false);
 
+	}
+
+	function bindTouch() {
+
+		function setPos(e) {
+
+			var epos;
+
+			// TODO: handle multitouch
+			if (e.type === "touchend") {
+				epos = e.changedTouches ? e.changedTouches[0] : e;
+			} else {
+				epos = e.touches ? e.touches[0] : e;
+			}
+
+			var relX = epos.clientX - el.offsetLeft,
+				relY = epos.clientY - el.offsetTop;
+
+			touch.diff = {
+				x: touch.x - relX,
+				y: touch.y - relY
+			};
+			touch.prev = {
+				x: touch.x,
+				y: touch.y
+			};
+			touch.x = relX;
+			touch.y = relY;
+		}
+
+		document.addEventListener('touchstart', function (e) {
+			setPos(e);
+			keyed(-6, true);
+		}, false);
+		document.addEventListener('touchmove', function (e) {
+			setPos(e);
+			keyed(-7, true);
+		}, false);
+		document.addEventListener('touchend', function (e) {
+			setPos(e);
+			keyed(-6, false);
+			keyed(-7, false);
+		}, false);
 	}
 
 	Ω.input = input;

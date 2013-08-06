@@ -29,6 +29,7 @@ var Ω = (function() {
 			}
 
 			maxAssets = Math.max(++assetsToLoad, maxAssets);
+
 			return function () {
 
 				assetsToLoad -= 1;
