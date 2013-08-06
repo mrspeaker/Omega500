@@ -17,7 +17,7 @@
 
 ## Ω500 Features:
 
-Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
+Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
 
 ## Docs
 
@@ -88,36 +88,62 @@ has x, y, width and height (w, h) properties
 
 ### Input
 
-Bind keys to "actions". The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a label like "up", "down" - see Ω.input for the list) to the action:
+Bind keys to "actions". The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a label like "up", "down" - see `Ω.input` for the full list) to the action:
 
 	Ω.input.bind([
-		["space", "fire"],
-		["escape", "escape"],
 		["left", "left"],
 		["right", "right"],
 		["up", "up"],
-		["down", "down"]
+		["down", "down"],
+
+        ["space", "fire"],
+        ["touch", "fire"],
+        [13, "fire"],
+
 	]);
 
-This lets you have multiple keys bind to the same action.
+This lets you have multiple keys bind to the same action. In the example above the touch screen, space bar, and the enter key (keycode 13 (which incidentally also has the alias "enter")) all trigger the action "fire".
 
 Then to test:
 
-	if (Ω.input.pressed("fire")) {
-		// Fire button pressed
-	}
+    if (Ω.input.pressed("fire")) // A button with the action "fire" was pressed
+	if (Ω.input.released("fire")) // A button with the action "fire" was released
+    if (Ω.input.isDown("up")) // Button is being held down
+    if (Ω.input.wasDown("left")) // Button was down in the last frame
 
-Also: released (== wasDown && !isDown), isDown, wasDown, release (forces a key to be released)
+To force an action to be released (even if user still holding down button):
+
+    Ω.input.release("left")
+
 
 ### Image
 
-Can be loaded "flipped" (flip x=1, flip 2=2, flip both=3)
+Usually you load the image as a class property (so it is preloaded). Don't be afraid to add the same image in many classes - it will only be loaded once.
+
+    var img = new Ω.Image("res/minecraft.png")
+
+In container render:
+
+    img.render(gfx, 10, 10)
+
+The image can be loaded "flipped" (flip x=1, flip 2=2, flip both=3)
+
+    // Load the image upside down
+    new Ω.Image("res/minecraft.png", 2)
 
 ### Sound
 
+Usually you load the sound as a class property (so it is preloaded).
+
+    var sound = new Ω.Sound("res/boink.wav")
+
 If you don't put an extension it'll choose .mp3 if supported, else .ogg
 
-### SpriteSheet
+To play a sound:
+
+    sound.play();
+
+### Sprite sheets
 
 Specify tile sheet, tile w and tile h.
 
@@ -197,7 +223,31 @@ shake.
 
 ### Utils
 
+time: use Ω.utils.now() for everything time related (is paused in dialogs)
+
 ### State helper
+
+    this.state = new Ω.utils.State("BORN") // Init to a state
+    this.state.set("RUNNING"); // Set to a state
+
+In container tick:
+
+    this.state.tick();
+
+    switch (this.state.get()) {
+        case "BORN": ...
+        case "RUNNING": ...
+        case "DEAD": ...
+    }
+
+Testing state:
+
+    if (this.state.first()) // first frame....
+    if (this.state.count > 40) // 40th frame
+    if (this.state.is("BORN") // is "BORN"
+    if (this.state.isNot("DEAD") // is not "DEAD"
+    if (this.state.in("BORN", "RUNNING")) // is any of these
+    if (this.state.notIn("DEAD", "RUNNING")) // none of these
 
 ## TODO/ideas
 
@@ -205,7 +255,7 @@ Highest priority and WIP:
 
 - BUG: bad map collision if entity taller/wider than block
 - Sprite: Custom bounding box
-- Input: touch handling
+- Support: fullscreen API
 
 High priority:
 
@@ -215,21 +265,16 @@ High priority:
 - Gfx: screen resizing
 - Math: add smoothstep/lerp helper
 - Support: FPS count
-- Support: Work in Ejecta
-- Support: Mobile compatibility
 - Multiple screens (as layers)
 
 Low prority:
 
-- Input: Game controller support
-- Input: mouse lock API
 - Gfx: DSP on spritesheets
 - Gfx: dirty rect optimisations
 - Physics: quadtree or map-by-map ents optimisiation
 - Math: pathfinding algo
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
-- Support: fullscreen API
 - "Post" effects in webgl (see DIGIBOTS & CO.)
 
 ## inFAQ:
