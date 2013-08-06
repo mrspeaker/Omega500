@@ -16,6 +16,7 @@
 
 			Ω.input.bind([
 				["space", "space"],
+				["touch", "space"],
 				[67, "launch"],
 				["escape", "escape"],
 				["left", "left"],
