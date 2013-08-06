@@ -5,7 +5,7 @@
 	var MainScreen = Ω.Screen.extend({
 
 		players: [],
-		sheet: new Ω.SpriteSheet("res/tiles.png", 32, 32),
+		≈
 		bg: new Ω.Image("../res/images/background.png", 1),
 		shake: null,
 
