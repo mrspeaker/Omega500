@@ -20,6 +20,7 @@
 		<script src="../../Ω/input.js"></script>
 		<script src="../../Ω/SpriteSheet.js"></script>
 		<script src="../../Ω/maps/Map.js"></script>
+		<script src="../../Ω/maps/DebugMap.js"></script>
 		<script src="../../Ω/screens/Screen.js"></script>
 		<script src="../../Ω/Game.js"></script>
 
@@ -31,27 +32,31 @@
 
 				sheet: new Ω.SpriteSheet("../res/images/tiles.png", 32, 32),
 
+				loaded: false,
+
 				init: function () {
 
-					var cells = [
-						[0,1,1,1,0,0],
-						[0,1,1,0,1,0],
-						[0,0,1,1,0,0],
-						[1,0,0,0,0,1]
-					];
+					var self = this;
 
-					var graph = new Graph(cells),
-						start = graph.nodes[0][0];
-						end = graph.nodes[0][4];
-						result = astar.search(graph.nodes, start, end);
+					Ω.gfx.loadImage("../res/images/level.png", function (img){
 
-					console.log(result.map(function(gn) {
-						return gn.toString();
-					}));
+						self.map = new Ω.DebugMap(13, 13, 1, 1);
+						self.map.imgToCells(img);
 
-					this.path = result;
+						var cells = self.map.cells.map(function (r) {
+								return r.map(function (c) {
+									return c > 0 ? 1 : 0;
+								});
+							}),
+							graph = new Graph(cells),
+							start = graph.nodes[1][1],
+							end = graph.nodes[16][28];
 
-					this.map = new Ω.Map(this.sheet, cells);
+						self.path = astar.search(graph.nodes, start, end);
+
+						self.loaded = true;
+
+					}, -1);
 
 				},
 
@@ -70,12 +75,15 @@
 						ch = this.map.sheet.h;
 
 					this.clear(gfx, "#000");
-
 					this.map.render(gfx);
+
+					if (!this.path.length) {
+						return;
+					}
 
 					c.strokeStyle = "#ff0";
 					c.beginPath();
-					c.moveTo(cw / 2, ch / 2);
+					c.moveTo(1 * (cw / 2), 1 * (ch / 2));
 					this.path.forEach(function (r) {
 						c.lineTo(r.y * cw + cw / 2, r.x * ch + ch / 2);
 					});

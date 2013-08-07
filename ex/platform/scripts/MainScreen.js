@@ -5,7 +5,6 @@
 	var MainScreen = Ω.Screen.extend({
 
 		players: [],
-		≈
 		bg: new Ω.Image("../res/images/background.png", 1),
 		shake: null,
 

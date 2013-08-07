@@ -54,7 +54,7 @@ function GraphNode(x, y, type) {
 }
 
 GraphNode.prototype.toString = function() {
-    return "[" + this.y + " " + this.x + "]";
+    return "[" + this.x + " " + this.y + "]";
 };
 
 GraphNode.prototype.isWall = function() {
