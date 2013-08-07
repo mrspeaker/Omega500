@@ -17,7 +17,7 @@
 
 ## Ω500 Features:
 
-Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
+Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
 
 ## Docs
 

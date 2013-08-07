@@ -34,10 +34,18 @@
 
 				init: function () {
 
-					var self = this;
+					var self = this,
+						colMap = {
+							"0,0,0,255": 1,
+							"71,103,33,255": 2, //WTF?: different values for retina!
+							"72,105,33,255": 2
+						};
 
 					this.map = new Ω.DebugMap(13, 13, 10, 3);
-					this.map.imgToCells("../res/images/level.png", function (map) {
+					this.map.imgToCells("../res/images/level.png", colMap, function (map, entities) {
+
+						console.log(entities)
+						var ends = entities["183,123,4,255"];
 
 						// Do some A* path findin'
 						var cells = map.cells.map(function (r) {
@@ -47,8 +55,8 @@
 								});
 							}),
 							graph = new Graph(cells),
-							start = graph.nodes[1][1],
-							end = graph.nodes[16][28];
+							start = graph.nodes[ends[0][1]][ends[0][0]],
+							end = graph.nodes[ends[1][1]][ends[1][0]];
 
 						self.path = astar.search(graph.nodes, start, end);
 
@@ -71,9 +79,15 @@
 					if (this.path.length) {
 						c.strokeStyle = "#0f0";
 						c.beginPath();
-						c.moveTo(0, 0);
-						this.path.forEach(function (r) {
-							c.lineTo(r.y * cw + cw / 2, r.x * ch + ch / 2);
+						c.moveTo(
+							this.path[0].y * cw + cw / 2,
+							this.path[0].x * ch + ch / 2
+						);
+						this.path.slice(1).forEach(function (r) {
+							c.lineTo(
+								r.y * cw + cw / 2,
+								r.x * ch + ch / 2
+							);
 						});
 						c.stroke();
 					}

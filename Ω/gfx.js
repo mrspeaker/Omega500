@@ -90,12 +90,17 @@
 
 		createCanvas: function (w, h) {
 
-			var cn = document.createElement("canvas");
+			var cn = document.createElement("canvas"),
+				ctx = cn.getContext("2d");
 
 			cn.setAttribute("width", w);
 			cn.setAttribute("height", h);
 
-			return cn.getContext("2d");
+			ctx.imageSmoothingEnabled = false;
+			ctx.mozImageSmoothingEnabled = false;
+			ctx.webkitImageSmoothingEnabled = false;
+
+			return ctx;
 
 		},
 

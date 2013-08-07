@@ -140,42 +140,82 @@
 
 		},
 
-		imgToCells: function (img, cb, flipFlags) {
+		// returns colors X & Y that weren't mapped to tiles (so you can use for entities etc)
+		imgToCells: function (img, colMap, cb, flipFlags) {
 
-			var self = this;
+			var self = this,
+				entities = {},
+				autoColMap = {},
+				autoColIdx = 0;
 
 			function canvToCells(canvas) {
 
 				var ctx = canvas.getContext("2d"),
 					pix = ctx.getImageData(0, 0, canvas.width, canvas.height).data,
-					out = [];
+					pixOff,
+					cells = [],
+					i,
+					j,
+					col,
+					key;
 
-				for (var j = 0; j < canvas.height; j++) {
-					out.push([]);
-					for (var i = 0; i < canvas.width; i++) {
-						var pixOff = j * canvas.width * 4 + (i * 4);
+				for (j = 0; j < canvas.height; j++) {
+					cells.push([]);
+					for (i = 0; i < canvas.width; i++) {
+						pixOff = j * canvas.width * 4 + (i * 4);
 						if (pix[pixOff + 3] !== 0) {
-							out[out.length - 1].push(1);
+
+							key = pix[pixOff] + "," + pix[pixOff + 1] + "," + pix[pixOff + 2] + "," + pix[pixOff + 3];
+
+							if (!colMap) {
+								// Set tile indexes to colours, as we see them
+								col = autoColMap[key];
+								if (!col) {
+									autoColMap[key] = ++autoColIdx;
+								}
+								cells[cells.length - 1].push(col);
+
+							} else {
+								// Get the tile from the colour map
+								col = colMap[key];
+								if (!col) {
+									// This colour is not a tile. It must be an entity...
+									if (entities[key]) {
+										entities[key].push([i, j])
+									} else {
+										entities[key] = [[i, j]];
+									}
+									col = 0;
+								}
+								cells[cells.length - 1].push(col);
+							}
 						} else {
-							out[out.length - 1].push(0);
+							cells[cells.length - 1].push(0);
 						}
 					}
 				}
 
-				self.populate(out);
+				self.populate(cells);
+
+				return entities;
 
 			}
 
+			var unmapped;
 			if (typeof img === "string") {
 				// Load first
 				Ω.gfx.loadImage(img, function (canvas){
-					canvToCells(canvas);
-					cb && cb(self);
+
+					document.body.appendChild(canvas);
+
+					unmapped = canvToCells(canvas);
+					cb && cb(self, unmapped);
 				}, flipFlags || 0);
 			} else {
-				canvToCells(img);
+				unmapped = canvToCells(img);
 			}
 
+			return unmapped;
 
 		}
 

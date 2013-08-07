@@ -16,13 +16,14 @@
 			var off = Math.random() * 255 | 0;
 
 			for (var i = 0; i < numPix; i++) {
-				var row = (i / (data.width)) | 0,
+				var row = i / data.width | 0,
 					col = ((i / tileW) | 0) % data.width % xTiles,
-					color = ((row / tileH | 0) + 1 + (col * 3) + off) | 0;
+					noise = Math.random() < 0.3 ? (Math.random() * 30) : 0,
+					color = ((row / tileH) + 1 + (col * 3) + off) | 0;
 
-				pix[i * 4] = (color * 50) % 255;
-				pix[i * 4 + 1] = (color * 240) % 255;
-				pix[i * 4 + 2] = (color * 80) % 255;
+				pix[i * 4] = (color * 50) % 255 + noise;
+				pix[i * 4 + 1] = (color * 240) % 255 + noise;
+				pix[i * 4 + 2] = (color * 80) % 255 + noise;
 				pix[i * 4 + 3] = 255;
 			}
 

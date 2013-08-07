@@ -87,6 +87,13 @@ ul {
 	padding: 0;
 }
 
+canvas {
+	image-rendering: optimizeSpeed;
+	image-rendering:-o-crisp-edges;
+	image-rendering:-webkit-optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
 #board {}
 
 a.home {
