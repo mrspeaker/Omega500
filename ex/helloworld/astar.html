@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Ω500 Screens</title>
+		<title>Ω500 A* Pathfinding</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="../res/main.css">
 	</head>
@@ -16,8 +16,8 @@
 		<script src="../../Ω/utils/base.js"></script>
 		<script src="../../Ω/utils/utils.js"></script>
 		<script src="../../Ω/utils/Timer.js"></script>
-		<script src="../../Ω/gfx.js"></script>
 		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
 		<script src="../../Ω/SpriteSheet.js"></script>
 		<script src="../../Ω/maps/Map.js"></script>
 		<script src="../../Ω/maps/DebugMap.js"></script>
@@ -30,22 +30,20 @@
 
 			var TitleScreen = Ω.Screen.extend({
 
-				sheet: new Ω.SpriteSheet("../res/images/tiles.png", 32, 32),
-
 				loaded: false,
 
 				init: function () {
 
 					var self = this;
 
-					Ω.gfx.loadImage("../res/images/level.png", function (img){
+					this.map = new Ω.DebugMap(13, 13, 10, 3);
+					this.map.imgToCells("../res/images/level.png", function (map) {
 
-						self.map = new Ω.DebugMap(13, 13, 1, 1);
-						self.map.imgToCells(img);
-
-						var cells = self.map.cells.map(function (r) {
+						// Do some A* path findin'
+						var cells = map.cells.map(function (r) {
+								// Map the level grid to 1's and 0's
 								return r.map(function (c) {
-									return c > 0 ? 1 : 0;
+									return c > map.walkable ? 1 : 0;
 								});
 							}),
 							graph = new Graph(cells),
@@ -56,64 +54,40 @@
 
 						self.loaded = true;
 
-					}, -1);
-
-				},
-
-				tick: function () {
-
-					this.msgX = (Math.sin(Date.now() / 100) * 3) + Ω.env.w * 0.4;
-					this.msgY = (Math.cos(Date.now() / 100) * 3) + Ω.env.h * 0.5;
+					});
 
 				},
 
 				render: function (gfx) {
 
 					var c = gfx.ctx,
-						self = this,
 						cw = this.map.sheet.w,
 						ch = this.map.sheet.h;
 
 					this.clear(gfx, "#000");
 					this.map.render(gfx);
 
-					if (!this.path.length) {
-						return;
+					// Draw the path
+					if (this.path.length) {
+						c.strokeStyle = "#0f0";
+						c.beginPath();
+						c.moveTo(0, 0);
+						this.path.forEach(function (r) {
+							c.lineTo(r.y * cw + cw / 2, r.x * ch + ch / 2);
+						});
+						c.stroke();
 					}
-
-					c.strokeStyle = "#ff0";
-					c.beginPath();
-					c.moveTo(1 * (cw / 2), 1 * (ch / 2));
-					this.path.forEach(function (r) {
-						c.lineTo(r.y * cw + cw / 2, r.x * ch + ch / 2);
-					});
-					c.stroke();
-
 
 				}
 
 			});
 
-			/*
-
-				Simplest "game" with Screen
-
-			*/
+			// Game object
 			new (Ω.Game.extend({
 
 				canvas: "#board",
 
-				init: function (w, h) {
-
-					this._super(w, h);
-
-					Ω.input.bind([
-						["space", "space"],
-						["left", "left"],
-						["right", "right"],
-						["up", "up"],
-						["down", "down"]
-					]);
+				load: function () {
 
 					this.setScreen(new TitleScreen());
 

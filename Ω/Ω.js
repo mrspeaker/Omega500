@@ -24,7 +24,7 @@ var Ω = (function() {
 
 			if (!preloading) {
 				return function () {
-					console.error("empty preloading func called:", name);
+					// console.log("preloading finished!", name);
 				};
 			}
 
@@ -42,8 +42,8 @@ var Ω = (function() {
 					if (!preloading) {
 						console.error("Preloading finished (onload called) multiple times!");
 					}
-					preloading = false;
 
+					preloading = false;
 					Ω.evt.onload.map(function (o) {
 						o();
 					});
@@ -58,6 +58,7 @@ var Ω = (function() {
 
 			if (maxAssets === 0 || assetsToLoad === 0) {
 				// No assets to load, so fire onload
+				preloading = false;
 				Ω.evt.onload.map(function (o) {
 					o();
 				});

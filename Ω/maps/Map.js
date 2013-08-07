@@ -15,18 +15,20 @@
 		init: function (sheet, cells, walkable) {
 
 			this.sheet = sheet;
-			this.populate(cells || [[]]);
-
 			this.walkable = walkable || 0;
+
+			this.populate(cells || [[]]);
 
 		},
 
 		populate: function (cells) {
+
 			this.cells = cells;
 			this.cellH = this.cells.length;
 			this.cellW = this.cells[0].length;
 			this.h = this.cellH * this.sheet.h;
 			this.w = this.cellW * this.sheet.w;
+
 		},
 
 		render: function (gfx, camera) {
@@ -138,26 +140,42 @@
 
 		},
 
-		imgToCells: function (canvas) {
+		imgToCells: function (img, cb, flipFlags) {
 
-			var ctx = canvas.getContext("2d"),
-				pix = ctx.getImageData(0, 0, canvas.width, canvas.height).data,
-				out = [];
+			var self = this;
 
-			for (var j = 0; j < canvas.height; j++) {
-				out.push([]);
-				for (var i = 0; i < canvas.width; i++) {
-					var pixOff = j * canvas.width * 4 + (i * 4);
-					if (pix[pixOff + 3] !== 0) {
-						out[out.length - 1].push(1);
-					} else {
-						out[out.length - 1].push(0);
+			function canvToCells(canvas) {
+
+				var ctx = canvas.getContext("2d"),
+					pix = ctx.getImageData(0, 0, canvas.width, canvas.height).data,
+					out = [];
+
+				for (var j = 0; j < canvas.height; j++) {
+					out.push([]);
+					for (var i = 0; i < canvas.width; i++) {
+						var pixOff = j * canvas.width * 4 + (i * 4);
+						if (pix[pixOff + 3] !== 0) {
+							out[out.length - 1].push(1);
+						} else {
+							out[out.length - 1].push(0);
+						}
 					}
 				}
+
+				self.populate(out);
+
 			}
 
+			if (typeof img === "string") {
+				// Load first
+				Ω.gfx.loadImage(img, function (canvas){
+					canvToCells(canvas);
+					cb && cb(self);
+				}, flipFlags || 0);
+			} else {
+				canvToCells(img);
+			}
 
-			this.populate(out);
 
 		}
 

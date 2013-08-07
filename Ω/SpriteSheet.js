@@ -30,7 +30,7 @@
 		populate: function (img, flipFlags) {
 
 			this.sheet = img;
-			if (flipFlags) {
+			if (flipFlags >= 0) {
 				this.sheet = this.flipImage(img.canvas || img, flipFlags);
 			}
 
@@ -40,7 +40,7 @@
 
 		flipImage: function (img, flags) {
 
-			// flip x = 1, y = 2, both = 3
+			// flip: x = 1, y = 2, both = 3, none = 0
 
 			var ctx = Ω.gfx.createCanvas(
 					img.width * (flags & 1 ? 2 : 1),

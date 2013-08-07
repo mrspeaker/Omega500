@@ -42,7 +42,7 @@
 
 					var procImage;
 
-					if (flipFlags) {
+					if (flipFlags >= 0) {
 						procImage = self.flipImage(image, flipFlags);
 					}
 
@@ -75,7 +75,7 @@
 
 		flipImage: function (img, flags) {
 
-			// flip x = 1, y = 2, both = 3
+			// flip x = 1, y = 2, both = 3, none = 0
 			var ctx = this.createCanvas(img.width, img.height);
 
 			ctx.save();
@@ -94,6 +94,7 @@
 
 			cn.setAttribute("width", w);
 			cn.setAttribute("height", h);
+
 			return cn.getContext("2d");
 
 		},
