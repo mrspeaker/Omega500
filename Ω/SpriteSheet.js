@@ -6,28 +6,36 @@
 
 		init: function (path, width, height, flipFlags) {
 
-			this.path = path;
 			this.w = width;
 			this.h = height || width;
-			this.cellW = 8;
-			this.cellH = 2;
+			this.cellW = 0;
+			this.cellH = 0;
+
+			// Direct init from image
+			if (typeof path !== "string") {
+				this.populate(path, flipFlags);
+				return;
+			}
 
 			var self = this;
 
 			Ω.gfx.loadImage(path, function (img) {
 
-				self.sheet = img;
-				if (flipFlags) {
-
-					self.sheet = self.flipImage(img.canvas || img, flipFlags);
-
-				}
-
-				self.cellW = img.width / self.w | 0;
-				self.cellH = img.height / self.h | 0;
+				self.populate(img, flipFlags);
 
 			});
 
+		},
+
+		populate: function (img, flipFlags) {
+
+			this.sheet = img;
+			if (flipFlags) {
+				this.sheet = this.flipImage(img.canvas || img, flipFlags);
+			}
+
+			this.cellW = img.width / this.w | 0;
+			this.cellH = img.height / this.h | 0;
 		},
 
 		flipImage: function (img, flags) {
