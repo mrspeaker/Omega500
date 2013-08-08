@@ -55,6 +55,10 @@
 
 			var game = new PlatformGame(400, 165);
 
+			document.addEventListener("dblclick", function(){
+				Ω.utils.fullscreen.toggle("#board");
+			}, false);
+
 			var conswatch = (function () {
 
 				var out,
