@@ -12,6 +12,7 @@
         layers: null,
 
         init: function (file, onload) {
+
             var self = this;
 
             this.layers = [];

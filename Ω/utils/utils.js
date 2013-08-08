@@ -16,7 +16,8 @@
 
 		},
 
-		// Overwrite this with the game.now
+		// This gets overwritten by game.now
+		// To use game time, not real-world time
 		now: function () {
 
 			return Date.now();

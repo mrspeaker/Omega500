@@ -21,6 +21,8 @@ Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, 
 
 ## Docs
 
+Best just to check the examples and games.
+
 ### General idea/notes
 
 Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
@@ -38,6 +40,8 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
 Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its main child object (level). Level (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. I might generalise this later, so everything really has a concept of "children", but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them - but it means some stuff only works in one situtation. For example, spritesheets can't contain any margins; no custom bounding boxes etc. These are all easy to fix, but because I'm focusing on finishin' games - it'll take a while before I address everything. Also, it explains why you there are some weirder functions - like map ray casting... because I needed them!
+
+Most positions are given as a 2 element [x, y] array.
 
 
 ### Ω.Game
@@ -86,7 +90,7 @@ Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know h
 
 Has x, y, w, h properties which is used for map/entity collision detection.
 
-I use a couple of conventions for updating collections of entities. For "ticking", I call tick on each object and inside the object's tick method I return `true` if it's still alive, and `false` if it should be removed:
+There are a couple of conventions for updating collections of entities. For "ticking", call tick on each object - and inside the object's tick method return `true` if it's still alive, and `false` if it should be removed:
 
     this.baddies = this.baddies.filter(function (baddie) {
         return baddie.tick();
@@ -104,7 +108,7 @@ The `entity` base class has a `remove` flag which you can set anywhere in the en
     },
     ...
 
-For rendering I just `forEach` them:
+For rendering, just `forEach` them:
 
     this.baddies.forEach(function (baddie) {
         baddie.tick(gfx);
@@ -223,10 +227,66 @@ Render it inside the container's render:
 
 ### Map
 
-Usually give it a camera to render
+Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to render.
+
+    sheet: new Ω.SpriteSheet("../res/images/tiles.png", 32, 32)
+
+    ...
+
+    var map = new Ω.Map(this.sheet, [
+        [1,1,1,1,1,],
+        [1,0,0,0,0,],
+        [1,0,1,1,0,],
+        [1,0,0,0,0,],
+        [1,1,1,1,1,]
+    ]);
+
+Optional 3rd parameter that indicates the last number that is "walkable" (or "not solid") for entity collision detection. Default is 0.
+
+* Debug Map *
+
+Doesn't require a spritesheet - it's magically generated (for prototyping)
+
+* Iso Map *
+
+* Collisions *
+
+Collisions with entities:
+
+    entity.move(xAmount, yAmount, map);
+
+* Loading a map from an image *
+
+You can paint pixels and use that as your map - mapping different colours to different tiles. Other colours can then be used to set the locations of entities and spawn points etc. Good for rapid prototying and game jams.
+
+    map.imgToCells(path, colorMap, callback, flipFlags)
+
+The callback (if you provide a path to an image, otherwise the return value if you provide an image directly) returns colours from the colour map that were not matched. These (it's assumed) are used for entity locations etc.
+
+### "Tiled Editor" Map loader
+
+For loading maps created with [Tiled Editor](http://www.mapeditor.org/)
 
 ### Physics
 
+Collision detection
+
+Check for collision against all entities against each other, and call the enitity's `hit` method, passing the entity that hit it.
+
+    Ω.Physics.checkCollisions([
+        this.players,
+        this.baddies
+    ]);
+
+You can provide an optional second paramater that is the entity method name to call instead of `hit`.
+
+If you only want to check a single entity against other then `checkCollision` (singluar!) checks for a single entity agains an array (or array of arrays) of other entities:
+
+    Ω.Physics.checkCollision(
+        this.player,
+        [this.baddies, this.monsters],
+        "hitEnemy"
+    );
 
 ### Dialog
 
@@ -246,7 +306,7 @@ It accepts an array of entities, or arrays of entities to render. They are drawn
     // Camera at pos 0, 0 with viewport size 320x240.
     var camera = new Ω.Camera(0, 0, 320, 240);
 
-    // Draw the map, player and baddies (anything with a render function!)
+    // Draw the map, player and baddies (anything (or array of things) with a render function!)
     camera.render(gfx, [map, player, baddies]);
 
 There's also a TrackingCamera that will follow the entity you pass to it.
@@ -254,7 +314,16 @@ There's also a TrackingCamera that will follow the entity you pass to it.
 
 ### Preloading
 
+Put resources as properties in your classes - they'll get preloaded.
+You can track the loading progress in your game object, for making a loading bar:
+
+    Ω.evt.progress.push(function (loadedSoFar, maxToLoad) {
+        // console.log(loadedSoFar, maxToLoad);
+    });
+
 ### Ray casting
+
+Just for hitting maps, not other entities.
 
 ### Effects
 
@@ -263,6 +332,36 @@ shake.
 ### Utils
 
 time: use Ω.utils.now() for everything time related (is paused in dialogs)
+
+* Randoms *
+
+    Ω.utils.rand(10)  // Random whole number between 0 and 9
+    Ω.utils.oneIn(10) // 1 in 10 chance of being true
+
+* Time *
+
+    Ω.utils.now()
+    Ω.utils.since(time)
+    Ω.utils.toggle()
+    Ω.utils.formatTime(time)
+
+* trig/positions *
+
+    Ω.utils.dist(a, b) // Distance between two entities (or [x,y] arrays)
+    Ω.utils.angleBetween(a, b)
+    Ω.utils.snap(value, snapSize) // Snap given value to snap size (floored)
+    Ω.utils.snapRound(value, snapSize) // // Snap given value to snap size (rounded)
+    Ω.utils.center(entity) // get the middle of a rectangle
+    Ω.utils.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
+
+* Fullscreen API *
+
+Needs to be done inside a user interaction (like a click, keypress) handler.
+
+    Ω.utils.fullscreen.request("#board")
+    Ω.utils.fullscreen.cancel()
+    Ω.utils.fullscreen.toggle("#board") //toggle between request/cancel
+
 
 ### State helper
 
