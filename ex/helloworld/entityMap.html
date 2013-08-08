@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Tile Map with and entity</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a> | Use arrow keys to move around | Entity/Map collision
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/SpriteSheet.js"></script>
+		<script src="../../Ω/maps/Map.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/entities/Entity.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			// Inherit our player from Ω.Entity
+			var Player = Ω.Entity.extend({
+
+				// Width & Height used for collision detection
+				w: 18,
+				h: 25,
+
+				tick: function (map) {
+
+					// Handle keyboard input and moving
+					var xo = 0,
+						yo = 0;
+
+					if (Ω.input.isDown("up")) { yo = -2; }
+					if (Ω.input.isDown("down")) { yo = 2; }
+					if (Ω.input.isDown("left")) { xo = -2; }
+					if (Ω.input.isDown("right")) { xo = 2; }
+
+					// The move function locks the player to the map
+					this.move(xo, yo, map);
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+					c.fillStyle = "#e00";
+					c.fillRect(this.x, this.y, this.w, this.h);
+
+				}
+
+			});
+
+
+			// Now make a screen to show a Map and Player
+			var MainScreen = Ω.Screen.extend({
+
+				sheet: new Ω.SpriteSheet("../res/images/tiles.png", 32, 32),
+
+				init: function () {
+
+					// Create a lil' map with the tiles.png sprite sheet
+					this.map = new Ω.Map(this.sheet, [
+						[1,1,1,1,1,1,1,1,1,1,1,1,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,0,1,1,1,1,0,1,1,1,1,0,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,0,1,1,1,1,0,1,1,1,1,0,1],
+						[1,0,0,0,0,4,0,4,0,0,0,0,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,0,2,2,2,2,2,2,2,2,2,0,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,1,1,1,1,1,1,1,1,1,1,1,1]
+					]);
+
+					// Make a player
+					this.player = new Player();
+					this.player.x = 6 * 32;
+					this.player.y = 6 * 32;
+
+				},
+
+				tick: function () {
+
+					// Update the player
+					this.player.tick(this.map);
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+
+					// Draw the player and map
+					this.map.render(gfx);
+					this.player.render(gfx);
+
+				}
+
+			});
+
+			// A Game object for set up and runnin'
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					// Bind the keys to actions
+					Ω.input.bind([
+						["left", "left"],
+						["right", "right"],
+						["up", "up"],
+						["down", "down"]
+					]);
+
+					// Start the main screen!
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
