@@ -29,7 +29,21 @@
 		<script src="../../vendor/astar.js"></script>
 		<script>
 
-			var TitleScreen = Ω.Screen.extend({
+			var Player = Ω.Entity.extend({
+				init: function(x, y, w, h) {
+					this.x = x;
+					this.y = y;
+					this.w = w;
+					this.h = h;
+				},
+				render: function (gfx) {
+					var c = gfx.ctx;
+					c.fillStyle = "#777";
+					c.fillRect(this.x, this.y, this.w, this.h);
+				}
+			});
+
+			var MainScreen = Ω.Screen.extend({
 
 				loaded: false,
 
@@ -51,19 +65,6 @@
 						var end = entities["180,120,0,250"][0],
 							start = entities["70,0,100,250"][0];
 
-						var Runner = Ω.Entity.extend({
-							init: function(x, y, w, h) {
-								this.x = x;
-								this.y = y;
-								this.w = w;
-								this.h = h;
-							},
-							render: function (gfx) {
-								var c = gfx.ctx;
-								c.fillStyle = "#777";
-								c.fillRect(this.x, this.y, this.w, this.h);
-							}
-						});
 						self.start = new Runner(end[0] * map.sheet.w, end[1] * map.sheet.h, 10, 10);
 						self.end = new Runner(start[0] * map.sheet.w, start[1] * map.sheet.h, 10, 10);
 
@@ -192,7 +193,7 @@
 						["down", "down"]
 					]);
 
-					this.setScreen(new TitleScreen());
+					this.setScreen(new MainScreen());
 
 				}
 
