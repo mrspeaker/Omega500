@@ -94,6 +94,19 @@
 
 		},
 
+		constrain: function (pos, bounds) {
+
+			var xo = pos[0],
+				yo = pos[1];
+			if (xo < 0) { xo = 0; }
+			if (yo < 0) { yo = 0; }
+			if (xo > bounds.w) { xo = bounds.w; }
+			if (yo > bounds.h) { yo = bounds.h; }
+
+			return [xo, yo];
+
+		},
+
 		formatTime: function (t) {
 
 			t /= 1000;

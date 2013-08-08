@@ -305,6 +305,7 @@ High priority:
 - Math: add smoothstep/lerp helper
 - Support: FPS count
 - Multiple screens (as layers)
+- Random with seed
 
 Low prority:
 

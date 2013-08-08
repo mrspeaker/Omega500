@@ -19,7 +19,14 @@
 				var row = i / data.width | 0,
 					col = ((i / tileW) | 0) % data.width % xTiles,
 					noise = Math.random() < 0.3 ? (Math.random() * 30) : 0,
-					color = ((row / tileH) + 1 + (col * 3) + off) | 0;
+					color = ((row / tileH) + 1 + (col * 3) + off + (noise / 10)) | 0;
+
+
+				// Remove the edges, for some roundiness.
+				if (i % tileW == 0 && (i / data.width | 0) % tileH == 0) { color = 0; }
+				if ((i + 1) % tileW == 0 && (i / data.width | 0) % tileH == 0) { color = 0; }
+				if (i % tileW == 0 && ((i / data.width | 0) + 1) % tileH == 0) { color = 0; }
+				if ((i + 1) % tileW == 0 && ((i / data.width | 0) + 1) % tileH == 0) { color = 0; }
 
 				pix[i * 4] = (color * 50) % 255 + noise;
 				pix[i * 4 + 1] = (color * 240) % 255 + noise;

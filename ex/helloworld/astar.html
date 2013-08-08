@@ -22,6 +22,7 @@
 		<script src="../../Ω/maps/Map.js"></script>
 		<script src="../../Ω/maps/DebugMap.js"></script>
 		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/entities/Entity.js"></script>
 		<script src="../../Ω/Game.js"></script>
 
 		<script src="../../vendor/graph.js"></script>
@@ -38,31 +39,105 @@
 						colMap = {
 							"0,0,0,255": 1,
 							"71,103,33,255": 2, //WTF?: different values for retina!
-							"72,105,33,255": 2
+							"72,105,33,255": 2,
+							"194,33,3,255": 3
 						};
 
 					this.map = new Ω.DebugMap(13, 13, 10, 3);
-					this.map.imgToCells("../res/images/level.png", colMap, function (map, entities) {
+					this.map.imgToCells("../res/images/level.png?a=2", colMap, function (map, entities) {
 
-						console.log(entities)
+						// Add some entities
 						var ends = entities["183,123,4,255"];
+						var Runner = Ω.Entity.extend({
+							init: function(x, y, w, h) {
+								this.x = x;
+								this.y = y;
+								this.w = w;
+								this.h = h;
+							},
+							render: function (gfx) {
+								var c = gfx.ctx;
+								c.fillStyle = "#777";
+								c.fillRect(this.x, this.y, this.w, this.h);
+							}
+						});
+						self.start = new Runner(ends[0][0] * map.sheet.w, ends[0][1] * map.sheet.h, 10, 10);
+						self.end = new Runner(ends[1][0] * map.sheet.w, ends[1][1] * map.sheet.h, 10, 10);
 
 						// Do some A* path findin'
 						var cells = map.cells.map(function (r) {
-								// Map the level grid to 1's and 0's
-								return r.map(function (c) {
-									return c > map.walkable ? 1 : 0;
-								});
-							}),
-							graph = new Graph(cells),
-							start = graph.nodes[ends[0][1]][ends[0][0]],
-							end = graph.nodes[ends[1][1]][ends[1][0]];
+							// Map the level grid to 1's and 0's
+							return r.map(function (c) {
+								return c > map.walkable ? 1 : 0;
+							});
+						});
 
-						self.path = astar.search(graph.nodes, start, end);
-
+						self.path = [];
+						self.graph = new Graph(cells);
 						self.loaded = true;
+						self.time = 0;
 
 					});
+
+				},
+
+				tick: function () {
+
+					var epos = this.handleInput(),
+						spos = [0, 0];
+
+					// Move along the a* path
+					if (this.path.length) {
+						if (this.path[0].x * this.map.sheet.h > this.start.y) {
+							spos[1] = +1;
+						}
+						if (this.path[0].x * this.map.sheet.h < this.start.y) {
+							spos[1] = -1;
+						}
+						if (this.path[0].y * this.map.sheet.w > this.start.x) {
+							spos[0] = 1;
+						}
+						if (this.path[0].y * this.map.sheet.w < this.start.x) {
+							spos[0] = -1;
+						}
+					}
+
+					// Update the entities
+					this.start.move(spos[0], spos[1], this.map);
+					this.end.move(epos[0], epos[1], this.map);
+
+					// Recompute a*
+					if (this.time++ % 5 == 0) {
+						this.path = astar.search(
+							this.graph.nodes,
+							this.graph.nodes[this.start.y / this.map.sheet.w | 0][this.start.x / this.map.sheet.h | 0],
+							this.graph.nodes[this.end.y / this.map.sheet.w | 0][this.end.x / this.map.sheet.h | 0]
+						);
+					}
+
+				},
+
+				handleInput: function () {
+
+					var xo = 0,
+						yo = 0;
+
+					// Look for mouse button and update a*
+					if (Ω.input.pressed("move")) {
+						var cxy = Ω.utils.constrain(
+							[Ω.input.mouse.x, Ω.input.mouse.y],
+							{w: this.map.w - 30, h: this.map.h - 30}
+						);
+						this.start.x = cxy[0];
+						this.start.y = cxy[1];
+					}
+
+					if (Ω.input.isDown("up")) { yo = -2; }
+					if (Ω.input.isDown("down")) { yo = 2; }
+					if (Ω.input.isDown("left")) { xo = -2; }
+					if (Ω.input.isDown("right")) { xo = 2; }
+
+					return [xo, yo];
 
 				},
 
@@ -75,7 +150,7 @@
 					this.clear(gfx, "#000");
 					this.map.render(gfx);
 
-					// Draw the path
+					// Draw the a* path
 					if (this.path.length) {
 						c.strokeStyle = "#0f0";
 						c.beginPath();
@@ -92,6 +167,9 @@
 						c.stroke();
 					}
 
+					this.start.render(gfx);
+					this.end.render(gfx);
+
 				}
 
 			});
@@ -102,6 +180,14 @@
 				canvas: "#board",
 
 				load: function () {
+
+					Ω.input.bind([
+						["mouse1", "move"],
+						["left", "left"],
+						["right", "right"],
+						["up", "up"],
+						["down", "down"]
+					]);
 
 					this.setScreen(new TitleScreen());
 
