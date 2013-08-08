@@ -75,9 +75,9 @@
 
 		flipImage: function (img, flags) {
 
-			// flip x = 1, y = 2, both = 3, none = 0
 			var ctx = this.createCanvas(img.width, img.height);
 
+			// flip x = 1, y = 2, both = 3, none = 0
 			ctx.save();
 			ctx.translate(flags & 1 ? img.width : 0, flags & 2 ? img.height : 0);
 			ctx.scale(flags & 1 ? -1 : 1, flags & 2 ? -1 : 1);

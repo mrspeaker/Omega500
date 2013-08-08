@@ -42,8 +42,7 @@
 				hitY = false,
 
 				xBlocks,
-				yBlocks,
-				yBlocksWithXMove;
+				yBlocks;
 
 			if (this.falling) {
 				y += this.gravity;
