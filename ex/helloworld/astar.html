@@ -65,8 +65,8 @@
 						var end = entities["180,120,0,250"][0],
 							start = entities["70,0,100,250"][0];
 
-						self.start = new Runner(end[0] * map.sheet.w, end[1] * map.sheet.h, 10, 10);
-						self.end = new Runner(start[0] * map.sheet.w, start[1] * map.sheet.h, 10, 10);
+						self.start = new Player(end[0] * map.sheet.w, end[1] * map.sheet.h, 10, 10);
+						self.end = new Player(start[0] * map.sheet.w, start[1] * map.sheet.h, 10, 10);
 
 						// Do some A* path findin'
 						var cells = map.cells.map(function (r) {
