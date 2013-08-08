@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Tile Map</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/SpriteSheet.js"></script>
+		<script src="../../Ω/maps/Map.js"></script>
+		<script src="../../Ω/maps/DebugMap.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/entities/Entity.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			var TitleScreen = Ω.Screen.extend({
+
+				init: function () {
+
+					// DebugMap generates it's own sprite sheet
+					this.map = new Ω.DebugMap(30, 30, 8, 2, [
+						[1,1,1,1,1,1,1,1,1,1,1,1,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,0,2,2,2,2,0,2,2,2,2,0,1],
+						[1,0,2,0,0,0,0,0,0,0,2,0,1],
+						[1,0,2,0,3,0,5,0,3,0,2,0,1],
+						[1,0,2,0,0,4,0,4,0,0,2,0,1],
+						[1,0,2,0,0,0,0,0,0,0,2,0,1],
+						[1,0,2,2,2,2,2,2,2,2,2,0,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,1,1,1,1,1,1,1,1,1,1,1,1]
+					]);
+
+				},
+
+				tick: function () {
+
+					// Mess up the map!
+					if (!((Date.now() / 20 % 10) | 0)) {
+						this.map.cells = this.map.cells.map(function (row) {
+							return row.map(function (col){
+								return Math.random() < 0.01 ? Math.random() * 6 | 0 : col;
+							})
+						})
+					}
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+					this.map.render(gfx);
+
+				}
+
+			});
+
+			// Game object
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new TitleScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
