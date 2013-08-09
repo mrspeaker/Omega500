@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Tile Map with and entity</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a> | Use arrow keys to move around
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/SpriteSheet.js"></script>
+		<script src="../../Ω/maps/Map.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/entities/Entity.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			// Inherit our player from Ω.Entity
+			var Player = Ω.Entity.extend({
+
+				sheet: new Ω.SpriteSheet("../platform/res/charzera.png", 25, 45, 3),
+
+				tick: function (map) {
+
+					// Handle keyboard input and moving
+					if (Ω.input.isDown("up")) { this.y -= 2; }
+					if (Ω.input.isDown("down")) { this.y += 2; }
+					if (Ω.input.isDown("left")) { this.x -= 2; }
+					if (Ω.input.isDown("right")) { this.x += 2; }
+
+				},
+
+				render: function (gfx) {
+
+					// DO a fake "animation" based on the x position
+					this.sheet.render(gfx, (this.x / 8) % 8 | 0, 0, this.x, this.y);
+
+				}
+
+			});
+
+			// Now make a screen to show a couple of Players
+			var MainScreen = Ω.Screen.extend({
+
+				init: function () {
+
+					// Make a player
+					this.player = new Player();
+					this.player.x = 6 * 32;
+					this.player.y = 6 * 32;
+
+					// And someone else
+					this.other = new Player();
+
+				},
+
+				tick: function () {
+
+					// Update the player
+					this.player.tick(this.map);
+
+					// update the "other" in a circle
+					this.other.x = Math.sin(Date.now() / 1000) * 100 + 200;
+					this.other.y = Math.cos(Date.now() / 1000) * 100 + 150;
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#888");
+
+					// Draw them
+					this.player.render(gfx);
+					this.other.render(gfx);
+
+				}
+
+			});
+
+			// A Game object for set up and runnin'
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					// Bind the keys to actions
+					Ω.input.bind([
+						["left", "left"],
+						["right", "right"],
+						["up", "up"],
+						["down", "down"]
+					]);
+
+					// Start the main screen!
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
