@@ -4,20 +4,17 @@
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
-## Some games using Ω500
-
-[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots)
-
-![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg)
-![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg?a=1)
-
-[Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26)
-
-![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
-
 ## Ω500 Features:
 
 Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding. Auto-genereated tile sets for prototyping. Text helpers. Font plotter (very specific! fix this). State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
+
+## Some games using Ω500
+
+[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots). [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26)
+
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg)
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg?a=1)
+![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
 
 ## Docs
 
@@ -243,19 +240,19 @@ Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to r
 
 Optional 3rd parameter that indicates the last number that is "walkable" (or "not solid") for entity collision detection. Default is 0.
 
-* Debug Map *
+*Debug Map*
 
 Doesn't require a spritesheet - it's magically generated (for prototyping)
 
-* Iso Map *
+*Iso Map*
 
-* Collisions *
+*Collisions*
 
-Collisions with entities:
+In you're entity's tick method, determine the distance you want it to move for the frame and call `move`. If the entity would end up inside a wall, the move function will push the entity back to be snug up against it. The entity can slide along a wall.
 
     entity.move(xAmount, yAmount, map);
 
-* Loading a map from an image *
+*Loading a map from an image*
 
 You can paint pixels and use that as your map - mapping different colours to different tiles. Other colours can then be used to set the locations of entities and spawn points etc. Good for rapid prototying and game jams.
 
@@ -333,19 +330,19 @@ shake.
 
 time: use Ω.utils.now() for everything time related (is paused in dialogs)
 
-* Randoms *
+*Randoms*
 
     Ω.utils.rand(10)  // Random whole number between 0 and 9
     Ω.utils.oneIn(10) // 1 in 10 chance of being true
 
-* Time *
+*Time*
 
     Ω.utils.now()
     Ω.utils.since(time)
     Ω.utils.toggle()
     Ω.utils.formatTime(time)
 
-* trig/positions *
+*trig/positions*
 
     Ω.utils.dist(a, b) // Distance between two entities (or [x,y] arrays)
     Ω.utils.angleBetween(a, b)
@@ -354,7 +351,7 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
     Ω.utils.center(entity) // get the middle of a rectangle
     Ω.utils.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
 
-* Fullscreen API *
+*Fullscreen API*
 
 Needs to be done inside a user interaction (like a click, keypress) handler.
 
@@ -401,6 +398,7 @@ High priority:
 - Support: FPS count
 - Multiple screens (as layers)
 - Random with seed
+- Stair & slope blocks
 
 Low prority:
 
