@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Screens</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/SpriteSheet.js"></script>
+		<script src="../../Ω/text/Font.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			var MainScreen = Ω.Screen.extend({
+
+				font: new Ω.Font("../res/fonts/nuskool_krome_64x64", 64, 64),
+				font2: new Ω.Font("../res/fonts/bubblemad_8x8", 8, 8),
+				font3: new Ω.Font("../res/fonts/proportional_16x16", 16, 16),
+
+				render: function (gfx) {
+
+					this.clear(gfx, "#111	");
+
+					this.font.write(gfx, "demos!", 20, 30);
+					this.font2.write(gfx, "drawing (bitmap) fonts >>> yeah!", 60, 100);
+					this.font2.write(gfx, "nice and oldschool and monospaced...", 60, 110);
+					this.font3.write(gfx, "<yet another font>", 60, 200);
+
+				}
+
+			});
+
+
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				init: function (w, h) {
+
+					this._super(w, h);
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>

@@ -12,7 +12,9 @@
 			this.speed = speed;
 			this.cb = cb;
 
+			this.scale = 1;
 			this.changed = false;
+			this.rewound = false;
 
 			this.reset();
 
@@ -22,11 +24,13 @@
 
 			var diff = Ω.utils.now() - this.frameTime;
 			this.changed = false;
+			this.rewound = false;
 
 			if (diff > this.speed) {
 				this.frameTime = Ω.utils.now() + (Math.min(this.speed, diff - this.speed));
 				if (++this.curFrame > this.frames.length - 1) {
 					this.curFrame = 0;
+					this.rewound = true;
 					this.cb && this.cb();
 				};
 				this.changed = true;
@@ -49,7 +53,7 @@
 				y,
 				1,
 				1,
-				1);
+				this.scale);
 
 		}
 

@@ -65,12 +65,14 @@
 
 		},
 
-		drawImage: function (img, x, y) {
+		drawImage: function (img, x, y, scaleX, scaleY) {
 
 			this.ctx.drawImage(
 				img,
 				x,
-				y);
+				y,
+				img.width * scaleX ? scaleX : 1,
+				img.height * scaleY ? scaleY : 1);
 		},
 
 		flipImage: function (img, flags) {

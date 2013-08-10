@@ -32,6 +32,12 @@
 
 		},
 
+		each: function (func) {
+
+			this.all.forEach(func);
+
+		},
+
 		get: function () {
 
 			return this.current.name;
@@ -62,6 +68,12 @@
 		changed: function () {
 
 			return this.current.changed;
+
+		},
+
+		rewound: function () {
+
+			return this.current.rewound;
 
 		},
 
