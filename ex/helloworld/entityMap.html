@@ -29,7 +29,6 @@
 			// Inherit our player from Ω.Entity
 			var Player = Ω.Entity.extend({
 
-				// Width & Height used for collision detection
 				w: 18,
 				h: 25,
 
@@ -46,14 +45,6 @@
 
 					// The move function locks the player to the map
 					this.move(xo, yo, map);
-
-				},
-
-				render: function (gfx) {
-
-					var c = gfx.ctx;
-					c.fillStyle = "#e00";
-					c.fillRect(this.x, this.y, this.w, this.h);
 
 				}
 

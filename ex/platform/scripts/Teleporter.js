@@ -20,13 +20,17 @@
 		},
 
 		tick: function () {
+
 			this.splat.tick();
+
 		},
 
 		render: function (gfx) {
+
 			var alpha = ((Math.sin(Ω.utils.now() / 200) + 1) / 5);
-			gfx.ctx.fillStyle = "rgba(0,0,0," + alpha + ")";
+
 			this.sheet.render(gfx, 16, 0, this.x, this.y);
+			gfx.ctx.fillStyle = "rgba(0,0,0," + alpha + ")";
 			gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
 			this.splat.render(gfx);
 		},

@@ -118,7 +118,7 @@
 
 			var c = gfx.ctx;
 
-			c.fillStyle = "#800";
+			c.fillStyle = "#c00";
 			c.fillRect(this.x, this.y, this.w, this.h);
 
 		}
