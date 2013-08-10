@@ -6,7 +6,7 @@
 
 		time: 0,
 
-		font: new Ω.Font("../res/fonts/mamefont.png", 16, 16),
+		font: new Ω.Font("../res/fonts/mamefont.png", 16, 16, "abcdefghijklmnopqrstuvwxyz0123456789~.,:!?'\"&<>"),
 
 		init: function () {
 

@@ -4,7 +4,7 @@
 
 	var Font = Ω.Class.extend({
 
-		map: "!\"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[/]^_`abcdefghijklmnopqrstuvwxyz{|}~",
+		map: " !\"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[/]^_`abcdefghijklmnopqrstuvwxyz{|}~",
 
 		init: function (path, w, h, map) {
 
@@ -43,8 +43,8 @@
 
 				this.sheet.render(
 					gfx,
-					(index + 1) % cellW,
-					(index + 1) / cellW | 0,
+					index % cellW,
+					index / cellW | 0,
 					x + (i * this.w),
 					y);
 

@@ -8,7 +8,7 @@
 		bg: new Ω.Image("../res/images/background.png"),
 		theme: new Ω.Sound("../res/audio/terminal.wav"),
 
-		font: new Ω.Font("../res/fonts/mamefont.png", 16, 16),
+		font: new Ω.Font("../res/fonts/mamefont.png", 16, 16, "abcdefghijklmnopqrstuvwxyz0123456789~.,:!?'\"&<>"),
 
 		init: function () {
 
