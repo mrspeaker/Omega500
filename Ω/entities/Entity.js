@@ -114,7 +114,14 @@
 			return [xo, yo];
 		},
 
-		render: function (gfx) {}
+		render: function (gfx) {
+
+			var c = gfx.ctx;
+
+			c.fillStyle = "#800";
+			c.fillRect(this.x, this.y, this.w, this.h);
+
+		}
 
 	});
 

@@ -1,6 +1,6 @@
 # Ω500: JS Game Library
 
-Ω500 is a simple framework for me to make 2D canvas-based games. It focuses on providing an architecturally simple set of tools for creating games in an old-school, straightforward way - primarily for game jams and rapid prototyping. Check out the online examples: http://mrspeaker.github.io/Omega500/.
+Ω500 is a simple framework for making canvas-based games. It focuses on providing an architecturally simple set of tools for creating games in an old-school, straightforward way: primarily for game jams and rapid prototyping. Check out the online examples: http://mrspeaker.github.io/Omega500/.
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
@@ -13,7 +13,7 @@ Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, 
 [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots). [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26)
 
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg)
-![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg?a=1)
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg)
 ![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
 
 ## Docs
@@ -328,7 +328,11 @@ in render:
 
     this.font.write(gfx, "hello, world!", 100, 100)
 
-The font assumes a specific ordering of letters (see font.js). If you have a font with a different ordering of characters, supply this as an argument:
+The font assumes a specific ordering of letters (that seemed to show up on a bunch of different bitmapped fonts I found:
+
+    !"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[/]^_`abcdefghijklmnopqrstuvwxyz{|}~
+
+ If you have a font with a different ordering of characters, supply this as an argument:
 
     font: new Ω.Font("myfont.png", 16, 16, "!?abcdefghijklmnopqrstuvwyz.[]")
 
