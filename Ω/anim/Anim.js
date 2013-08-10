@@ -4,12 +4,13 @@
 
 	var Anim = Ω.Class.extend({
 
-		init: function (name, sheet, speed, frames) {
+		init: function (name, sheet, speed, frames, cb) {
 
 			this.name = name;
 			this.sheet = sheet;
 			this.frames = frames;
 			this.speed = speed;
+			this.cb = cb;
 
 			this.changed = false;
 
@@ -26,6 +27,7 @@
 				this.frameTime = Ω.utils.now() + (Math.min(this.speed, diff - this.speed));
 				if (++this.curFrame > this.frames.length - 1) {
 					this.curFrame = 0;
+					this.cb && this.cb();
 				};
 				this.changed = true;
 			};
