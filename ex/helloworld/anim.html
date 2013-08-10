@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Anim</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/SpriteSheet.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/anim/Anims.js"></script>
+		<script src="../../Ω/anim/Anim.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			var MainScreen = Ω.Screen.extend({
+
+				sheet: new Ω.SpriteSheet("../platform/res/charzera.png", 25, 45, 3),
+
+				init: function () {
+
+					this.anim = new Ω.Anim(
+						"walk", // name
+						this.sheet, // sprite sheet
+						60, // speed
+						[[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]] // frames
+					);
+
+				},
+
+				tick: function () {
+
+					this.anim.tick();
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#888");
+
+					// Draw them
+					this.anim.render(gfx, gfx.w / 2, gfx.h / 2);
+				}
+
+			});
+
+			// A Game object for set up and runnin'
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					// Bind the keys to actions
+					Ω.input.bind([
+						["left", "left"],
+						["right", "right"],
+						["up", "up"],
+						["down", "down"]
+					]);
+
+					// Start the main screen!
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
