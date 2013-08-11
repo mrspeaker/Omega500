@@ -318,7 +318,7 @@ You can track the loading progress in your game object, for making a loading bar
         // console.log(loadedSoFar, maxToLoad);
     });
 
-## Font plotting
+### Font plotting
 
 Rather than using borin' old ctx text you can use a bitmap font.
 
@@ -403,7 +403,7 @@ Testing state:
     if (this.state.in("BORN", "RUNNING")) // is any of these
     if (this.state.notIn("DEAD", "RUNNING")) // none of these
 
-## TODO/ideas
+## WIP/TODO
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
 
