@@ -29,12 +29,12 @@
 
 			var TitleScreen = Ω.Screen.extend({
 
-				sheet: new Ω.SpriteSheet("../res/images/tiles.png", 32, 32),
+				sheet: new Ω.SpriteSheet("../res/sheets/kenny_tiles.png", 72, 72),
 
 				init: function () {
 
 					this.map = new Ω.Map(this.sheet, [
-						[1,1,1,1,1,1,1,1,1,1,1,1,1],
+						[9,10,12,1,1,1,1,1,1,1,1,1,1],
 						[1,0,0,0,0,0,0,0,0,0,0,0,1],
 						[1,0,3,5,5,5,5,5,5,5,2,0,1],
 						[1,0,0,4,0,0,0,0,0,0,4,0,1],
@@ -70,7 +70,7 @@
 
 				}
 
-			}))(400, 300);
+			}))(600, 400);
 
 		</script>
 	</body>
