@@ -65,6 +65,13 @@
 
 		},
 
+		dspImage: function (img, dspFunc) {
+
+			// TODO: run func once per pixel
+			return img;
+
+		},
+
 		drawImage: function (img, x, y, scaleX, scaleY) {
 
 			this.ctx.drawImage(
