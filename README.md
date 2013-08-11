@@ -415,7 +415,6 @@ High priority:
 
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - GUI: button
-- Math: add smoothstep/lerp helper
 - Support: FPS count
 - Multiple screens (as layers)
 - Random with seed

@@ -92,17 +92,23 @@
 
 		},
 
+		ratio: function (start, finish, amount) {
+
+			return this.clamp((amount - start) / (finish - start), 0.0, 1.0);
+
+		},
+
 		lerp: function (start, finish, amount) {
 
-			return amount * this.clamp((amount - start) / (finish - start), 0.0, 1.0);
+			return amount * this.ratio(start, finish, amount);
 
 		},
 
 		smoothstep: function (start, finish, amount) {
 
-			var x = this.clamp((amount - start) / (finish - start), 0.0, 1.0);
+			var x = this.ratio(start, finish, amount);
 
-			return amount * (x * x * x * (x * (x * 6 - 15) + 10));//(x*x*(3 - 2*x));
+			return amount * (x * x * x * (x * (x * 6 - 15) + 10)); //(x*x*(3 - 2*x));
 		},
 
 		neighbours: function (radius, cb, onlyOuterRing) {

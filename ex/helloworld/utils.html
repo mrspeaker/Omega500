@@ -33,6 +33,11 @@
 
 				init: function () {
 
+					// Or should it be like this?
+					// start = Ω.utils.now();
+					// end = this.s + 3000;
+					// SmoothStep(minPos, maxPos, (ratio(start, end, Ω.utils.now())))
+
 					this.x = 0;
 					this.min = 0;
 					this.max = Ω.env.w - 30;
