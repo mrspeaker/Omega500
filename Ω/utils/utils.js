@@ -80,6 +80,31 @@
 
 		},
 
+		clamp: function(val, min, max) {
+
+			if (val < min) {
+				return min;
+			}
+			if (val > max) {
+				return max;
+			}
+			return val;
+
+		},
+
+		lerp: function (start, finish, amount) {
+
+			return amount * this.clamp((amount - start) / (finish - start), 0.0, 1.0);
+
+		},
+
+		smoothstep: function (start, finish, amount) {
+
+			var x = this.clamp((amount - start) / (finish - start), 0.0, 1.0);
+
+			return amount * (x * x * x * (x * (x * 6 - 15) + 10));//(x*x*(3 - 2*x));
+		},
+
 		neighbours: function (radius, cb, onlyOuterRing) {
 
 			var j, i;

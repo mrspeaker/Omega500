@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Utils</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+		<script src="../../Ω/SpriteSheet.js"></script>
+		<script src="../../Ω/maps/Map.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/entities/Entity.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			// Now make a screen to show a couple of Players
+			var MainScreen = Ω.Screen.extend({
+
+				sheet: new Ω.SpriteSheet("../platform/res/charzera.png", 25, 45),
+
+				init: function () {
+
+					this.x = 0;
+					this.min = 0;
+					this.max = Ω.env.w - 30;
+
+				},
+
+				tick: function () {
+
+					if(++this.x > this.max) {
+						this.x = this.min;
+					}
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#888");
+
+					this.sheet.render(gfx, 0, 0, this.x, gfx.h * 0.45);
+					this.sheet.render(gfx, 0, 0, Ω.utils.smoothstep(this.min, this.max, this.x), gfx.h * 0.3);
+					this.sheet.render(gfx, 0, 0, Ω.utils.lerp(this.min, this.max, this.x), gfx.h * 0.6);
+
+				}
+
+			});
+
+			// A Game object for set up and runnin'
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
