@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Resources</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/input.js"></script>
+		<script src="../../Ω/gfx.js"></script>
+
+		<script src="../../Ω/assets/Image.js"></script>
+		<script src="../../Ω/assets/Sound.js"></script>
+
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/Game.js"></script>
+
+		<script>
+
+			var MainScreen = Ω.Screen.extend({
+
+				man: new Ω.Image("../res/images/indy.png", 1),
+
+				tick: function () {
+
+					this.msgX = (Math.sin(Date.now() / 1000) * 20) + Ω.env.w * 0.4;
+					this.msgY = (Math.cos(Date.now() / 100) * 3) + Ω.env.h * 0.5;
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+
+					this.man.render(gfx, this.msgX - 20, this.msgY - 80);
+
+
+				}
+
+			});
+
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				init: function (w, h) {
+
+					this._super(w, h);
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
