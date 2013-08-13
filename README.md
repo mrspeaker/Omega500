@@ -429,6 +429,7 @@ Low prority:
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - "Post" effects in webgl (see DIGIBOTS & CO.)
+- font "templates": images ready to be traced over for game jams
 
 ## inFAQ:
 

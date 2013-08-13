@@ -15,13 +15,40 @@
 
 		remove: false,
 
+		traits: null,
+
 		init: function () {
 
 		},
 
 		tick: function () {
 
+			this.traits && this.traits.forEach(function (t) {
+				t.tick.call(this, t);
+			}, this);
+
 			return !(this.remove);
+
+		},
+
+		mixin: function (traits) {
+
+			if (!this.traits) {
+				this.traits = [];
+			}
+
+			traits.forEach(function (t) {
+
+				if (t.trait) {
+					var trait = new t.trait(),
+						args;
+
+					args = trait.makeArgs(t);
+					trait.init_trait.apply(this, [trait].concat(args));
+					this.traits.push(trait);
+				}
+
+			}, this);
 
 		},
 

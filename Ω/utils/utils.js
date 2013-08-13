@@ -94,7 +94,7 @@
 
 		ratio: function (start, finish, amount) {
 
-			return this.clamp((amount - start) / (finish - start), 0.0, 1.0);
+			return this.clamp((amount - start) / (finish - start), 0, 1);
 
 		},
 
