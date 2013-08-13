@@ -6,7 +6,7 @@
 
 ## Ω500 Features:
 
-Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding. Auto-genereated tile sets for prototyping. Text helpers. Font plotter. State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
+Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Entity gravity/falling. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding. Auto-genereated tile sets for prototyping. Text helpers. Font plotter. Mixin system. State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
 
 ## Some games using Ω500
 
@@ -36,10 +36,11 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
 
 Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its main child object (level). Level (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. (I might generalise this later, so everything really has a concept of "children", but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!)
 
-*Random helpful notes*
+**Random helpful notes**
 
-Most positions are given as a 2 element [x, y] array.
-
+* Most positions are given as a 2 element [x, y] array.
+* Uses John Resig's simple class with inheritance (see below)
+* Deploying: copy/paste all the script tags! (or minify your own)
 
 ### Ω.Game
 
@@ -121,6 +122,35 @@ Sometimes it's useful to see where the bounding box of your entity is. There's n
     gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
 
 And you'll get a red box showing where the collision detection is used.
+
+### Classes
+
+Uses John Resig simple classes:
+
+    var MyClass = Ω.Class.extend({
+        init: function () {}
+    });
+    // Extend a base class
+    var MySubClass = MyClass.extend({});
+
+    // Instanciate the things
+    myClassGuy = new MyClass();
+    mySubClassGuy = new MySubClass();
+
+Can call super:
+
+    var Baddie = Ω.Entity.extend({
+
+        init: function (x, y) {
+
+            _this.super(x,y);
+
+            // ... do baddie init
+        }
+
+    });
+
+There's also an `init_post` method that will be called after `init`.
 
 
 ### Input
@@ -403,6 +433,17 @@ Testing state:
     if (this.state.in("BORN", "RUNNING")) // is any of these
     if (this.state.notIn("DEAD", "RUNNING")) // none of these
 
+### Mixins
+
+Not quite a component/entity system - but will do in a pinch. Just experimenting with some mixins/traits... stay tuned.
+
+Some pre-defined traits
+
+    this.player.mixin([
+        {trait: Ω.traits.RemoveAfter, life: 300},
+        {trait: Ω.traits.Sin, speed: 70, amp: 10}
+    ]);
+
 ## WIP/TODO
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
@@ -415,21 +456,25 @@ High priority:
 
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - GUI: button
-- Support: FPS count
+- Perf: FPS count
+- Perf: Object pooling
 - Multiple screens (as layers)
 - Random with seed
 - Retina images
+- Auto-tiling
 
 Low prority:
 
 - Gfx: DSP on spritesheets
-- Gfx: dirty rect optimisations
-- Physics: quadtree or map-by-map ents optimisiation
+- Perf: dirty rectangles
+- Perf: quadtree or map-by-map ents optimisiation
+- Perf: concat/minify into single lib file
 - Math: perlin noise
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - "Post" effects in webgl (see DIGIBOTS & CO.)
-- font "templates": images ready to be traced over for game jams
+- Jams: font "template" images ready to be traced over for game jams
+- Jams: nice default colours (for randoms etc)
 
 ## inFAQ:
 

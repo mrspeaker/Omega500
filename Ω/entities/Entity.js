@@ -9,6 +9,9 @@
 		w: 32,
 		h: 32,
 
+		xo: 0,
+		yo: 0,
+
 		gravity: 0,
 		falling: false,
 		wasFalling: false,
@@ -17,7 +20,12 @@
 
 		traits: null,
 
-		init: function () {
+		init: function (x, y, w, h) {
+
+			this.x = x || this.x;
+			this.y = y || this.y;
+			this.w = w || this.w;
+			this.h = h || this.h;
 
 		},
 
@@ -40,11 +48,8 @@
 			traits.forEach(function (t) {
 
 				if (t.trait) {
-					var trait = new t.trait(),
-						args;
-
-					args = trait.makeArgs(t);
-					trait.init_trait.apply(this, [trait].concat(args));
+					var trait = new t.trait();
+					trait.init_trait.apply(this, [trait].concat(trait.makeArgs(t)));
 					this.traits.push(trait);
 				}
 
@@ -137,6 +142,10 @@
 			} else {
 				this.falling = false;
 			}
+
+			// Reset offset amount
+			this.xo = 0;
+			this.yo = 0;
 
 			return [xo, yo];
 		},

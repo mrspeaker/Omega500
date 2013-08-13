@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Ω500 Tile Map with and entity</title>
+		<title>Ω500 Mixin test</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="../res/main.css">
 	</head>
 	<body>
 		<section>
 			<canvas id="board"></canvas>
-			<a class="home" href="./">back</a> | Use arrow keys to move around | Entity/Map collision
+			<a class="home" href="./">back</a>
+			Use arrow keys to move around
 		</section>
 
 		<!-- lib files -->
@@ -28,30 +29,23 @@
 
 		<script>
 
-			// Inherit our player from Ω.Entity
-			var Player = Ω.Entity.extend({
+			var Guy = Ω.Entity.extend({
 
 				w: 18,
 				h: 25,
 
-				sineOff: 0,
-				sineOff2: 0,
+				color: "#488",
 
 				tick: function (map) {
 
-					this._super();
+					this._super(); // Required to tick mixins
 
-					// Handle keyboard input and moving
-					var xo = 0,
-						yo = 0;
+					if (Ω.input.isDown("up")) { this.yo = -2; }
+					if (Ω.input.isDown("down")) { this.yo = 2; }
+					if (Ω.input.isDown("left")) { this.xo = -2; }
+					if (Ω.input.isDown("right")) { this.xo = 2; }
 
-					if (Ω.input.isDown("up")) { yo = -2; }
-					if (Ω.input.isDown("down")) { yo = 2; }
-					if (Ω.input.isDown("left")) { xo = -2; }
-					if (Ω.input.isDown("right")) { xo = 2; }
-
-					// The move function locks the player to the map
-					this.move(xo + this.sineOff2, yo + this.sineOff, map);
+					this.move(this.xo, this.yo, map);
 
 				},
 
@@ -59,7 +53,7 @@
 
 					var c = gfx.ctx;
 
-					c.fillStyle = this.remove ? "#900" : "#488";
+					c.fillStyle = this.remove ? "#900" : this.color;
 					c.fillRect(this.x, this.y, this.w, this.h);
 
 				}
@@ -67,14 +61,12 @@
 			});
 
 
-			// Now make a screen to show a Map and Player
 			var MainScreen = Ω.Screen.extend({
 
 				sheet: new Ω.SpriteSheet("../res/sheets/tiles.png", 32, 32),
 
 				init: function () {
 
-					// Create a lil' map with the tiles.png sprite sheet
 					this.map = new Ω.Map(this.sheet, [
 						[1,1,1,1,1,1,1,1,1,1,1,1,1],
 						[1,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -88,21 +80,18 @@
 						[1,1,1,1,1,1,1,1,1,1,1,1,1]
 					]);
 
-					// Make a player
-					this.player = new Player();
-					this.player.x = 6 * 32;
-					this.player.y = 6 * 32;
-
-					this.player.mixin([
-						{trait: Ω.traits.RemoveAfter, life: 300},
+					// Make some players & mix in some things
+					this.p1 = new Guy(6 * 32, 6 * 32);
+					this.p1.mixin([
+						{trait: Ω.traits.RemoveAfter, ticks: 300},
+						{trait: Ω.traits.Ticker, ticks: 100, cb: function (t) {
+							this.color = "#0f0";
+						}},
 						{trait: Ω.traits.Sin, speed: 70, amp: 10},
-						{trait: Ω.traits.Sin, speed: 170, amp: 2, target: "sineOff2"}
+						{trait: Ω.traits.Sin, speed: 170, amp: 2, target: "xo"}
 					]);
 
-					this.p2 = new Player();
-					this.p2.x = 2 * 32;
-					this.p2.y = 2 * 32;
-
+					this.p2 = new Guy(2 * 32, 2 * 32);
 					this.p2.mixin([
 						{trait: Ω.traits.Sin, speed: 170, amp: 30}
 					]);
@@ -112,7 +101,7 @@
 				tick: function () {
 
 					// Update the player
-					this.player.tick(this.map);
+					this.p1.tick(this.map);
 					this.p2.tick(this.map);
 
 				},
@@ -125,21 +114,19 @@
 
 					// Draw the player and map
 					this.map.render(gfx);
-					this.player.render(gfx);
+					this.p1.render(gfx);
 					this.p2.render(gfx);
 
 				}
 
 			});
 
-			// A Game object for set up and runnin'
 			new (Ω.Game.extend({
 
 				canvas: "#board",
 
 				load: function () {
 
-					// Bind the keys to actions
 					Ω.input.bind([
 						["left", "left"],
 						["right", "right"],
@@ -147,7 +134,6 @@
 						["down", "down"]
 					]);
 
-					// Start the main screen!
 					this.setScreen(new MainScreen());
 
 				}
