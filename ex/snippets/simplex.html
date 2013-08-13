@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Simplex</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<!-- lib files -->
+		<script src="../../Ω/Ω.js"></script>
+		<script src="../../Ω/utils/base.js"></script>
+		<script src="../../Ω/utils/utils.js"></script>
+		<script src="../../Ω/utils/Timer.js"></script>
+		<script src="../../Ω/gfx/gfx.js"></script>
+		<script src="../../Ω/input/input.js"></script>
+		<script src="../../Ω/screens/Screen.js"></script>
+		<script src="../../Ω/Game.js"></script>
+		<script src="../../Ω/vendor/simplex-noise.js"></script>
+
+		<script>
+
+			var MainScreen = Ω.Screen.extend({
+
+				init: function () {
+
+					var ctx = Ω.gfx.ctx;
+
+					this.simplex = new SimplexNoise();
+					this.imgdata = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+					this.t = 0;
+
+				},
+
+				tick: function () {
+
+					var x,
+						y,
+						r,
+						g,
+						b,
+						can = Ω.gfx.ctx.canvas,
+						data = this.imgdata.data;
+
+					for (x = 0; x < can.width; x++) {
+						for (y = 0; y < can.height; y++) {
+							r = this.simplex.noise3D(x / 32, y / 32, this.t / 32) * 0.5 + 0.5;
+							g = this.simplex.noise3D(x / 32, y / 32, this.t / 32) * 0.5 + 0.5;
+							b = this.simplex.noise3D(x / 32, y / 32, this.t / 32) * 0.5 + 0.5;
+							data[(x + y * can.width) * 4 + 0] = r * 255;
+							data[(x + y * can.width) * 4 + 1] = g * 255;
+							data[(x + y * can.width) * 4 + 2] = b * 255;
+							data[(x + y * can.width) * 4 + 3] = 255;
+						}
+					}
+
+					this.t++;
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+
+					c.putImageData(this.imgdata, 0, 0);
+
+				}
+
+			});
+
+			/*
+
+				Simplest "game" with Screen
+
+			*/
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				init: function (w, h) {
+
+					this._super(w, h);
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
