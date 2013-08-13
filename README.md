@@ -24,17 +24,17 @@ Best just to check the examples and games.
 
 Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
 
-    .           game
+    .           game            // extend Ω.Game
     .            |
-    .       level screen
+    .          screen           // extend Ω.Screen
     .            |
-    .      ___ level __
+    .      ____________
     .     |      |     |
-    .  player baddies  map
+    .  player baddies  map      // extend Ω.Entity, Ω.Entity, and Ω.Map
     .     |
-    .  bullets
+    .  bullets                  // extend Ω.Entity
 
-Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its main child object (level). Level (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. (I might generalise this later, so everything really has a concept of "children", but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!)
+Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. (I might generalise this later, so everything really has a concept of "children", but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!)
 
 **Random helpful notes**
 
@@ -76,7 +76,7 @@ Things inherited from `Ω.Screen` are scene containers to display stuff in. `tic
 
     game.setScreen(new TitleScreen());
 
-If you need to do async stuff on load, then set the screen's `loaded` property to `false`. When you're done, set it to `true`.
+If you're just calling it from the game `load` function then it's `this.setScreen(...)`. If you need to do async stuff on load, then set the screen's `loaded` property to `false`. When you're done, set it to `true`.
 
 In render, you can clear the screen to a color (if you need to):
 
@@ -86,7 +86,9 @@ In render, you can clear the screen to a color (if you need to):
 
 Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know how to move inside maps, and can have collision detection with other entities.
 
-Has x, y, w, h properties which is used for map/entity collision detection.
+    var player = new Ω.Entity(100, 100, 18, 24); // x, y, w, h
+
+Has x, y, w, h properties which is used for map/entity collision detection. Width and height are optional if you specify them in the class itself (default is w: 32, h: 32).
 
 There are a couple of conventions for updating collections of entities. For "ticking", call tick on each object - and inside the object's tick method return `true` if it's still alive, and `false` if it should be removed:
 
@@ -116,12 +118,12 @@ How things are rendered is completely up to you. You get the passed the `gfx` ob
 
 *Bounding boxes*
 
-Sometimes it's useful to see where the bounding box of your entity is. There's nothing built in for this (and at the moment there is no easy way to change a bounding box for animation frames etc), so for now just do it yourself at the end of the render method:
+Sometimes it's useful to see where the bounding box of your entity is. There's no debug mode, but the default rendering of an entity is something like this:
 
-    gfx.ctx.strokeStyle = "red";
-    gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
+    gfx.ctx.fillStyle = "red";
+    gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
 
-And you'll get a red box showing where the collision detection is used.
+You can call `this._super(gfx)` at the end of your entity render function (or draw your own) and you'll get a red box showing where the collision detection is used.
 
 ### Classes
 
@@ -130,6 +132,7 @@ Uses John Resig simple classes:
     var MyClass = Ω.Class.extend({
         init: function () {}
     });
+
     // Extend a base class
     var MySubClass = MyClass.extend({});
 
