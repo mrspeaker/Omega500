@@ -29,7 +29,7 @@
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
-			Ω.evt.onload.push(function () {
+			Ω.evt.onload(function () {
 				self.load();
 				self.run(Date.now());
 			});
