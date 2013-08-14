@@ -34,13 +34,13 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .     |
     .  bullets                  // extend Ω.Entity
 
-Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. (I might generalise this later, so everything really has a concept of "children", but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!)
+Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. (This might be generalised this later, so everything really has a concept of "children"... but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!)
 
 **Random helpful notes**
 
-* Most positions are given as a 2 element [x, y] array.
+* Most positions in maps etc are given as a 2 element [x, y] array.
 * Uses John Resig's simple class with inheritance (see below)
-* Deploying: copy/paste all the script tags! (or minify your own)
+* Project setup: copy/paster `Ω500.js` into your project
 
 ### Ω.Game
 
@@ -462,7 +462,6 @@ High priority:
 - Perf: FPS count
 - Perf: Object pooling
 - Multiple screens (as layers)
-- Random with seed
 - Retina images
 - Auto-tiling
 
@@ -471,8 +470,7 @@ Low prority:
 - Gfx: DSP on spritesheets
 - Perf: dirty rectangles
 - Perf: quadtree or map-by-map ents optimisiation
-- Perf: concat/minify into single lib file
-- Math: perlin noise
+- Math: Random with seed
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - "Post" effects in webgl (see DIGIBOTS & CO.)
@@ -486,5 +484,3 @@ A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib
 
 Q. When do we get a version bump?
 A. Every time I finish a game with it. Version 1.0 in 8 more games!
-
-

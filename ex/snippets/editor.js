@@ -8,7 +8,10 @@ var editor = {
 			err = document.createElement("div"),
 			downTimer = null;
 
-		pre.innerText = code.innerText;
+
+		var snippet = code.innerText.split(/\/\/ \[ed.*\].*((?:.|\r?\n)*?)\/\/ \[\/ed\]/g)[1];
+
+		pre.innerText = snippet;
 
 		ed.addEventListener("keyup", function (e) {
 
@@ -19,12 +22,12 @@ var editor = {
 			clearTimeout(downTimer);
 			downTimer = setTimeout(function () {
 
-				var updatedCode = pre.innerText;
-
+				var updatedCode = ed.innerText;
 				try {
 					err.innerText = "";
-					eval(updatedCode);
-					window.MainScreen = MainScreen;
+					(function () {
+						eval.call(window, updatedCode);
+					}());
 					game.init();
 				} catch (e) {
 					err.innerText = e.message;
