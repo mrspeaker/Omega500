@@ -15,89 +15,23 @@
 			<a class="home" href="../index.html">back</a>
 		</section>
 
-		<!-- lib files -->
-		<script src="../../Ω/Ω.js"></script>
-		<script src="../../Ω/utils/base.js"></script>
-		<script src="../../Ω/utils/utils.js"></script>
-		<script src="../../Ω/utils/rays.js"></script>
-		<script src="../../Ω/utils/Timer.js"></script>
-		<script src="../../Ω/gfx/gfx.js"></script>
-		<script src="../../Ω/input/input.js"></script>
-		<script src="../../Ω/assets/Image.js"></script>
-		<script src="../../Ω/assets/Sound.js"></script>
-		<script src="../../Ω/cameras/Camera.js"></script>
-		<script src="../../Ω/cameras/TrackingCamera.js"></script>
-		<script src="../../Ω/physics/Physics.js"></script>
-		<script src="../../Ω/effects/Particle.js"></script>
-		<script src="../../Ω/effects/Spring.js"></script>
-		<script src="../../Ω/effects/Shake.js"></script>
-		<script src="../../Ω/screens/Screen.js"></script>
-		<script src="../../Ω/screens/Dialog.js"></script>
-		<script src="../../Ω/gfx/SpriteSheet.js"></script>
-		<script src="../../Ω/text/Font.js"></script>
-		<script src="../../Ω/anim/Anims.js"></script>
-		<script src="../../Ω/anim/Anim.js"></script>
-		<script src="../../Ω/maps/Map.js"></script>
-		<script src="../../Ω/maps/IsoMap.js"></script>
-		<script src="../../Ω/maps/RayCastMap.js"></script>
-		<script src="../../Ω/entities/Entity.js"></script>
-		<script src="../../Ω/Game.js"></script>
+		<script src="../../Ω500.js"></script>
 
-		<!-- test game files -->
+		<!-- Platformer game files -->
 		<script src="scripts/TitleScreen.js"></script>
 		<script src="scripts/PlatformGame.js"></script>
 		<script src="scripts/MainScreen.js"></script>
 		<script src="scripts/Player.js"></script>
 		<script src="scripts/Teleporter.js"></script>
 
-
 		<script>
 
 			var game = new PlatformGame(400, 165);
 
+			// Test going fullscreen on double click
 			document.addEventListener("dblclick", function(){
 				Ω.utils.fullscreen.toggle("#board");
 			}, false);
-
-			var conswatch = (function () {
-
-				var out,
-					active = false,
-					api;
-
-				out = document.createElement("div");
-				out.style.backgroundColor = "#fff";
-				out.style.display = "none";
-				out.style.position = "absolute";
-				out.style.top = "2px";
-				out.style.right = "2px";
-				out.style.width = "100px";
-				out.style.height = "30px";
-				out.style.font = "7pt monospace";
-				document.body.appendChild(out);
-
-				console.watch = function () {
-					if (!active) {
-						active = true;
-						api.show();
-					}
-					var msg = Array.prototype.slice.call(arguments, 0).map(function (v) {
-						return v.toString();
-					}).join(" ");
-					out.innerText = msg;
-				}
-
-				api = {
-					show: function () {
-						out.style.display = "block";
-					},
-					hide: function () {
-						out.style.display = "none";
-					}
-				};
-
-				return api;
-			}());
 
 		</script>
 	</body>
