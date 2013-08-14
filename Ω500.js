@@ -11,8 +11,16 @@ var Ω = (function() {
 	return {
 
 		evt: {
-			onload: [],
-			progress: []
+			onloads: [],
+			progress: [],
+			onload: function(func) {
+				if (!pageLoaded) {
+					this.onloads.push(func);
+				} else {
+					// Page already loaded... so call it up.
+					func();
+				}
+			}
 		},
 
 		env: {
@@ -44,7 +52,7 @@ var Ω = (function() {
 					}
 
 					preloading = false;
-					Ω.evt.onload.map(function (o) {
+					Ω.evt.onloads.map(function (o) {
 						o();
 					});
 				}
@@ -59,7 +67,7 @@ var Ω = (function() {
 			if (maxAssets === 0 || assetsToLoad === 0) {
 				// No assets to load, so fire onload
 				preloading = false;
-				Ω.evt.onload.map(function (o) {
+				Ω.evt.onloads.map(function (o) {
 					o();
 				});
 			}
@@ -3037,7 +3045,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			Ω.gfx.init(ctx);
 			Ω.input.init(ctx.canvas);
 
-			Ω.evt.onload.push(function () {
+			Ω.evt.onload(function () {
 				self.load();
 				self.run(Date.now());
 			});

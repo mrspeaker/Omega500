@@ -23,6 +23,7 @@ var editor = {
 			downTimer = setTimeout(function () {
 
 				var updatedCode = ed.innerText;
+
 				try {
 					err.innerText = "";
 					(function () {

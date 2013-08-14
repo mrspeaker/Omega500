@@ -12,28 +12,41 @@
 		</section>
 
 		<script src="../../Ω500.js"></script>
+		<script src="editor.js"></script>
 
-		<script>
+		<script id="code">
 
+			// [ed]
 			// Inherit our player from Ω.Entity
 			var Player = Ω.Entity.extend({
 
-				sheet: new Ω.SpriteSheet("../platform/res/charzera.png", 25, 45),
+				sheet: new Ω.SpriteSheet("../platformer/res/charzera.png", 25, 45),
 
 				tick: function (map) {
 
+					var speed = 2;
+
 					// Handle keyboard input and moving
-					if (Ω.input.isDown("up")) { this.y -= 2; }
-					if (Ω.input.isDown("down")) { this.y += 2; }
-					if (Ω.input.isDown("left")) { this.x -= 2; }
-					if (Ω.input.isDown("right")) { this.x += 2; }
+					if (Ω.input.isDown("up")) { this.y -= speed; }
+					if (Ω.input.isDown("down")) { this.y += speed; }
+					if (Ω.input.isDown("left")) { this.x -= speed; }
+					if (Ω.input.isDown("right")) { this.x += speed; }
 
 				},
 
 				render: function (gfx) {
 
 					// DO a fake "animation" based on the x position
-					this.sheet.render(gfx, (this.x / 8) % 8 | 0, 0, this.x, this.y, 1, 1, 2);
+					this.sheet.render(
+						gfx,
+						(this.x / 8) % 8 | 0, // x frame
+						0,                    // y frame
+						this.x,               // x pos
+						this.y,               // y pos
+						1,                    // width
+						1,                    // height
+						2                     // scale
+					);
 
 				}
 
@@ -78,9 +91,11 @@
 				}
 
 			});
+			// [/ed]
+
 
 			// A Game object for set up and runnin'
-			new (Ω.Game.extend({
+			var game = new (Ω.Game.extend({
 
 				canvas: "#board",
 
