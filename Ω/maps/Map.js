@@ -103,19 +103,7 @@
 
 		getBlocks: function (blocks) {
 
-			var self = this;
-
-			return blocks.map(function (b, i) {
-
-				var row = b[1] / self.sheet.h | 0,
-					col = b[0] / self.sheet.w | 0;
-
-				if (row < 0 || row > self.cellH - 1) {
-					return;
-				}
-
-				return self.cells[row][col];
-			});
+			return blocks.map(this.getBlock, this);
 
 		},
 
