@@ -2,7 +2,17 @@
 
 # Concats the library into Ω500.js
 
-cat \
+header=$(cat << EOF
+/*
+	Ω500 Game library
+	by Mr Speaker
+*/
+EOF
+)
+
+echo "${header}" | \
+
+cat - \
 \
 Ω/Ω.js \
 Ω/utils/base.js \

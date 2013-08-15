@@ -1,3 +1,7 @@
+/*
+	Ω500 Game library
+	by Mr Speaker
+*/
 var Ω = (function() {
 
 	"use strict";
