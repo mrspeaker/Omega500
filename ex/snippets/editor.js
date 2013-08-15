@@ -40,7 +40,11 @@ var editor = {
 
 		pre.style.font = "8pt monospace";
 		err.style.font = "8pt monospace";
+
 		err.style.position = "absolute";
+		err.style.bottom = "0px";
+		err.style.left = "0";
+
 		err.style.color = "#800";
 
 		ed.setAttribute("contenteditable", true);
@@ -53,10 +57,9 @@ var editor = {
 		ed.style.height = "300px";
 		ed.style.overflow = "auto";
 
-		ed.appendChild(err);
 		ed.appendChild(pre);
 		document.body.appendChild(ed);
-
+		document.body.appendChild(err);
 	}
 
 };

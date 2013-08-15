@@ -34,7 +34,9 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .     |
     .  bullets                  // extend Ω.Entity
 
-Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. (This might be generalised this later, so everything really has a concept of "children"... but for now it's good enough: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!)
+Every loop the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`.
+
+That's the rules: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!
 
 **Random helpful notes**
 
@@ -391,7 +393,7 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
 
     Ω.utils.now()
     Ω.utils.since(time)
-    Ω.utils.toggle()
+    Ω.utils.toggle() // i forget exactly...
     Ω.utils.formatTime(time)
 
 *trig/positions*
@@ -450,6 +452,15 @@ Some pre-defined traits
 ## WIP/TODO
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
+
+**Special "Week before Ludum Dare" TODOs!**
+
+- Fix load from image for retina
+- Test new project build
+- Add RunStop logo
+- Camera zoom tests with multi layers
+- Iso helpers
+- Colourising
 
 Highest priority and WIP:
 
