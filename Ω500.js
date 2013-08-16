@@ -387,11 +387,13 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-		center: function (e) {
+		center: function (e, zoom) {
+
+			zoom = zoom || 1;
 
 			return {
-				x: e.x + e.w / 2,
-				y: e.y + e.h / 2
+				x: e.x + e.w / zoom / 2,
+				y: e.y + e.h / zoom / 2
 			};
 
 		},
@@ -1465,8 +1467,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				maxY = this.y + this.h;
 
 			c.save();
-			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
 			c.scale(this.zoom, this.zoom);
+			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
 
 			renderables
 				// Flatten to an array
@@ -1485,8 +1487,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					return r.repeat || !(
 						r.x + r.w < self.x ||
 						r.y + r.h < self.y ||
-						r.x > self.x + self.w ||
-						r.y > self.y + self.h);
+						r.x > self.x + (self.w / self.zoom) ||
+						r.y > self.y + (self.h / self.zoom));
 
 				})
 				// Draw 'em
@@ -1495,6 +1497,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					r.render(gfx, self);
 
 				});
+
+			c.strokeStyle = "red";
+			c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
 
 			c.restore();
 
@@ -1533,8 +1538,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		track: function (entity) {
 
 			this.entity = entity;
-			this.x = entity.x - (this.w / 2) + (entity.w / 2);
-			this.y = entity.y - (this.h / 2);
+			this.x = entity.x - (this.w / this.zoom / 2) + (entity.w / this.zoom / 2);
+			this.y = entity.y - (this.h / this.zoom / 2);
 
 			this.constrainToBounds();
 
@@ -1546,16 +1551,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				this.x = 0;
 			}
 			if (this.x > 0) {
-				if (this.bounds && this.x + this.w > this.bounds[0]) {
-					this.x = this.bounds[0] - this.w;
+				if (this.bounds && this.x + this.w / this.zoom > this.bounds[0]) {
+					this.x = this.bounds[0] - this.w / this.zoom;
 				};
 			}
 			if (this.y < 0) {
 				this.y = 0;
 			}
 			if (this.y > 0) {
-				if (this.bounds && this.y + this.h > this.bounds[1]) {
-					this.y = this.bounds[1] - this.h;
+				if (this.bounds && this.y + this.h / this.zoom > this.bounds[1]) {
+					this.y = this.bounds[1] - this.h / this.zoom;
 				};
 			}
 
@@ -1563,7 +1568,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		tick: function () {
 
-			var center = Ω.utils.center(this),
+			var center = Ω.utils.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
 				yr = this.yRange,
@@ -1571,16 +1576,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				newY;
 
 			if(e.x < center.x - xr) {
-				this.x = e.x - (this.w / 2) + xr;
+				this.x = e.x - (this.w / this.zoom / 2) + xr;
 			}
 			if(e.x + e.w > center.x + xr) {
-				this.x = e.x + e.w - (this.w / 2) - xr;
+				this.x = e.x + e.w - (this.w / this.zoom / 2) - xr;
 			}
 			if(e.y < center.y - yr) {
-				this.y = e.y - (this.h / 2) + yr;
+				this.y = e.y - (this.h / this.zoom / 2) + yr;
 			}
 			if(e.y + e.h > center.y + yr) {
-				this.y = e.y + e.h - (this.h / 2) - yr;
+				this.y = e.y + e.h - (this.h / this.zoom / 2) - yr;
 			}
 
 			this.constrainToBounds();
@@ -1597,9 +1602,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
-					var center = Ω.utils.center(cam);
+					var center = Ω.utils.center(cam, cam.zoom);
 
-					gfx.ctx.strokeStyle = "rgba(200, 0, 0, 0.6)";
+					gfx.ctx.strokeStyle = "rgba(200, 255, 255, 1)";
 					gfx.ctx.strokeRect(
 						center.x - cam.xRange,
 						center.y - cam.yRange,
@@ -2530,19 +2535,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		getBlocks: function (blocks) {
 
-			var self = this;
-
-			return blocks.map(function (b, i) {
-
-				var row = b[1] / self.sheet.h | 0,
-					col = b[0] / self.sheet.w | 0;
-
-				if (row < 0 || row > self.cellH - 1) {
-					return;
-				}
-
-				return self.cells[row][col];
-			});
+			return blocks.map(this.getBlock, this);
 
 		},
 

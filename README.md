@@ -465,7 +465,6 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 Highest priority and WIP:
 
 - BUG: bad map collision if entity taller/wider than block
-- BUG: zooming with scroll.
 
 High priority:
 
