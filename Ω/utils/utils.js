@@ -4,9 +4,12 @@
 
 	Ω.utils = {
 
-		rand: function (min, max) {
+		rand: function (max, min) {
 
-			return Math.floor(Math.random() * min);
+			max = max || 1;
+			min = min || 0;
+
+			return Math.floor(Math.random() * (max - min)) + min;
 
 		},
 
@@ -14,6 +17,20 @@
 
 			return this.rand(max) === 1;
 
+		},
+
+		rnd: {
+
+			seed: 42,
+
+			rand: function(max, min) {
+				max = max || 1;
+				min = min || 0;
+
+				this.seed = (this.seed * 9301 + 49297) % 233280;
+
+				return (this.seed / 233280) * (max - min) + min;
+			}
 		},
 
 		// This gets overwritten by game.now
@@ -257,7 +274,7 @@
 
 			}
 
-		}
+		},
 
 	};
 
