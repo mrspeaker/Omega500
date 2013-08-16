@@ -31,8 +31,8 @@
 				maxY = this.y + this.h;
 
 			c.save();
-			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
 			c.scale(this.zoom, this.zoom);
+			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
 
 			renderables
 				// Flatten to an array
@@ -51,8 +51,8 @@
 					return r.repeat || !(
 						r.x + r.w < self.x ||
 						r.y + r.h < self.y ||
-						r.x > self.x + self.w ||
-						r.y > self.y + self.h);
+						r.x > self.x + (self.w / self.zoom) ||
+						r.y > self.y + (self.h / self.zoom));
 
 				})
 				// Draw 'em

@@ -458,13 +458,14 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 - Fix load from image for retina
 - Test new project build
 - Add RunStop logo
-- Camera zoom tests with multi layers
 - Iso helpers
 - Colourising
+- Repeating image background
 
 Highest priority and WIP:
 
 - BUG: bad map collision if entity taller/wider than block
+- BUG: zooming with scroll.
 
 High priority:
 
