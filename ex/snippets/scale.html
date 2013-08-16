@@ -26,7 +26,7 @@
 
 					this.z--;
 					if (this.z <= 0) {
-						this.z = 99;
+						this.z = 199;
 						this.x = Ω.utils.rand(Ω.env.w);
 						this.y = Ω.utils.rand(Ω.env.h);
 					}
@@ -46,11 +46,11 @@
 						gfx,
 						0,
 						0,
-						gfx.w / 2 + (this.x / this.z),
-						gfx.h / 2 + (this.y / this.z),
+						gfx.w / 2 + (this.x * 3.9 / this.z),
+						gfx.h / 2 + (this.y * 1 / this.z),
 						1,
 						1,
-						1 - (this.z / 100)
+						1 - (this.z / 200)
 					);
 
 				}
@@ -64,19 +64,23 @@
 
 				init: function () {
 
-					for (var i = 0; i < 15; i++) {
+					var nums = 15,
+						star,
+						i;
 
-						var p = new Player(
+					for (i = 0; i < nums; i++) {
+
+						star = new Player(
 							Ω.utils.rand(Ω.env.w),
 							Ω.utils.rand(Ω.env.h)
 						);
-						p.z = (10 - i) * 2;
+						star.z = i * (200 / nums);
 
-						p.xspeed = Ω.utils.rand(10) - 5;
-						p.yspeed = Ω.utils.rand(10) - 5;
-						p.zspeed = Ω.utils.rand(10) / 10;
+						star.xspeed = Ω.utils.rand(10) - 5;
+						star.yspeed = Ω.utils.rand(10) - 5;
+						star.zspeed = Ω.utils.rand(10) / 10;
 
-						this.stars.push(p);
+						this.stars.push(star);
 
 					}
 
@@ -84,7 +88,7 @@
 
 				tick: function () {
 
-					this.stars.map(function (s){
+					this.stars.map(function (s) {
 
 						s.tick();
 
@@ -98,11 +102,16 @@
 
 					this.clear(gfx, "#888");
 
-					this.stars.map(function (s){
+					this.stars
+						.sort(function (a, b) {
+							// Z sort
+							return a.z < b.z ? 1 : -1
+						})
+						.map(function (s) {
 
-						s.render(gfx);
+							s.render(gfx);
 
-					});
+						});
 
 				}
 

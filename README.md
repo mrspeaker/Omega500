@@ -461,6 +461,8 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 - Iso helpers
 - Colourising
 - Repeating image background
+- Serialize/deserialize levels
+- Random colours
 
 Highest priority and WIP:
 
