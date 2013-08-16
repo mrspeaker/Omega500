@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Scaling</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<script src="../../Ω500.js"></script>
+		<script src="editor.js"></script>
+
+		<script id="code">
+
+			// [ed]
+			// Inherit our player from Ω.Entity
+			var Player = Ω.Entity.extend({
+
+				sheet: new Ω.SpriteSheet("../platformer/res/charzera.png", 25, 45),
+
+				tick: function () {
+
+					this.z--;
+					if (this.z <= 0) {
+						this.z = 99;
+						this.x = Ω.utils.rand(Ω.env.w);
+						this.y = Ω.utils.rand(Ω.env.h);
+					}
+
+					this.x += this.xspeed;
+					this.y += this.yspeed;
+					this.z += this.zspeed;
+				},
+
+				render: function (gfx) {
+
+					if (!this.z) {
+						return;
+					}
+
+					this.sheet.render(
+						gfx,
+						0,
+						0,
+						gfx.w / 2 + (this.x / this.z),
+						gfx.h / 2 + (this.y / this.z),
+						1,
+						1,
+						1 - (this.z / 100)
+					);
+
+				}
+
+			});
+
+			// Now make a screen to show a couple of Players
+			var MainScreen = Ω.Screen.extend({
+
+				stars: [],
+
+				init: function () {
+
+					for (var i = 0; i < 15; i++) {
+
+						var p = new Player(
+							Ω.utils.rand(Ω.env.w),
+							Ω.utils.rand(Ω.env.h)
+						);
+						p.z = (10 - i) * 2;
+
+						p.xspeed = Ω.utils.rand(10) - 5;
+						p.yspeed = Ω.utils.rand(10) - 5;
+						p.zspeed = Ω.utils.rand(10) / 10;
+
+						this.stars.push(p);
+
+					}
+
+				},
+
+				tick: function () {
+
+					this.stars.map(function (s){
+
+						s.tick();
+
+					});
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#888");
+
+					this.stars.map(function (s){
+
+						s.render(gfx);
+
+					});
+
+				}
+
+			});
+			// [/ed]
+
+
+			// A Game object for set up and runnin'
+			var game = new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					// Bind the keys to actions
+					Ω.input.bind([
+						["left", "left"],
+						["right", "right"],
+						["up", "up"],
+						["down", "down"]
+					]);
+
+					// Start the main screen!
+					this.setScreen(new MainScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
