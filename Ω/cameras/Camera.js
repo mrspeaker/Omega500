@@ -62,6 +62,9 @@
 
 				});
 
+			c.strokeStyle = "red";
+			c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
+
 			c.restore();
 
 		}

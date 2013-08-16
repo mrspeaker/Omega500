@@ -45,11 +45,13 @@
 
 		},
 
-		center: function (e) {
+		center: function (e, zoom) {
+
+			zoom = zoom || 1;
 
 			return {
-				x: e.x + e.w / 2,
-				y: e.y + e.h / 2
+				x: e.x + e.w / zoom / 2,
+				y: e.y + e.h / zoom / 2
 			};
 
 		},

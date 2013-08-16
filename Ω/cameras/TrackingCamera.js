@@ -26,8 +26,8 @@
 		track: function (entity) {
 
 			this.entity = entity;
-			this.x = entity.x - (this.w / 2) + (entity.w / 2);
-			this.y = entity.y - (this.h / 2);
+			this.x = entity.x - (this.w / this.zoom / 2) + (entity.w / this.zoom / 2);
+			this.y = entity.y - (this.h / this.zoom / 2);
 
 			this.constrainToBounds();
 
@@ -39,16 +39,16 @@
 				this.x = 0;
 			}
 			if (this.x > 0) {
-				if (this.bounds && this.x + this.w > this.bounds[0]) {
-					this.x = this.bounds[0] - this.w;
+				if (this.bounds && this.x + this.w / this.zoom > this.bounds[0]) {
+					this.x = this.bounds[0] - this.w / this.zoom;
 				};
 			}
 			if (this.y < 0) {
 				this.y = 0;
 			}
 			if (this.y > 0) {
-				if (this.bounds && this.y + this.h > this.bounds[1]) {
-					this.y = this.bounds[1] - this.h;
+				if (this.bounds && this.y + this.h / this.zoom > this.bounds[1]) {
+					this.y = this.bounds[1] - this.h / this.zoom;
 				};
 			}
 
@@ -56,7 +56,7 @@
 
 		tick: function () {
 
-			var center = Ω.utils.center(this),
+			var center = Ω.utils.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
 				yr = this.yRange,
@@ -64,16 +64,16 @@
 				newY;
 
 			if(e.x < center.x - xr) {
-				this.x = e.x - (this.w / 2) + xr;
+				this.x = e.x - (this.w / this.zoom / 2) + xr;
 			}
 			if(e.x + e.w > center.x + xr) {
-				this.x = e.x + e.w - (this.w / 2) - xr;
+				this.x = e.x + e.w - (this.w / this.zoom / 2) - xr;
 			}
 			if(e.y < center.y - yr) {
-				this.y = e.y - (this.h / 2) + yr;
+				this.y = e.y - (this.h / this.zoom / 2) + yr;
 			}
 			if(e.y + e.h > center.y + yr) {
-				this.y = e.y + e.h - (this.h / 2) - yr;
+				this.y = e.y + e.h - (this.h / this.zoom / 2) - yr;
 			}
 
 			this.constrainToBounds();
@@ -90,9 +90,9 @@
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
-					var center = Ω.utils.center(cam);
+					var center = Ω.utils.center(cam, cam.zoom);
 
-					gfx.ctx.strokeStyle = "rgba(200, 0, 0, 0.6)";
+					gfx.ctx.strokeStyle = "rgba(200, 255, 255, 1)";
 					gfx.ctx.strokeRect(
 						center.x - cam.xRange,
 						center.y - cam.yRange,
