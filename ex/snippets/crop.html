@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Cropping spritesheets</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<p class="note">
+				This example shows how you can "chop out" bits
+				of an image to use as a spritesheet. The
+				<a href="../res/sheets/2moq99s.png">full image</a>
+				is not really a sheet (no opacity, for one!) - but
+				you can specify margins and padding offsets to get
+				to the parts you're interested in.
+			</p>
+			<a class="home" href="./">back</a>
+
+		</section>
+
+		<script src="../../Ω500.js"></script>
+		<script src="../../Ω/gfx/SpriteSheet.js"></script>
+
+		<script>
+
+			// Shows "Chopping out" bits of a large sprite sheet
+			var TitleScreen = Ω.Screen.extend({
+
+				// Notice the "margin" and "padding" offsets
+				chars: new Ω.SpriteSheet("../res/sheets/2moq99s.png", 32, 36, {
+					margin: [28, 212],
+					padding: [4, 0]
+				}),
+
+				tiles: new Ω.SpriteSheet("../res/sheets/2moq99s.png", 32, 32, { margin: [28, 444] }),
+
+				boss: new Ω.SpriteSheet("../res/sheets/2moq99s.png", 64, 64, {
+					margin: [28, 268],
+					padding: [4, 0]
+				}),
+
+				init: function () {
+
+					this.map = new Ω.Map(this.tiles, [
+						[ 1, 1, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1],
+						[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+						[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+						[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+						[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+						[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+						[ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+						[ 1,19,19,19,19,19,19,19,19,19,24, 1],
+						[ 1, 1, 1, 1, 1,20,20, 1, 1, 1, 1, 1],
+					]);
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+
+					// Render the tiles
+					this.map.render(gfx);
+
+					// Render the characters
+					for (i = 0; i < 8; i++) {
+
+						this.chars.render(gfx, i, 0, i * (this.chars.w + 8) + 36, 40);
+						this.chars.render(gfx, i, 1, i * (this.chars.w + 8) + 36, 95 + Math.sin(i + Date.now() / 300) * 3);
+
+					}
+
+					// Render the bosses
+					this.boss.render(gfx, 1, 1, 90, 145);
+					this.boss.render(gfx, 2, 1,160, 145);
+					this.boss.render(gfx, 3, 1,230, 145);
+
+				}
+
+			});
+
+			// Game object
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new TitleScreen());
+
+				}
+
+			}))(32 * 12, 32 * 9);
+
+		</script>
+	</body>
+</html>

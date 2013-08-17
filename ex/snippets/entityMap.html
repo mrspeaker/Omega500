@@ -8,7 +8,11 @@
 	<body>
 		<section>
 			<canvas id="board"></canvas>
-			<a class="home" href="./">back</a> | Use arrow keys to move around | Entity/Map collision
+			<p class="note">
+				Entities know how to crash into maps.
+				Use arrow keys to move around.
+			</p>
+			<a class="home" href="./">back</a>
 		</section>
 
 		<script src="../../Ω500.js"></script>
@@ -33,6 +37,7 @@
 					if (Ω.input.isDown("right")) { xo = 2; }
 
 					// The move function locks the player to the map
+					// You tell it how much the entity WANTS to move
 					this.move(xo, yo, map);
 
 				}
@@ -109,7 +114,7 @@
 
 				}
 
-			}))(400, 300);
+			}))(32 * 13, 32 * 10);
 
 		</script>
 	</body>

@@ -2161,6 +2161,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.cellW = Math.ceil((img.width - this.margin[0]) / (this.w + this.padding[0]));
 			this.cellH = Math.ceil((img.height - this.margin[1]) / (this.h + this.padding[1]));
 
+			console.log((img.width - this.margin[0]),  (this.w + this.padding[0]))
+
 		},
 
 		flipImage: function (img, flags) {

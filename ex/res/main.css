@@ -1,13 +1,15 @@
 body {
 	background: rgb(155, 230, 255) url("../res/images/background.png") no-repeat;
 	background-size: cover;
-	font-family: courier, monospace;
+	font-family:  'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	font-size: 11pt;
 	margin: 0;
 	padding: 0;
 }
 
 a {
 	color: hsl(200, 40%, 40%);
+	text-decoration: none;
 }
 
 .note {
@@ -93,9 +95,10 @@ section canvas {
 }
 
 ul {
+	text-align: left;
 	list-style: none;
-	line-height: 30px;
-	margin: 0;
+	line-height: 20px;
+	margin: 0 0 0 40px;
 	padding: 0;
 }
 
