@@ -12,8 +12,7 @@
 		</section>
 
 		<script src="../../Ω500.js"></script>
-		<script src="../../Ω/vendor/graph.js"></script>
-		<script src="../../Ω/vendor/astar.js"></script>
+		<script src="../../Ω/vendor/aStar.js"></script>
 
 		<script>
 
@@ -70,7 +69,7 @@
 						});
 
 						self.path = [];
-						self.graph = new Graph(cells);
+						self.graph = new Ω.Math.aStar.Graph(cells);
 						self.loaded = true;
 						self.time = 0;
 
@@ -103,9 +102,9 @@
 					this.start.move(spos[0], spos[1], this.map);
 					this.end.move(epos[0], epos[1], this.map);
 
-					// Recompute a*
+					// Recompute A*
 					if (this.time++ % 5 == 0) {
-						this.path = astar.search(
+						this.path = Ω.Math.aStar.search(
 							this.graph.nodes,
 							this.graph.nodes[this.start.y / this.map.sheet.w | 0][this.start.x / this.map.sheet.h | 0],
 							this.graph.nodes[this.end.y / this.map.sheet.w | 0][this.end.x / this.map.sheet.h | 0]
