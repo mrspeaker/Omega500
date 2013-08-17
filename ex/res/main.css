@@ -10,6 +10,11 @@ a {
 	color: hsl(200, 40%, 40%);
 }
 
+.note {
+	font-size: 10pt;
+	text-align: left;
+}
+
 section {
 	border-radius: 5px;
 	background-color: #fefefe;
