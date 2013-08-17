@@ -478,7 +478,6 @@ High priority:
 - Multiple screens (as layers)
 - Retina images
 - Auto-tiling
-- Ω-ify 3rd party libs
 
 Low prority:
 
