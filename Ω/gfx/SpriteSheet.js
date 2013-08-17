@@ -4,12 +4,15 @@
 
 	var SpriteSheet = Ω.Class.extend({
 
-		init: function (path, width, height, flipFlags) {
+		init: function (path, width, height, flipFlags, margin, padding) {
 
 			this.w = width;
 			this.h = height || width;
 			this.cellW = 0;
 			this.cellH = 0;
+
+			this.margin = margin || [0, 0];
+			this.padding = padding || [0, 0];
 
 			// Direct init from image
 			if (typeof path !== "string") {
@@ -34,8 +37,8 @@
 				this.sheet = this.flipImage(img.canvas || img, flipFlags);
 			}
 
-			this.cellW = img.width / this.w | 0;
-			this.cellH = img.height / this.h | 0;
+			this.cellW = (img.width - this.margin[0]) / (this.w + this.padding[0]) | 0;
+			this.cellH = (img.height - this.margin[1]) / (this.h + this.padding[1]) | 0;
 		},
 
 		flipImage: function (img, flags) {
@@ -112,8 +115,8 @@
 
 			gfx.ctx.drawImage(
 				this.sheet,
-				col * this.w,
-				row * this.h,
+				(col * this.w) + this.margin[0],
+				(row * this.h) + this.margin[1],
 				w * this.w,
 				h * this.h,
 				x,

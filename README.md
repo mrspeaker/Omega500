@@ -456,12 +456,10 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 **Special "Week before Ludum Dare" TODOs!**
 
 - Fix load from image for retina
-- Test new project build
 - Add RunStop logo
 - Iso helpers
 - Colourising
 - Repeating image background
-- Serialize/deserialize levels
 - Random colours
 
 Highest priority and WIP:
@@ -472,6 +470,7 @@ Highest priority and WIP:
 High priority:
 
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
+- Serialize/deserialize levels
 - GUI: button
 - Perf: FPS count
 - Perf: Object pooling

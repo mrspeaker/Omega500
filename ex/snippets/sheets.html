@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Tile sheets</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<script src="../../Ω500.js"></script>
+		<script src="../../Ω/gfx/SpriteSheet.js"></script>
+
+		<script>
+
+			var TitleScreen = Ω.Screen.extend({
+
+				chars: new Ω.SpriteSheet("../res/sheets/2moq99s.png", 36, 36, undefined, [28, 212], [0, 0]),
+				tiles: new Ω.SpriteSheet("../res/sheets/2moq99s.png", 32, 32, undefined, [28, 444], [0, 0]),
+
+				init: function () {
+
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+
+					for (i = 0; i < 11; i++) {
+
+						this.chars.render(gfx, i, 0, i * this.chars.w + 5, 10);
+						this.chars.render(gfx, i, 1, i * this.chars.w + 5, 50);
+
+					}
+
+					this.tiles.render(gfx, 0, 0, 100, 100);
+
+				}
+
+			});
+
+			// Game object
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new TitleScreen());
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
