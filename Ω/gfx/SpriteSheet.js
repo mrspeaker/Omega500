@@ -4,29 +4,42 @@
 
 	var SpriteSheet = Ω.Class.extend({
 
-		init: function (path, width, height, flipFlags, margin, padding) {
+		init: function (path, width, height, opts) {
+
+			var defaults = {
+					flipFlags: null,
+					margin: [0, 0],
+					padding: [0, 0]
+				},
+				self = this;
 
 			this.w = width;
 			this.h = height || width;
 			this.cellW = 0;
 			this.cellH = 0;
 
-			this.margin = margin || [0, 0];
-			this.padding = padding || [0, 0];
-
-			// Direct init from image
-			if (typeof path !== "string") {
-				this.populate(path, flipFlags);
-				return;
+			// Can pass flipFlags directly: TODO - figure out Options API
+			if (!isNaN(opts)) {
+				opts = {
+					flipFlags: opts
+				}
 			}
+			opts = opts || {};
 
-			var self = this;
+			this.flipFlags = opts.flipFlags || defaults.flipFlags;
+			this.margin = opts.margin || defaults.margin;
+			this.padding = opts.padding || defaults.padding;
 
-			Ω.gfx.loadImage(path, function (img) {
+			if (typeof path !== "string") {
+				// Direct init from image
+				this.populate(path, this.flipFlags);
+			} else {
+				Ω.gfx.loadImage(path, function (img) {
 
-				self.populate(img, flipFlags);
+					self.populate(img, self.flipFlags);
 
-			});
+				});
+			}
 
 		},
 
@@ -37,8 +50,9 @@
 				this.sheet = this.flipImage(img.canvas || img, flipFlags);
 			}
 
-			this.cellW = (img.width - this.margin[0]) / (this.w + this.padding[0]) | 0;
-			this.cellH = (img.height - this.margin[1]) / (this.h + this.padding[1]) | 0;
+			this.cellW = Math.ceil((img.width - this.margin[0]) / (this.w + this.padding[0]));
+			this.cellH = Math.ceil((img.height - this.margin[1]) / (this.h + this.padding[1]));
+
 		},
 
 		flipImage: function (img, flags) {
@@ -115,8 +129,8 @@
 
 			gfx.ctx.drawImage(
 				this.sheet,
-				(col * this.w) + this.margin[0],
-				(row * this.h) + this.margin[1],
+				col * (this.w + this.padding[0]) + this.margin[0],
+				row * (this.h + this.padding[1]) + this.margin[1],
 				w * this.w,
 				h * this.h,
 				x,
