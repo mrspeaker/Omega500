@@ -24,6 +24,7 @@
 			seed: 42,
 
 			rand: function(max, min) {
+
 				max = max || 1;
 				min = min || 0;
 

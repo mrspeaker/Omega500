@@ -13,7 +13,7 @@
 		</section>
 
 		<script src="../../Ω500.js"></script>
-		<script src="../../Ω/vendor/simplex-noise.js"></script>
+		<script src="../../Ω/vendor/SimplexNoise.js"></script>
 
 		<script>
 
@@ -23,7 +23,7 @@
 
 					var ctx = Ω.gfx.ctx;
 
-					this.simplex = new SimplexNoise();
+					this.simplex = new Ω.Math.SimplexNoise();
 					this.imgdata = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
 					this.t = 0;
 

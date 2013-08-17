@@ -35,7 +35,7 @@
 // https://github.com/jwagner/simplex-noise.js
 
 
- (function() {
+ (function(Ω) {
 
     var F2 = 0.5 * (Math.sqrt(3.0) - 1.0),
         G2 = (3.0 - Math.sqrt(3.0)) / 6.0,
@@ -390,17 +390,7 @@
 
     };
 
-    // amd
-    if (typeof define !== 'undefined' && define.amd) define(function() {
-        return SimplexNoise;
-    });
-    // browser
-    else if (typeof window !== 'undefined') window.SimplexNoise = SimplexNoise;
-    //common js
-    if (typeof exports !== 'undefined') exports.SimplexNoise = SimplexNoise;
-    // nodejs
-    if (typeof module !== 'undefined') {
-        module.exports = SimplexNoise;
-    }
+    Ω.Math = Ω.Math || {}
+    Ω.Math.SimplexNoise = SimplexNoise;
 
-})();
+})(Ω);
