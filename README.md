@@ -466,10 +466,12 @@ Highest priority and WIP:
 
 - BUG: bad map collision if entity taller/wider than block
 - BUG: tracking camera box moves on zoom
+- move traits to game object, maybe
 
 High priority:
 
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
+- Physics: velocity & acceleration
 - Serialize/deserialize levels
 - GUI: button
 - Perf: FPS count
