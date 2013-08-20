@@ -457,8 +457,6 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 
 - Fix load from image for retina
 - Add RunStop logo
-- Iso helpers
-- Colourising
 - Repeating image background
 - Random colours
 
@@ -474,7 +472,6 @@ High priority:
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - Serialize/deserialize levels
 - GUI: button
-- Perf: FPS count
 - Perf: Object pooling
 - Multiple screens (as layers)
 - Retina images
@@ -484,8 +481,6 @@ Low prority:
 
 - Gfx: DSP on spritesheets
 - Perf: dirty rectangles
-- Perf: quadtree or map-by-map ents optimisiation
-- Math: Random with seed
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - "Post" effects in webgl (see DIGIBOTS & CO.)

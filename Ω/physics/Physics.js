@@ -23,7 +23,8 @@
 				ax = a.x + (a.xbb || 0);
 				bx = b.x + (b.xbb || 0);
 
-				if (ax + a.w - 1 > bx &&
+				if (a !== b &&
+					ax + a.w - 1 > bx &&
 				    ax < bx + b.w - 1 &&
 				    a.y + a.h - 1 > b.y &&
 				    a.y < b.y + b.h - 1) {

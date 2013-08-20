@@ -175,7 +175,7 @@
 
 				var c = gfx.ctx;
 
-				c.strokeStyle = "#fff";
+				c.strokeStyle = "#444";
 				c.strokeRect(bounds.x, bounds.y, bounds.w, bounds.h);
 
 				nodes && nodes.forEach(function (node) {

@@ -17,38 +17,81 @@
 
 		<script>
 
-			new (Ω.Game.extend({
+			var MainScreen = Ω.Screen.extend({
 
-				canvas: "#board",
+				mode: "quad",
 
-				load: function () {
+				init: function () {
 
-					this.entities = [
-						new Ω.Entity(10, 1,  5, 5),
-						new Ω.Entity(10, 102,  5, 5),
-						new Ω.Entity(360, 102,  5, 5),
-						new Ω.Entity(60, 30,  5, 5),
-						new Ω.Entity(190, 25,  5, 5),
-						new Ω.Entity(260, 205,  5, 5),
-						new Ω.Entity(220, 215,  5, 5),
-						new Ω.Entity(260, 215, 5,5)
-					]
+					Ω.Entity.prototype.isHit = false;
+					Ω.Entity.prototype.hit = function () {
+						this.isHit = true;
+					};
+ 					Ω.Entity.prototype.render = function (gfx) {
+						var c = gfx.ctx;
+						c.fillStyle = this.isHit ? "#0f0" : "#999";
+						c.fillRect(this.x, this.y, this.w, this.h);
+					}
 
-					window.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 2, 5);
+					this.entities = [];
+					for (var i = 0; i < 1500; i++) {
+
+						this.entities.push(
+							new Ω.Entity(
+								Ω.utils.rand(Ω.env.w),
+								Ω.utils.rand(Ω.env.h),
+								2,
+								2
+							)
+						);
+
+					}
+
+					this.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 20, 5);
+
+
+				},
+
+				tick: function () {
 
 					this.entities.forEach(function (e) {
 
-						qt.insert(e);
+						e.isHit = false;
 
-					})
+						e.x += Math.random() * 2 - 1;
+						e.y += Math.random() * 2 - 1;
+
+					});
+
+					if (this.mode === "quad") {
+
+						this.qt.clear();
+
+						this.entities.forEach(function (e) {
+
+							this.qt.insert(e);
+
+						}, this);
+
+						this.entities.forEach(function (e) {
+
+							Ω.Physics.checkCollision(e, this.qt.retrieve(e));
+
+						}, this);
+
+					} else {
+
+						Ω.Physics.checkCollisions(this.entities);
+
+					}
 
 				},
 
 				render: function (gfx) {
 
-					this._super(gfx);
+					this.clear(gfx, "#000");
 
-					qt.render(Ω.gfx);
+					this.qt.render(Ω.gfx);
 
 					this.entities.forEach(function (e) {
 
@@ -56,6 +99,17 @@
 
 					})
 
+				}
+
+			});
+
+			var game = new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new MainScreen());
 
 				}
 
