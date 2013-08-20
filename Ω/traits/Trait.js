@@ -16,7 +16,11 @@
 
 		init_trait: function () {},
 
-		tick: function () {}
+		tick: function () {
+
+			return true;
+
+		}
 
 	});
 

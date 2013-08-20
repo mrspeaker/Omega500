@@ -21,7 +21,10 @@
 
 			if (!this.remove && t.ticks-- === 0) {
 				this.remove = true;
+				console.log("Trait 'remove' executed.");
 			}
+
+			return !(this.remove);
 
 		}
 
@@ -47,9 +50,14 @@
 
 		tick: function (t) {
 
-			if (t.ticks-- === 0) {
+			if (t.ticks-- <= 0) {
 				t.cb.call(this, t);
+				console.log("Ticker trait expired");
+				return false;
 			}
+
+
+			return true;
 
 		}
 
@@ -83,6 +91,8 @@
 		tick: function (t) {
 
 			this[t.target] += Math.sin(Ω.utils.now() / t.speed) * (t.amp / 10);
+
+			return true;
 
 		}
 
