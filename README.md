@@ -470,8 +470,8 @@ Highest priority and WIP:
 
 High priority:
 
+- Physics: velocity & acceleration in entity
 - Partial loader (don't load all resources on init - maybe a "no preload" flag)
-- Physics: velocity & acceleration
 - Serialize/deserialize levels
 - GUI: button
 - Perf: FPS count
