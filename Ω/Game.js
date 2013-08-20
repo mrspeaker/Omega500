@@ -18,6 +18,8 @@
 		_screenFade: 0,
 		dialog: null,
 
+		debug: true,
+
 		init: function (w, h) {
 
 			var ctx = initCanvas(this.canvas, w, h),
@@ -33,6 +35,7 @@
 				self.load();
 				self.run(Date.now());
 			});
+
 			window.addEventListener("load", function () {
 				Ω.pageLoad();
 			}, false);
@@ -43,6 +46,8 @@
 			Ω.utils.now = function () {
 				return self.now();
 			}
+
+			this.stats = Ω.utils.Stats();
 
 		},
 
@@ -96,6 +101,8 @@
 
 		tick: function (delta) {
 
+			this.stats.start();
+
 			if (this.dialog) {
 				this.dialog.tick(delta);
 			} else {
@@ -104,6 +111,8 @@
 				Ω.timers.tick();
 			}
 			Ω.input.tick();
+
+			this.stats.stop();
 
 		},
 
@@ -120,6 +129,18 @@
 				gfx.ctx.globalAlpha = 1;
 			}
 			this.dialog && this.dialog.render(gfx);
+
+			if (this.debug) {
+
+				var fps = this.stats.fps();
+				gfx.ctx.fillStyle = "rgba(0,0,0,0.3)";
+				gfx.ctx.fillRect(this.stats.pos[0], this.stats.pos[1], 50, 20);
+
+				gfx.ctx.fillStyle = "#fff";
+				gfx.ctx.font = "6pt monospace";
+				gfx.ctx.fillText(fps[0] + " " + fps[1] + "/" + fps[2], this.stats.pos[0] + 5, this.stats.pos[1] + 13);
+
+			}
 
 		},
 

@@ -340,68 +340,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 	};
 
 }(Ω));
-(function(Ω) {
-
-	"use strict";
-
-	var State = function (state) {
-
-		this.state = state;
-		this.last = "";
-		this.count = -1;
-		this.locked = false;
-
-	};
-
-	State.prototype = {
-
-		set: function (state) {
-
-			if (this.locked) {
-				return;
-			}
-
-			this.last = this.state;
-			this.state = state;
-			this.count = -1;
-
-		},
-
-		get: function () { return this.state; },
-
-		tick: function () { this.count++; },
-
-		first: function () { return this.count === 0; },
-
-		is: function (state) { return state === this.state; },
-
-		isNot: function (state) { return !this.is(state); },
-
-		isIn: function () {
-
-			var state = this.state,
-				args = Array.prototype.slice.call(arguments);
-
-			return args.some(function (s) {
-
-				return s === state;
-
-			});
-
-		},
-
-		isNotIn: function () {
-
-			return !(this.isIn.apply(this, arguments));
-
-		}
-
-	};
-
-	Ω.utils = Ω.utils || {};
-	Ω.utils.State = State;
-
-}(Ω));
 (function (Ω) {
 
 	"use strict";
@@ -682,6 +620,121 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		},
 
 	};
+
+}(Ω));
+(function(Ω) {
+
+	"use strict";
+
+	var State = function (state) {
+
+		this.state = state;
+		this.last = "";
+		this.count = -1;
+		this.locked = false;
+
+	};
+
+	State.prototype = {
+
+		set: function (state) {
+
+			if (this.locked) {
+				return;
+			}
+
+			this.last = this.state;
+			this.state = state;
+			this.count = -1;
+
+		},
+
+		get: function () { return this.state; },
+
+		tick: function () { this.count++; },
+
+		first: function () { return this.count === 0; },
+
+		is: function (state) { return state === this.state; },
+
+		isNot: function (state) { return !this.is(state); },
+
+		isIn: function () {
+
+			var state = this.state,
+				args = Array.prototype.slice.call(arguments);
+
+			return args.some(function (s) {
+
+				return s === state;
+
+			});
+
+		},
+
+		isNotIn: function () {
+
+			return !(this.isIn.apply(this, arguments));
+
+		}
+
+	};
+
+	Ω.utils = Ω.utils || {};
+	Ω.utils.State = State;
+
+}(Ω));
+(function (Ω) {
+
+	"use strict";
+
+	var Stats = function () {
+
+		var startTime = Date.now(),
+			previous = startTime,
+			fpsCur = 0,
+			fpsMin = 100,
+			fpsMax = 0,
+			ticks = 0;
+
+		return {
+
+			pos: [Ω.env.w - 53, 3],
+
+			start: function () {
+
+				startTime = Date.now();
+
+			},
+
+			fps: function () {
+
+				return [fpsCur, fpsMin, fpsMax];
+
+			},
+
+			stop: function () {
+
+				var now = Date.now();
+
+				ticks++;
+
+				if (now > previous + 1000) {
+					fpsCur = Math.round((ticks * 1000) / (now - previous));
+					fpsMin = Math.min(fpsMin, fpsCur);
+					fpsMax = Math.max(fpsMax, fpsCur);
+
+					previous = now;
+					ticks = 0;
+				}
+
+			}
+		}
+
+	};
+
+	Ω.utils = Ω.utils || {};
+	Ω.utils.Stats = Stats;
 
 }(Ω));
 (function (Ω) {
@@ -3091,6 +3144,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		_screenFade: 0,
 		dialog: null,
 
+		debug: true,
+
 		init: function (w, h) {
 
 			var ctx = initCanvas(this.canvas, w, h),
@@ -3106,6 +3161,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				self.load();
 				self.run(Date.now());
 			});
+
 			window.addEventListener("load", function () {
 				Ω.pageLoad();
 			}, false);
@@ -3116,6 +3172,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			Ω.utils.now = function () {
 				return self.now();
 			}
+
+			this.stats = Ω.utils.Stats();
 
 		},
 
@@ -3169,6 +3227,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		tick: function (delta) {
 
+			this.stats.start();
+
 			if (this.dialog) {
 				this.dialog.tick(delta);
 			} else {
@@ -3177,6 +3237,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				Ω.timers.tick();
 			}
 			Ω.input.tick();
+
+			this.stats.stop();
 
 		},
 
@@ -3193,6 +3255,18 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				gfx.ctx.globalAlpha = 1;
 			}
 			this.dialog && this.dialog.render(gfx);
+
+			if (this.debug) {
+
+				var fps = this.stats.fps();
+				gfx.ctx.fillStyle = "rgba(0,0,0,0.3)";
+				gfx.ctx.fillRect(this.stats.pos[0], this.stats.pos[1], 50, 20);
+
+				gfx.ctx.fillStyle = "#fff";
+				gfx.ctx.font = "6pt monospace";
+				gfx.ctx.fillText(fps[0] + " " + fps[1] + "/" + fps[2], this.stats.pos[0] + 5, this.stats.pos[1] + 13);
+
+			}
 
 		},
 

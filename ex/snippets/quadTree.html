@@ -37,7 +37,9 @@
 					window.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 2, 5);
 
 					this.entities.forEach(function (e) {
+
 						qt.insert(e);
+
 					})
 
 				},
@@ -49,7 +51,9 @@
 					qt.render(Ω.gfx);
 
 					this.entities.forEach(function (e) {
+
 						e.render(gfx);
+
 					})
 
 
