@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Quadtree</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<script src="../../Ω500.js"></script>
+		<script src="../../Ω/utils/QuadTree.js"></script>
+
+		<script>
+
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.entities = [
+						new Ω.Entity(10, 1,  5, 5),
+						new Ω.Entity(10, 102,  5, 5),
+						new Ω.Entity(60, 102,  5, 5),
+						new Ω.Entity(68, 98,  5, 5),
+						new Ω.Entity(190, 25,  5, 5),
+						new Ω.Entity(260, 205,  5, 5),
+						new Ω.Entity(260, 215, 5,5)
+					]
+
+					window.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 1, 5);
+
+					this.entities.forEach(function (e) {
+						qt.insert(e);
+					})
+
+				},
+
+				render: function (gfx) {
+
+					this._super(gfx);
+
+					qt.render(Ω.gfx);
+
+					this.entities.forEach(function (e) {
+						e.render(gfx);
+					})
+
+
+				}
+
+			}))(400, 300);
+
+		</script>
+	</body>
+</html>
