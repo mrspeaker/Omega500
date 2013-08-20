@@ -1,5 +1,5 @@
 /*
-	Ω500 Game library
+	Ω500 Game library v0.2.1
 	by Mr Speaker
 */
 var Ω = (function() {
@@ -2002,7 +2002,11 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		init_trait: function () {},
 
-		tick: function () {}
+		tick: function () {
+
+			return true;
+
+		}
 
 	});
 
@@ -2032,7 +2036,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			if (!this.remove && t.ticks-- === 0) {
 				this.remove = true;
+				console.log("Trait 'remove' executed.");
 			}
+
+			return !(this.remove);
 
 		}
 
@@ -2058,9 +2065,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		tick: function (t) {
 
-			if (t.ticks-- === 0) {
+			if (t.ticks-- <= 0) {
 				t.cb.call(this, t);
+				console.log("Ticker trait expired");
+				return false;
 			}
+
+
+			return true;
 
 		}
 
@@ -2094,6 +2106,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		tick: function (t) {
 
 			this[t.target] += Math.sin(Ω.utils.now() / t.speed) * (t.amp / 10);
+
+			return true;
 
 		}
 
@@ -2160,8 +2174,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			this.cellW = Math.ceil((img.width - this.margin[0]) / (this.w + this.padding[0]));
 			this.cellH = Math.ceil((img.height - this.margin[1]) / (this.h + this.padding[1]));
-
-			console.log((img.width - this.margin[0]),  (this.w + this.padding[0]))
 
 		},
 
@@ -2910,13 +2922,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.y = y || this.y;
 			this.w = w || this.w;
 			this.h = h || this.h;
+			this.traits = [];
 
 		},
 
 		tick: function () {
 
-			this.traits && this.traits.forEach(function (t) {
-				t.tick.call(this, t);
+			this.traits = this.traits.filter(function (t) {
+
+				return t.tick.call(this, t);
+
 			}, this);
 
 			return !(this.remove);
@@ -2924,10 +2939,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		},
 
 		mixin: function (traits) {
-
-			if (!this.traits) {
-				this.traits = [];
-			}
 
 			traits.forEach(function (t) {
 
@@ -2945,6 +2956,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		hitBlocks: function(xBlocks, yBlocks) {},
 
+		/*
+			x & y is the amount the entity WANTS to move,
+			if there were no collision with the map.
+		*/
 		move: function (x, y, map) {
 
 			// Temp holder for movement

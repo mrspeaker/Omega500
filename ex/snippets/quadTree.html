@@ -25,14 +25,15 @@
 					this.entities = [
 						new Ω.Entity(10, 1,  5, 5),
 						new Ω.Entity(10, 102,  5, 5),
-						new Ω.Entity(60, 102,  5, 5),
-						new Ω.Entity(68, 98,  5, 5),
+						new Ω.Entity(360, 102,  5, 5),
+						new Ω.Entity(60, 30,  5, 5),
 						new Ω.Entity(190, 25,  5, 5),
 						new Ω.Entity(260, 205,  5, 5),
+						new Ω.Entity(220, 215,  5, 5),
 						new Ω.Entity(260, 215, 5,5)
 					]
 
-					window.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 1, 5);
+					window.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 2, 5);
 
 					this.entities.forEach(function (e) {
 						qt.insert(e);
