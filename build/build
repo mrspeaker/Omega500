@@ -18,6 +18,7 @@ cat - \
 ../Ω/utils/base.js \
 ../Ω/utils/rays.js \
 ../Ω/utils/Timer.js \
+../Ω/utils/State.js \
 ../Ω/utils/utils.js \
 ../Ω/gfx/gfx.js \
 ../Ω/input/input.js \
