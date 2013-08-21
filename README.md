@@ -457,7 +457,7 @@ Most of the components in Ω500 are in their most basic form - just good enough 
 
 - Fix load from image for retina
 - Add RunStop logo
-- Repeating image background
+- Tiled image background
 - Random colours
 
 Highest priority and WIP:

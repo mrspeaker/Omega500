@@ -27,10 +27,22 @@
 
 					this._super(); // Required to tick mixins
 
-					if (Ω.input.isDown("up")) { this.yo = -2; }
-					if (Ω.input.isDown("down")) { this.yo = 2; }
-					if (Ω.input.isDown("left")) { this.xo = -2; }
-					if (Ω.input.isDown("right")) { this.xo = 2; }
+					if (Ω.input.isDown("up")) {
+						//this.yo = -2;
+						this.addForce && this.addForce(0, -2);
+					}
+					if (Ω.input.isDown("down")) {
+						//this.yo = 2;
+						this.addForce && this.addForce(0, 2);
+					}
+					if (Ω.input.isDown("left")) {
+						//this.xo = -2;
+						this.addForce && this.addForce(-2, 0);
+					}
+					if (Ω.input.isDown("right")) {
+						//this.xo = 2;
+						this.addForce && this.addForce(2, 0);
+					}
 
 					this.move(this.xo, this.yo, map);
 
@@ -79,8 +91,10 @@
 					]);
 
 					this.p2 = new Guy(2 * 32, 2 * 32);
+					console.log(Ω.traits.Velocity);
 					this.p2.mixin([
-						{trait: Ω.traits.Sin, speed: 170, amp: 30}
+						{trait: Ω.traits.Sin, speed: 170, amp: 30},
+						{trait: Ω.traits.Velocity},
 					]);
 
 				},

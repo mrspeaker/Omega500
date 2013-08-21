@@ -1,5 +1,55 @@
 (function (Ω) {
 
+
+	var Velocity = Ω.Trait.extend({
+
+		makeArgs: function (props) {
+
+			return [props.friction];
+
+		},
+
+		init_trait: function (t, friction) {
+
+			t.velX = 0;
+			t.velY = 0;
+			t.accX = 0;
+			t.accY = 0;
+
+			t.friction = friction || 0.75;
+
+			this.addForce = function (x, y) {
+
+				t.accX = x;
+				t.accY = y;
+
+			}
+
+		},
+
+		tick: function (t) {
+
+			t.velX += t.accX;
+			t.velY += t.accY;
+			t.velX *= t.friction;
+			t.velY *= t.friction;
+			if (t.velX > 10) t.velX = 10;
+			if (t.velX < -10) t.velX = -10;
+			if (t.velY < -10) t.velY = -10;
+			if (t.velY > 10) t.velY = 10;
+
+			t.accX = 0;
+			t.accY = 0;
+
+			this.xo += t.velX;
+			this.yo += t.velY;
+
+			return true;
+
+		}
+
+	});
+
 	/*
 		Set the entity's `remove` flag after X ticks
 	*/
@@ -101,7 +151,8 @@
 	Ω.traits = {
 		RemoveAfter: RemoveAfter,
 		Ticker: Ticker,
-		Sin: Sin
+		Sin: Sin,
+		Velocity: Velocity
 	};
 
 }(Ω));
