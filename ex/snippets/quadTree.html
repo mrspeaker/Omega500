@@ -17,29 +17,41 @@
 
 		<script>
 
+			var Bub = Ω.Entity.extend({
+
+				isHit: false,
+
+				hit: function (by) {
+
+					this.isHit = true;
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+					c.fillStyle = this.isHit ? "#0f0" : "#999";
+					c.fillRect(this.x, this.y, this.w, this.h);
+
+				}
+			});
+
 			var MainScreen = Ω.Screen.extend({
 
 				mode: "quad",
 
 				init: function () {
 
-					Ω.Entity.prototype.isHit = false;
-					Ω.Entity.prototype.hit = function () {
-						this.isHit = true;
-					};
- 					Ω.Entity.prototype.render = function (gfx) {
-						var c = gfx.ctx;
-						c.fillStyle = this.isHit ? "#0f0" : "#999";
-						c.fillRect(this.x, this.y, this.w, this.h);
-					}
+					var sx = Ω.utils.rand(Ω.env.w - 50) + 25,
+						sy = Ω.utils.rand(Ω.env.h - 50) + 25;
 
 					this.entities = [];
-					for (var i = 0; i < 1500; i++) {
+					for (var i = 0; i < 1000; i++) {
 
 						this.entities.push(
-							new Ω.Entity(
-								Ω.utils.rand(Ω.env.w),
-								Ω.utils.rand(Ω.env.h),
+							new Bub(
+								sx + Ω.utils.rand(50),
+								sy + Ω.utils.rand(50),
 								2,
 								2
 							)
@@ -47,19 +59,41 @@
 
 					}
 
-					this.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 20, 5);
+					this.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 20, 6);
 
 
 				},
 
 				tick: function () {
 
+					var mx = null,
+						my = null;
+
+					if (Ω.input.isDown("move")) {
+						mx = Ω.input.mouse.x;
+						my = Ω.input.mouse.y;
+					}
+
 					this.entities.forEach(function (e) {
 
 						e.isHit = false;
 
-						e.x += Math.random() * 2 - 1;
-						e.y += Math.random() * 2 - 1;
+						if (mx || my) {
+
+							if (mx < e.x) e.x--;
+							if (mx > e.x) e.x++;
+							if (my < e.y) e.y--;
+							if (my > e.y) e.y++;
+
+						}
+						e.x += Math.random() * 3 - 1.5;
+						e.y += Math.random() * 3 - 1.5;
+
+						var newPos = Ω.utils.constrain([e.x, e.y], Ω.env, true);
+						e.x = newPos[0];
+						e.y = newPos[1];
+
+						if (e.x < 0 || e.y < 0) { console.log("out")}
 
 					});
 
@@ -108,6 +142,10 @@
 				canvas: "#board",
 
 				load: function () {
+
+					Ω.input.bind([
+						["mouse1", "move"]
+					]);
 
 					this.setScreen(new MainScreen());
 
