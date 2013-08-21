@@ -146,14 +146,14 @@
 
 		},
 
-		constrain: function (pos, bounds) {
+		constrain: function (pos, bounds, wrap) {
 
 			var xo = pos[0],
 				yo = pos[1];
-			if (xo < 0) { xo = 0; }
-			if (yo < 0) { yo = 0; }
-			if (xo > bounds.w) { xo = bounds.w; }
-			if (yo > bounds.h) { yo = bounds.h; }
+			if (xo < 0) { xo = wrap ? bounds.w : 0; }
+			if (yo < 0) { yo = wrap ? bounds.h : 0; }
+			if (xo > bounds.w) { xo = wrap ? 0 : bounds.w; }
+			if (yo > bounds.h) { yo = wrap ? 0 : bounds.h; }
 
 			return [xo, yo];
 
