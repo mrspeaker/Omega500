@@ -46,12 +46,12 @@
 						sy = Ω.utils.rand(Ω.env.h - 50) + 25;
 
 					this.entities = [];
-					for (var i = 0; i < 1000; i++) {
+					for (var i = 0; i < 1500; i++) {
 
 						this.entities.push(
 							new Bub(
-								sx + Ω.utils.rand(50),
-								sy + Ω.utils.rand(50),
+								sx + Ω.utils.rand(150),
+								sy + Ω.utils.rand(150),
 								2,
 								2
 							)
@@ -59,8 +59,7 @@
 
 					}
 
-					this.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 20, 6);
-
+					this.qt = new Ω.utils.QuadTree({x: 0, y: 0, w: Ω.env.w, h: Ω.env.h}, 30, 20);
 
 				},
 
@@ -93,9 +92,8 @@
 						e.x = newPos[0];
 						e.y = newPos[1];
 
-						if (e.x < 0 || e.y < 0) { console.log("out")}
-
 					});
+
 
 					if (this.mode === "quad") {
 

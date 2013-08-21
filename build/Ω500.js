@@ -28,6 +28,8 @@ var Ω = (function() {
 		},
 
 		env: {
+			x: 0,
+			y: 0,
 			w: 0,
 			h: 0
 		},
@@ -488,14 +490,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-		constrain: function (pos, bounds) {
+		constrain: function (pos, bounds, wrap) {
 
 			var xo = pos[0],
 				yo = pos[1];
-			if (xo < 0) { xo = 0; }
-			if (yo < 0) { yo = 0; }
-			if (xo > bounds.w) { xo = bounds.w; }
-			if (yo > bounds.h) { yo = bounds.h; }
+			if (xo < 0) { xo = wrap ? bounds.w : 0; }
+			if (yo < 0) { yo = wrap ? bounds.h : 0; }
+			if (xo > bounds.w) { xo = wrap ? 0 : bounds.w; }
+			if (yo > bounds.h) { yo = wrap ? 0 : bounds.h; }
 
 			return [xo, yo];
 
@@ -1717,7 +1719,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				cbName = cbName || "hit",
 				len = entities.length;
 
-
 			for (i = 0; i < len; i++) {
 
 				b = entities[i];
@@ -1726,10 +1727,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				bx = b.x + (b.xbb || 0);
 
 				if (a !== b &&
-					ax + a.w - 1 > bx &&
-				    ax < bx + b.w - 1 &&
-				    a.y + a.h - 1 > b.y &&
-				    a.y < b.y + b.h - 1) {
+					ax + a.w >= bx &&
+				    ax <= bx + b.w &&
+				    a.y + a.h >= b.y &&
+				    a.y <= b.y + b.h) {
 					a[cbName] && a[cbName](b);
 					b[cbName] && b[cbName](a);
 				}
@@ -1759,7 +1760,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				for (j = i + 1; j < len; j++) {
 					b = all[j];
 
-					if (a.x + a.w >= b.x &&
+					if (a !== b &&
+						a.x + a.w >= b.x &&
 					    a.x <= b.x + b.w &&
 					    a.y + a.h >= b.y &&
 					    a.y <= b.y + b.h) {
@@ -3145,7 +3147,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		_screenFade: 0,
 		dialog: null,
 
-		debug: true,
+		fps: true,
 
 		init: function (w, h) {
 
@@ -3257,7 +3259,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			}
 			this.dialog && this.dialog.render(gfx);
 
-			if (this.debug) {
+			if (this.fps) {
 
 				var fps = this.stats.fps();
 				gfx.ctx.fillStyle = "rgba(0,0,0,0.3)";

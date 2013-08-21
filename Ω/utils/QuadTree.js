@@ -9,7 +9,7 @@
 
 		init: function (bounds, maxItems, maxDepth) {
 
-			maxItems = maxItems || 3;
+			maxItems = maxItems || 10;
 			maxDepth = maxDepth || 4;
 
 			this.root = Node(bounds, 0, maxItems, maxDepth);
@@ -53,15 +53,13 @@
 			bounds: bounds,
 			depth: depth,
 
-			retrieve: function (item) {
+			retrieve: function (item, output) {
 
-				var output = [];
-
-				output = output.concat(items);
+				output = (output || []).concat(items);
 
 				if (nodes.length) {
-					var found = nodes[this.findQuadrant(item)].retrieve(item);
-					output = output.concat(found);
+					var quad = this.findQuadrant(item);
+					return nodes[quad].retrieve(item, output);
 				}
 
 				return output;
@@ -95,7 +93,8 @@
 
 				var w = bounds.w / 2,
 					h = bounds.h / 2,
-					newDepth = depth + 1;
+					newDepth = depth + 1,
+					oldItems = items;
 
 				[[0, 0], [0, h], [w, 0], [w, h]].forEach(function (node) {
 
@@ -111,10 +110,10 @@
 
 				});
 
-				items = items.filter(function (item) {
+				items = [];
+				oldItems.forEach(function (item) {
 
 					this.insert(item);
-					return false;
 
 				}, this);
 
@@ -122,11 +121,10 @@
 
 			clear: function () {
 
+				items.length = 0;
 				nodes && nodes.forEach(function (n) {
 					n.clear();
 				});
-
-				items.length = 0;
 				nodes.length = 0;
 			},
 
@@ -147,39 +145,41 @@
 
 			findInsertNode: function (item) {
 
-				var quad = -1; // Default to parent node
-
 				if (item.x + item.w < bounds.x + bounds.w / 2) {
 					if (item.y + item.h < bounds.y + bounds.h / 2) {
-						quad = 0;
+						return 0;
 					}
 					if (item.y >= bounds.y + bounds.h / 2) {
-						quad = 1;
+						return 1;
 					}
+					return -1;
 				}
 
 				if (item.x >= bounds.x + bounds.w / 2) {
 					if (item.y + item.h < bounds.y + bounds.h / 2) {
-						quad = 2;
+						return 2;
 					}
 					if (item.y >= bounds.y + bounds.h / 2) {
-						quad = 3;
+						return 3;
 					}
+					return - 1;
 				}
 
-				return quad;
+				return -1;
 
 			},
 
-			render: function (gfx) {
+			render: function (gfx, col) {
 
 				var c = gfx.ctx;
 
-				c.strokeStyle = "#444";
+				c.strokeStyle = col || "#444";
 				c.strokeRect(bounds.x, bounds.y, bounds.w, bounds.h);
 
 				nodes && nodes.forEach(function (node) {
-					node.render(gfx);
+
+					node.render(gfx, col);
+
 				});
 
 			}
