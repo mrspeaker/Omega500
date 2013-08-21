@@ -15,7 +15,6 @@
 				cbName = cbName || "hit",
 				len = entities.length;
 
-
 			for (i = 0; i < len; i++) {
 
 				b = entities[i];
@@ -24,10 +23,10 @@
 				bx = b.x + (b.xbb || 0);
 
 				if (a !== b &&
-					ax + a.w - 1 > bx &&
-				    ax < bx + b.w - 1 &&
-				    a.y + a.h - 1 > b.y &&
-				    a.y < b.y + b.h - 1) {
+					ax + a.w >= bx &&
+				    ax <= bx + b.w &&
+				    a.y + a.h >= b.y &&
+				    a.y <= b.y + b.h) {
 					a[cbName] && a[cbName](b);
 					b[cbName] && b[cbName](a);
 				}
@@ -57,7 +56,8 @@
 				for (j = i + 1; j < len; j++) {
 					b = all[j];
 
-					if (a.x + a.w >= b.x &&
+					if (a !== b &&
+						a.x + a.w >= b.x &&
 					    a.x <= b.x + b.w &&
 					    a.y + a.h >= b.y &&
 					    a.y <= b.y + b.h) {
