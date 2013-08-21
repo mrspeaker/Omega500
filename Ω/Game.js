@@ -18,7 +18,7 @@
 		_screenFade: 0,
 		dialog: null,
 
-		debug: true,
+		fps: true,
 
 		init: function (w, h) {
 
@@ -130,7 +130,7 @@
 			}
 			this.dialog && this.dialog.render(gfx);
 
-			if (this.debug) {
+			if (this.fps) {
 
 				var fps = this.stats.fps();
 				gfx.ctx.fillStyle = "rgba(0,0,0,0.3)";
