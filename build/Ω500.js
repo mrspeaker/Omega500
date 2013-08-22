@@ -2099,8 +2099,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			// Overwrite the Entity base moveAdd
 			this.moveAdd = function (x, y) {
 
-				t.accX = x;
-				t.accY = y;
+				t.accX += x;
+				t.accY += y;
 
 			}
 
@@ -2113,14 +2113,47 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			t.velX *= t.friction;
 			t.velY *= t.friction;
 
-			t.velX = Ω.utils.clamp(t.velX, -10, 10);
-			t.velX = Ω.utils.clamp(t.velX, -10, 10);
+			if (Math.abs(t.velY) < 1) { t.velY = 0; }
+			if (Math.abs(t.velX) < 1) { t.velX = 0; }
 
 			t.accX = 0;
 			t.accY = 0;
 
 			this.xo += t.velX;
 			this.yo += t.velY;
+
+			return true;
+
+		}
+
+	});
+
+
+	var Gravity = Ω.Trait.extend({
+
+		makeArgs: function (props) {
+
+			return [];
+
+		},
+
+		init_trait: function (t) {
+
+			t.velY = 0;
+			t.accY = 0;
+
+		},
+
+		tick: function (t) {
+
+			if (this.falling) {
+				t.accY += 0.25;
+				t.accY = Ω.utils.clamp(t.accY, 0, 20);
+			} else {
+				t.accY = 0;
+			}
+
+			this.yo += t.accY;
 
 			return true;
 
@@ -2230,7 +2263,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		RemoveAfter: RemoveAfter,
 		Ticker: Ticker,
 		Sin: Sin,
-		Velocity: Velocity
+		Velocity: Velocity,
+		Gravity: Gravity
 	};
 
 }(Ω));
@@ -3096,6 +3130,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				xBlocks,
 				yBlocks;
 
+			// Apply simple gravity
 			if (this.falling) {
 				y += this.gravity;
 			}
@@ -3157,6 +3192,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				[this.x, this.y + this.h],
 				[this.x + (this.w - 1), this.y + this.h]
 			]);
+
+			this.wasFalling = this.falling;
 			if (yBlocks[0] <= map.walkable && yBlocks[1] <= map.walkable) {
 				this.falling = true;
 			} else {

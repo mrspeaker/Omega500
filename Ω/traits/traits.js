@@ -29,9 +29,6 @@
 				t.accX += x;
 				t.accY += y;
 
-				this.xo += x;
-				this.yo += y;
-
 			}
 
 		},
