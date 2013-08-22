@@ -102,13 +102,7 @@
 
 		clamp: function(val, min, max) {
 
-			if (val < min) {
-				return min;
-			}
-			if (val > max) {
-				return max;
-			}
-			return val;
+			return Math.max(min, Math.min(max, val));
 
 		},
 

@@ -446,13 +446,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		clamp: function(val, min, max) {
 
-			if (val < min) {
-				return min;
-			}
-			if (val > max) {
-				return max;
-			}
-			return val;
+			return Math.max(min, Math.min(max, val));
 
 		},
 
@@ -2079,25 +2073,31 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 }(Ω));
 (function (Ω) {
 
+	/*
 
+		Add velocity, acceleration, and friction
+		to an Entity
+
+	*/
 	var Velocity = Ω.Trait.extend({
 
 		makeArgs: function (props) {
 
-			return [];
+			return [props.friction];
 
 		},
 
-		init_trait: function (t, ticks) {
+		init_trait: function (t, friction) {
 
 			t.velX = 0;
 			t.velY = 0;
 			t.accX = 0;
 			t.accY = 0;
 
-			t.friction = 0.75;
+			t.friction = friction || 0.75;
 
-			this.addForce = function (x, y) {
+			// Overwrite the Entity base moveAdd
+			this.moveAdd = function (x, y) {
 
 				t.accX = x;
 				t.accY = y;
@@ -2112,10 +2112,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			t.velY += t.accY;
 			t.velX *= t.friction;
 			t.velY *= t.friction;
-			if (t.velX > 10) t.velX = 10;
-			if (t.velX < -10) t.velX = -10;
-			if (t.velY < -10) t.velY = -10;
-			if (t.velY > 10) t.velY = 10;
+
+			t.velX = Ω.utils.clamp(t.velX, -10, 10);
+			t.velX = Ω.utils.clamp(t.velX, -10, 10);
 
 			t.accX = 0;
 			t.accY = 0;
@@ -3070,6 +3069,13 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		hit: function (entity) {},
 
 		hitBlocks: function(xBlocks, yBlocks) {},
+
+		moveAdd: function(xo, yo) {
+
+			this.xo = xo;
+			this.yo = yo;
+
+		},
 
 		/*
 			x & y is the amount the entity WANTS to move,

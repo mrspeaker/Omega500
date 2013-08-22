@@ -1,6 +1,11 @@
 (function (Ω) {
 
+	/*
 
+		Add velocity, acceleration, and friction
+		to an Entity
+
+	*/
 	var Velocity = Ω.Trait.extend({
 
 		makeArgs: function (props) {
@@ -18,7 +23,8 @@
 
 			t.friction = friction || 0.75;
 
-			this.addForce = function (x, y) {
+			// Overwrite the Entity base moveAdd
+			this.moveAdd = function (x, y) {
 
 				t.accX = x;
 				t.accY = y;
@@ -33,10 +39,9 @@
 			t.velY += t.accY;
 			t.velX *= t.friction;
 			t.velY *= t.friction;
-			if (t.velX > 10) t.velX = 10;
-			if (t.velX < -10) t.velX = -10;
-			if (t.velY < -10) t.velY = -10;
-			if (t.velY > 10) t.velY = 10;
+
+			t.velX = Ω.utils.clamp(t.velX, -10, 10);
+			t.velX = Ω.utils.clamp(t.velX, -10, 10);
 
 			t.accX = 0;
 			t.accY = 0;

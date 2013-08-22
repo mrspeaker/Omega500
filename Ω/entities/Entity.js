@@ -60,6 +60,13 @@
 
 		hitBlocks: function(xBlocks, yBlocks) {},
 
+		moveAdd: function(xo, yo) {
+
+			this.xo = xo;
+			this.yo = yo;
+
+		},
+
 		/*
 			x & y is the amount the entity WANTS to move,
 			if there were no collision with the map.
