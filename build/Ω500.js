@@ -2229,6 +2229,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		Bounce a value over a sine curve
 		Defaults to `yo` (to affect the entity's Y movement)
+		but could be applied to any property that needs
+		a sin-y changes
 
 	*/
 	var Sin = Ω.Trait.extend({
