@@ -23,13 +23,14 @@
 
 				color: "#488",
 
+
+				jumping: false,
+
 				tick: function (map) {
+
 
 					this._super(); // Required to tick mixins
 
-					if (Ω.input.isDown("up")) {
-						this.moveAdd(0, -2);
-					}
 					if (Ω.input.isDown("down")) {
 						this.moveAdd(0, 2);
 					}
@@ -40,7 +41,17 @@
 						this.moveAdd(2, 0);
 					}
 
+					if (!this.jumping && Ω.input.isDown("up")) {
+						this.jumping = true;
+						this.moveAdd(0, -25);
+					}
+
 					this.move(this.xo, this.yo, map);
+
+					if (!this.falling) {
+						this.jumping = false;
+					}
+
 
 				},
 
@@ -65,12 +76,12 @@
 					this.map = new Ω.Map(this.sheet, [
 						[1,1,1,1,1,1,1,1,1,1,1,1,1],
 						[1,0,0,0,0,0,0,0,0,0,0,0,1],
-						[1,0,0,1,1,1,0,1,1,1,1,0,1],
+						[1,0,0,1,1,1,0,1,0,0,0,0,1],
+						[1,0,0,0,0,0,0,0,1,0,0,1,1],
+						[1,0,1,1,1,1,0,1,0,0,1,0,1],
+						[1,0,0,0,0,4,0,4,0,2,0,0,1],
 						[1,0,0,0,0,0,0,0,0,0,0,0,1],
-						[1,0,1,1,1,1,0,1,1,1,1,0,1],
-						[1,0,0,0,0,4,0,4,0,0,0,0,1],
-						[1,0,0,0,0,0,0,0,0,0,0,0,1],
-						[1,0,2,2,2,2,2,2,2,2,2,0,1],
+						[1,0,0,0,0,2,2,2,2,2,2,0,1],
 						[1,0,0,0,0,0,0,0,0,0,0,0,1],
 						[1,1,1,1,1,1,1,1,1,1,1,1,1]
 					]);
@@ -82,9 +93,8 @@
 						{trait: Ω.traits.Ticker, ticks: 100, cb: function (t) {
 							this.color = "#0f0";
 						}},
-						{trait: Ω.traits.Sin, speed: 70, amp: 10},
-						{trait: Ω.traits.Sin, speed: 170, amp: 2, target: "xo"},
-						{trait: Ω.traits.Velocity}
+						{trait: Ω.traits.Velocity},
+						{trait: Ω.traits.Gravity}
 					]);
 
 					this.p2 = new Guy(2 * 32, 2 * 32);

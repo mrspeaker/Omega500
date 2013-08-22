@@ -86,6 +86,7 @@
 				xBlocks,
 				yBlocks;
 
+			// Apply simple gravity
 			if (this.falling) {
 				y += this.gravity;
 			}
@@ -147,6 +148,8 @@
 				[this.x, this.y + this.h],
 				[this.x + (this.w - 1), this.y + this.h]
 			]);
+
+			this.wasFalling = this.falling;
 			if (yBlocks[0] <= map.walkable && yBlocks[1] <= map.walkable) {
 				this.falling = true;
 			} else {
