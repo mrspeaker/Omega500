@@ -25,20 +25,26 @@
 
 				jumping: false,
 
+				// Apply these mixins to all instances
+				traits: [
+					{trait: Ω.traits.Velocity},
+					{trait: Ω.traits.Sin, speed: 130, amp: 4, target: "xo"}
+				],
+
 				tick: function (map) {
 
 					if (!this.jumping && Ω.input.isDown("up")) {
 						this.jumping = true;
-						this.moveAdd(0, -30);
+						this.moveBy(0, -30);
 					}
 					if (Ω.input.isDown("down")) {
-						this.moveAdd(0, 2);
+						this.moveBy(0, 2);
 					}
 					if (Ω.input.isDown("left")) {
-						this.moveAdd(-2, 0);
+						this.moveBy(-2, 0);
 					}
 					if (Ω.input.isDown("right")) {
-						this.moveAdd(2, 0);
+						this.moveBy(2, 0);
 					}
 
 					this._super(); // Tick mixins
@@ -71,28 +77,23 @@
 				init: function () {
 
 					this.map = new Ω.Map(this.sheet, [
-						[1,1,1,1,1,1,1,1,1,1,1,1,1],
-						[1,0,0,0,0,0,0,0,0,0,0,0,1],
-						[1,0,0,1,1,1,0,1,0,0,0,0,1],
-						[1,0,0,0,0,0,0,0,1,0,0,1,1],
-						[1,0,4,1,1,1,0,1,0,0,1,0,1],
-						[1,0,0,0,0,1,0,0,0,1,0,0,1],
-						[1,0,0,0,0,0,0,0,0,0,0,0,1],
-						[1,0,0,0,0,2,2,2,2,2,2,0,1],
-						[1,0,0,0,0,0,0,0,0,0,0,0,1],
-						[1,1,1,1,1,1,1,1,1,1,1,1,1]
+						[1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,0,0,1,1,1,0,1,0,0,0,0,0,1],
+						[1,0,0,0,0,0,0,0,1,0,0,0,1,1],
+						[1,0,4,1,1,1,0,1,0,0,1,1,0,1],
+						[1,0,0,0,0,1,0,0,0,1,0,0,0,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,0,0,0,0,2,2,2,2,2,2,2,0,1],
+						[1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 					]);
 
-					// Make some players & mix in some things
-
+					// Make some players & mix in some new things
 					this.p1 = new Guy(6 * 32, 6 * 32);
 					this.p1.mixin([
 
-						// Make the player sway
-						{trait: Ω.traits.Sin, speed: 170, amp: 4, target: "xo"},
-
-						// Add some velocity and gravity
-						{trait: Ω.traits.Velocity},
+						// Add some gravity
 						{trait: Ω.traits.Gravity},
 
 						// Some timer-type traits
@@ -151,7 +152,7 @@
 
 				}
 
-			}))(400, 300);
+			}))(32 * 14, 32 * 10);
 
 		</script>
 	</body>

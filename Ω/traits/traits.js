@@ -23,8 +23,8 @@
 
 			t.friction = friction || 0.75;
 
-			// Overwrite the Entity base moveAdd
-			this.moveAdd = function (x, y) {
+			// Overwrite the Entity base moveBy
+			this.moveBy = function (x, y) {
 
 				t.accX += x;
 				t.accY += y;
@@ -39,9 +39,6 @@
 			t.velY += t.accY;
 			t.velX *= t.friction;
 			t.velY *= t.friction;
-
-			if (Math.abs(t.velY) < 1) { t.velY = 0; }
-			if (Math.abs(t.velX) < 1) { t.velX = 0; }
 
 			t.accX = 0;
 			t.accY = 0;

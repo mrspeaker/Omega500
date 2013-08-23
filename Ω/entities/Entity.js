@@ -26,7 +26,10 @@
 			this.y = y || this.y;
 			this.w = w || this.w;
 			this.h = h || this.h;
+
+			var t = this.traits || [];
 			this.traits = [];
+			this.mixin(t);
 
 		},
 
@@ -60,7 +63,7 @@
 
 		hitBlocks: function(xBlocks, yBlocks) {},
 
-		moveAdd: function(xo, yo) {
+		moveBy: function(xo, yo) {
 
 			this.xo = xo;
 			this.yo = yo;

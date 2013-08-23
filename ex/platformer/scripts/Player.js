@@ -15,13 +15,18 @@
 			"crouch": new Ω.Sound("../res/audio/crouch.wav", 1)
 		},
 
+		traits: [
+			{trait: Ω.traits.Velocity},
+			{trait: Ω.traits.Gravity}
+		],
+
 		init: function (startX, startY, isPlayer, screen) {
+
+			this._super(startX, startY);
 
 			this.screen = screen;
 
 			this.isPlayer = isPlayer;
-
-			this.gravity = 3;
 
 			this.anims = new Ω.Anims([
 				new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
@@ -29,9 +34,7 @@
 				new Ω.Anim("walkLeft", this.sheet, 60, [[14, 0], [15, 0], [16, 0], [17, 0], [18, 0], [19, 0], [20, 0], [21, 0]])
 			]);
 
-			this.x = startX;
-			this.y = startY;
-			this.speed = isPlayer ? 2 : 1 + Math.random() * 0.2;
+			this.speed = isPlayer ? 0.8 : 0.4 + Math.random() * 0.2;
 
 			this.anims.set(isPlayer ? "idle" : "walk");
 
@@ -47,9 +50,6 @@
 
 		tick: function (map) {
 
-			var x1 = 0,
-				y1 = 0;
-
 			this.anims.tick();
 			this.particle.tick();
 
@@ -58,48 +58,54 @@
 				if (Ω.input.isDown("touch")) {
 					if (Ω.input.touch.x < this.x - this.screen.camera.x) {
 						this.anims.setTo("walkLeft");
-						x1 -= this.speed;
+						this.moveBy(-this.speed, 0);
 					}
 					if (Ω.input.touch.x > this.x - this.screen.camera.x) {
 						this.anims.setTo("walk");
-						x1 += this.speed;
+						this.moveBy(this.speed, 0);
 					}
 				}
 
 				if (Ω.input.isDown("left")) {
 					this.anims.setTo("walkLeft");
-					x1 -= this.speed;
+					this.moveBy(-this.speed, 0);
 				}
 				if (Ω.input.isDown("right")) {
 					this.anims.setTo("walk");
-					x1 += this.speed;
+					this.moveBy(this.speed, 0);
 				}
-				if (Ω.input.isDown("up")) {
-					y1 -= this.speed;
+				if (!this.falling && Ω.input.isDown("up")) {
+					this.moveBy(0, -this.speed * 30);
 				}
 				if (Ω.input.isDown("down")) {
-					y1 += this.speed;
-				}
-
-				if(x1 === 0 && y1 === 0) {
-					this.anims.setTo("idle");
-					if (this.anims.changed()) {
-						//this.anims.setTo("idleLeft");
-					}
+					this.moveBy(0, this.speed);
 				}
 
 			} else {
+
 				if (!this.falling) {
-					x1 += this.speed * this.dir;
+					this.moveBy(this.speed * this.dir, 0);
+					this.anims.setTo(this.dir > 0 ? "walk" : "walkLeft");
 				}
 
 				if (Ω.utils.rand(500) === 1) {
 					this.dir *= -1;
-					this.anims.setTo(this.dir > 0 ? "walk" : "walkLeft");
 				}
 			}
 
-			this.move(x1, y1, map);
+			this._super();
+
+			if (!this.isMoving()) {
+				this.anims.setTo("idle");
+			}
+
+			this.move(this.xo, this.yo, map);
+
+		},
+
+		isMoving: function () {
+
+			return !(Math.abs(this.xo) < 0.05 && Math.abs(this.yo) < 0.05);
 
 		},
 

@@ -2096,8 +2096,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			t.friction = friction || 0.75;
 
-			// Overwrite the Entity base moveAdd
-			this.moveAdd = function (x, y) {
+			// Overwrite the Entity base moveBy
+			this.moveBy = function (x, y) {
 
 				t.accX += x;
 				t.accY += y;
@@ -2112,9 +2112,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			t.velY += t.accY;
 			t.velX *= t.friction;
 			t.velY *= t.friction;
-
-			if (Math.abs(t.velY) < 1) { t.velY = 0; }
-			if (Math.abs(t.velX) < 1) { t.velX = 0; }
 
 			t.accX = 0;
 			t.accY = 0;
@@ -3072,7 +3069,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.y = y || this.y;
 			this.w = w || this.w;
 			this.h = h || this.h;
+
+			var t = this.traits || [];
 			this.traits = [];
+			this.mixin(t);
 
 		},
 
@@ -3106,7 +3106,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		hitBlocks: function(xBlocks, yBlocks) {},
 
-		moveAdd: function(xo, yo) {
+		moveBy: function(xo, yo) {
 
 			this.xo = xo;
 			this.yo = yo;
