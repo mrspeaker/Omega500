@@ -3363,7 +3363,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 				gfx.ctx.fillStyle = "#fff";
 				gfx.ctx.font = "6pt monospace";
-				gfx.ctx.fillText(fps[0] + " " + fps[1] + "/" + fps[2], this.stats.pos[0] + 5, this.stats.pos[1] + 13);
+				gfx.ctx.fillText(fps[0] + " " + fps[1] + "/" + fps[2], this.stats.pos[0] + 5.5, this.stats.pos[1] + 13);
 
 			}
 
