@@ -453,13 +453,6 @@ Some pre-defined traits
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
 
-**Special "Week before Ludum Dare" TODOs!**
-
-- Fix load from image for retina
-- Add RunStop logo
-- Tiled image background
-- Random colours
-
 Highest priority and WIP:
 
 - BUG: bad map collision if entity taller/wider than block
@@ -468,23 +461,25 @@ Highest priority and WIP:
 
 High priority:
 
-- Partial loader (don't load all resources on init - maybe a "no preload" flag)
-- Serialize/deserialize levels
 - GUI: button
+- Assets: Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - Perf: Object pooling
-- Multiple screens (as layers)
-- Retina images
-- Auto-tiling
+- Screens: Multiple screens (as layers)
+- BUG: Load from image on retina devices
+- Maps: Auto-tiling
+- Maps: Tiled image background
 
 Low prority:
 
 - Gfx: DSP on spritesheets
+- Gfx: "Post" effects in webgl (see DIGIBOTS & CO.)
+- Utils: Serialize/deserialize levels
 - Perf: dirty rectangles
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
-- "Post" effects in webgl (see DIGIBOTS & CO.)
 - Jams: font "template" images ready to be traced over for game jams
-- Jams: nice default colours (for randoms etc)
+- Jams: Random/classic colour palettes
+- Jams: Not a Ω issue - but script conversion from WAV/AIFF to MP3 & OGG.
 
 ## inFAQ:
 
