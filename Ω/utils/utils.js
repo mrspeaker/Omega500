@@ -74,6 +74,18 @@
 
 		},
 
+		degToRad: function (deg) {
+
+			return deg * Math.PI / 180;
+
+		},
+
+		radToDeg: function (rad) {
+
+			return rad * 180 / Math.PI;
+
+		},
+
 		angleBetween: function (a, b) {
 
 			var dx = a.x - b.x,
