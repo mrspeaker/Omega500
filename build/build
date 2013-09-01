@@ -4,7 +4,7 @@
 
 header=$(cat << EOF
 /*
-	Ω500 Game library v0.2.1
+	Ω500 Game library v0.3.0
 	by Mr Speaker
 */
 EOF

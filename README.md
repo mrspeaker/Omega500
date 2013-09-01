@@ -1,6 +1,6 @@
 # Ω500: JS Game Library
 
-Ω500 is a library for making canvas-based games. It focuses on providing an architecturally simple set of tools for creating games in an old-school, straightforward way: primarily for game jams and rapid prototyping. Check out the online examples: http://mrspeaker.github.io/Omega500/.
+Ω500 is a library for making canvas-based games. It focuses on providing an architecturally old-school, straightforward set of tools for creating games: primarily for game jams and rapid prototyping. Check out the online examples: http://mrspeaker.github.io/Omega500/.
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
@@ -10,11 +10,13 @@ Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, 
 
 ## Some games using Ω500
 
-[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots). [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26)
+[DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots). [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26). [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source on GitHub](https://github.com/mrspeaker/ld27)
 
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg)
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg)
 ![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
+![Time Flies Straight](http://www.mrspeaker.net/images/tfsCarl.png)
+![Time Flies Straight](http://www.mrspeaker.net/images/tfsHalls.png)
 
 ## Docs
 
@@ -488,4 +490,4 @@ Q. How do you do that omega symbol thing?
 A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
 
 Q. When do we get a version bump?
-A. Every time I finish a game with it. Version 1.0 in 8 more games!
+A. Every time I finish a game with it. Version 1.0 in 7 more games!
