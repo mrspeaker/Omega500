@@ -41,8 +41,8 @@
 						this.x = this.min;
 					}
 
-					if (Ω.utils.oneIn(50)) {
-						this.col = Ω.utils.colors.rnd();
+					if (Ω.utils.toggle(1000, 2) === 1) {
+						this.col = Ω.utils.colors.next();
 					}
 
 				},
