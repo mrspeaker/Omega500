@@ -164,19 +164,19 @@ There's also an `init_post` method that will be called after `init`.
 
 ### Input
 
-Bind keys to "actions". The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a label like "up", "down" - see `Ω.input` for the full list) to the action:
+Bind "actions" to key codes. The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a aliases like "up", "down" - see `Ω.input` for the full list) to the action:
 
-	Ω.input.bind([
-		["left", "left"],
-		["right", "right"],
-		["up", "up"],
-		["down", "down"],
+    Ω.input.bind("explodeThings", 32); // Bind space bar (code 32) to action "explodeThings"
 
-        ["space", "fire"],
-        ["touch", "fire"],
-        [13, "fire"],
+Can map multiple at once:
 
-	]);
+	Ω.input.bind({
+        "fire": ["space", "touch", 13], // Bind multiple keys to "fire"
+		"left": "left",
+		"right": "right",
+		"up": "up",
+		"down": "down"
+    });
 
 This lets you have multiple keys bind to the same action. In the example above the touch screen, space bar, and the enter key (keycode 13 (which incidentally also has the alias "enter")) all trigger the action "fire".
 

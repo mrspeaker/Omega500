@@ -14,16 +14,15 @@
 
             });
 
-			Ω.input.bind([
-				["space", "space"],
-				["touch", "space"],
-				[67, "launch"],
-				["escape", "escape"],
-				["left", "left"],
-				["right", "right"],
-				["up", "up"],
-				["down", "down"]
-			]);
+			Ω.input.bind({
+				"space": ["space", "touch"],
+				"launch": 67,
+				"escape": "escape",
+				"left": "left",
+				"right": "right",
+				"up": "up",
+				"down": "down"
+			});
 
 		},
 

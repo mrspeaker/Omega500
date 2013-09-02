@@ -14,16 +14,16 @@
                 console.log((((max - remaining) / max) * 100 | 0) + "%");
             });
 
-			Ω.input.bind([
-				["space", "space"],
-				["touch", "touch"],
-				["escape", "escape"],
-				["left", "left"],
-				["right", "right"],
-				["up", "up"],
-				["down", "down"],
-				["mouse1", "moused"]
-			]);
+			Ω.input.bind({
+				"space": "space",
+				"touch": "touch",
+				"escape": "escape",
+				"left": "left",
+				"right": "right",
+				"up": "up",
+				"down": "down",
+				"moused": "mouse1"
+			});
 
 		},
 

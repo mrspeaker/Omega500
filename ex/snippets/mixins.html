@@ -141,12 +141,12 @@
 
 				load: function () {
 
-					Ω.input.bind([
-						["left", "left"],
-						["right", "right"],
-						["up", "up"],
-						["down", "down"]
-					]);
+					Ω.input.bind({
+						"left": "left",
+						"right": "right",
+						"up": "up",
+						"down": "down"
+					});
 
 					this.setScreen(new MainScreen());
 

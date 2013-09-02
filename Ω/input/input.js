@@ -76,16 +76,22 @@
 			if (keys[input.KEYS.wheelDown]) keyed(input.KEYS.wheelDown, false);
 		},
 
-		bind: function (code, action) {
+		bind: function (action, code) {
 
-			var self = this;
+			var codes;
 
-			if (Array.isArray(code)) {
-				code.forEach(function (k) {
-
-					self.bind(k[0], k[1]);
-
-				});
+			if (typeof action === "object") {
+				codes = action;
+				for (action in codes) {
+					var key = codes[action];
+					if (Array.isArray(key)) {
+						key.forEach(function (k) {
+							this.bind(action, k);
+						}, this);
+					} else {
+						this.bind(action, key);
+					}
+				}
 				return;
 			}
 

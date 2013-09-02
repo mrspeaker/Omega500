@@ -14,15 +14,14 @@
 				//console.log(cur, max);
 			});
 
-			Ω.input.bind([
-				["space", "fire"],
-				["touch", "fire"],
-				["escape", "escape"],
-				["left", "left"],
-				["right", "right"],
-				["up", "up"],
-				["down", "down"]
-			]);
+			Ω.input.bind({
+				"fire": ["space", "touch"],
+				"escape": "escape",
+				"left": "left",
+				"right": "right",
+				"up": "up",
+				"down": "down"
+			});
 
 		},
 

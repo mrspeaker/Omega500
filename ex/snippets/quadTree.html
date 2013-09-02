@@ -141,9 +141,7 @@
 
 				load: function () {
 
-					Ω.input.bind([
-						["mouse1", "move"]
-					]);
+					Ω.input.bind("move", "mouse1");
 
 					this.setScreen(new MainScreen());
 

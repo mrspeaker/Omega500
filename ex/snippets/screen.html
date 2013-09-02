@@ -57,13 +57,13 @@
 
 					this._super(w, h);
 
-					Ω.input.bind([
-						["space", "space"],
-						["left", "left"],
-						["right", "right"],
-						["up", "up"],
-						["down", "down"]
-					]);
+					Ω.input.bind({
+						"space": "space",
+						"left": "left",
+						"right": "right",
+						"up": "up",
+						"down": "down"
+					});
 
 					this.setScreen(new TitleScreen());
 

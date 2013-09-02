@@ -102,12 +102,12 @@
 				load: function () {
 
 					// Bind the keys to actions
-					Ω.input.bind([
-						["left", "left"],
-						["right", "right"],
-						["up", "up"],
-						["down", "down"]
-					]);
+					Ω.input.bind({
+						"left": "left",
+						"right": "right",
+						"up": "up",
+						"down": "down"
+					});
 
 					// Start the main screen!
 					this.setScreen(new MainScreen());
