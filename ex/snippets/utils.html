@@ -31,12 +31,18 @@
 					this.min = 0;
 					this.max = Ω.env.w - 30;
 
+					this.col = "#888";
+
 				},
 
 				tick: function () {
 
-					if(++this.x > this.max) {
+					if (++this.x > this.max) {
 						this.x = this.min;
+					}
+
+					if (Ω.utils.oneIn(50)) {
+						this.col = Ω.utils.colors.rnd();
 					}
 
 				},
@@ -45,7 +51,7 @@
 
 					var c = gfx.ctx;
 
-					this.clear(gfx, "#888");
+					this.clear(gfx, this.col);
 
 					this.sheet.render(gfx, 0, 0, this.x, gfx.h * 0.45);
 					this.sheet.render(gfx, 0, 0, Ω.utils.smoothstep(this.min, this.max, this.x), gfx.h * 0.3);

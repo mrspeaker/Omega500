@@ -474,6 +474,12 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
+		lerpPerc: function (start, finish, perc) {
+
+			return ((finish - start) * perc) + start;
+
+		},
+
 		smoothstep: function (start, finish, amount) {
 
 			var x = this.ratio(start, finish, amount);
@@ -743,6 +749,27 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.utils = Ω.utils || {};
 	Ω.utils.Stats = Stats;
+
+}(Ω));
+(function (Ω) {
+
+	"use strict";
+
+	var colors = {
+
+		rnd: function (s, l) {
+
+			s = s === undefined ? 50 : s;
+			l = l === undefined ? 50 : l;
+
+			return "hsl(" + (Math.random() * 360 | 0) + ", " + s + "%, " + l + "%)";
+
+		}
+
+	};
+
+	Ω.utils = Ω.utils || {};
+	Ω.utils.colors = colors;
 
 }(Ω));
 (function (Ω) {

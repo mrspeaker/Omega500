@@ -21,6 +21,7 @@ cat - \
 ../Ω/utils/utils.js \
 ../Ω/utils/State.js \
 ../Ω/utils/Stats.js \
+../Ω/utils/colors.js \
 ../Ω/gfx/gfx.js \
 ../Ω/input/input.js \
 ../Ω/assets/Image.js \
