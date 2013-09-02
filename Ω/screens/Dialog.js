@@ -7,11 +7,17 @@
 		killKey: "escape",
 		time: 0,
 
-		init: function (key) {
+		init: function (key, cb) {
+
+			if (typeof key === "function") {
+				cb = key;
+				key = null;
+			}
 
 			if (key) {
 				this.killKey = key;
 			}
+			this.cb = cb;
 
 		},
 
@@ -29,6 +35,7 @@
 		done: function () {
 
 			game.clearDialog();
+			this.cb && this.cb();
 
 		},
 
