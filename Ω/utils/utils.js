@@ -130,6 +130,12 @@
 
 		},
 
+		lerpPerc: function (start, finish, perc) {
+
+			return ((finish - start) * perc) + start;
+
+		},
+
 		smoothstep: function (start, finish, amount) {
 
 			var x = this.ratio(start, finish, amount);
