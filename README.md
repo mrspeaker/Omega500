@@ -11,13 +11,13 @@ Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, 
 ## Some games using Ω500
 
 - [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots).
-- [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26).
 - [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source on GitHub](https://github.com/mrspeaker/ld27)
+- [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26).
 
-![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg)
-![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg)
-![Zmore](http://www.mrspeaker.net/images/omegaZmore.png)
-![Time Flies Straight](http://www.mrspeaker.net/images/tfsCarl.png)
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg).
+![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg).
+![Zmore](http://www.mrspeaker.net/images/omegaZmore.png).
+![Time Flies Straight](http://www.mrspeaker.net/images/tfsCarl.png).
 ![Time Flies Straight](http://www.mrspeaker.net/images/tfsHalls.png)
 
 ## Docs
@@ -462,7 +462,7 @@ Highest priority and WIP:
 - BUG: bad map collision if entity taller/wider than block
 - BUG: tracking camera box moves on zoom
 - move traits to game object, maybe
-- BUG: wasdown not working in dialogs
+- BUG: input "wasdown" not working in dialogs
 
 High priority:
 
@@ -482,9 +482,9 @@ Low prority:
 - Perf: dirty rectangles
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
-- Jams: font "template" images ready to be traced over for game jams
 - Jams: Random/classic colour palettes
-- Jams: Not a Ω issue - but script conversion from WAV/AIFF to MP3 & OGG.
+- Jams: Not Ω, but - but script conversion from WAV/AIFF to MP3 & OGG.
+- Jams: Not Ω, but - quick set up for grunt.
 
 ## inFAQ:
 
