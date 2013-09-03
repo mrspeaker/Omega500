@@ -287,7 +287,7 @@ Doesn't require a spritesheet - it's magically generated (for prototyping)
 
 *Collisions*
 
-In you're entity's tick method, determine the distance you want it to move for the frame and call `move`. If the entity would end up inside a wall, the move function will push the entity back to be snug up against it. The entity can slide along a wall.
+In your entity's tick method, determine the distance you want it to move for the frame and call `move`. If the entity would end up inside a wall, the move function will push the entity back to be snug up against it. The entity can slide along a wall.
 
     entity.move(xAmount, yAmount, map);
 
