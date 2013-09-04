@@ -10,6 +10,9 @@
 
 		state: null,
 
+		onLadder: false,
+		wasOnLadder: false,
+
 		traits: [
 			{trait: Ω.traits.Velocity},
 			{trait: Ω.traits.Gravity}
@@ -59,6 +62,8 @@
 			this._super();
 			this.move(this.xo, this.yo, map);
 
+			this.checkBlocks(map);
+
 		},
 
 		doInput: function () {
@@ -71,8 +76,14 @@
 				this.moveBy(this.speed, 0);
 				this.dir = 1;
 			}
-			if (!this.falling && Ω.input.isDown("up")) {
-				this.moveBy(0, -this.speed * 30);
+			if (Ω.input.isDown("up")) {
+				if (this.onLadder) {
+					this.moveBy(0, -this.speed);
+				} else {
+					if (!this.falling) {
+						this.moveBy(0, -this.speed * 30);
+					}
+				}
 			}
 			if (Ω.input.isDown("down")) {
 				this.moveBy(0, this.speed);
@@ -94,6 +105,7 @@
 
 		hitBlocks: function (xBlocks, yBlocks) {
 
+
 		},
 
 		hit: function (by) {
@@ -101,6 +113,25 @@
 			if (this.state.is("ALIVE")) {
 				this.state.set("HIT");
 			}
+
+		},
+
+		checkBlocks: function (map) {
+
+			var blocks = map.getBlocks([
+				[this.x, this.y],
+				[this.x, this.y + (this.h - 1)],
+				[this.x + (this.w - 1), this.y],
+				[this.x + (this.w - 1), this.y + (this.h - 1)]
+			]);
+
+			if (blocks.indexOf(1) > -1) {
+				this.onLadder = true;
+				this.falling = false;
+			} else {
+				this.onLadder = false;
+			}
+
 
 		},
 
