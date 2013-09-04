@@ -77,7 +77,7 @@
 				this.dir = 1;
 			}
 			if (Ω.input.isDown("up")) {
-				if (this.onLadder) {
+				if (this.onLadder && !this.onTopOfLadder) {
 					this.moveBy(0, -this.speed);
 				} else {
 					if (!this.falling) {
@@ -118,6 +118,8 @@
 
 		checkBlocks: function (map) {
 
+			this.wasOnLadder = this.onLadder;
+
 			var blocks = map.getBlocks([
 				[this.x, this.y],
 				[this.x, this.y + (this.h - 1)],
@@ -125,7 +127,15 @@
 				[this.x + (this.w - 1), this.y + (this.h - 1)]
 			]);
 
+			this.onTopOfLadder = false;
 			if (blocks.indexOf(1) > -1) {
+				if (!this.wasOnLadder) {
+					if (blocks[0] !== 1 && blocks[2] !== 1) {
+						// Snap to top.
+						this.y = Ω.utils.snap(this.y, map.sheet.h) + (map.sheet.h - this.h);
+						this.onTopOfLadder = true;
+					}
+				}
 				this.onLadder = true;
 				this.falling = false;
 			} else {
