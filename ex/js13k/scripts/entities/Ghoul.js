@@ -17,6 +17,16 @@
 
 			return !(this.remove);
 
+		},
+
+		hit: function (e) {
+
+			if (e instanceof Weapon && !e.stuck) {
+
+				this.remove = true;
+
+			}
+
 		}
 
 	});

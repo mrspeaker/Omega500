@@ -7,6 +7,8 @@
 		speed: 8,
 		dir: -1,
 
+		stuck: false,
+
 		init: function (x, y, dir) {
 
 			this._super(x, y);

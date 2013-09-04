@@ -374,7 +374,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 				this.seed = (this.seed * 9301 + 49297) % 233280;
 
-				return (this.seed / 233280) * (max - min) + min;
+				return ((this.seed / 233280) * (max - min) + min) | 0;
 			}
 		},
 
@@ -2952,19 +2952,25 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	var DebugMap = Ω.Map.extend({
 
-		init: function (tileW, tileH, xTiles, yTiles, cells, walkable) {
+		init: function (tileW, tileH, xTiles, yTiles, cells, walkable, seed) {
 
-			var ctx = Ω.gfx.createCanvas(tileW * xTiles, tileH * yTiles),
+			var ctx = this.ctx = Ω.gfx.createCanvas(tileW * xTiles, tileH * yTiles),
 				data = Ω.gfx.ctx.createImageData(tileW * xTiles,tileH * yTiles),
 				pix = data.data,
-				numPix = data.width * data.height;
+				numPix = data.width * data.height,
+				oldSeed,
+				off;
 
-			var off = Math.random() * 255 | 0;
+			this.seed = seed || (Math.random() * 10000 | 0);
+
+			oldSeed = Ω.utils.rnd.seed;
+			Ω.utils.rnd.seed = this.seed;
+			off = Ω.utils.rnd.rand(255);
 
 			for (var i = 0; i < numPix; i++) {
 				var row = i / data.width | 0,
 					col = ((i / tileW) | 0) % data.width % xTiles,
-					noise = Math.random() < 0.3 ? (Math.random() * 30) : 0,
+					noise = Ω.utils.rnd.rand(100) < 30 ? (Ω.utils.rnd.rand(30)) : 0,
 					color = ((row / tileH) + 1 + (col * 3) + off + (noise / 10)) | 0;
 
 
@@ -2977,8 +2983,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				pix[i * 4] = (color * 50) % 255 + noise;
 				pix[i * 4 + 1] = (color * 240) % 255 + noise;
 				pix[i * 4 + 2] = (color * 80) % 255 + noise;
-				pix[i * 4 + 3] = 255;
+				pix[i * 4 + 3] = color === 0 ? 0 : 255;
 			}
+
+			Ω.utils.rnd.seed = oldSeed;
 
 			ctx.putImageData(data, 0, 0);
 
@@ -2986,6 +2994,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				new Ω.SpriteSheet(ctx.canvas, tileW, tileH),
 				cells,
 				walkable);
+
+		},
+
+		dump: function () {
+
+			console.log("seed:", this.seed);
+
+			var img = new Image();
+			img.src = this.ctx.canvas.toDataURL();
+			document.body.appendChild(img);
 
 		}
 

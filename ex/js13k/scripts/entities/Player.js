@@ -77,7 +77,7 @@
 				this.dir = 1;
 			}
 			if (Ω.input.isDown("up")) {
-				if (this.onLadder && !this.onTopOfLadder) {
+				if (this.inWater || (this.onLadder && !this.onTopOfLadder)) {
 					this.moveBy(0, -this.speed);
 				} else {
 					if (!this.falling) {
@@ -116,6 +116,19 @@
 
 		},
 
+		hitSpear: function (spear) {
+			if (spear.stuck) {
+				this.onLadder = true;
+				this.falling = false;
+				if (this.y + this.h - spear.y < 10) {
+					this.onTopOfLadder = true;
+					this.y = spear.y - this.h;
+				}
+			} else {
+				this.onTopOfLadder = false;
+			}
+		},
+
 		checkBlocks: function (map) {
 
 			this.wasOnLadder = this.onLadder;
@@ -128,9 +141,9 @@
 			]);
 
 			this.onTopOfLadder = false;
-			if (blocks.indexOf(1) > -1) {
+			if (blocks.indexOf(BLOCKS.type.LADDER) > -1) {
 				if (!this.wasOnLadder) {
-					if (blocks[0] !== 1 && blocks[2] !== 1) {
+					if (blocks[0] !== BLOCKS.type.LADDER && blocks[2] !== BLOCKS.type.LADDER) {
 						// Snap to top.
 						this.y = Ω.utils.snap(this.y, map.sheet.h) + (map.sheet.h - this.h);
 						this.onTopOfLadder = true;
@@ -140,6 +153,23 @@
 				this.falling = false;
 			} else {
 				this.onLadder = false;
+			}
+
+			this.inWater = false;
+			if (blocks.indexOf(BLOCKS.type.WATER) > -1) {
+				this.yo += 4;
+				this.inWater = true;
+				this.falling = false;
+			}
+			if (blocks.indexOf(BLOCKS.type.WATERRIGHT) > -1) {
+				this.xo += 4;
+				this.inWater = true;
+				//this.falling = false;
+			}
+			if (blocks.indexOf(BLOCKS.type.WATERLEFT) > -1) {
+				this.xo -= 4;
+				this.inWater = true;
+				//this.falling = false;
 			}
 
 
@@ -153,6 +183,7 @@
 
 			});
 
+			// Blink
 			if (this.state.is("HIT") && Ω.utils.toggle(100, 2)) {
 				return;
 			}
