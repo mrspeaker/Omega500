@@ -72,6 +72,7 @@
 
 			}, this);
 
+			Ω.Physics.checkCollision(this.players[0], this.baddies);
 			Ω.Physics.checkCollisions([this.baddies, this.players[0].projectiles]);
 
 			if (Ω.utils.oneIn(90)) {

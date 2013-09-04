@@ -8,6 +8,8 @@
 		h: 45,
 		dir: 1,
 
+		state: null,
+
 		traits: [
 			{trait: Ω.traits.Velocity},
 			{trait: Ω.traits.Gravity}
@@ -21,6 +23,8 @@
 			this.speed = 1.4;
 			this.projectiles = [];
 
+			this.state = new Ω.utils.State("BORN");
+
 		},
 
 		setMap: function (map) {
@@ -31,13 +35,26 @@
 
 		tick: function (map) {
 
-			this.doInput();
-
 			this.projectiles = this.projectiles.filter(function (p) {
 
 				return p.tick(map);
 
 			});
+
+			this.state.tick();
+			switch (this.state.get()) {
+			case "BORN":
+				this.state.set("ALIVE");
+				break;
+			case "ALIVE":
+				this.doInput();
+				break;
+			case "HIT":
+				if (this.state.count > 40) {
+					this.state.set("ALIVE");
+				}
+				break;
+			}
 
 			this._super();
 			this.move(this.xo, this.yo, map);
@@ -81,6 +98,10 @@
 
 		hit: function (by) {
 
+			if (this.state.is("ALIVE")) {
+				this.state.set("HIT");
+			}
+
 		},
 
 		render: function (gfx, map) {
@@ -91,8 +112,12 @@
 
 			});
 
-			gfx.ctx.strokeStyle = "rgba(100, 0, 0, 0.3)";
-			gfx.ctx.strokeRect(this.x, this.y, this.w, this.h);
+			if (this.state.is("HIT") && Ω.utils.toggle(100, 2)) {
+				return;
+			}
+
+			gfx.ctx.fillStyle = "rgba(100, 0, 0, 0.3)";
+			gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
 
 		}
 
