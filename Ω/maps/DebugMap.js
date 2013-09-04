@@ -36,8 +36,6 @@
 
 			ctx.putImageData(data, 0, 0);
 
-			document.body.appendChild(ctx.canvas);
-
 			this._super(
 				new Ω.SpriteSheet(ctx.canvas, tileW, tileH),
 				cells,
