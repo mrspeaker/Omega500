@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="viewport" content="user-scalable=0, initial-scale=1.0" />
+
+		<title>JS13K</title>
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+
+		<section>
+			<canvas id="board"></canvas>
+		</section>
+
+		<script src="../../build/Ω500.js"></script>
+
+		<!-- Platformer game files -->
+		<script src="scripts/screens/MainScreen.js"></script>
+		<script src="scripts/entities/Player.js"></script>
+		<script src="scripts/entities/Ghoul.js"></script>
+		<script src="scripts/entities/weapons/Weapon.js"></script>
+		<script src="scripts/entities/weapons/Spear.js"></script>
+		<script src="scripts/js13k.js"></script>
+
+		<script>
+
+			var game = new js13k(720, 405);
+
+		</script>
+	</body>
+</html>
