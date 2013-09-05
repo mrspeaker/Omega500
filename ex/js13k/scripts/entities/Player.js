@@ -4,8 +4,8 @@
 
 	var Player = Ω.Entity.extend({
 
-		w: 12,//25,
-		h: 23,//45,
+		w: 12,
+		h: 23,
 		dir: 1,
 
 		state: null,
