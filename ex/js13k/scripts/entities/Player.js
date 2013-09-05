@@ -4,8 +4,8 @@
 
 	var Player = Ω.Entity.extend({
 
-		w: 25,
-		h: 45,
+		w: 12,//25,
+		h: 23,//45,
 		dir: 1,
 
 		state: null,
@@ -23,7 +23,7 @@
 			this._super(startX, startY);
 
 			this.screen = screen;
-			this.speed = 1.4;
+			this.speed = 1.4 / 2;
 			this.projectiles = [];
 
 			this.state = new Ω.utils.State("BORN");
@@ -188,7 +188,7 @@
 				return;
 			}
 
-			gfx.ctx.fillStyle = "rgba(100, 0, 0, 0.3)";
+			gfx.ctx.fillStyle = "hsl(200, 40%, 60%)";
 			gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
 
 		}

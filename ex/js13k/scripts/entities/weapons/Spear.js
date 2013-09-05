@@ -4,8 +4,8 @@
 
 	var Spear = Weapon.extend({
 
-		w: 40,
-		h: 8,
+		w: 20,//40,
+		h: 4,//8,
 
 		speed: 10,
 

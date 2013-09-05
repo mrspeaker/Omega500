@@ -4,10 +4,10 @@
 
 	var Ghoul = Ω.Entity.extend({
 
-		w: 30,
-		h: 45,
+		w: 15, //30,
+		h: 22, //45,
 
-		speed: 4,
+		speed: 4 / 2,
 		dir: 1,
 
 		tick: function (map) {
