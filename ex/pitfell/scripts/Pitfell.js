@@ -2,7 +2,7 @@
 
 	"use strict";
 
-	var js13k = Ω.Game.extend({
+	var Pitfell = Ω.Game.extend({
 
 		canvas: "#board",
 
@@ -33,6 +33,6 @@
 
 	});
 
-	window.js13k = js13k;
+	window.Pitfell = Pitfell;
 
 }(Ω));

@@ -123,8 +123,8 @@
 			}
 
 			this.screen.render(gfx);
-			if (this.screenFade > 0) {
-				gfx.ctx.globalAlpha = this.screenFade;
+			if (this._screenFade > 0) {
+				gfx.ctx.globalAlpha = this._screenFade;
 				this.screenPrev.render(gfx);
 				gfx.ctx.globalAlpha = 1;
 			}
@@ -152,14 +152,14 @@
 			this.screen = screen;
 
 			if (this.screenPrev) {
-			    this.screenFade = 1;
+			    this._screenFade = 1;
 			    Ω.timer(10, function (ratio) {
 
-			        self.screenFade = 1 - ratio;
+			        self._screenFade = 1 - ratio;
 
 			    }, function () {
 
-			        self.screenFade = 0;
+			        self._screenFade = 0;
 
 			    });
 			}
