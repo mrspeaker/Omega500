@@ -6,39 +6,34 @@
 
         speed: 2,
         bird: null,
-        poles: [],
+        pipes: null,
 
         init: function () {
-            this.poles.push([Ω.env.w + 10, Ω.env.h-100]);
-
             this.bird = new window.Bird(Ω.env.w * 0.25, Ω.env.h * 0.5);
+            this.pipes = [
+                new window.Pipe(Ω.env.w + 10, Ω.env.h - 200, this.speed),
+                new window.Pipe(Ω.env.w + 10, 0, this.speed)
+            ];
         },
 
         tick: function () {
 
             this.bird.tick();
+            this.pipes = this.pipes.filter(function (p) {
+                return p.tick();
+            });
 
-            this.poles = this.poles.map(function (p) {
-                var x = p[0] - this.speed;
-                if (x < -60) {
-                    return [Ω.env.w, p[1]];
-                }
-                return [x, p[1]];
-            }, this);
+            Ω.Physics.checkCollision(this.bird, this.pipes);
 
         },
 
         render: function (gfx) {
 
-            var c = gfx.ctx;
-
             this.clear(gfx, "hsl(195, 40%, 50%)");
 
             this.bird.render(gfx);
-
-            c.fillStyle = "#0ff";
-            this.poles.forEach(function (p) {
-                c.fillRect(p[0], p[1], 60, 100);
+            this.pipes.forEach(function (p) {
+                p.render(gfx);
             });
 
         }

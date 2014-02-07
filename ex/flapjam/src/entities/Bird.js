@@ -18,6 +18,10 @@
                 window.game.setScreen(new window.GameOverScreen());
             }
 
+        },
+
+        hit: function (p) {
+            window.game.setScreen(new window.GameOverScreen());
         }
     });
 
