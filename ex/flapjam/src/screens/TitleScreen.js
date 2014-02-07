@@ -1,4 +1,4 @@
-(function (Ω) {
+(function (Ω, MainScreen) {
 
     "use strict";
 
@@ -17,7 +17,7 @@
             this.y += this.ac;
 
             if (Ω.input.pressed("jump")) {
-                game.setScreen(new MainScreen());
+                window.game.setScreen(new MainScreen());
             }
         },
 
@@ -36,4 +36,4 @@
 
     window.TitleScreen = TitleScreen;
 
-}(Ω));
+}(window.Ω, window.MainScreen));

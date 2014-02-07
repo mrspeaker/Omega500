@@ -1,4 +1,4 @@
-(function (Ω) {
+(function (Ω, GameOverScreen) {
 
     "use strict";
 
@@ -13,12 +13,10 @@
         poles: [],
 
         init: function () {
-
-            this.x = Ω.env.w * 0.35;
+            this.x = Ω.env.w * 0.25;
             this.y = Ω.env.h / 2;
 
             this.poles.push([Ω.env.w + 10, Ω.env.h-100]);
-
         },
 
         tick: function () {
@@ -39,7 +37,7 @@
             }, this);
 
             if (this.y > Ω.env.h - 20) {
-                game.setScreen(new GameOverScreen());
+                window.game.setScreen(new GameOverScreen());
             }
 
         },
@@ -62,4 +60,4 @@
 
     window.MainScreen = MainScreen;
 
-}(Ω));
+}(window.Ω, window.GameOverScreen));
