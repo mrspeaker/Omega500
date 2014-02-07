@@ -191,6 +191,10 @@ To force an action to be released (even if user still holding down button):
 
     Ω.input.release("left")
 
+Reset all keys (stops stuck keys when transitioning screens):
+
+    Ω.input.reset();
+
 
 ### Image
 

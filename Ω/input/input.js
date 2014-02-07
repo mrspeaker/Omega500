@@ -63,6 +63,13 @@
 
 		reset: function () {
 
+			var key;
+
+			for(key in keys) {
+				keys[key].isDown = false;
+				keys[key].wasDown = false;
+			}
+
 		},
 
 		tick: function () {
@@ -149,7 +156,7 @@
 				keyed(code, false);
 			});
 		}
-	}
+	};
 
 	function keyed(code, isDown) {
 
@@ -339,4 +346,4 @@
 
 	Ω.input = input;
 
-}(Ω));
+}(window.Ω));
