@@ -32,6 +32,8 @@ var Ω = (function() {
 
 		preload: function (name) {
 
+			console.log("prrr", preloading, name);
+
 			if (!preloading) {
 				return function () {
 					// console.log("preloading finished!", name);

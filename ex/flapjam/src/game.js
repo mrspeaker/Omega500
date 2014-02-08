@@ -6,6 +6,8 @@
 
         canvas: "#board",
 
+        atlas: new Ω.SpriteAtlas("csv", "res/flappyAtlas/atlas"),
+
         init: function (w, h) {
 
             this._super(w, h);
@@ -15,14 +17,13 @@
             });
 
             Ω.input.bind({
-                "jump": "space",
+                "jump": ["space", "mouse1"] ,
                 "touch": "touch",
                 "escape": "escape",
                 "left": "left",
                 "right": "right",
                 "up": "up",
-                "down": "down",
-                "moused": "mouse1"
+                "down": "down"
             });
 
         },

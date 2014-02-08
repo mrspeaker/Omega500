@@ -23,13 +23,32 @@
 
         render: function (gfx) {
 
-            var c = gfx.ctx;
+            var c = gfx.ctx,
+                now = Date.now(),
+                atlas = game.atlas;
 
             this.clear(gfx, "hsl(195, 40%, 50%)");
 
-            c.font = "20pt helvetica";
-            c.fillStyle = "#0ff";
-            c.fillText("Crappy Bird", 100, 100);
+            atlas.render(gfx, "bg_day", 0, 0);
+
+            var ySin = Math.sin(now / 150) * 7;
+            atlas.render(gfx, "title", 55, gfx.h * 0.25);
+            atlas.render(
+                gfx,
+                "bird0_" + ((now / 100 | 0) % 3),
+                gfx.w * 0.42,
+                gfx.h * 0.38 + ySin - 5
+            );
+
+
+            atlas.render(gfx, "land", -((now / 6 | 0) % 288), gfx.h - 112);
+            atlas.render(gfx, "land", 295 - ((now / 6 | 0) % 288), gfx.h - 112);
+
+            atlas.render(gfx, "button_play", 20, gfx.h - 172);
+            atlas.render(gfx, "button_score", 152, gfx.h - 172);
+            atlas.render(gfx, "button_rate", 106, gfx.h - 242);
+
+            atlas.render(gfx, "brand_copyright", 73, gfx.h - 94);
 
         }
     });

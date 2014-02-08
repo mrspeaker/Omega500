@@ -23,13 +23,18 @@
 
         render: function (gfx) {
 
-            var c = gfx.ctx;
+            var c = gfx.ctx,
+                atlas = window.game.atlas;
 
-            this.clear(gfx, "hsl(195, 40%, 50%)");
+            atlas.render(gfx, "bg_day", 0, 0);
 
-            c.font = "20pt helvetica";
-            c.fillStyle = "#0ff";
-            c.fillText("Game Over. Score: 0", 100, 100);
+            atlas.render(gfx, "land", 0, gfx.h - 112);
+
+            atlas.render(gfx, "text_game_over", 40, gfx.h * 0.25);
+            atlas.render(gfx, "score_panel", 24, gfx.h * 0.37);
+
+            atlas.render(gfx, "button_play", 20, gfx.h - 172);
+            atlas.render(gfx, "button_score", 152, gfx.h - 172);
 
         }
     });
