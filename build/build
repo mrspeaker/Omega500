@@ -38,6 +38,7 @@ cat - \
 ../Ω/traits/Trait.js \
 ../Ω/traits/traits.js \
 ../Ω/gfx/SpriteSheet.js \
+../Ω/gfx/SpriteAtlas.js \
 ../Ω/text/Font.js \
 ../Ω/anim/Anims.js \
 ../Ω/anim/Anim.js \

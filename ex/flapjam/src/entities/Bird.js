@@ -26,7 +26,18 @@
         },
 
         render: function (gfx) {
-            window.game.atlas.render(gfx, "bird0_0", this.x - 6, this.y - 12);
+
+            var c = gfx.ctx;
+
+            //c.fillStyle = "green";
+            //c.fillRect(this.x, this.y, this.w, this.h);
+
+            c.save();
+            c.translate(this.x, this.y);
+            c.rotate(-0.35 + (this.ac / 15));
+            c.translate(-20, -10);
+            window.game.atlas.render(gfx, "bird0_0", 12, 0);
+            c.restore();
         }
     });
 

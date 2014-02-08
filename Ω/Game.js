@@ -131,7 +131,6 @@
 			this.dialog && this.dialog.render(gfx);
 
 			if (this.fps) {
-
 				var fps = this.stats.fps();
 				gfx.ctx.fillStyle = "rgba(0,0,0,0.3)";
 				gfx.ctx.fillRect(this.stats.pos[0], this.stats.pos[1], 50, 20);
@@ -139,7 +138,6 @@
 				gfx.ctx.fillStyle = "#fff";
 				gfx.ctx.font = "6pt monospace";
 				gfx.ctx.fillText(fps[0] + " " + fps[1] + "/" + fps[2], this.stats.pos[0] + 5, this.stats.pos[1] + 13);
-
 			}
 
 		},
