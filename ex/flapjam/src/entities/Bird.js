@@ -7,22 +7,27 @@
         h: 25,
         ac: -8,
 
+        init: function (x, y, screen) {
+            this._super(x, y);
+            this.screen = screen;
+        },
+
         tick: function () {
             this.ac = Math.min(this.ac + 0.4, 10);
             this.y += this.ac;
 
             if (Ω.input.pressed("jump")) {
-                this.ac = -8;
+                this.ac = -7;
             }
 
             if (this.y > Ω.env.h - 112 - this.h) {
-                window.game.setScreen(new window.GameOverScreen());
+                window.game.setScreen(new window.GameOverScreen(this.screen.score));
             }
 
         },
 
         hit: function (p) {
-            window.game.setScreen(new window.GameOverScreen());
+            window.game.setScreen(new window.GameOverScreen(this.screen.score));
         },
 
         render: function (gfx) {
@@ -35,7 +40,7 @@
             c.save();
             c.translate(this.x, this.y);
             c.rotate(-0.35 + (this.ac / 15));
-            c.translate(-20, -10);
+            c.translate(-30, -15);
             window.game.atlas.render(gfx, "bird0_0", 12, 0);
             c.restore();
         }

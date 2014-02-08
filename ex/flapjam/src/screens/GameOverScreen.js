@@ -7,24 +7,31 @@
         x: 0,
         y: 0,
         ac: 0,
+        newBest: false,
 
-        init: function () {
+        ticks: 0,
 
+        init: function (score) {
+            this.score = score;
+            if (score > window.game.best) {
+                this.newBest = true;
+                window.game.best = score;
+            }
+            this.best = window.game.best;
         },
 
         tick: function () {
             this.ac = Math.min(this.ac + 0.1, 5);
             this.y += this.ac;
 
-            if (Ω.input.pressed("jump")) {
+            if (this.ticks++ > 30 && Ω.input.pressed("jump")) {
                 game.setScreen(new TitleScreen());
             }
         },
 
         render: function (gfx) {
 
-            var c = gfx.ctx,
-                atlas = window.game.atlas;
+            var atlas = window.game.atlas;
 
             atlas.render(gfx, "bg_day", 0, 0);
 
@@ -32,6 +39,16 @@
 
             atlas.render(gfx, "text_game_over", 40, gfx.h * 0.25);
             atlas.render(gfx, "score_panel", 24, gfx.h * 0.37);
+
+            var sc = this.score + "";
+            for (var i = 0; i < sc.length; i++) {
+                atlas.render(gfx, "number_context_0" + sc[i], i * 15 + 200, 227);
+            }
+
+            sc = this.best + "";
+            for (i = 0; i < sc.length; i++) {
+                atlas.render(gfx, "number_context_0" + sc[i], i * 15 + 200, 267);
+            }
 
             atlas.render(gfx, "button_play", 20, gfx.h - 172);
             atlas.render(gfx, "button_score", 152, gfx.h - 172);

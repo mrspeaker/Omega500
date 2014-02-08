@@ -6,6 +6,9 @@
 
         canvas: "#board",
 
+        fps: false,
+        best: 0,
+
         atlas: new Ω.SpriteAtlas("csv", "res/flappyAtlas/atlas"),
 
         init: function (w, h) {
