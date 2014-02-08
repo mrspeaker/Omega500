@@ -7,6 +7,10 @@
         h: 25,
         ac: -8,
 
+        sounds: {
+            "hit": new Ω.Sound("res/audio/sfx_hit", 1)
+        },
+
         init: function (x, y, screen) {
             this._super(x, y);
             this.screen = screen;
@@ -21,13 +25,18 @@
             }
 
             if (this.y > Ω.env.h - 112 - this.h) {
-                window.game.setScreen(new window.GameOverScreen(this.screen.score));
+                this.die();
             }
 
         },
 
-        hit: function (p) {
+        die: function () {
+            this.sounds.hit.play();
             window.game.setScreen(new window.GameOverScreen(this.screen.score));
+        },
+
+        hit: function (p) {
+            this.die();
         },
 
         render: function (gfx) {

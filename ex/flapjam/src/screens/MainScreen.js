@@ -14,7 +14,12 @@
 
         count: 0,
 
+        sounds: {
+            "point": new Ω.Sound("res/audio/sfx_point", 1)
+        },
+
         init: function () {
+
             this.state = new Ω.utils.State("BORN");
             this.bird = new window.Bird(Ω.env.w * 0.25, Ω.env.h * 0.45, this);
             this.pipes = [
@@ -52,6 +57,7 @@
             this.count += this.speed;
             if (this.count % 156 === 154) {
                 this.score++;
+                this.sounds.point.play();
             }
 
             this.bird.tick();
