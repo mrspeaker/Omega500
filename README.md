@@ -493,8 +493,12 @@ Low prority:
 
 ## inFAQ:
 
-Q. How do you do that omega symbol thing?
+Q. How do you do that omega symbol thing?  
 A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
 
-Q. When do we get a version bump?
+Q. When do we get a version bump?  
 A. Every time I finish a game with it. Version 1.0 in 7 more games!
+
+Q. License?  
+A. [Unlicense](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/UNLICENSE)!
+
