@@ -8,6 +8,8 @@
         y: 0,
         ac: 0,
 
+        font: new Ω.Font("res/flapfont.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
+
         init: function () {
 
         },
@@ -29,7 +31,9 @@
             atlas.render(gfx, "bg_day", 0, 0);
 
             var ySin = Math.sin(now / 150) * 7;
-            atlas.render(gfx, "title", 55, gfx.h * 0.25);
+            atlas.render(gfx, "title", 55, gfx.h * 0.18);
+            this.font.write(gfx, "typing tutor", 53, gfx.h * 0.30);
+            this.font.write(gfx, "typing tutor", 53 - 1, gfx.h * 0.30 - 1);
             atlas.render(
                 gfx,
                 "bird0_" + ((now / 100 | 0) % 3),

@@ -16,11 +16,16 @@
         state: null,
         flapping: 100,
 
+        font: new Ω.Font("res/flapfont.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
+        font2: new Ω.Font("res/flapfont2.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
+
         sounds: {
             "hit": new Ω.Sound("res/audio/sfx_hit", 1)
         },
 
-        words: ["flappy", "starfish", "jumping", "seven", "high", "score", "wizard", "castle", "inside", "drumroll"],
+        words: [
+            "cursed", "anguish", "frustration", "jumping", "triumph", "crazed", "elated", "wizard",
+            "castle", "inside", "drumroll"],
         curWord: "",
         nextWord: "",
         curIdx: 0,
@@ -90,7 +95,7 @@
         },
 
         chooseWord: function () {
-            return this.words[(Math.random() * (this.words.length - 1)) | 0];
+            return this.words[(Math.random() * (this.words.length)) | 0];
         },
 
         setColor: function (color) {
@@ -126,16 +131,19 @@
             c.font = "20pt monospace";
 
             c.fillStyle = "rgba(0, 0, 0, 0.4)";
-            c.fillRect(0, 0, gfx.w, 65);
+            c.fillRect(0, 0, gfx.w, 70);
+
+            var w = gfx.w / 2,
+                ww = this.curWord.length * 17 / 2,
+                ww2 = this.nextWord.length * 17 / 2;
 
             for (var i = 0; i < this.curWord.length; i++) {
-                c.fillStyle = i === this.curIdx ? "#f00" : "#eee";
-                c.fillText(this.curWord[i], 30 + (i * 20), 30);
+                var font = i === this.curIdx ? this.font2 : this.font;
+                font.write(gfx, this.curWord[i], w - ww + (i * 17), 10);
             }
 
             for (i = 0; i < this.nextWord.length; i++) {
-                c.fillStyle = "#eee";
-                c.fillText(this.nextWord[i], 50 + (i * 20), 60);
+                this.font.write(gfx, this.nextWord[i], w - ww2 + (i * 17), 40);
             }
 
         }

@@ -22,7 +22,7 @@
                 this.reset = false;
             }
             if (this.x < -this.w) {
-                this.x += (Ω.env.w * 1.3) + this.w;
+                this.x += (Ω.env.w * 1.7) + this.w;
                 this.reset = true;
                 this.counted = false;
             }

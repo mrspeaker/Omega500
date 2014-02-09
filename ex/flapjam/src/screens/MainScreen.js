@@ -36,11 +36,11 @@
                 new window.Pipe(0, "up", offset + Ω.env.w, Ω.env.h - 170, this.speed),
                 new window.Pipe(0, "down", offset + Ω.env.w, - 100, this.speed),
 
-                new window.Pipe(1, "up", offset + (Ω.env.w * 1.5), Ω.env.h - 170, this.speed),
-                new window.Pipe(1, "down", offset + (Ω.env.w * 1.5), - 100, this.speed),
+                new window.Pipe(1, "up", offset + (Ω.env.w * 1.6), Ω.env.h - 170, this.speed),
+                new window.Pipe(1, "down", offset + (Ω.env.w * 1.6), - 100, this.speed),
 
-                new window.Pipe(2, "up", offset + (Ω.env.w * 2), Ω.env.h - 170, this.speed),
-                new window.Pipe(2, "down", offset + (Ω.env.w * 2), - 100, this.speed)
+                new window.Pipe(2, "up", offset + (Ω.env.w * 2.2), Ω.env.h - 170, this.speed),
+                new window.Pipe(2, "down", offset + (Ω.env.w * 2.2), - 100, this.speed)
             ];
 
             this.setHeight(0);
