@@ -46,4 +46,4 @@
 
 	window.Spring = Spring;
 
-}(Ω));
+}(window.Ω));

@@ -34,7 +34,7 @@
 
 		done: function () {
 
-			game.clearDialog();
+			window.game.clearDialog();
 			this.cb && this.cb();
 
 		},
@@ -52,4 +52,4 @@
 
 	Ω.Dialog = Dialog;
 
-}(Ω));
+}(window.Ω));

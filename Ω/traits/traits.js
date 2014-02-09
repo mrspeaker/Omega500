@@ -1,5 +1,7 @@
 (function (Ω) {
 
+	"use strict";
+
 	/*
 
 		Add velocity, acceleration, and friction
@@ -29,7 +31,7 @@
 				t.accX += x;
 				t.accY += y;
 
-			}
+			};
 
 		},
 
@@ -193,4 +195,4 @@
 		Gravity: Gravity
 	};
 
-}(Ω));
+}(window.Ω));

@@ -43,14 +43,14 @@
 
             var c = gfx.ctx;
 
-            //c.fillStyle = "green";
-            //c.fillRect(this.x, this.y, this.w, this.h);
+            c.strokeStyle = "green";
+            c.strokeRect(this.x, this.y, this.w, this.h);
 
             c.save();
             c.translate(this.x, this.y);
             c.rotate(-0.35 + (this.ac / 15));
             c.translate(-30, -15);
-            window.game.atlas.render(gfx, "bird0_0", 12, 0);
+            window.game.atlas.render(gfx, "bird0_0", 20, 10);
             c.restore();
         }
     });

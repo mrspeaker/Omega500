@@ -27,12 +27,11 @@
 					noise = Ω.utils.rnd.rand(100) < 30 ? (Ω.utils.rnd.rand(30)) : 0,
 					color = ((row / tileH) + 1 + (col * 3) + off + (noise / 10)) | 0;
 
-
 				// Remove the edges, for some roundiness.
-				if (i % tileW == 0 && (i / data.width | 0) % tileH == 0) { color = 0; }
-				if ((i + 1) % tileW == 0 && (i / data.width | 0) % tileH == 0) { color = 0; }
-				if (i % tileW == 0 && ((i / data.width | 0) + 1) % tileH == 0) { color = 0; }
-				if ((i + 1) % tileW == 0 && ((i / data.width | 0) + 1) % tileH == 0) { color = 0; }
+				if (i % tileW === 0 && (i / data.width | 0) % tileH === 0) { color = 0; }
+				if ((i + 1) % tileW === 0 && (i / data.width | 0) % tileH === 0) { color = 0; }
+				if (i % tileW === 0 && ((i / data.width | 0) + 1) % tileH === 0) { color = 0; }
+				if ((i + 1) % tileW === 0 && ((i / data.width | 0) + 1) % tileH === 0) { color = 0; }
 
 				pix[i * 4] = (color * 50) % 255 + noise;
 				pix[i * 4 + 1] = (color * 240) % 255 + noise;
@@ -65,4 +64,4 @@
 
 	Ω.DebugMap = DebugMap;
 
-}(Ω));
+}(window.Ω));

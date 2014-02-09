@@ -12,7 +12,7 @@
 			maxItems = maxItems || 10;
 			maxDepth = maxDepth || 4;
 
-			this.root = Node(bounds, 0, maxItems, maxDepth);
+			this.root = new Node(bounds, 0, maxItems, maxDepth);
 
 		},
 
@@ -184,10 +184,10 @@
 
 			}
 
-		}
+		};
 
 	};
 
 	Ω.utils.QuadTree = QuadTree;
 
-}(Ω));
+}(window.Ω));

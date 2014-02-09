@@ -7,13 +7,13 @@
 		checkCollision: function (entity, entities, cbName) {
 
 			var i,
-				j,
 				a = entity,
 				b,
 				ax,
 				bx,
-				cbName = cbName || "hit",
 				len = entities.length;
+
+			cbName = cbName || "hit";
 
 			for (i = 0; i < len; i++) {
 
@@ -40,7 +40,6 @@
 				j,
 				a,
 				b,
-				cbName = cbName || "hit",
 				all = entities.reduce(function (ac, e) {
 					if (Array.isArray(e)) {
 						return ac.concat(e);
@@ -50,6 +49,8 @@
 
 				}, []),
 				len = all.length;
+
+			cbName = cbName || "hit";
 
 			for (i = 0; i < len - 1; i++) {
 				a = all[i];
@@ -72,4 +73,4 @@
 
 	Ω.Physics = Physics;
 
-}(Ω));
+}(window.Ω));

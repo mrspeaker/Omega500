@@ -40,4 +40,4 @@
 	Ω.utils = Ω.utils || {};
 	Ω.utils.colors = colors;
 
-}(Ω));
+}(window.Ω));

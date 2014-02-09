@@ -26,4 +26,4 @@
 
 	Ω.Trait = Trait;
 
-}(Ω));
+}(window.Ω));

@@ -27,10 +27,7 @@
 
 			msg = msg.toString();
 
-			var w = this.sheet.w,
-				h = this.sheet.h,
-				cellW = this.sheet.cellW,
-				cellH = this.sheet.cellH;
+			var cellW = this.sheet.cellW;
 
 			for (var i = 0; i < msg.length; i++) {
 
@@ -56,4 +53,4 @@
 
 	Ω.Font = Font;
 
-}(Ω));
+}(window.Ω));

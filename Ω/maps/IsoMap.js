@@ -56,4 +56,4 @@
 
 	Ω.IsoMap = IsoMap;
 
-}(Ω));
+}(window.Ω));

@@ -274,7 +274,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				return {
 					x: xHit,
 					y: yHit
-				}
+				};
 			} else {
 				return null;
 			}
@@ -296,11 +296,11 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		}
 
-	}
+	};
 
 	Ω.rays = rays;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -314,7 +314,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.time = time;
 			if (!done) {
 				done = cb;
-				cb = null
+				cb = null;
 			}
 			this.max = time;
 			this.cb = cb;
@@ -341,7 +341,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		return new Timer(time, cb, done);
 	};
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -491,7 +491,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			var j, i;
 
-			for(j = -radius; j <= radius; j++) {
+			for (j = -radius; j <= radius; j++) {
 				for(i = -radius; i <= radius; i++) {
 					if(onlyOuterRing && (Math.abs(i) !== radius && Math.abs(j) !== radius)){
 						continue;
@@ -540,11 +540,11 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			scripts.forEach(function (path) {
 
 				var script = document.createElement('script'),
-					qs = env.desktop ? "?" + new Date().getTime() : "";
+					qs = window.env.desktop ? "?" + new Date().getTime() : "";
 
 				script.src = "scripts/" + path + ".js" + qs;
 				script.onload = function () {
-					resources.toLoadLoaded++;
+					// FIXME: where did this come from?: resources.toLoadLoaded++;
 					if (loaded++ === scripts.length - 1) {
 						cb && cb();
 					}
@@ -635,7 +635,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	};
 
-}(Ω));
+}(window.Ω));
 (function(Ω) {
 
 	"use strict";
@@ -697,7 +697,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 	Ω.utils = Ω.utils || {};
 	Ω.utils.State = State;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -743,14 +743,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				}
 
 			}
-		}
+		};
 
 	};
 
 	Ω.utils = Ω.utils || {};
 	Ω.utils.Stats = Stats;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -793,7 +793,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 	Ω.utils = Ω.utils || {};
 	Ω.utils.colors = colors;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -846,7 +846,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					cb && cb(procImage || image);
 					resolve();
 
-				}
+				};
 
 			image._loaded = false;
 			image.src = path;
@@ -858,13 +858,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			}, false);
 			images[path + (flipFlags ? ":" + flipFlags : "")] = image;
-
-		},
-
-		dspImage: function (img, dspFunc) {
-
-			// TODO: run func once per pixel
-			return img;
 
 		},
 
@@ -957,7 +950,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.gfx = gfx;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -1345,7 +1338,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Image = Image;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -1411,10 +1404,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		rewind: function () {
 			this.audio.pause();
 			try{
-	        	this.audio.currentTime = 0;
-	    	} catch(err){
-	        	//console.log(err);
-	    	}
+				this.audio.currentTime = 0;
+			} catch(err){
+				//console.log(err);
+			}
 
 		},
 
@@ -1465,7 +1458,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Sound = Sound;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
     "use strict";
@@ -1610,11 +1603,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		render: function (gfx, renderables) {
 
 			var c = gfx.ctx,
-				self = this,
-				minX = this.x,
-				minY = this.y,
-				maxX = this.x + this.w,
-				maxY = this.y + this.h;
+				self = this;
 
 			c.save();
 			c.scale(this.zoom, this.zoom);
@@ -1659,7 +1648,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Camera = Camera;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -1703,7 +1692,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			if (this.x > 0) {
 				if (this.bounds && this.x + this.w / this.zoom > this.bounds[0]) {
 					this.x = this.bounds[0] - this.w / this.zoom;
-				};
+				}
 			}
 			if (this.y < 0) {
 				this.y = 0;
@@ -1711,7 +1700,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			if (this.y > 0) {
 				if (this.bounds && this.y + this.h / this.zoom > this.bounds[1]) {
 					this.y = this.bounds[1] - this.h / this.zoom;
-				};
+				}
 			}
 
 		},
@@ -1721,9 +1710,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			var center = Ω.utils.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
-				yr = this.yRange,
-				newX,
-				newY;
+				yr = this.yRange;
 
 			if(e.x < center.x - xr) {
 				this.x = e.x - (this.w / this.zoom / 2) + xr;
@@ -1770,7 +1757,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.TrackingCamera = TrackingCamera;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -1780,13 +1767,13 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		checkCollision: function (entity, entities, cbName) {
 
 			var i,
-				j,
 				a = entity,
 				b,
 				ax,
 				bx,
-				cbName = cbName || "hit",
 				len = entities.length;
+
+			cbName = cbName || "hit";
 
 			for (i = 0; i < len; i++) {
 
@@ -1813,7 +1800,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				j,
 				a,
 				b,
-				cbName = cbName || "hit",
 				all = entities.reduce(function (ac, e) {
 					if (Array.isArray(e)) {
 						return ac.concat(e);
@@ -1823,6 +1809,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 				}, []),
 				len = all.length;
+
+			cbName = cbName || "hit";
 
 			for (i = 0; i < len - 1; i++) {
 				a = all[i];
@@ -1845,7 +1833,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Physics = Physics;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -1957,7 +1945,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Particle = Particle;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -1976,7 +1964,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-		render: function (gfx, x, y) {
+		render: function (gfx) {
 
 			gfx.ctx.translate(Math.random() * 8 | 0, Math.random() * 4 | 0);
 
@@ -1986,7 +1974,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Shake = Shake;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2035,7 +2023,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	window.Spring = Spring;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2068,7 +2056,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Screen = Screen;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2105,7 +2093,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		done: function () {
 
-			game.clearDialog();
+			window.game.clearDialog();
 			this.cb && this.cb();
 
 		},
@@ -2123,7 +2111,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Dialog = Dialog;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2152,8 +2140,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Trait = Trait;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
+
+	"use strict";
 
 	/*
 
@@ -2184,7 +2174,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				t.accX += x;
 				t.accY += y;
 
-			}
+			};
 
 		},
 
@@ -2348,7 +2338,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		Gravity: Gravity
 	};
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2373,7 +2363,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			if (!isNaN(opts)) {
 				opts = {
 					flipFlags: opts
-				}
+				};
 			}
 			opts = opts || {};
 
@@ -2494,7 +2484,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.SpriteSheet = SpriteSheet;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
     "use strict";
@@ -2708,10 +2698,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			msg = msg.toString();
 
-			var w = this.sheet.w,
-				h = this.sheet.h,
-				cellW = this.sheet.cellW,
-				cellH = this.sheet.cellH;
+			var cellW = this.sheet.cellW;
 
 			for (var i = 0; i < msg.length; i++) {
 
@@ -2737,7 +2724,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Font = Font;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2828,7 +2815,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Anims = Anims;
 
-}(Ω));(function (Ω) {
+}(window.Ω));(function (Ω) {
 
 	"use strict";
 
@@ -2864,7 +2851,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					this.cb && this.cb();
 				};
 				this.changed = true;
-			};
+			}
 
 		},
 
@@ -2891,7 +2878,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Anim = Anim;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -2934,7 +2921,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					w: gfx.w,
 					h: gfx.h,
 					zoom: 1
-				}
+				};
 			}
 
 			var tw = this.sheet.w,
@@ -3047,11 +3034,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				autoColIdx = 0;
 
 			function canvToCells(canvas) {
-
 				var ctx = canvas.getContext("2d"),
 					pix = ctx.webkitGetImageDataHD ?
 						ctx.webkitGetImageDataHD(0, 0, canvas.width, canvas.height).data :
-						ctx.webkitGetImageData(0, 0, canvas.width, canvas.height).data,
+						ctx.getImageData(0, 0, canvas.width, canvas.height).data,
 					pixOff,
 					cells = [],
 					i,
@@ -3082,7 +3068,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 								if (!col) {
 									// This colour is not a tile. It must be an entity...
 									if (entities[key]) {
-										entities[key].push([i, j])
+										entities[key].push([i, j]);
 									} else {
 										entities[key] = [[i, j]];
 									}
@@ -3135,7 +3121,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Map = Map;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -3165,12 +3151,11 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					noise = Ω.utils.rnd.rand(100) < 30 ? (Ω.utils.rnd.rand(30)) : 0,
 					color = ((row / tileH) + 1 + (col * 3) + off + (noise / 10)) | 0;
 
-
 				// Remove the edges, for some roundiness.
-				if (i % tileW == 0 && (i / data.width | 0) % tileH == 0) { color = 0; }
-				if ((i + 1) % tileW == 0 && (i / data.width | 0) % tileH == 0) { color = 0; }
-				if (i % tileW == 0 && ((i / data.width | 0) + 1) % tileH == 0) { color = 0; }
-				if ((i + 1) % tileW == 0 && ((i / data.width | 0) + 1) % tileH == 0) { color = 0; }
+				if (i % tileW === 0 && (i / data.width | 0) % tileH === 0) { color = 0; }
+				if ((i + 1) % tileW === 0 && (i / data.width | 0) % tileH === 0) { color = 0; }
+				if (i % tileW === 0 && ((i / data.width | 0) + 1) % tileH === 0) { color = 0; }
+				if ((i + 1) % tileW === 0 && ((i / data.width | 0) + 1) % tileH === 0) { color = 0; }
 
 				pix[i * 4] = (color * 50) % 255 + noise;
 				pix[i * 4 + 1] = (color * 240) % 255 + noise;
@@ -3203,7 +3188,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.DebugMap = DebugMap;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -3262,7 +3247,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.IsoMap = IsoMap;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -3317,7 +3302,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				};
 				return acc;
 
-			}, {})
+			}, {});
 
 			this.castRays(entityMap, player);
 
@@ -3332,19 +3317,18 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				rayAngle,
 				hit,
 				hitDist,
-				viewDistance = this.viewDistance,
-				shaded = false;
+				viewDistance = this.viewDistance;
 
-  			for (i = 0; i < this.numRays; i++) {
+			for (i = 0; i < this.numRays; i++) {
 
-  				strip = this.strips[i];
-  				strip.depth = 100;
+				strip = this.strips[i];
+				strip.depth = 100;
 
-    			// where on the screen does ray go through?
-    			rayPos = (-this.numRays / 2 + i) * this.stripWidth;
-    			rayDist = Math.sqrt(rayPos * rayPos + viewDistance * viewDistance);
+				// where on the screen does ray go through?
+				rayPos = (-this.numRays / 2 + i) * this.stripWidth;
+				rayDist = Math.sqrt(rayPos * rayPos + viewDistance * viewDistance);
 				rayAngle = Math.asin(rayPos / rayDist);
-    			hit = Ω.rays.cast(p.rotation + rayAngle, p.x + p.w / 2, p.y + p.h / 2, this, entities);
+				hit = Ω.rays.cast(p.rotation + rayAngle, p.x + p.w / 2, p.y + p.h / 2, this, entities);
 
 				if (hit) {
 
@@ -3361,6 +3345,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					texY = hit.shaded ? 32 : 0;
 
 					// Set the ray strip
+					// TODO: should be "this.stripWidth", or "width"?
 					strip.set(
 						i * this.stripWidth,
 						top,
@@ -3372,7 +3357,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					);
 				}
 
-  			}
+			}
 
 		},
 
@@ -3403,7 +3388,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 	});
 
 	// Strip represents one vertical strip of the ray caster
-	var Strip = Ω.Class.extend({
+	Strip = Ω.Class.extend({
 
 		depth: 0,
 
@@ -3459,7 +3444,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.RayCastMap = RayCastMap;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -3641,7 +3626,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Entity = Entity;
 
-}(Ω));
+}(window.Ω));
 (function (Ω) {
 
 	"use strict";
@@ -3684,12 +3669,12 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				Ω.pageLoad();
 			}, false);
 
-            this.running = true;
+			this.running = true;
 
-            // Use the game time, rather than Date.now()
+			// Use the game time, rather than Date.now()
 			Ω.utils.now = function () {
 				return self.now();
-			}
+			};
 
 			this.stats = Ω.utils.Stats();
 
@@ -3711,33 +3696,33 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		run: function () {
 
-            var self = this,
-            	now = Date.now(),
-                frameTime = Math.min((now - this.currentTime) / 1000, this.preset_dt),
-                c;
+			var self = this,
+				now = Date.now(),
+				frameTime = Math.min((now - this.currentTime) / 1000, this.preset_dt),
+				c;
 
-            this.currentTime = now;
-            this.accumulator += frameTime;
+			this.currentTime = now;
+			this.accumulator += frameTime;
 
-            if (this.running) {
-                c = 0;
-                while (this.accumulator >= this.preset_dt) {
-                    c++;
-                    this.tick(this.preset_dt);
-                    this.accumulator -= this.preset_dt;
-                }
-                if (c > 1) {
-                    console.log("ran " + c + " ticks");
-                }
+			if (this.running) {
+				c = 0;
+				while (this.accumulator >= this.preset_dt) {
+					c++;
+					this.tick(this.preset_dt);
+					this.accumulator -= this.preset_dt;
+				}
+				if (c > 1) {
+					console.log("ran " + c + " ticks");
+				}
 
-                this.render(Ω.gfx);
-            }
+				this.render(Ω.gfx);
+			}
 
-            window.requestAnimationFrame(function () {
+			window.requestAnimationFrame(function () {
 
-                self.run(Date.now());
+				self.run(Date.now());
 
-            });
+			});
 
 		},
 
@@ -3794,16 +3779,16 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.screen = screen;
 
 			if (this.screenPrev) {
-			    this._screenFade = 1;
-			    Ω.timer(10, function (ratio) {
+				this._screenFade = 1;
+				Ω.timer(10, function (ratio) {
 
-			        self._screenFade = 1 - ratio;
+					self._screenFade = 1 - ratio;
 
-			    }, function () {
+				}, function () {
 
-			        self._screenFade = 0;
+					self._screenFade = 0;
 
-			    });
+				});
 			}
 
 		},
@@ -3833,10 +3818,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			newCanvas,
 			ctx;
 
-		if (selCanvas == null) {
+		if (selCanvas === null) {
 			console.error("Canvas DOM container not found:", canvasSelector);
-			canvasSelector = "body";
-			selCanvas = document.querySelector(canvasSelector);
+			selCanvas = document.querySelector("body");
 		}
 
 		if (selCanvas.nodeName.toUpperCase() === "CANVAS") {
@@ -3870,4 +3854,4 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	Ω.Game = Game;
 
-}(Ω));
+}(window.Ω));

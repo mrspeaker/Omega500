@@ -36,4 +36,4 @@
 
 	Ω.Image = Image;
 
-}(Ω));
+}(window.Ω));

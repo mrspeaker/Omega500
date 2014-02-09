@@ -40,7 +40,7 @@
 					w: gfx.w,
 					h: gfx.h,
 					zoom: 1
-				}
+				};
 			}
 
 			var tw = this.sheet.w,
@@ -153,11 +153,10 @@
 				autoColIdx = 0;
 
 			function canvToCells(canvas) {
-
 				var ctx = canvas.getContext("2d"),
 					pix = ctx.webkitGetImageDataHD ?
 						ctx.webkitGetImageDataHD(0, 0, canvas.width, canvas.height).data :
-						ctx.webkitGetImageData(0, 0, canvas.width, canvas.height).data,
+						ctx.getImageData(0, 0, canvas.width, canvas.height).data,
 					pixOff,
 					cells = [],
 					i,
@@ -188,7 +187,7 @@
 								if (!col) {
 									// This colour is not a tile. It must be an entity...
 									if (entities[key]) {
-										entities[key].push([i, j])
+										entities[key].push([i, j]);
 									} else {
 										entities[key] = [[i, j]];
 									}
@@ -241,4 +240,4 @@
 
 	Ω.Map = Map;
 
-}(Ω));
+}(window.Ω));

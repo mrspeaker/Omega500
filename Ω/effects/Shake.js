@@ -16,7 +16,7 @@
 
 		},
 
-		render: function (gfx, x, y) {
+		render: function (gfx) {
 
 			gfx.ctx.translate(Math.random() * 8 | 0, Math.random() * 4 | 0);
 
@@ -26,4 +26,4 @@
 
 	Ω.Shake = Shake;
 
-}(Ω));
+}(window.Ω));

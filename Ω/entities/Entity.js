@@ -179,4 +179,4 @@
 
 	Ω.Entity = Entity;
 
-}(Ω));
+}(window.Ω));

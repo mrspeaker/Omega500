@@ -88,4 +88,4 @@
 
 	Ω.Anims = Anims;
 
-}(Ω));
+}(window.Ω));

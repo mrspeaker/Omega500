@@ -52,7 +52,7 @@
 				};
 				return acc;
 
-			}, {})
+			}, {});
 
 			this.castRays(entityMap, player);
 
@@ -67,19 +67,18 @@
 				rayAngle,
 				hit,
 				hitDist,
-				viewDistance = this.viewDistance,
-				shaded = false;
+				viewDistance = this.viewDistance;
 
-  			for (i = 0; i < this.numRays; i++) {
+			for (i = 0; i < this.numRays; i++) {
 
-  				strip = this.strips[i];
-  				strip.depth = 100;
+				strip = this.strips[i];
+				strip.depth = 100;
 
-    			// where on the screen does ray go through?
-    			rayPos = (-this.numRays / 2 + i) * this.stripWidth;
-    			rayDist = Math.sqrt(rayPos * rayPos + viewDistance * viewDistance);
+				// where on the screen does ray go through?
+				rayPos = (-this.numRays / 2 + i) * this.stripWidth;
+				rayDist = Math.sqrt(rayPos * rayPos + viewDistance * viewDistance);
 				rayAngle = Math.asin(rayPos / rayDist);
-    			hit = Ω.rays.cast(p.rotation + rayAngle, p.x + p.w / 2, p.y + p.h / 2, this, entities);
+				hit = Ω.rays.cast(p.rotation + rayAngle, p.x + p.w / 2, p.y + p.h / 2, this, entities);
 
 				if (hit) {
 
@@ -96,6 +95,7 @@
 					texY = hit.shaded ? 32 : 0;
 
 					// Set the ray strip
+					// TODO: should be "this.stripWidth", or "width"?
 					strip.set(
 						i * this.stripWidth,
 						top,
@@ -107,7 +107,7 @@
 					);
 				}
 
-  			}
+			}
 
 		},
 
@@ -138,7 +138,7 @@
 	});
 
 	// Strip represents one vertical strip of the ray caster
-	var Strip = Ω.Class.extend({
+	Strip = Ω.Class.extend({
 
 		depth: 0,
 
@@ -194,4 +194,4 @@
 
 	Ω.RayCastMap = RayCastMap;
 
-}(Ω));
+}(window.Ω));

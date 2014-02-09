@@ -40,12 +40,12 @@
 				Ω.pageLoad();
 			}, false);
 
-            this.running = true;
+			this.running = true;
 
-            // Use the game time, rather than Date.now()
+			// Use the game time, rather than Date.now()
 			Ω.utils.now = function () {
 				return self.now();
-			}
+			};
 
 			this.stats = Ω.utils.Stats();
 
@@ -67,33 +67,33 @@
 
 		run: function () {
 
-            var self = this,
-            	now = Date.now(),
-                frameTime = Math.min((now - this.currentTime) / 1000, this.preset_dt),
-                c;
+			var self = this,
+				now = Date.now(),
+				frameTime = Math.min((now - this.currentTime) / 1000, this.preset_dt),
+				c;
 
-            this.currentTime = now;
-            this.accumulator += frameTime;
+			this.currentTime = now;
+			this.accumulator += frameTime;
 
-            if (this.running) {
-                c = 0;
-                while (this.accumulator >= this.preset_dt) {
-                    c++;
-                    this.tick(this.preset_dt);
-                    this.accumulator -= this.preset_dt;
-                }
-                if (c > 1) {
-                    console.log("ran " + c + " ticks");
-                }
+			if (this.running) {
+				c = 0;
+				while (this.accumulator >= this.preset_dt) {
+					c++;
+					this.tick(this.preset_dt);
+					this.accumulator -= this.preset_dt;
+				}
+				if (c > 1) {
+					console.log("ran " + c + " ticks");
+				}
 
-                this.render(Ω.gfx);
-            }
+				this.render(Ω.gfx);
+			}
 
-            window.requestAnimationFrame(function () {
+			window.requestAnimationFrame(function () {
 
-                self.run(Date.now());
+				self.run(Date.now());
 
-            });
+			});
 
 		},
 
@@ -150,16 +150,16 @@
 			this.screen = screen;
 
 			if (this.screenPrev) {
-			    this._screenFade = 1;
-			    Ω.timer(10, function (ratio) {
+				this._screenFade = 1;
+				Ω.timer(10, function (ratio) {
 
-			        self._screenFade = 1 - ratio;
+					self._screenFade = 1 - ratio;
 
-			    }, function () {
+				}, function () {
 
-			        self._screenFade = 0;
+					self._screenFade = 0;
 
-			    });
+				});
 			}
 
 		},
@@ -189,10 +189,9 @@
 			newCanvas,
 			ctx;
 
-		if (selCanvas == null) {
+		if (selCanvas === null) {
 			console.error("Canvas DOM container not found:", canvasSelector);
-			canvasSelector = "body";
-			selCanvas = document.querySelector(canvasSelector);
+			selCanvas = document.querySelector("body");
 		}
 
 		if (selCanvas.nodeName.toUpperCase() === "CANVAS") {
@@ -226,4 +225,4 @@
 
 	Ω.Game = Game;
 
-}(Ω));
+}(window.Ω));

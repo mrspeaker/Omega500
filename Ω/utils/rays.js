@@ -84,7 +84,7 @@
 				return {
 					x: xHit,
 					y: yHit
-				}
+				};
 			} else {
 				return null;
 			}
@@ -106,8 +106,8 @@
 
 		}
 
-	}
+	};
 
 	Ω.rays = rays;
 
-}(Ω));
+}(window.Ω));

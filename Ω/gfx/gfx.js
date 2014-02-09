@@ -50,7 +50,7 @@
 					cb && cb(procImage || image);
 					resolve();
 
-				}
+				};
 
 			image._loaded = false;
 			image.src = path;
@@ -62,13 +62,6 @@
 
 			}, false);
 			images[path + (flipFlags ? ":" + flipFlags : "")] = image;
-
-		},
-
-		dspImage: function (img, dspFunc) {
-
-			// TODO: run func once per pixel
-			return img;
 
 		},
 
@@ -161,4 +154,4 @@
 
 	Ω.gfx = gfx;
 
-}(Ω));
+}(window.Ω));

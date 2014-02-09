@@ -22,7 +22,7 @@
 			if (!isNaN(opts)) {
 				opts = {
 					flipFlags: opts
-				}
+				};
 			}
 			opts = opts || {};
 
@@ -143,4 +143,4 @@
 
 	Ω.SpriteSheet = SpriteSheet;
 
-}(Ω));
+}(window.Ω));

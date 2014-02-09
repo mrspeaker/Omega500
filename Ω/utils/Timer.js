@@ -11,7 +11,7 @@
 			this.time = time;
 			if (!done) {
 				done = cb;
-				cb = null
+				cb = null;
 			}
 			this.max = time;
 			this.cb = cb;
@@ -38,4 +38,4 @@
 		return new Timer(time, cb, done);
 	};
 
-}(Ω));
+}(window.Ω));

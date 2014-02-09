@@ -41,7 +41,7 @@
 			if (this.x > 0) {
 				if (this.bounds && this.x + this.w / this.zoom > this.bounds[0]) {
 					this.x = this.bounds[0] - this.w / this.zoom;
-				};
+				}
 			}
 			if (this.y < 0) {
 				this.y = 0;
@@ -49,7 +49,7 @@
 			if (this.y > 0) {
 				if (this.bounds && this.y + this.h / this.zoom > this.bounds[1]) {
 					this.y = this.bounds[1] - this.h / this.zoom;
-				};
+				}
 			}
 
 		},
@@ -59,9 +59,7 @@
 			var center = Ω.utils.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
-				yr = this.yRange,
-				newX,
-				newY;
+				yr = this.yRange;
 
 			if(e.x < center.x - xr) {
 				this.x = e.x - (this.w / this.zoom / 2) + xr;
@@ -108,4 +106,4 @@
 
 	Ω.TrackingCamera = TrackingCamera;
 
-}(Ω));
+}(window.Ω));

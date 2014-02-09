@@ -109,4 +109,4 @@
 
 	Ω.Particle = Particle;
 
-}(Ω));
+}(window.Ω));

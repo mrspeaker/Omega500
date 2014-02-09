@@ -59,4 +59,4 @@
 	Ω.utils = Ω.utils || {};
 	Ω.utils.State = State;
 
-}(Ω));
+}(window.Ω));

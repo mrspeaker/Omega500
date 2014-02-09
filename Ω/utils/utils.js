@@ -147,7 +147,7 @@
 
 			var j, i;
 
-			for(j = -radius; j <= radius; j++) {
+			for (j = -radius; j <= radius; j++) {
 				for(i = -radius; i <= radius; i++) {
 					if(onlyOuterRing && (Math.abs(i) !== radius && Math.abs(j) !== radius)){
 						continue;
@@ -196,11 +196,11 @@
 			scripts.forEach(function (path) {
 
 				var script = document.createElement('script'),
-					qs = env.desktop ? "?" + new Date().getTime() : "";
+					qs = window.env.desktop ? "?" + new Date().getTime() : "";
 
 				script.src = "scripts/" + path + ".js" + qs;
 				script.onload = function () {
-					resources.toLoadLoaded++;
+					// FIXME: where did this come from?: resources.toLoadLoaded++;
 					if (loaded++ === scripts.length - 1) {
 						cb && cb();
 					}
@@ -291,4 +291,4 @@
 
 	};
 
-}(Ω));
+}(window.Ω));

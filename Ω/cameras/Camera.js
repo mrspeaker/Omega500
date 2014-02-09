@@ -24,11 +24,7 @@
 		render: function (gfx, renderables) {
 
 			var c = gfx.ctx,
-				self = this,
-				minX = this.x,
-				minY = this.y,
-				maxX = this.x + this.w,
-				maxY = this.y + this.h;
+				self = this;
 
 			c.save();
 			c.scale(this.zoom, this.zoom);
@@ -73,4 +69,4 @@
 
 	Ω.Camera = Camera;
 
-}(Ω));
+}(window.Ω));

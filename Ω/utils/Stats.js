@@ -43,11 +43,11 @@
 				}
 
 			}
-		}
+		};
 
 	};
 
 	Ω.utils = Ω.utils || {};
 	Ω.utils.Stats = Stats;
 
-}(Ω));
+}(window.Ω));

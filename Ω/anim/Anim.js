@@ -34,7 +34,7 @@
 					this.cb && this.cb();
 				};
 				this.changed = true;
-			};
+			}
 
 		},
 
@@ -61,4 +61,4 @@
 
 	Ω.Anim = Anim;
 
-}(Ω));
+}(window.Ω));
