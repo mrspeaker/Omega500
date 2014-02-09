@@ -396,22 +396,35 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
 
     Ω.utils.rand(10)  // Random whole number between 0 and 9
     Ω.utils.oneIn(10) // 1 in 10 chance of being true
+    Ω.utils.rnd.seed = 42 // For seeded random: set the seed
+    Ω.utils.rnd.rand(max, min) // Seeded int between min and max 
 
 *Time*
 
     Ω.utils.now()
     Ω.utils.since(time)
-    Ω.utils.toggle() // i forget exactly...
+    Ω.utils.toggle(ms, steps) // cycles through 0-steps every ms milliseconds
     Ω.utils.formatTime(time)
 
 *trig/positions*
 
     Ω.utils.dist(a, b) // Distance between two entities (or [x,y] arrays)
     Ω.utils.angleBetween(a, b)
+    Ω.utils.clamp(val, min, max) // clamp value to a range
+    Ω.utils.ratio(start, finish, amount)
+    Ω.utils.lerp(start, finish, amount)
+    Ω.utils.lerpPerc // for a percent
+    Ω.utils.smoothstep(start, finish, amount)
     Ω.utils.snap(value, snapSize) // Snap given value to snap size (floored)
     Ω.utils.snapRound(value, snapSize) // // Snap given value to snap size (rounded)
     Ω.utils.center(entity) // get the middle of a rectangle
     Ω.utils.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
+    Ω.utils.degToRad()
+    Ω.utils.radToDeg()
+    
+*Ajax*
+
+    Ω.utils.ajax(url, callback)
 
 *Fullscreen API*
 
