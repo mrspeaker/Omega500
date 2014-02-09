@@ -22,7 +22,20 @@ Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, 
 
 ## Docs
 
-Best just to check the examples and games.
+Easiest way to start is to copy the `/ex/template` folder and rename it. The template `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player). The game displays the screen, which displays the player, which you can control left/right with the keyboard keys.
+
+    - template
+        - lib
+            Ω500.js
+        - src
+            - entities
+                Player.js
+            - screens
+                MainScreen.js
+            game.js
+        index.html
+
+A real game will probably have a bunch of screens and a bunch of entites - but they will be wired up mostly like the demo. Check out the other examples and games to see how this scales.
 
 ### General idea/notes
 
@@ -40,11 +53,11 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
 
 Every loop  the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`.
 
-That's the rules: if you want something ticked, then `tick` it. If you want something rendered, then `render` it!
+That's the rule: if you want something ticked, then `tick` it. If you want something rendered, then `render` it.
 
 **Random helpful notes**
 
-* Most positions in maps etc are given as a 2 element [x, y] array.
+* Many positions in maps etc are given as a 2 element [x, y] array (TODO: standardize this!).
 * Uses John Resig's simple class with inheritance (see below)
 * Project setup: copy/paster `Ω500.js` into your project
 
@@ -397,7 +410,7 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
     Ω.utils.rand(10)  // Random whole number between 0 and 9
     Ω.utils.oneIn(10) // 1 in 10 chance of being true
     Ω.utils.rnd.seed = 42 // For seeded random: set the seed
-    Ω.utils.rnd.rand(max, min) // Seeded int between min and max 
+    Ω.utils.rnd.rand(max, min) // Seeded int between min and max
 
 *Time*
 
@@ -421,7 +434,7 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
     Ω.utils.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
     Ω.utils.degToRad()
     Ω.utils.radToDeg()
-    
+
 *Ajax*
 
     Ω.utils.ajax(url, callback)
@@ -506,12 +519,12 @@ Low prority:
 
 ## inFAQ:
 
-Q. How do you do that omega symbol thing?  
+Q. How do you do that omega symbol thing?
 A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
 
-Q. When do we get a version bump?  
+Q. When do we get a version bump?
 A. Every time I finish a game with it. Version 1.0 in 7 more games!
 
-Q. License?  
+Q. License?
 A. [Unlicense](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/UNLICENSE)!
 

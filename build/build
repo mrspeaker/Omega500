@@ -4,7 +4,7 @@
 
 header=$(cat << EOF
 /*
-	Ω500 Game library v0.3.0
+	Ω500 Game library v0.3.1
 	by Mr Speaker
 */
 EOF
@@ -50,3 +50,6 @@ cat - \
 ../Ω/Game.js \
 \
 > Ω500.js
+
+# Copy the library to the template project
+cp Ω500.js ../ex/template/lib
