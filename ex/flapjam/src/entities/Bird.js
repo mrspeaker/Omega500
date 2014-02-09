@@ -3,9 +3,14 @@
     "use strict";
 
     var Bird = Ω.Entity.extend({
-        w: 35,
-        h: 25,
+        w: 25,
+        h: 15,
+
         ac: 0,
+        jumpAc: -4,
+        maxGravity: 8,
+        gravityAc: 0.4,
+
         color: 0,
 
         state: null,
@@ -15,7 +20,14 @@
             "hit": new Ω.Sound("res/audio/sfx_hit", 1)
         },
 
+        words: ["flappy", "starfish", "jumping", "seven", "high", "score", "wizard", "castle", "inside", "drumroll"],
+        curWord: "",
+        nextWord: "",
+        curIdx: 0,
+
         init: function (x, y, screen) {
+            this.curWord = this.chooseWord();
+            this.nextWord = this.chooseWord();
             this._super(x, y);
             this.screen = screen;
             this.state = new Ω.utils.State("BORN");
@@ -26,7 +38,6 @@
             switch (this.state.get()) {
                 case "BORN":
                     this.state.set("CRUISING");
-                    this.ac = 5;
                     break;
                 case "CRUSING":
                     this.y += Math.sin(Date.now() / 150) * 0.70;
@@ -34,16 +45,19 @@
                     break;
                 case "RUNNING":
                     if (this.state.first()) {
-                        this.ac = -8;
+                        this.ac = this.jumpAc + this.jumpAc;
                         this.flapping = 75;
                     }
                     var oldy = this.y;
-                    this.ac = Math.min(this.ac + 0.4, 10);
-                    this.y += this.ac;
+                    this.ac = Math.min(this.ac + this.gravityAc, this.maxGravity);
+                    this.y = Math.max(-40, this.y + this.ac);
 
                     if (Ω.input.pressed("jump")) {
-                       this.ac = -7;
+                       //this.ac = this.jumpAc;
                     }
+
+                    this.handleKeys();
+
                     if (this.y > Ω.env.h - 112 - this.h) {
                         this.y = oldy;
                         this.die();
@@ -51,9 +65,32 @@
                     break;
                 case "DYING":
                     this.ac = Math.min(this.ac + 0.4, 10);
-                    this.y += this.ac;
+                    if (this.y < Ω.env.h - 112 - this.h) {
+                        this.y += this.ac;
+                    }
+                    this.flapping = 0;
                     break;
             }
+        },
+
+        handleKeys: function () {
+            if (Ω.input.lastKey) {
+                if (String.fromCharCode(Ω.input.lastKey).toLowerCase() === this.curWord[this.curIdx]){
+                    this.ac = -7;
+                    this.curIdx++;
+                    if (this.curIdx > this.curWord.length - 1) {
+                        this.curIdx = 0;
+                        this.curWord = this.nextWord;
+                        this.nextWord = this.chooseWord();
+                    }
+                }
+                Ω.input.lastKey = null;
+            }
+
+        },
+
+        chooseWord: function () {
+            return this.words[(Math.random() * (this.words.length - 1)) | 0];
         },
 
         setColor: function (color) {
@@ -62,7 +99,7 @@
 
         die: function () {
             if (this.screen.state.is("RUNNING")) {
-                this.sounds.hit.play();
+                //this.sounds.hit.play();
                 this.screen.state.set("DYING");
                 this.state.set("DYING");
                 this.ac = 0;
@@ -77,15 +114,30 @@
 
             var c = gfx.ctx;
 
-            //c.strokeStyle = "green";
-            //c.strokeRect(this.x, this.y, this.w, this.h);
+            window.game.atlas.render(
+                gfx,
+                "bird" + this.color + "_" + Ω.utils.toggle(this.flapping, 3),
+                this.x - 11,
+                this.y - 17);
 
-            c.save();
-            c.translate(this.x, this.y);
-            //c.rotate(-0.35 + (this.ac / 15));
-            //c.translate(-30, -15);
-            window.game.atlas.render(gfx, "bird" + this.color + "_" + Ω.utils.toggle(this.flapping, 3), -6, -12);
-            c.restore();
+            //c.fillStyle = "green";
+            //c.fillRect(this.x, this.y, this.w, this.h);
+
+            c.font = "20pt monospace";
+
+            c.fillStyle = "rgba(0, 0, 0, 0.4)";
+            c.fillRect(0, 0, gfx.w, 65);
+
+            for (var i = 0; i < this.curWord.length; i++) {
+                c.fillStyle = i === this.curIdx ? "#f00" : "#eee";
+                c.fillText(this.curWord[i], 30 + (i * 20), 30);
+            }
+
+            for (i = 0; i < this.nextWord.length; i++) {
+                c.fillStyle = "#eee";
+                c.fillText(this.nextWord[i], 50 + (i * 20), 60);
+            }
+
         }
     });
 

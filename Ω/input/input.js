@@ -50,7 +50,6 @@
 		touch: touch,
 
 		lastKey: null,
-		lastKeyState: false,
 		lastKeyTime: Date.now(),
 
 		init: function (dom, icade) {
@@ -169,9 +168,10 @@
 			keys[code].isDown = isDown;
 		}
 
-		input.lastKey = code;
-		input.lastKeyState = isDown;
-		input.lastKeyTime = Date.now();
+		if (isDown) {
+			input.lastKey = code;
+			input.lastKeyTime = Date.now();
+		}
 
 	}
 

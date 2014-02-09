@@ -82,7 +82,7 @@
                             window.game.best = this.score;
                         }
                     }
-                    if (this.state.count > 30 && Ω.input.pressed("jump")) {
+                    if (this.state.count > 100 && Ω.input.pressed("jump")) {
                         window.game.setScreen(new MainScreen(), {type:"inout", time: 50});
                     }
                     break;
@@ -106,7 +106,7 @@
                 if (!p.counted && p.x < this.bird.x) {
                     p.counted = true;
                     this.score += 0.5;
-                    this.sounds.point.play();
+                    //this.sounds.point.play();
                 }
 
                 if (p.reset) {
@@ -130,7 +130,7 @@
             this.pipes.filter(function (p) {
                 return p.group === group;
             }).forEach(function (p) {
-                p.y = p.dir == "up" ? h + 60 : h - p.h - 60;
+                p.y = p.dir == "up" ? h + 65 : h - p.h - 65;
             });
         },
 
@@ -218,6 +218,15 @@
                 for (i = 0; i < sc.length; i++) {
                     atlas.render(gfx, "number_score_0" + sc[sc.length - i - 1], right - i * 16, 272 + yOff);
                 }
+
+                var medal = "";
+                if (this.score >= 5) medal = "3";
+                if (this.score >= 10) medal = "2";
+                if (this.score >= 20) medal = "1";
+                if (this.score >= 30) medal = "0";
+                if (medal) {
+                    atlas.render(gfx, "medals_" + medal, 55, 240 + yOff);
+                }
             }
 
             if (count > 100) {
@@ -236,7 +245,7 @@
         renderScore: function (gfx, atlas) {
             var sc = this.score + "";
             for (var i = 0; i < sc.length; i++) {
-                atlas.render(gfx, "number_score_0" + sc[i], i * 18 + 140, gfx.h * 0.16);
+                atlas.render(gfx, "font_0" + (48 + parseInt(sc[i], 10)), i * 18 + 130, gfx.h * 0.16);
             }
         }
     });
