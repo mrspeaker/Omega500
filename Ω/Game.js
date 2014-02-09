@@ -15,7 +15,11 @@
 
 		screen: new Ω.Screen(),
 		_screenPrev: null,
-		_screenFade: 0,
+		_fade: (function (){
+			return {
+				ratio: 0
+			};
+		}()),
 		dialog: null,
 
 		fps: true,
@@ -118,15 +122,32 @@
 
 		render: function (gfx) {
 
+			var c = gfx.ctx;
+
 			if (!this.screen.loaded) {
 				return;
 			}
 
-			this.screen.render(gfx);
-			if (this._screenFade > 0) {
-				gfx.ctx.globalAlpha = this._screenFade;
-				this.screenPrev.render(gfx);
-				gfx.ctx.globalAlpha = 1;
+			if (this._fade.ratio <= 0) {
+				this.screen.render(gfx);
+			} else {
+				if (this._fade.type == "inout") {
+					// Fade in/out to a colour
+					if (this._fade.ratio > 0.5) {
+						this.screenPrev.render(gfx);
+						gfx.clear(this._fade.color, 1 - ((this._fade.ratio - 0.5) * 2));
+					} else {
+						this.screen.render(gfx);
+						gfx.clear(this._fade.color, this._fade.ratio * 2);
+					}
+				} else {
+					// Crossfade
+					this.screen.render(gfx);
+					c.globalAlpha = this._fade.ratio;
+					this.screenPrev.render(gfx);
+					c.globalAlpha = 1;
+				}
+
 			}
 			this.dialog && this.dialog.render(gfx);
 
@@ -142,22 +163,29 @@
 
 		},
 
-		setScreen: function (screen) {
+		setScreen: function (screen, opts) {
 
 			var self = this;
+
+			opts = opts || {};
 
 			this.screenPrev = this.screen;
 			this.screen = screen;
 
 			if (this.screenPrev) {
-				this._screenFade = 1;
-				Ω.timer(10, function (ratio) {
+				this._fade = {
+					ratio: 1,
+					type: opts.type || "inout",
+					color: opts.color || "#000"
+				};
+				Ω.timer(opts.time || 20, function (ratio) {
 
-					self._screenFade = 1 - ratio;
+					self._fade.ratio = 1 - ratio;
 
 				}, function () {
 
-					self._screenFade = 0;
+					self._fade.ratio = 0;
+					self.screenPref = null;
 
 				});
 			}

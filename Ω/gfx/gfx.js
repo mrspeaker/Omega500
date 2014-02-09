@@ -90,6 +90,21 @@
 
 		},
 
+		clear: function (color, alpha) {
+			var c = this.ctx,
+				oldAlpha;
+			alpha = alpha === undefined ? 1 : alpha;
+			if (alpha !== 1) {
+				oldAlpha = c.globalAlpha;
+				c.globalAlpha = alpha;
+			}
+			c.fillStyle = color;
+			c.fillRect(0, 0, this.w, this.h);
+			if (oldAlpha) {
+				c.globalAlpha = oldAlpha;
+			}
+		},
+
 		createCanvas: function (w, h) {
 
 			var cn = document.createElement("canvas"),

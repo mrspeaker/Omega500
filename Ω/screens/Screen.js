@@ -10,10 +10,7 @@
 
 		clear: function (gfx, col) {
 
-			var c = gfx.ctx;
-
-			c.fillStyle = col;
-			c.fillRect(0, 0, gfx.w, gfx.h);
+			gfx.clear(col);
 
 		},
 
