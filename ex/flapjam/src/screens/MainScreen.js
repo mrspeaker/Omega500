@@ -9,10 +9,7 @@
         pipes: null,
 
         score: 0,
-
         state: null,
-
-        count: 0,
 
         bg: 0,
         bgOffset: 0,
@@ -28,19 +25,20 @@
 
         reset: function () {
             this.score = 0;
+            var offset = Ω.env.w * 1;
             this.state = new Ω.utils.State("BORN");
-            this.bird = new window.Bird(Ω.env.w * 0.20, Ω.env.h * 0.40, this);
+            this.bird = new window.Bird(Ω.env.w * 0.24, Ω.env.h * 0.46, this);
             this.bg = Ω.utils.rand(2);
             this.bird.setColor(Ω.utils.rand(3));
             this.pipes = [
-                new window.Pipe(0, "up", Ω.env.w, Ω.env.h - 170, this.speed),
-                new window.Pipe(0, "down", Ω.env.w, - 100, this.speed),
+                new window.Pipe(0, "up", offset + Ω.env.w, Ω.env.h - 170, this.speed),
+                new window.Pipe(0, "down", offset + Ω.env.w, - 100, this.speed),
 
-                new window.Pipe(1, "up", Ω.env.w * 1.5, Ω.env.h - 170, this.speed),
-                new window.Pipe(1, "down", Ω.env.w * 1.5, - 100, this.speed),
+                new window.Pipe(1, "up", offset + (Ω.env.w * 1.5), Ω.env.h - 170, this.speed),
+                new window.Pipe(1, "down", offset + (Ω.env.w * 1.5), - 100, this.speed),
 
-                new window.Pipe(2, "up", Ω.env.w * 2, Ω.env.h - 170, this.speed),
-                new window.Pipe(2, "down", Ω.env.w * 2, - 100, this.speed)
+                new window.Pipe(2, "up", offset + (Ω.env.w * 2), Ω.env.h - 170, this.speed),
+                new window.Pipe(2, "down", offset + (Ω.env.w * 2), - 100, this.speed)
             ];
 
             this.setHeight(0);
@@ -62,6 +60,7 @@
                         this.bird.state.set("RUNNING");
                         this.state.set("RUNNING");
                     }
+                    this.moveLand();
                     break;
                 case "RUNNING":
                     this.tick_RUNNING();
@@ -78,7 +77,7 @@
                         }
                     }
                     if (this.state.count > 30 && Ω.input.pressed("jump")) {
-                        this.reset();
+                        window.game.setScreen(new MainScreen(), {type:"inout", time: 50});
                     }
                     break;
             }
@@ -86,18 +85,17 @@
         },
 
         tick_RUNNING: function () {
-            this.count += this.speed;
-            if (this.count % 156 === 154) {
-                this.score++;
-                this.sounds.point.play();
-            }
-            this.bgOffset -= this.speed;
-            if (this.bgOffset < -Ω.env.w) {
-                this.bgOffset += Ω.env.w;
-            }
+
+            this.moveLand();
 
             this.pipes = this.pipes.filter(function (p) {
                 p.tick();
+                if (!p.counted && p.x < this.bird.x) {
+                    p.counted = true;
+                    this.score += 0.5;
+                    this.sounds.point.play();
+                }
+
                 if (p.reset) {
                     this.setHeight(p.group);
                 }
@@ -105,6 +103,13 @@
             }, this);
 
             Ω.Physics.checkCollision(this.bird, this.pipes);
+        },
+
+        moveLand: function () {
+            this.bgOffset -= this.speed;
+            if (this.bgOffset < -Ω.env.w) {
+                this.bgOffset += Ω.env.w;
+            }
         },
 
         setHeight: function (group) {
@@ -117,16 +122,10 @@
         },
 
         render: function (gfx) {
+            var atlas = window.game.atlas;
 
-            var atlas = window.game.atlas,
-                now = Date.now();
-
-            atlas.render(gfx, "bg_" + (this.bg === 1 ? "night" : "day"), 0, 0);
-
-            this.pipes.forEach(function (p) {
-                p.render(gfx);
-            });
-            this.bird.render(gfx);
+            this.renderBG(gfx, atlas);
+            this.renderGame(gfx, atlas);
 
             switch (this.state.get()) {
                 case "GETREADY":
@@ -140,16 +139,33 @@
                     break;
             }
 
-            atlas.render(gfx, "land", this.bgOffset, gfx.h - 112);
-            atlas.render(gfx, "land", Ω.env.w + this.bgOffset, gfx.h - 112);
+            this.renderFG(gfx, atlas);
 
         },
 
+        renderBG: function (gfx, atlas) {
+            atlas.render(gfx, "bg_" + (this.bg === 1 ? "night" : "day"), 0, 0);
+        },
+
+        renderGame: function (gfx) {
+            this.pipes.forEach(function (p) {
+                p.render(gfx);
+            });
+            this.bird.render(gfx);
+        },
+
+        renderFG: function (gfx, atlas) {
+            atlas.render(gfx, "land", this.bgOffset, gfx.h - 112);
+            atlas.render(gfx, "land", Ω.env.w + this.bgOffset, gfx.h - 112);
+        },
+
         renderRunning: function (gfx, atlas) {
-            var sc = this.score + "";
-            for (var i = 0; i < sc.length; i++) {
-                atlas.render(gfx, "number_score_0" + sc[i], i * 18 + 130, gfx.h * 0.15);
+            if (this.state.count < 30) {
+                gfx.ctx.globalAlpha = 1 - (this.state.count / 30);
+                this.renderGetReady(gfx, atlas);
+                gfx.ctx.globalAlpha = 1;
             }
+            this.renderScore(gfx, atlas);
         },
 
         renderGameOver: function (gfx, atlas) {
@@ -171,8 +187,17 @@
         },
 
         renderGetReady: function (gfx, atlas) {
-            atlas.render(gfx, "text_ready", 40, gfx.h * 0.25);
-            atlas.render(gfx, "tutorial", 90, gfx.h * 0.40);
+            atlas.render(gfx, "text_ready", 46, gfx.h * 0.285);
+            atlas.render(gfx, "tutorial", 88, gfx.h * 0.425);
+
+            this.renderScore(gfx, atlas);
+        },
+
+        renderScore: function (gfx, atlas) {
+            var sc = this.score + "";
+            for (var i = 0; i < sc.length; i++) {
+                atlas.render(gfx, "number_score_0" + sc[i], i * 18 + 140, gfx.h * 0.16);
+            }
         }
     });
 

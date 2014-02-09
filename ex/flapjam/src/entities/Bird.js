@@ -28,7 +28,7 @@
                     this.ac = 5;
                     break;
                 case "CRUSING":
-                    this.y += Math.sin(Date.now() / 150);
+                    this.y += Math.sin(Date.now() / 150) * 0.70;
                     break;
                 case "RUNNING":
                     if (this.state.first()) {
@@ -75,14 +75,14 @@
 
             var c = gfx.ctx;
 
-            c.strokeStyle = "green";
-            c.strokeRect(this.x, this.y, this.w, this.h);
+            //c.strokeStyle = "green";
+            //c.strokeRect(this.x, this.y, this.w, this.h);
 
             c.save();
             c.translate(this.x, this.y);
-            c.rotate(-0.35 + (this.ac / 15));
-            c.translate(-30, -15);
-            window.game.atlas.render(gfx, "bird" + this.color + "_" + Ω.utils.toggle(100, 3), 20, 10);
+            //c.rotate(-0.35 + (this.ac / 15));
+            //c.translate(-30, -15);
+            window.game.atlas.render(gfx, "bird" + this.color + "_" + Ω.utils.toggle(100, 3), -6, -12);
             c.restore();
         }
     });

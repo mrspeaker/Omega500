@@ -131,7 +131,8 @@
 			if (this._fade.ratio <= 0) {
 				this.screen.render(gfx);
 			} else {
-				if (this._fade.type == "inout") {
+				switch (this._fade.type) {
+				case "inout":
 					// Fade in/out to a colour
 					if (this._fade.ratio > 0.5) {
 						this.screenPrev.render(gfx);
@@ -140,12 +141,21 @@
 						this.screen.render(gfx);
 						gfx.clear(this._fade.color, this._fade.ratio * 2);
 					}
-				} else {
+					break;
+
+				case "out":
+					// Fade out to a colour
+					this.screenPrev.render(gfx);
+					gfx.clear(this._fade.color, 1 - this._fade.ratio);
+					break;
+
+				default:
 					// Crossfade
 					this.screen.render(gfx);
 					c.globalAlpha = this._fade.ratio;
 					this.screenPrev.render(gfx);
 					c.globalAlpha = 1;
+					break;
 				}
 
 			}

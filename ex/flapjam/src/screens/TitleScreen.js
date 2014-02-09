@@ -17,15 +17,14 @@
             this.y += this.ac;
 
             if (Ω.input.pressed("jump")) {
-                window.game.setScreen(new MainScreen(), {type: "inout", time: 50});
+                window.game.setScreen(new MainScreen(), {type: "inout", time:50});
             }
         },
 
         render: function (gfx) {
 
-            var c = gfx.ctx,
-                now = Date.now(),
-                atlas = game.atlas;
+            var now = Date.now(),
+                atlas = window.game.atlas;
 
             atlas.render(gfx, "bg_day", 0, 0);
 
