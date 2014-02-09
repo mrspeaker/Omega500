@@ -7,6 +7,8 @@
         h: 25,
         ac: -8,
 
+        color: 0,
+
         sounds: {
             "hit": new Ω.Sound("res/audio/sfx_hit", 1)
         },
@@ -17,6 +19,7 @@
         },
 
         tick: function () {
+            var oldy = this.y;
             this.ac = Math.min(this.ac + 0.4, 10);
             this.y += this.ac;
 
@@ -25,14 +28,22 @@
             }
 
             if (this.y > Ω.env.h - 112 - this.h) {
+                this.y = oldy;
                 this.die();
             }
 
         },
 
+        setColor: function (color) {
+            this.color = color;
+        },
+
         die: function () {
-            this.sounds.hit.play();
-            window.game.setScreen(new window.GameOverScreen(this.screen.score));
+            if (this.screen.state.is("RUNNING")) {
+                this.sounds.hit.play();
+                this.screen.state.set("DYING");
+                this.ac = 0;
+            }
         },
 
         hit: function (p) {
@@ -50,7 +61,7 @@
             c.translate(this.x, this.y);
             c.rotate(-0.35 + (this.ac / 15));
             c.translate(-30, -15);
-            window.game.atlas.render(gfx, "bird0_0", 20, 10);
+            window.game.atlas.render(gfx, "bird" + this.color + "_0", 20, 10);
             c.restore();
         }
     });
