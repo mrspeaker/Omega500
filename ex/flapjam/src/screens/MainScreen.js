@@ -29,7 +29,7 @@
         reset: function () {
             this.score = 0;
             this.state = new Ω.utils.State("BORN");
-            this.bird = new window.Bird(Ω.env.w * 0.25, Ω.env.h * 0.45, this);
+            this.bird = new window.Bird(Ω.env.w * 0.20, Ω.env.h * 0.40, this);
             this.bg = Ω.utils.rand(2);
             this.bird.setColor(Ω.utils.rand(3));
             this.pipes = [
@@ -51,12 +51,15 @@
         tick: function () {
             this.state.tick();
 
+            this.bird.tick();
             switch (this.state.get()) {
                 case "BORN":
                     this.state.set("GETREADY");
+                    this.bird.state.set("CRUSING");
                     break;
                 case "GETREADY":
                     if (this.state.count > 30 && Ω.input.pressed("jump")) {
+                        this.bird.state.set("RUNNING");
                         this.state.set("RUNNING");
                     }
                     break;
@@ -67,7 +70,6 @@
                     if (this.state.count > 20) {
                         this.state.set("GAMEOVER");
                     }
-                    this.bird.tick();
                     break;
                 case "GAMEOVER":
                     if (this.state.first()) {
@@ -75,7 +77,6 @@
                             window.game.best = this.score;
                         }
                     }
-                    this.bird.tick();
                     if (this.state.count > 30 && Ω.input.pressed("jump")) {
                         this.reset();
                     }
@@ -95,7 +96,6 @@
                 this.bgOffset += Ω.env.w;
             }
 
-            this.bird.tick();
             this.pipes = this.pipes.filter(function (p) {
                 p.tick();
                 if (p.reset) {
