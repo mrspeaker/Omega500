@@ -9,7 +9,7 @@
         ac: 0,
 
         init: function () {
-
+            Ω.utils.colors.set("c64");
         },
 
         tick: function () {
@@ -47,6 +47,11 @@
             atlas.render(gfx, "button_rate", 106, gfx.h - 242);
 
             atlas.render(gfx, "brand_copyright", 73, gfx.h - 94);
+
+            for (var i = 0; i < 16; i++) {
+                c.fillStyle = Ω.utils.colors.get(i);
+                c.fillRect(i % 4 * 10, (i / 4 | 0)* 10, 10, 10);
+            }
 
         }
     });
