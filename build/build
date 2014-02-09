@@ -32,6 +32,7 @@ cat - \
 ../Ω/physics/Physics.js \
 ../Ω/effects/Particle.js \
 ../Ω/effects/Shake.js \
+../Ω/effects/Flash.js \
 ../Ω/effects/Spring.js \
 ../Ω/screens/Screen.js \
 ../Ω/screens/Dialog.js \

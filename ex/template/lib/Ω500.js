@@ -1038,6 +1038,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		mouse: mouse,
 		touch: touch,
 
+		lastKey: null,
+		lastKeyState: false,
+		lastKeyTime: Date.now(),
+
 		init: function (dom, icade) {
 
 			el = dom;
@@ -1153,6 +1157,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			keys[code].wasDown = keys[code].isDown;
 			keys[code].isDown = isDown;
 		}
+
+		input.lastKey = code;
+		input.lastKeyState = isDown;
+		input.lastKeyTime = Date.now();
 
 	}
 
@@ -2009,6 +2017,42 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 	});
 
 	Ω.Shake = Shake;
+
+}(window.Ω));
+(function (Ω) {
+
+    "use strict";
+
+    var Flash = Ω.Class.extend({
+
+        init: function (time, color) {
+
+            this.max = time || 10;
+            this.time = this.max;
+            this.color = color || "#fff";
+
+        },
+
+        tick: function () {
+            this.ratio = 1 - (this.time / this.max);
+
+            return this.time--;
+
+        },
+
+        render: function (gfx) {
+
+            if (this.ratio > 0.5) {
+                gfx.clear(this.color, 1 - ((this.ratio - 0.5) * 2));
+            } else {
+                gfx.clear(this.color, this.ratio * 2);
+            }
+
+        }
+
+    });
+
+    Ω.Flash = Flash;
 
 }(window.Ω));
 (function (Ω) {

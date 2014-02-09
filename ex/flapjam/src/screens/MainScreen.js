@@ -18,9 +18,11 @@
             "point": new Ω.Sound("res/audio/sfx_point", 1)
         },
 
+        shake: null,
+        flash: null,
+
         init: function () {
             this.reset();
-
         },
 
         reset: function () {
@@ -66,6 +68,10 @@
                     this.tick_RUNNING();
                     break;
                 case "DYING":
+                    if (this.state.first()) {
+                        this.shake = new Ω.Shake(30);
+                        this.flash = new Ω.Flash(6);
+                    }
                     if (this.state.count > 20) {
                         this.state.set("GAMEOVER");
                     }
@@ -80,6 +86,13 @@
                         window.game.setScreen(new MainScreen(), {type:"inout", time: 50});
                     }
                     break;
+            }
+
+            if (this.shake && !this.shake.tick()) {
+                this.shake = null;
+            }
+            if (this.flash && !this.flash.tick()) {
+                this.flash = null;
             }
 
         },
@@ -124,22 +137,36 @@
         render: function (gfx) {
             var atlas = window.game.atlas;
 
+            gfx.ctx.save();
+
+            this.shake && this.shake.render(gfx);
+
             this.renderBG(gfx, atlas);
+
             this.renderGame(gfx, atlas);
 
             switch (this.state.get()) {
                 case "GETREADY":
                     this.renderGetReady(gfx, atlas);
+                    this.renderFG(gfx, atlas);
                     break;
                 case "GAMEOVER":
+                    this.renderFG(gfx, atlas);
                     this.renderGameOver(gfx, atlas);
                     break;
                 case "RUNNING":
                     this.renderRunning(gfx, atlas);
+                    this.renderFG(gfx, atlas);
+                    break;
+                default:
+                    this.renderFG(gfx, atlas);
                     break;
             }
 
-            this.renderFG(gfx, atlas);
+
+            gfx.ctx.restore();
+
+            this.flash && this.flash.render(gfx);
 
         },
 
@@ -169,21 +196,34 @@
         },
 
         renderGameOver: function (gfx, atlas) {
-            atlas.render(gfx, "text_game_over", 40, gfx.h * 0.25);
-            atlas.render(gfx, "score_panel", 24, gfx.h * 0.37);
 
-            var sc = this.score + "";
-            for (var i = 0; i < sc.length; i++) {
-                atlas.render(gfx, "number_context_0" + sc[i], i * 15 + 200, 227);
+            var count = this.state.count,
+                yOff;
+
+            if (count > 20) {
+                yOff = Math.min(5, count - 20);
+                atlas.render(gfx, "text_game_over", 40, gfx.h * 0.24 + yOff);
             }
 
-            sc = window.game.best + "";
-            for (i = 0; i < sc.length; i++) {
-                atlas.render(gfx, "number_context_0" + sc[i], i * 15 + 200, 267);
+            if (count > 70) {
+                yOff = Math.max(0, 330 - (count - 70) * 20);
+                atlas.render(gfx, "score_panel", 24, gfx.h * 0.38 + yOff);
+                var sc = this.score + "",
+                    right = 218;
+                for (var i = 0; i < sc.length; i++) {
+                    atlas.render(gfx, "number_score_0" + sc[sc.length - i - 1], right - i * 16, 231 + yOff);
+                }
+
+                sc = window.game.best + "";
+                for (i = 0; i < sc.length; i++) {
+                    atlas.render(gfx, "number_score_0" + sc[sc.length - i - 1], right - i * 16, 272 + yOff);
+                }
             }
 
-            atlas.render(gfx, "button_play", 20, gfx.h - 172);
-            atlas.render(gfx, "button_score", 152, gfx.h - 172);
+            if (count > 100) {
+                atlas.render(gfx, "button_play", 20, gfx.h - 172);
+                atlas.render(gfx, "button_score", 152, gfx.h - 172);
+            }
         },
 
         renderGetReady: function (gfx, atlas) {

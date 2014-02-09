@@ -9,6 +9,7 @@
         color: 0,
 
         state: null,
+        flapping: 100,
 
         sounds: {
             "hit": new Ω.Sound("res/audio/sfx_hit", 1)
@@ -29,19 +30,20 @@
                     break;
                 case "CRUSING":
                     this.y += Math.sin(Date.now() / 150) * 0.70;
+                    this.flapping = 150;
                     break;
                 case "RUNNING":
                     if (this.state.first()) {
                         this.ac = -8;
+                        this.flapping = 75;
                     }
                     var oldy = this.y;
                     this.ac = Math.min(this.ac + 0.4, 10);
                     this.y += this.ac;
 
                     if (Ω.input.pressed("jump")) {
-                        this.ac = -7;
+                       this.ac = -7;
                     }
-
                     if (this.y > Ω.env.h - 112 - this.h) {
                         this.y = oldy;
                         this.die();
@@ -82,7 +84,7 @@
             c.translate(this.x, this.y);
             //c.rotate(-0.35 + (this.ac / 15));
             //c.translate(-30, -15);
-            window.game.atlas.render(gfx, "bird" + this.color + "_" + Ω.utils.toggle(100, 3), -6, -12);
+            window.game.atlas.render(gfx, "bird" + this.color + "_" + Ω.utils.toggle(this.flapping, 3), -6, -12);
             c.restore();
         }
     });
