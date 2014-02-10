@@ -2788,8 +2788,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 				this.sheet.render(
 					gfx,
-					index % cellW,
-					index / cellW | 0,
+					(index % cellW) | 0,
+					(index / cellW) | 0,
 					x + (i * this.w),
 					y);
 

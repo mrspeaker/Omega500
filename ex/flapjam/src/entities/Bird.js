@@ -7,7 +7,7 @@
         h: 15,
 
         ac: 0,
-        jumpAc: -4,
+        jumpAc: -3.5,
         maxGravity: 8,
         gravityAc: 0.4,
 
@@ -17,7 +17,7 @@
         flapping: 100,
 
         font: new Ω.Font("res/flapfont.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
-        font2: new Ω.Font("res/flapfont2.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
+        font2: new Ω.Font("res/flapfont2.png", 16, 21, "abcdefghijklmnopqrstuvwxyz"),
 
         sounds: {
             "hit": new Ω.Sound("res/audio/sfx_hit", 1)
@@ -25,7 +25,7 @@
 
         words: [
             "cursed", "anguish", "frustration", "jumping", "triumph", "crazed", "elated", "wizard",
-            "castle", "inside", "drumroll"],
+            "irritate", "terrified", "drumroll", "skilled"],
         curWord: "",
         nextWord: "",
         curIdx: 0,
@@ -69,6 +69,7 @@
                     }
                     break;
                 case "DYING":
+                    this.nextWord = "by mr speaker";
                     this.ac = Math.min(this.ac + 0.4, 10);
                     if (this.y < Ω.env.h - 112 - this.h) {
                         this.y += this.ac;
@@ -79,6 +80,7 @@
         },
 
         handleKeys: function () {
+            var rightKey = false;
             if (Ω.input.lastKey) {
                 if (String.fromCharCode(Ω.input.lastKey).toLowerCase() === this.curWord[this.curIdx]){
                     this.ac = -7;
@@ -88,10 +90,11 @@
                         this.curWord = this.nextWord;
                         this.nextWord = this.chooseWord();
                     }
+                    rightKey = true;
                 }
                 Ω.input.lastKey = null;
             }
-
+            return rightKey;
         },
 
         chooseWord: function () {
@@ -124,11 +127,6 @@
                 "bird" + this.color + "_" + Ω.utils.toggle(this.flapping, 3),
                 this.x - 11,
                 this.y - 17);
-
-            //c.fillStyle = "green";
-            //c.fillRect(this.x, this.y, this.w, this.h);
-
-            c.font = "20pt monospace";
 
             c.fillStyle = "rgba(0, 0, 0, 0.4)";
             c.fillRect(0, 0, gfx.w, 70);

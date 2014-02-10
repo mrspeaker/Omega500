@@ -15,6 +15,8 @@
 
             this._super(w, h);
 
+            this.loadHi();
+
             Ω.evt.progress.push(function (remaining, max) {
                 console.log((((max - remaining) / max) * 100 | 0) + "%");
             });
@@ -35,6 +37,30 @@
 
             this.setScreen(new TitleScreen());
 
+        },
+
+        loadHi: function () {
+            if ("localStorage" in window) {
+                var tmp = localStorage.getItem("flapHi");
+                if (tmp) {
+                    this.best = parseInt(tmp, 10) || 0;
+                }
+            }
+        },
+
+        saveHi: function () {
+            if ("localStorage" in window) {
+                localStorage.setItem("flapHi", this.best);
+            }
+        },
+
+        gotScore: function (score) {
+            if (score > window.game.best) {
+                window.game.best = score;
+                this.saveHi();
+                return true;
+            }
+            return false;
         }
 
     });

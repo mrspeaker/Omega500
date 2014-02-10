@@ -58,7 +58,7 @@
                     this.bird.state.set("CRUSING");
                     break;
                 case "GETREADY":
-                    if (this.state.count > 30 && Ω.input.pressed("jump")) {
+                    if (this.state.count > 30 && this.bird.handleKeys()) {
                         this.bird.state.set("RUNNING");
                         this.state.set("RUNNING");
                     }
@@ -78,9 +78,7 @@
                     break;
                 case "GAMEOVER":
                     if (this.state.first()) {
-                        if (this.score > window.game.best) {
-                            window.game.best = this.score;
-                        }
+                        this.newBest = game.gotScore(this.score);
                     }
                     if (this.state.count > 100 && Ω.input.pressed("jump")) {
                         window.game.setScreen(new MainScreen(), {type:"inout", time: 50});
@@ -226,6 +224,10 @@
                 if (this.score >= 30) medal = "0";
                 if (medal) {
                     atlas.render(gfx, "medals_" + medal, 55, 240 + yOff);
+                }
+
+                if (this.newBest) {
+                    atlas.render(gfx, "new", 165, 255 + yOff);
                 }
             }
 
