@@ -23,6 +23,7 @@ A real game will probably have a bunch of screens and a bunch of entites - but t
 
 ## Some games using Ω500
 
+- [Flappy Bird Typing Tutor](http://www.mrspeaker.net/dev/game/flappy): All the simplicity of <em>Flappy Bird</em> combined with a relaxing touch-typing  test [Source in /ex](https://github.com/mrspeaker/Omega500/tree/master/ex/flapjam).
 - [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots).
 - [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source on GitHub](https://github.com/mrspeaker/ld27)
 - [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26).
