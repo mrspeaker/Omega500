@@ -104,7 +104,7 @@
                 if (!p.counted && p.x < this.bird.x) {
                     p.counted = true;
                     this.score += 0.5;
-                    //this.sounds.point.play();
+                    this.sounds.point.play();
                 }
 
                 if (p.reset) {

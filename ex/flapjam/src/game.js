@@ -40,17 +40,27 @@
         },
 
         loadHi: function () {
-            if ("localStorage" in window) {
-                var tmp = localStorage.getItem("flapHi");
-                if (tmp) {
-                    this.best = parseInt(tmp, 10) || 0;
+            try {
+                if ("localStorage" in window) {
+                    var tmp = localStorage.getItem("flapHi");
+                    if (tmp) {
+                        this.best = parseInt(tmp, 10) || 0;
+                    }
                 }
+            }
+            catch (e) {
+                console.log("no localstorage");
+                this.best = 0;
             }
         },
 
         saveHi: function () {
-            if ("localStorage" in window) {
-                localStorage.setItem("flapHi", this.best);
+            try {
+                if ("localStorage" in window) {
+                    localStorage.setItem("flapHi", this.best);
+                }
+            } catch (e) {
+
             }
         },
 

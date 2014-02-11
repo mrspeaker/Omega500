@@ -25,7 +25,16 @@
 
         words: [
             "cursed", "anguish", "frustration", "jumping", "triumph", "crazed", "elated", "wizard",
-            "irritate", "terrified", "drumroll", "skilled"],
+            "irritate", "terrified", "drumroll", "dishearten", "depress", "annoying", "vexatious",
+            "trying", "troubled", "unpleasant", "failing", "unhappy", "falling", "chopsticks", "thwarts",
+            "disappoint", "infuriate", "jubilant", "pleasurable", "festive", "rapturous", "joyful",
+            "gratified", "beaming", "radiant", "fortunate", "delighted", "gleeful", "cheerful", "chirpy",
+            "optimist", "vivacious", "jaunty", "carefree", "bouncy", "quizzical", "searching", "amusing",
+            "eccentric", "speaker", "mocking", "gracious", "flippant", "frivolous", "danger", "accident",
+            "unhealthy", "wicked", "dynamite", "elbow", "flapping", "gliding", "carpet", "pineapple",
+            "transport", "museum", "keyboard", "trigonometry", "airmail", "downtown", "encyclopedia",
+            "hacksaw", "knowledge", "kettledrum"
+            ],
         curWord: "",
         nextWord: "",
         curIdx: 0,
@@ -107,7 +116,7 @@
 
         die: function () {
             if (this.screen.state.is("RUNNING")) {
-                //this.sounds.hit.play();
+                this.sounds.hit.play();
                 this.screen.state.set("DYING");
                 this.state.set("DYING");
                 this.ac = 0;
