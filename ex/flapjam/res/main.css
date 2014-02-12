@@ -24,6 +24,20 @@ section {
     text-align:center;
 }
 
+#mmb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    font-size: 8pt;
+}
+#mmb img {
+    padding: 5px;
+}
+.mmbtitle {
+    padding: 3px 0 5px 0;
+}
+
 canvas {
     margin-top: 35px;
     border: 4px solid #333;
