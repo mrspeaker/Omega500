@@ -74,6 +74,13 @@
 
 		},
 
+		rotate: function (angle, point, origin) {
+			origin = origin || [0, 0];
+			var ox = Math.cos(angle) * (point[0] - origin[0]) - Math.sin(angle) * (point[1] - origin[1]) + origin[0],
+				oy = Math.sin(angle) * (point[0] - origin[0]) + Math.cos(angle) * (point[1] - origin[1]) + origin[1];
+			return [ox, oy];
+		},
+
 		degToRad: function (deg) {
 
 			return deg * Math.PI / 180;
