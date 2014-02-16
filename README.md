@@ -4,7 +4,7 @@
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
-**WARNING!!!** I made this library just to make quick games for Ludum Dare. You have to release source code you want to use in the comp before it starts: this was my repo. Over the last handful of LDs it has grown as I've needed more features - and I've been making the API more consistent and reasonable as I go - but there are still A LOT of weird bits and incompelete functionality. But then Flappy Bird Typing Tutor happended, and some people have started using this. I'll get more serious about it now - but until the APIs are given a good once-over they will be subject to change! ** END WARNING!!! **
+**WARNING!!!** I made this library just to make quick games for Ludum Dare. You have to release source code you want to use in the comp before it starts: this was my repo. Over the last handful of LDs it has grown as I've needed more features - and I've been making the API more consistent and reasonable as I go - but there are still A LOT of weird bits and incompelete functionality. But then Flappy Bird Typing Tutor happended, and some people have started using this. I'll get more serious about it now - but until the APIs are given a good once-over they will be subject to change! **END WARNING!!!**
 
 ## Getting Started
 
@@ -150,6 +150,8 @@ Sometimes it's useful to see where the bounding box of your entity is. There's n
     gfx.ctx.fillRect(this.x, this.y, this.w, this.h);
 
 You can call `this._super(gfx)` at the end of your entity render function (or draw your own) and you'll get a red box showing where the collision detection is used.
+
+At the moment there is no option to have a different sized bounding box.
 
 ### Classes
 
@@ -504,7 +506,9 @@ Highest priority and WIP:
 
 High priority:
 
-- GUI: button
+- PHYSICS: Alternate hit box size for collisions
+- PHYSICS: define series of hit points rather than bounding box.
+- GUI: button implementation for canvas only games
 - Assets: Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - Perf: Object pooling
 - Screens: Multiple screens (as layers)
@@ -520,9 +524,9 @@ Low prority:
 - Perf: dirty rectangles
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
-- Jams: Random/classic colour palettes
-- Jams: Not Ω, but - but script conversion from WAV/AIFF to MP3 & OGG.
-- Jams: Not Ω, but - quick set up for grunt.
+- Jams: Not Ω; but script conversion from WAV/AIFF to MP3 & OGG.
+- Jams: Not Ω; quick set up for grunt/gulp.
+- EXPORT: defaults/conversions for Ejecta (export to iOS)
 
 ## inFAQ:
 
