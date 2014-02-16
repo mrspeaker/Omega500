@@ -4,6 +4,8 @@
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
+** WARNING!!!** I made this library just to make quick games for Ludum Dare. You have to release source code you want to use in the comp before it starts: this was my repo. Over the last handful of LDs it has grown as I've needed more features - and I've been making the API more consistent and reasonable as I go - but there are still A LOT of weird bits and incompelete functionality. But then Flappy Bird Typing Tutor happended, and some people have started using this. I'll get more serious about it now - but until the APIs are given a good once-over they will be subject to change! ** END WARNING!!! **
+
 ## Getting Started
 
 Easiest way to start is to copy the `/ex/template` folder and rename it. The template `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player). The game displays the screen, which displays the player, which you can control left/right with the keyboard keys.
