@@ -4,7 +4,7 @@
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
-**WARNING!!!** I made this library just to make quick games for Ludum Dare. You have to release source code you want to use in the comp before it starts: this was my repo. Over the last handful of LDs it has grown as I've needed more features - and I've been making the API more consistent and reasonable as I go - but there are still A LOT of weird bits and incompelete functionality. But then Flappy Bird Typing Tutor happended, and some people have started using this. I'll get more serious about it now - but until the APIs are given a good once-over they will be subject to change! **END WARNING!!!**
+**WARNING!!!** I originally created this library for making Ludum Dare 48 hour games. To not have to "start from scratch" you have to release any code you want to use before the comp starts: this was that code. But over the last handful of games I've grown and improved it as I've needed more features. The API is becoming more consistent and reasonable as I go: but there are still A LOT of weird bits and incompelete functionality. Now that *Flappy Bird Typing Tutor* happended, some people have started using this for their own projects. Accordingly, I will spend some time fully documenting and standardising the API - but for now they are subject to change! **END WARNING!!!**
 
 ## Getting Started
 
