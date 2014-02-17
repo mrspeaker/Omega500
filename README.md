@@ -140,7 +140,7 @@ For rendering, just `forEach` them:
         baddie.tick(gfx);
     });
 
-How things are rendered is completely up to you. You get the passed the `gfx` object which has the 2D graphics context as property `ctx`. You can draw with canvas primitives, or render images (see images), sprite sheets (see sprite sheets), or animation frames (see animations).
+How things are rendered is completely up to you. You get passed the `gfx` object which has the 2D graphics context as property `ctx`. You can draw with canvas primitives, or render images (see images), sprite sheets (see sprite sheets), or animation frames (see animations).
 
 *Bounding boxes*
 
@@ -494,7 +494,8 @@ Some pre-defined traits
 
 ## WIP/TODO
 
-Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
+Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games.
+As I need features, I add them. This is why there are some weirder functions - like map ray casting... because I needed them!
 
 Highest priority and WIP:
 
