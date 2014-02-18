@@ -8,7 +8,7 @@
 
 ## Getting Started
 
-Easiest way to start is to copy the `/ex/template` folder and rename it. The template `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player). The game displays the screen, which displays the player, which you can control left/right with the keyboard keys.
+Easiest way to start is to copy the `/ex/template` folder and rename it. The "game" displays the screen, which displays a player, which you control left/right with the keyboard keys. The `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player).
 
     - template
         - lib
@@ -38,7 +38,7 @@ A real game will probably have a bunch of screens and a bunch of entites - but t
 
 ## Ω500 Features:
 
-Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Velocity acceleration & gravity components. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding. Auto-genereated tile sets for prototyping. Text helpers. Font plotter. Mixin system. State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Shake effect.
+Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Velocity acceleration & gravity components. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding. Auto-genereated tile sets for prototyping. Text helpers. Trig helpers, Font plotter. Mixin system. State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Various "effects".
 
 # Using Ω500
 

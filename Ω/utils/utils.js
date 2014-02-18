@@ -54,6 +54,8 @@
 
 		},
 
+		// Todo: split up utils. move math stuff to Ω.math
+
 		dist: function (a, b) {
 
 			var dx = a.x ? a.x - b.x : a[0] - b[0],

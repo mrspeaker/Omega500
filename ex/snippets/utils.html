@@ -27,9 +27,9 @@
 					// end = this.s + 3000;
 					// SmoothStep(minPos, maxPos, (ratio(start, end, Ω.utils.now())))
 
-					this.x = 0;
-					this.min = 0;
-					this.max = Ω.env.w - 30;
+					this.x = 40;
+					this.min = 40;
+					this.max = Ω.env.w - 40;
 
 					this.col = "#888";
 
@@ -37,7 +37,8 @@
 
 				tick: function () {
 
-					if (++this.x > this.max) {
+					this.x += 2;
+					if (this.x > this.max) {
 						this.x = this.min;
 					}
 
@@ -54,8 +55,17 @@
 					this.clear(gfx, this.col);
 
 					this.sheet.render(gfx, 0, 0, this.x, gfx.h * 0.45);
+
 					this.sheet.render(gfx, 0, 0, Ω.utils.smoothstep(this.min, this.max, this.x), gfx.h * 0.3);
+
 					this.sheet.render(gfx, 0, 0, Ω.utils.lerp(this.min, this.max, this.x), gfx.h * 0.6);
+
+					this.sheet.render(gfx, 0, 0,
+						Ω.math.ease.bounce(
+							this.min,
+							this.max,
+							(this.x - this.min) / (this.max - this.min)),
+						gfx.h * 0.8);
 
 				}
 
