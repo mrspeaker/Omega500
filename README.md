@@ -67,8 +67,9 @@ That's the rule: if you want something ticked, then `tick` it. If you want somet
 * Project setup: copy/paster `Ω500.js` into your project
 
 ### Ω.Game
+[Ω/Game.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/Game.js)
 
-Extend `Ω.Game` to create ya game. If you need to do stuff in init, don't forget to pass the width and height arguments up to the super class:
+Extend `Ω.Game` to create your game. If you need to do stuff in `init`, don't forget to pass the `width` and `height` arguments up to the `_super` class:
 
     var MyGame = Ω.Game.extend({
 
@@ -95,7 +96,6 @@ Canvas/DOM container:
 The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or height is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
 
 ### Screen
-
 [/screens/Screen.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Screen.js)
 
 Things inherited from `Ω.Screen` are scene containers to display stuff in. `tick` and `render` will be called automatically by the game if you set using `game.setScreen`. Changing screens will use a small fade transition between the current and the new:
@@ -120,6 +120,7 @@ Default is straight crossfade, but you can choose a colour to fade to (or in/out
 `inout` // Fade in/out to a colour
 
 ### Entity
+[Ω/entities/Entity.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/entities/Entity.js)
 
 Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know how to move inside maps, and can have collision detection with other entities.
 
@@ -196,6 +197,7 @@ There's also an `init_post` method that will be called after `init`.
 
 
 ### Input
+[Ω/input/input.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/input/input.js)
 
 Bind "actions" to key codes. The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a aliases like "up", "down" - see `Ω.input` for the full list) to the action:
 
@@ -228,9 +230,7 @@ Reset all keys (stops stuck keys when transitioning screens):
 
     Ω.input.reset();
 
-
 ### Image
-
 [Ω/assets/Image.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Image.js)
 
 Usually you load the image as a class property (so it is preloaded). Don't be afraid to add the same image in many classes - it will only be loaded once.
@@ -254,7 +254,6 @@ And scaled:
     new Ω.Image("res/minecraft.png", 2, 1.5);
 
 ### Sound
-
 [Ω/assets/Sound.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Sound.js)
 
 Usually you load the sound as a class property (so it is preloaded).
@@ -270,10 +269,6 @@ To set the volume - between 0 and 1
 To play a sound:
 
     sound.play();
-
-### Tiled (for the Tiled map editor)
-
-[Ω/assets/Tiled.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Tiled.js)
 
 ### Sprite sheets
 
@@ -293,6 +288,9 @@ This will create a spritesheet twice as wide, and twice as high as the original.
 
 
 ### Animation
+
+[Ω/anim/Anim.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/anim/Anim.js)
+[Ω/anim/Anims.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/anim/Anims.js)
 
 Takes a name, a spritesheet, a time-per-frame, and an array of [x,y] offsets into the spritesheet.
 
@@ -356,10 +354,12 @@ You can paint pixels and use that as your map - mapping different colours to dif
 The callback (if you provide a path to an image, otherwise the return value if you provide an image directly) returns colours from the colour map that were not matched. These (it's assumed) are used for entity locations etc.
 
 ### "Tiled Editor" Map loader
+[Ω/assets/Tiled.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Tiled.js)
 
 For loading maps created with [Tiled Editor](http://www.mapeditor.org/)
 
 ### Physics
+[Ω/physics/Physics.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/physics/Physics.js)
 
 Collision detection
 
@@ -390,15 +390,18 @@ You can check for collision via collision points, if the entity has an array pro
     );
 
 ### Dialog
+[Ω/screens/Dialog.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Dialog.js)
 
 Overlay for displaying menus etc.
 
     game.setDialog(new Ω.Dialog())
 
-Time stops when dialogs are up.
-Customiseable "kill key" to remove it.
+Time stops when dialogs are up (assuming you are using `Ω.utils.now()` for tracking current time)
+
+Customiseable "kill action" to remove the dialog. Defaults to the action "escape" (see `Input`).
 
 ### Camera
+[Ω/cameras/Camera.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/cameras/Camera.js)
 
 Camera lets you define a viewport and draws only a small part of the world at a time. Pass in anything you want to draw to the camera and it'll be rendered in the correct world location.
 
@@ -410,8 +413,8 @@ It accepts an array of entities, or arrays of entities to render. They are drawn
     // Draw the map, player and baddies (anything (or array of things) with a render function!)
     camera.render(gfx, [map, player, baddies]);
 
-There's also a TrackingCamera that will follow the entity you pass to it.
-
+There's also a **TrackingCamera** that will follow the entity you pass to it.
+[Ω/cameras/TrackingCamera.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/cameras/TrackingCamera.js)
 
 ### Preloading
 
@@ -459,7 +462,6 @@ Shake. Flash. Particles
 
 
 ### Utils - Math
-
 [Ω/utils/math](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/math.js)
 
     Ω.math.dist(a, b) // Distance between two entities (or [x,y] arrays)
@@ -478,10 +480,9 @@ Shake. Flash. Particles
     Ω.math.radToDeg()
 
 ### Utils
-
 [Ω/utils/utils](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/utils.js)
 
-time: use Ω.utils.now() for everything time related (is paused in dialogs)
+Note about time: use `Ω.utils.now()` for *everything* time related. Time is not incremented in dialogs, so you can pause the game without time-dependent functions being affected.
 
 *Randoms*
 
@@ -518,7 +519,6 @@ Mathods:
     Ω.utils.fullscreen.toggle("#board") //toggle between request/cancel
 
 ### State helper
-
 [Ω/utils/State.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/State.js)
 
     this.state = new Ω.utils.State("BORN") // Init to a state
@@ -575,6 +575,7 @@ Highest priority and bugs:
     - render z-index
     - add individual or collection.
 - API: move traits to game object, maybe
+- API: Input should be a class, not a singleton
 - Tests: add QUnit or other testing framework.
 - Tests: write basic test suite
 
