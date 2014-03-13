@@ -398,104 +398,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-		// Todo: split up utils. move math stuff to Ω.math
-
-		dist: function (a, b) {
-
-			var dx = a.x ? a.x - b.x : a[0] - b[0],
-				dy = a.y ? a.y - b.y : a[1] - b[1];
-
-			return Math.sqrt(dx * dx + dy * dy);
-
-		},
-
-		center: function (e, zoom) {
-
-			zoom = zoom || 1;
-
-			return {
-				x: e.x + e.w / zoom / 2,
-				y: e.y + e.h / zoom / 2
-			};
-
-		},
-
-		rotate: function (angle, point, origin) {
-			origin = origin || [0, 0];
-			var ox = Math.cos(angle) * (point[0] - origin[0]) - Math.sin(angle) * (point[1] - origin[1]) + origin[0],
-				oy = Math.sin(angle) * (point[0] - origin[0]) + Math.cos(angle) * (point[1] - origin[1]) + origin[1];
-			return [ox, oy];
-		},
-
-		degToRad: function (deg) {
-
-			return deg * Math.PI / 180;
-
-		},
-
-		radToDeg: function (rad) {
-
-			return rad * 180 / Math.PI;
-
-		},
-
-		angleBetween: function (a, b) {
-
-			var dx = a.x - b.x,
-				dy = a.y - b.y,
-				angle = Math.atan2(dy, dx);
-
-			return angle;// % Math.PI;
-
-		},
-
-		snap: function(value, snapSize) {
-
-			return Math.floor(value / snapSize) * snapSize;
-
-		},
-
-		snapRound: function(value, snapSize) {
-
-			var steps = value / snapSize | 0,
-				remain = value - (steps * snapSize),
-				rounder = remain > (snapSize / 2) ? Math.ceil : Math.floor;
-
-			return rounder(value / snapSize) * snapSize;
-
-		},
-
-		clamp: function(val, min, max) {
-
-			return Math.max(min, Math.min(max, val));
-
-		},
-
-		ratio: function (start, finish, amount) {
-
-			return this.clamp((amount - start) / (finish - start), 0, 1);
-
-		},
-
-		lerp: function (start, finish, amount) {
-
-			return amount * this.ratio(start, finish, amount);
-
-		},
-
-		lerpPerc: function (start, finish, perc) {
-
-			return ((finish - start) * perc) + start;
-
-		},
-
-		smoothstep: function (start, finish, amount) {
-
-			var x = this.ratio(start, finish, amount);
-
-			return amount * (x * x * x * (x * (x * 6 - 15) + 10)); //(x*x*(3 - 2*x));
-		},
-
 		neighbours: function (radius, cb, onlyOuterRing) {
 
 			var j, i;
@@ -649,11 +551,118 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
     "use strict";
 
-    // Todo: split up utils. move math stuff here
-
     var math = {
 
+        dist: function (a, b) {
+
+            var dx = a.x ? a.x - b.x : a[0] - b[0],
+                dy = a.y ? a.y - b.y : a[1] - b[1];
+
+            return Math.sqrt(dx * dx + dy * dy);
+
+        },
+
+        distCenter: function (a, b) {
+
+            var dx = (a.x + (a.w / 2)) - (b.x + (b.w / 2)),
+                dy = (a.y + (a.h / 2)) - (b.y + (b.h / 2));
+
+            return Math.sqrt(dx * dx + dy * dy);
+
+        },
+
+        center: function (e, zoom) {
+
+            zoom = zoom || 1;
+
+            return {
+                x: e.x + e.w / zoom / 2,
+                y: e.y + e.h / zoom / 2
+            };
+
+        },
+
+        rotate: function (angle, point, origin) {
+            origin = origin || [0, 0];
+            var ox = Math.cos(angle) * (point[0] - origin[0]) - Math.sin(angle) * (point[1] - origin[1]) + origin[0],
+                oy = Math.sin(angle) * (point[0] - origin[0]) + Math.cos(angle) * (point[1] - origin[1]) + origin[1];
+            return [ox, oy];
+        },
+
+        degToRad: function (deg) {
+
+            return deg * Math.PI / 180;
+
+        },
+
+        radToDeg: function (rad) {
+
+            return rad * 180 / Math.PI;
+
+        },
+
+        angleBetween: function (a, b) {
+
+            var dx = a.x - b.x,
+                dy = a.y - b.y,
+                angle = Math.atan2(dy, dx);
+
+            return angle;// % Math.PI;
+
+        },
+
+        snap: function(value, snapSize) {
+
+            return Math.floor(value / snapSize) * snapSize;
+
+        },
+
+        snapRound: function(value, snapSize) {
+
+            var steps = value / snapSize | 0,
+                remain = value - (steps * snapSize),
+                rounder = remain > (snapSize / 2) ? Math.ceil : Math.floor;
+
+            return rounder(value / snapSize) * snapSize;
+
+        },
+
+        clamp: function(val, min, max) {
+
+            return Math.max(min, Math.min(max, val));
+
+        },
+
+        ratio: function (start, finish, amount) {
+
+            return this.clamp((amount - start) / (finish - start), 0, 1);
+
+        },
+
+        lerp: function (start, finish, amount) {
+
+            return amount * this.ratio(start, finish, amount);
+
+        },
+
+        lerpPerc: function (start, finish, perc) {
+
+            // This is ease.linear
+            return ((finish - start) * perc) + start;
+
+        },
+
+        smoothstep: function (start, finish, amount) {
+
+            var x = this.ratio(start, finish, amount);
+
+            return amount * (x * x * x * (x * (x * 6 - 15) + 10)); //(x*x*(3 - 2*x));
+        },
+
+
         ease: {
+
+            // TODO: add more Robert Penner goodness
 
             linear: function (start, end, perc) {
                 return (end - start) * perc + start;
@@ -665,10 +674,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
             },
 
             bounce: function (start, end, perc) {
-                var ts = perc * perc,
-                    tc = ts * perc;
+                var pp = perc * perc,
+                    ppp = pp * perc;
                 return start + (end - start) *
-                    (33 * tc * ts + -106 * ts * ts + 126 * tc + -67 * ts + 15 * perc);
+                    (33 * ppp * pp + -106 * pp * pp + 126 * ppp + -67 * pp + 15 * perc);
             }
 
         }
@@ -826,7 +835,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		},
 
 		get: function (idx) {
-			return palette[Ω.utils.clamp(idx % palette.length, 0, palette.length - 1)];
+			return palette[Ω.math.clamp(idx % palette.length, 0, palette.length - 1)];
 		},
 
 		rnd: function () {
@@ -1392,6 +1401,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	var Image = Ω.Class.extend({
 
+		w: 0,
+		h: 0,
+
 		init: function (path, flipFlags, scale) {
 
 			var self = this;
@@ -1401,6 +1413,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			Ω.gfx.loadImage(path, function (img){
 
 				self.img = img;
+				self.w = img.width * self.scale;
+				self.h = img.height * self.scale;
 
 			}, flipFlags);
 
@@ -1793,7 +1807,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		tick: function () {
 
-			var center = Ω.utils.center(this, this.zoom),
+			var center = Ω.math.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
 				yr = this.yRange;
@@ -1825,7 +1839,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
-					var center = Ω.utils.center(cam, cam.zoom);
+					var center = Ω.math.center(cam, cam.zoom);
 
 					gfx.ctx.strokeStyle = "rgba(200, 255, 255, 1)";
 					gfx.ctx.strokeRect(
@@ -1913,6 +1927,49 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					}
 				}
 			}
+		},
+
+		checkPointsCollision: function (entityWithPoints, entities, cbName) {
+
+			var i,
+				j,
+				point,
+				points = entityWithPoints.points || [],
+				pLen = points.length,
+				ax,
+				ay,
+				b,
+				bx,
+				bLen = entities.length,
+				hit = false;
+
+			cbName = cbName || "hit";
+
+			for (i = 0; i < bLen; i++) {
+
+				b = entities[i];
+				bx = b.x + (b.xbb || 0);
+
+				for (j = 0; j < pLen; j++) {
+
+					point = points[j];
+					ax = point[0];
+					ay = point[1];
+
+					if (ax >= bx &&
+						ax <= bx + b.w &&
+						ay >= b.y &&
+						ay <= b.y + b.h) {
+						entityWithPoints[cbName] && entityWithPoints[cbName](b);
+						b[cbName] && b[cbName](entityWithPoints);
+						hit = true;
+						break;
+					}
+				}
+			}
+
+			return hit;
+
 		}
 
 	};
@@ -2336,7 +2393,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			if (this.falling) {
 				t.accY += 0.25;
-				t.accY = Ω.utils.clamp(t.accY, 0, 20);
+				t.accY = Ω.math.clamp(t.accY, 0, 20);
 			} else {
 				t.accY = 0;
 			}
@@ -3111,7 +3168,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			var snapTo = vertical ? this.sheet.h : this.sheet.w;
 
-		    return Ω.utils.snap(pos, snapTo);
+		    return Ω.math.snap(pos, snapTo);
 
 		},
 

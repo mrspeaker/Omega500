@@ -97,6 +97,9 @@ var Ω = (function() {
 		},
 
 		urlParams: (function () {
+			if (!window.location && !window.location.search) {
+				return {};
+			}
 			var params = {},
 				match,
 				pl = /\+/g,  // Regex for replacing addition symbol with a space

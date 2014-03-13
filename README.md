@@ -106,6 +106,15 @@ In render, you can clear the screen to a color (if you need to):
 
     this.clear(gfx, "#333"); // for clearing
 
+#### Transitions
+
+Default is straight crossfade, but you can choose a colour to fade to (or in/out of):
+
+    game.setScreen(screen, {type: "inout", time:50, color: "#ffff00"});
+
+"out": // Fade out to a colour
+"inout": // Fade in/out to a colour
+
 ### Entity
 
 Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know how to move inside maps, and can have collision detection with other entities.
@@ -348,6 +357,15 @@ If you only want to check a single entity against other then `checkCollision` (s
         "hitEnemy"
     );
 
+
+You can check for collision via collision points, if the entity has an array property called `points` (containing elements that are [x, y])
+
+    Ω.Physics.checkPointsCollision(
+        entityWithPoints,
+        entitiesArray,
+        cbName
+    );
+
 ### Dialog
 
 Overlay for displaying menus etc.
@@ -428,19 +446,20 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
 
 *trig/positions*
 
-    Ω.utils.dist(a, b) // Distance between two entities (or [x,y] arrays)
-    Ω.utils.angleBetween(a, b)
-    Ω.utils.clamp(val, min, max) // clamp value to a range
-    Ω.utils.ratio(start, finish, amount)
-    Ω.utils.lerp(start, finish, amount)
-    Ω.utils.lerpPerc // for a percent
-    Ω.utils.smoothstep(start, finish, amount)
-    Ω.utils.snap(value, snapSize) // Snap given value to snap size (floored)
-    Ω.utils.snapRound(value, snapSize) // // Snap given value to snap size (rounded)
-    Ω.utils.center(entity) // get the middle of a rectangle
-    Ω.utils.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
-    Ω.utils.degToRad()
-    Ω.utils.radToDeg()
+    Ω.math.dist(a, b) // Distance between two entities (or [x,y] arrays)
+    Ω.math.distCenter(a, b) // Distance between center of two entities
+    Ω.math.angleBetween(a, b)
+    Ω.math.clamp(val, min, max) // clamp value to a range
+    Ω.math.ratio(start, finish, amount)
+    Ω.math.lerp(start, finish, amount)
+    Ω.math.lerpPerc // for a percent
+    Ω.math.smoothstep(start, finish, amount)
+    Ω.math.snap(value, snapSize) // Snap given value to snap size (floored)
+    Ω.math.snapRound(value, snapSize) // // Snap given value to snap size (rounded)
+    Ω.math.center(entity) // get the middle of a rectangle
+    Ω.math.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
+    Ω.math.degToRad()
+    Ω.math.radToDeg()
 
 *Ajax*
 
@@ -495,7 +514,6 @@ Some pre-defined traits
 I need to fix this up so it integrates seemlessly with Ejecta. For now, hack out the following things in Ω500:
 
 * Call Ω.pageload() manually when ready
-* Return {} from urlParams
 * Replace all getAttribute and setAttribute (TODO: submit patch to Ejecta)
 * Replace querySelector with getElementById
 
@@ -516,8 +534,9 @@ Highest priority and bugs:
 
 High priority:
 
+- Perf: dirty rectangles
+- Perf: do some profiling
 - PHYSICS: Alternate hit box size for collisions
-- PHYSICS: define series of hit points rather than bounding box.
 - GUI: button implementation for canvas only games
 - Assets: Partial loader (don't load all resources on init - maybe a "no preload" flag)
 - Perf: Object pooling
@@ -533,7 +552,6 @@ Low prority:
 - Gfx: DSP on spritesheets (especially a "tint" for images)
 - Gfx: "Post" effects in webgl (see DIGIBOTS & CO.)
 - Utils: Serialize/deserialize levels
-- Perf: dirty rectangles
 - Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - Jams: Not Ω; but script conversion from WAV/AIFF to MP3 & OGG.

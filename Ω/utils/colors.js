@@ -31,7 +31,7 @@
 		},
 
 		get: function (idx) {
-			return palette[Ω.utils.clamp(idx % palette.length, 0, palette.length - 1)];
+			return palette[Ω.math.clamp(idx % palette.length, 0, palette.length - 1)];
 		},
 
 		rnd: function () {

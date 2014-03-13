@@ -56,9 +56,9 @@
 
 					this.sheet.render(gfx, 0, 0, this.x, gfx.h * 0.45);
 
-					this.sheet.render(gfx, 0, 0, Ω.utils.smoothstep(this.min, this.max, this.x), gfx.h * 0.3);
+					this.sheet.render(gfx, 0, 0, Ω.math.smoothstep(this.min, this.max, this.x), gfx.h * 0.3);
 
-					this.sheet.render(gfx, 0, 0, Ω.utils.lerp(this.min, this.max, this.x), gfx.h * 0.6);
+					this.sheet.render(gfx, 0, 0, Ω.math.lerp(this.min, this.max, this.x), gfx.h * 0.6);
 
 					this.sheet.render(gfx, 0, 0,
 						Ω.math.ease.bounce(

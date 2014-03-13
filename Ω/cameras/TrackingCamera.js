@@ -56,7 +56,7 @@
 
 		tick: function () {
 
-			var center = Ω.utils.center(this, this.zoom),
+			var center = Ω.math.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
 				yr = this.yRange;
@@ -88,7 +88,7 @@
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
-					var center = Ω.utils.center(cam, cam.zoom);
+					var center = Ω.math.center(cam, cam.zoom);
 
 					gfx.ctx.strokeStyle = "rgba(200, 255, 255, 1)";
 					gfx.ctx.strokeRect(

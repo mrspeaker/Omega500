@@ -111,7 +111,7 @@
 
 			var snapTo = vertical ? this.sheet.h : this.sheet.w;
 
-		    return Ω.utils.snap(pos, snapTo);
+		    return Ω.math.snap(pos, snapTo);
 
 		},
 

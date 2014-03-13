@@ -145,7 +145,7 @@
 				if (!this.wasOnLadder) {
 					if (blocks[0] !== BLOCKS.type.LADDER && blocks[2] !== BLOCKS.type.LADDER) {
 						// Snap to top.
-						this.y = Ω.utils.snap(this.y, map.sheet.h) + (map.sheet.h - this.h);
+						this.y = Ω.math.snap(this.y, map.sheet.h) + (map.sheet.h - this.h);
 						this.onTopOfLadder = true;
 					}
 				}

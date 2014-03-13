@@ -74,7 +74,7 @@
 
 			if (this.falling) {
 				t.accY += 0.25;
-				t.accY = Ω.utils.clamp(t.accY, 0, 20);
+				t.accY = Ω.math.clamp(t.accY, 0, 20);
 			} else {
 				t.accY = 0;
 			}

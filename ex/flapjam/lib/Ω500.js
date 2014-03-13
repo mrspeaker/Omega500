@@ -784,7 +784,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		},
 
 		get: function (idx) {
-			return palette[Ω.utils.clamp(idx % palette.length, 0, palette.length - 1)];
+			return palette[Ω.math.clamp(idx % palette.length, 0, palette.length - 1)];
 		},
 
 		rnd: function () {
@@ -1751,7 +1751,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		tick: function () {
 
-			var center = Ω.utils.center(this, this.zoom),
+			var center = Ω.math.center(this, this.zoom),
 				e = this.entity,
 				xr = this.xRange,
 				yr = this.yRange;
@@ -1783,7 +1783,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this._super(gfx, renderables.concat([{
 				render: function (gfx, cam) {
 
-					var center = Ω.utils.center(cam, cam.zoom);
+					var center = Ω.math.center(cam, cam.zoom);
 
 					gfx.ctx.strokeStyle = "rgba(200, 255, 255, 1)";
 					gfx.ctx.strokeRect(
@@ -2294,7 +2294,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			if (this.falling) {
 				t.accY += 0.25;
-				t.accY = Ω.utils.clamp(t.accY, 0, 20);
+				t.accY = Ω.math.clamp(t.accY, 0, 20);
 			} else {
 				t.accY = 0;
 			}
@@ -3069,7 +3069,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			var snapTo = vertical ? this.sheet.h : this.sheet.w;
 
-		    return Ω.utils.snap(pos, snapTo);
+		    return Ω.math.snap(pos, snapTo);
 
 		},
 
