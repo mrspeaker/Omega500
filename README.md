@@ -271,8 +271,9 @@ To play a sound:
     sound.play();
 
 ### Sprite sheets
+[Ω/gfx/SpriteSheet](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/gfx/SpriteSheet.js)
 
-Specify tile sheet, tile w and tile h.
+Specify tile sheet, tile `w` and tile `h`.
 
 	var sheet = new Ω.SpriteSheet("res/chars.png", 25, 45);
 
@@ -284,8 +285,7 @@ Optional param: flipFlags: only flip x = 1, only flip y = 2, flip both=3
 
     new Ω.SpriteSheet("res/chars.png", 25, 45, 3)
 
-This will create a spritesheet twice as wide, and twice as high as the original. The top left part of the sheet will be the original sprites. The top right will have each cell flipped horizontally. The bottom left will have each cell flipped verticallys, and the bottom right will be flipped both horizonatlly and vertically.
-
+This will create a spritesheet twice as wide, and twice as high as the original. The top left part of the sheet will be the original sprites. The top right will have each cell flipped horizontally. The bottom left will have each cell flipped vertically, and the bottom right will be flipped both horizontally and vertically.
 
 ### Animation
 
@@ -316,6 +316,7 @@ Render it inside the container's render:
     this.anims.render(gfx, this.x, this.y);
 
 ### Map
+[Ω/maps/Map.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/Map.js)
 
 Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to render.
 
@@ -334,10 +335,13 @@ Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to r
 Optional 3rd parameter that indicates the last number that is "walkable" (or "not solid") for entity collision detection. Default is 0.
 
 *Debug Map*
-
+[Ω/maps/DebugMap.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/DebugMap.js)
 Doesn't require a spritesheet - it's magically generated (for prototyping)
 
 *Iso Map*
+[Ω/maps/IsoMap.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/IsoMap.js)
+
+There's *nothing* done for iso stuff yet.
 
 *Collisions*
 
@@ -426,8 +430,9 @@ You can track the loading progress in your game object, for making a loading bar
     });
 
 ### Font plotting
+[Ω/text/Font.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/text/Font.js)
 
-Rather than using borin' old ctx fillText you can use a bitmap font.
+Rather than using borin' old `ctx.fillText` you can use a bitmap font.
 
     font: new Ω.Font("myfont.png", 16, 16)
 
@@ -439,18 +444,25 @@ The font assumes a specific ordering of letters (that seemed to show up on a bun
 
     !"#$%&'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[/]^_`abcdefghijklmnopqrstuvwxyz{|}~
 
- If you have a font with a different ordering of characters, supply this as an argument:
+If you have a font with a different ordering of characters, supply this as an argument:
 
     font: new Ω.Font("myfont.png", 16, 16, "!?abcdefghijklmnopqrstuvwyz.[]")
 
-
 ### Ray casting
+[Ω/utils/rays.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/rays.js)
 
 Just for hitting maps, not other entities.
 
 ### Effects
 
-Shake. Flash. Particles
+Shake.
+[Ω/effects/Shake.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Shake.js)
+
+Flash.
+[Ω/effects/Flash.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Flash.js)
+
+#### Particles
+[Ω/effects/Particle.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Particle.js)
 
     var p = new Ω.Particle({});
     p.play(20, 20); // Starts the particles
@@ -554,13 +566,15 @@ Some pre-defined traits
         {trait: Ω.traits.Sin, speed: 70, amp: 10}
     ]);
 
-## Using for Eject
+## Using with Ejecta
 
-I need to fix this up so it integrates seemlessly with Ejecta. For now, hack out the following things in Ω500:
+Currently Ω500 needs a few hacks to integrate with the awesome [Ejecta project](https://github.com/phoboslab/Ejecta). For now, hack out the following things in Ω500:
 
 * Call Ω.pageload() manually when ready
 * Replace all getAttribute and setAttribute (TODO: submit patch to Ejecta)
 * Replace querySelector with getElementById
+
+Then build add your project to the Ejecta `/App` folder, and build with Xcode.
 
 ## WIP / TODO / Roadmap
 
