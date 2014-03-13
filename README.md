@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-Easiest way to start is to copy the `/ex/template` folder and rename it. The "game" displays the screen, which displays a player, which you control left/right with the keyboard keys. The `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player).
+Easiest way to start is to copy the `/ex/template` folder (and rename it), then run it in your browser. Game on! The "game" displays a screen containing a player, which you control left/right with the keyboard keys. The `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player).
 
     - template
         - lib
@@ -23,6 +23,7 @@ A real game will probably have a bunch of screens and a bunch of entites - but t
 
 ## Some games using Ω500
 
+- [Oscillator](http://mrspeaker.itch.io/oscillator): Cyberpunk missile command. [Source](https://github.com/mrspeaker/oscillator)
 - [Flappy Bird Typing Tutor](http://www.mrspeaker.net/dev/game/flappy): All the simplicity of <em>Flappy Bird</em> combined with a relaxing touch-typing  test [Source in /ex](https://github.com/mrspeaker/Omega500/tree/master/ex/flapjam).
 - [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots).
 - [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source on GitHub](https://github.com/mrspeaker/ld27)
@@ -592,12 +593,10 @@ Highest priority and bugs:
 - API: Input should be a class, not a singleton
 - Tests: add QUnit or other testing framework.
 - Tests: write basic test suite
-
 - BUG: bad map collision if entity taller/wider than block
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
-
 - Examples: add example using Box2D or other physics lib (see "Oscillator" game)
 
 High priority:
