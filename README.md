@@ -66,7 +66,7 @@ That's the rule: if you want something ticked, then `tick` it. If you want somet
 * Uses John Resig's simple class with inheritance (see below)
 * Project setup: copy/paster `Ω500.js` into your project
 
-### Ω.Game
+## Ω.Game
 [Ω/Game.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/Game.js)
 
 Extend `Ω.Game` to create your game. If you need to do stuff in `init`, don't forget to pass the `width` and `height` arguments up to the `_super` class:
@@ -95,7 +95,7 @@ Canvas/DOM container:
 
 The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or height is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
 
-### Screen
+## Screen
 [/screens/Screen.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Screen.js)
 
 Things inherited from `Ω.Screen` are scene containers to display stuff in. `tick` and `render` will be called automatically by the game if you set using `game.setScreen`. Changing screens will use a small fade transition between the current and the new:
@@ -110,7 +110,7 @@ In render, you can clear the screen to a color (if you need to):
 
 Screens have a property `frame` that is initialized to 0 and incremented by the game every tick.
 
-#### Transitions
+### Transitions
 
 Default is straight crossfade, but you can choose a colour to fade to (or in/out of):
 
@@ -119,7 +119,7 @@ Default is straight crossfade, but you can choose a colour to fade to (or in/out
 `out` // Fade out to a colour
 `inout` // Fade in/out to a colour
 
-### Entity
+## Entity
 [Ω/entities/Entity.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/entities/Entity.js)
 
 Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know how to move inside maps, and can have collision detection with other entities.
@@ -165,7 +165,7 @@ You can call `this._super(gfx)` at the end of your entity render function (or dr
 
 At the moment there is no option to have a different sized bounding box.
 
-### Classes
+## Classes
 
 Uses John Resig simple classes:
 
@@ -196,7 +196,7 @@ Can call super:
 There's also an `init_post` method that will be called after `init`.
 
 
-### Input
+## Input
 [Ω/input/input.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/input/input.js)
 
 Bind "actions" to key codes. The actions are just strings that make sense for your game... "fire", "jump", "decapitate"... whatever... You match the keycode (or a aliases like "up", "down" - see `Ω.input` for the full list) to the action:
@@ -230,7 +230,7 @@ Reset all keys (stops stuck keys when transitioning screens):
 
     Ω.input.reset();
 
-### Image
+## Image
 [Ω/assets/Image.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Image.js)
 
 Usually you load the image as a class property (so it is preloaded). Don't be afraid to add the same image in many classes - it will only be loaded once.
@@ -253,7 +253,7 @@ And scaled:
     // Flipped Y, 150% size
     new Ω.Image("res/minecraft.png", 2, 1.5);
 
-### Sound
+## Sound
 [Ω/assets/Sound.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Sound.js)
 
 Usually you load the sound as a class property (so it is preloaded).
@@ -270,7 +270,7 @@ To play a sound:
 
     sound.play();
 
-### Sprite sheets
+## Sprite sheets
 [Ω/gfx/SpriteSheet](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/gfx/SpriteSheet.js)
 
 Specify tile sheet, tile `w` and tile `h`.
@@ -287,7 +287,7 @@ Optional param: flipFlags: only flip x = 1, only flip y = 2, flip both=3
 
 This will create a spritesheet twice as wide, and twice as high as the original. The top left part of the sheet will be the original sprites. The top right will have each cell flipped horizontally. The bottom left will have each cell flipped vertically, and the bottom right will be flipped both horizontally and vertically.
 
-### Animation
+## Animation
 
 [Ω/anim/Anim.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/anim/Anim.js)
 [Ω/anim/Anims.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/anim/Anims.js)
@@ -315,7 +315,7 @@ Render it inside the container's render:
 
     this.anims.render(gfx, this.x, this.y);
 
-### Map
+## Map
 [Ω/maps/Map.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/Map.js)
 
 Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to render.
@@ -334,22 +334,23 @@ Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to r
 
 Optional 3rd parameter that indicates the last number that is "walkable" (or "not solid") for entity collision detection. Default is 0.
 
-*Debug Map*
+### Debug Map
 [Ω/maps/DebugMap.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/DebugMap.js)
+
 Doesn't require a spritesheet - it's magically generated (for prototyping)
 
-*Iso Map*
+### Iso Map
 [Ω/maps/IsoMap.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/IsoMap.js)
 
 There's *nothing* done for iso stuff yet.
 
-*Collisions*
+### Collisions
 
 In your entity's tick method, determine the distance you want it to move for the frame and call `move`. If the entity would end up inside a wall, the move function will push the entity back to be snug up against it. The entity can slide along a wall.
 
     entity.move(xAmount, yAmount, map);
 
-*Loading a map from an image*
+### Loading a map from an image*
 
 You can paint pixels and use that as your map - mapping different colours to different tiles. Other colours can then be used to set the locations of entities and spawn points etc. Good for rapid prototying and game jams.
 
@@ -362,7 +363,7 @@ The callback (if you provide a path to an image, otherwise the return value if y
 
 For loading maps created with [Tiled Editor](http://www.mapeditor.org/)
 
-### Physics
+## Physics
 [Ω/physics/Physics.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/physics/Physics.js)
 
 Collision detection
@@ -393,7 +394,7 @@ You can check for collision via collision points, if the entity has an array pro
         cbName
     );
 
-### Dialog
+## Dialog
 [Ω/screens/Dialog.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Dialog.js)
 
 Overlay for displaying menus etc.
@@ -404,7 +405,7 @@ Time stops when dialogs are up (assuming you are using `Ω.utils.now()` for trac
 
 Customiseable "kill action" to remove the dialog. Defaults to the action "escape" (see `Input`).
 
-### Camera
+## Camera
 [Ω/cameras/Camera.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/cameras/Camera.js)
 
 Camera lets you define a viewport and draws only a small part of the world at a time. Pass in anything you want to draw to the camera and it'll be rendered in the correct world location.
@@ -420,7 +421,7 @@ It accepts an array of entities, or arrays of entities to render. They are drawn
 There's also a **TrackingCamera** that will follow the entity you pass to it.
 [Ω/cameras/TrackingCamera.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/cameras/TrackingCamera.js)
 
-### Preloading
+## Preloading
 
 Put resources as properties in your classes - they'll get preloaded.
 You can track the loading progress in your game object, for making a loading bar:
@@ -429,7 +430,7 @@ You can track the loading progress in your game object, for making a loading bar
         // console.log(loadedSoFar, maxToLoad);
     });
 
-### Font plotting
+## Font plotting
 [Ω/text/Font.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/text/Font.js)
 
 Rather than using borin' old `ctx.fillText` you can use a bitmap font.
@@ -448,20 +449,14 @@ If you have a font with a different ordering of characters, supply this as an ar
 
     font: new Ω.Font("myfont.png", 16, 16, "!?abcdefghijklmnopqrstuvwyz.[]")
 
-### Ray casting
+## Ray casting
 [Ω/utils/rays.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/rays.js)
 
 Just for hitting maps, not other entities.
 
-### Effects
+## Effects
 
-Shake.
-[Ω/effects/Shake.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Shake.js)
-
-Flash.
-[Ω/effects/Flash.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Flash.js)
-
-#### Particles
+### Particles
 [Ω/effects/Particle.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Particle.js)
 
     var p = new Ω.Particle({});
@@ -472,8 +467,13 @@ Flash.
     ...
     p.render(gfx);
 
+### Shake.
+[Ω/effects/Shake.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Shake.js)
 
-### Utils - Math
+### Flash.
+[Ω/effects/Flash.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/effects/Flash.js)
+
+## Utils - Math
 [Ω/utils/math](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/math.js)
 
     Ω.math.dist(a, b) // Distance between two entities (or [x,y] arrays)
@@ -491,7 +491,7 @@ Flash.
     Ω.math.degToRad()
     Ω.math.radToDeg()
 
-### Utils
+## Utils
 [Ω/utils/utils](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/utils.js)
 
 Note about time: use `Ω.utils.now()` for *everything* time related. Time is not incremented in dialogs, so you can pause the game without time-dependent functions being affected.
@@ -530,7 +530,7 @@ Mathods:
     Ω.utils.fullscreen.cancel()
     Ω.utils.fullscreen.toggle("#board") //toggle between request/cancel
 
-### State helper
+## State helper
 [Ω/utils/State.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/State.js)
 
     this.state = new Ω.utils.State("BORN") // Init to a state
@@ -555,7 +555,7 @@ Testing state:
     if (this.state.in("BORN", "RUNNING")) // is any of these
     if (this.state.notIn("DEAD", "RUNNING")) // none of these
 
-### Mixins
+## Mixins
 
 Not quite a component/entity system - but will do in a pinch. Just experimenting with some mixins/traits... stay tuned.
 
