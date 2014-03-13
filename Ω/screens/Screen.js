@@ -5,6 +5,7 @@
 	var Screen = Ω.Class.extend({
 
 		loaded: true,
+		frame: 0,
 
 		tick: function () {},
 

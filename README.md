@@ -240,13 +240,24 @@ The image can be loaded "flipped" (flip x=1, flip 2=2, flip both=3)
     // Load the image upside down
     new Ω.Image("res/minecraft.png", 2)
 
+And scaled:
+
+    // Non-flipped, 50% size
+    new Ω.Image("res/minecraft.png", null, 0.5);
+    // Flipped Y, 150% size
+    new Ω.Image("res/minecraft.png", 2, 1.5);
+
 ### Sound
 
 Usually you load the sound as a class property (so it is preloaded).
 
-    var sound = new Ω.Sound("res/boink.wav")
+    var sound = new Ω.Sound("res/boink.wav");
 
 If you don't put an extension it'll choose .mp3 if supported, else .ogg
+
+To set the volume - between 0 and 1
+
+    var sound = new Ω.Sound("res/boink.wav", 0.5);
 
 To play a sound:
 
@@ -561,6 +572,8 @@ High priority:
 - Maps: Auto-tiling
 - Maps: Tiled image background
 - Add frame count to screens.
+
+- Moar documentation
 
 Low prority:
 

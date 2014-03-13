@@ -111,7 +111,10 @@
 				this.dialog.tick(delta);
 			} else {
 				this.time += delta;
-				this.screen.loaded && this.screen.tick();
+				if (this.screen.loaded) {
+					this.screen.tick();
+					this.screen.frame++;
+				}
 				Ω.timers.tick();
 			}
 			Ω.input.tick();
