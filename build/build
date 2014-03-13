@@ -19,6 +19,7 @@ cat - \
 ../Ω/utils/rays.js \
 ../Ω/utils/Timer.js \
 ../Ω/utils/utils.js \
+../Ω/utils/math.js \
 ../Ω/utils/State.js \
 ../Ω/utils/Stats.js \
 ../Ω/utils/colors.js \

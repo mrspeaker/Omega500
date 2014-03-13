@@ -398,6 +398,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
+		// Todo: split up utils. move math stuff to Ω.math
+
 		dist: function (a, b) {
 
 			var dx = a.x ? a.x - b.x : a[0] - b[0],
@@ -416,6 +418,13 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				y: e.y + e.h / zoom / 2
 			};
 
+		},
+
+		rotate: function (angle, point, origin) {
+			origin = origin || [0, 0];
+			var ox = Math.cos(angle) * (point[0] - origin[0]) - Math.sin(angle) * (point[1] - origin[1]) + origin[0],
+				oy = Math.sin(angle) * (point[0] - origin[0]) + Math.cos(angle) * (point[1] - origin[1]) + origin[1];
+			return [ox, oy];
 		},
 
 		degToRad: function (deg) {
@@ -634,6 +643,39 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		},
 
 	};
+
+}(window.Ω));
+(function (Ω) {
+
+    "use strict";
+
+    // Todo: split up utils. move math stuff here
+
+    var math = {
+
+        ease: {
+
+            linear: function (start, end, perc) {
+                return (end - start) * perc + start;
+            },
+
+            inOutQuad: function (start, end, perc) {
+                return start + ((end - start) / 2) *
+                    (perc < 0.5 ? 2 * perc * perc : -2 * perc * (perc - 2) - 1);
+            },
+
+            bounce: function (start, end, perc) {
+                var ts = perc * perc,
+                    tc = ts * perc;
+                return start + (end - start) *
+                    (33 * tc * ts + -106 * ts * ts + 126 * tc + -67 * ts + 15 * perc);
+            }
+
+        }
+
+    };
+
+    Ω.math = math;
 
 }(window.Ω));
 (function(Ω) {

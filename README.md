@@ -4,8 +4,6 @@
 
 ![Platform example](http://www.mrspeaker.net/images/omegaPlat.png)
 
-**WARNING!!!** I originally created this library for making Ludum Dare 48 hour games. To not have to "start from scratch" you have to release any code you want to use before the comp starts: this was that code. But over the last handful of games I've grown and improved it as I've needed more features. The API is becoming more consistent and reasonable as I go: but there are still A LOT of weird bits and incompelete functionality. Now that *Flappy Bird Typing Tutor* happended, some people have started using this for their own projects. Accordingly, I will spend some time fully documenting and standardising the API - but for now they are subject to change! **END WARNING!!!**
-
 ## Getting Started
 
 Easiest way to start is to copy the `/ex/template` folder and rename it. The "game" displays the screen, which displays a player, which you control left/right with the keyboard keys. The `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player).
@@ -492,17 +490,29 @@ Some pre-defined traits
         {trait: Ω.traits.Sin, speed: 70, amp: 10}
     ]);
 
+## Using for Eject
+
+I need to fix this up so it integrates seemlessly with Ejecta. For now, hack out the following things in Ω500:
+
+* Call Ω.pageload() manually when ready
+* Return {} from urlParams
+* Replace all getAttribute and setAttribute (TODO: submit patch to Ejecta)
+* Replace querySelector with getElementById
+
 ## WIP/TODO
 
 Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
 
-Highest priority and WIP:
+Highest priority and bugs:
 
+- API: standardise and consolidate api methods, parameter types, and parameter order.
+- API: remove/fix references to global instantiated "game" object
 - BUG: bad map collision if entity taller/wider than block
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
 - move traits to game object, maybe
+- examples: add example incorporating Box2D or other physics lib (see "Oscillator" game)
 
 High priority:
 
@@ -515,10 +525,12 @@ High priority:
 - BUG: Load from image on retina devices
 - Maps: Auto-tiling
 - Maps: Tiled image background
+- Add frame count to screens.
 
 Low prority:
 
-- Gfx: DSP on spritesheets
+- Audio: add multi-voice sounds through some kind of pool.
+- Gfx: DSP on spritesheets (especially a "tint" for images)
 - Gfx: "Post" effects in webgl (see DIGIBOTS & CO.)
 - Utils: Serialize/deserialize levels
 - Perf: dirty rectangles
@@ -527,6 +539,11 @@ Low prority:
 - Jams: Not Ω; but script conversion from WAV/AIFF to MP3 & OGG.
 - Jams: Not Ω; quick set up for grunt/gulp.
 - EXPORT: defaults/conversions for Ejecta (export to iOS)
+
+- Maybe... add the tick/renderable entity automagically:
+    - tick priority
+    - render z-index
+    - add individual or collection.
 
 ## inFAQ:
 
