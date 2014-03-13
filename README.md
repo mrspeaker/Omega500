@@ -231,7 +231,7 @@ Reset all keys (stops stuck keys when transitioning screens):
 
 ### Image
 
-[/assets/Image.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Image.js)
+[Ω/assets/Image.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Image.js)
 
 Usually you load the image as a class property (so it is preloaded). Don't be afraid to add the same image in many classes - it will only be loaded once.
 
@@ -255,6 +255,8 @@ And scaled:
 
 ### Sound
 
+[Ω/assets/Sound.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Sound.js)
+
 Usually you load the sound as a class property (so it is preloaded).
 
     var sound = new Ω.Sound("res/boink.wav");
@@ -268,6 +270,10 @@ To set the volume - between 0 and 1
 To play a sound:
 
     sound.play();
+
+### Tiled (for the Tiled map editor)
+
+[Ω/assets/Tiled.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Tiled.js)
 
 ### Sprite sheets
 
@@ -451,7 +457,29 @@ Shake. Flash. Particles
     ...
     p.render(gfx);
 
+
+### Utils - Math
+
+[Ω/utils/math](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/math.js)
+
+    Ω.math.dist(a, b) // Distance between two entities (or [x,y] arrays)
+    Ω.math.distCenter(a, b) // Distance between center of two entities
+    Ω.math.angleBetween(a, b)
+    Ω.math.clamp(val, min, max) // clamp value to a range
+    Ω.math.ratio(start, finish, amount)
+    Ω.math.lerp(start, finish, amount)
+    Ω.math.lerpPerc // for a percent
+    Ω.math.smoothstep(start, finish, amount)
+    Ω.math.snap(value, snapSize) // Snap given value to snap size (floored)
+    Ω.math.snapRound(value, snapSize) // // Snap given value to snap size (rounded)
+    Ω.math.center(entity) // get the middle of a rectangle
+    Ω.math.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
+    Ω.math.degToRad()
+    Ω.math.radToDeg()
+
 ### Utils
+
+[Ω/utils/utils](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/utils.js)
 
 time: use Ω.utils.now() for everything time related (is paused in dialogs)
 
@@ -469,37 +497,29 @@ time: use Ω.utils.now() for everything time related (is paused in dialogs)
     Ω.utils.toggle(ms, steps) // cycles through 0-steps every ms milliseconds
     Ω.utils.formatTime(time)
 
-*trig/positions*
-
-    Ω.math.dist(a, b) // Distance between two entities (or [x,y] arrays)
-    Ω.math.distCenter(a, b) // Distance between center of two entities
-    Ω.math.angleBetween(a, b)
-    Ω.math.clamp(val, min, max) // clamp value to a range
-    Ω.math.ratio(start, finish, amount)
-    Ω.math.lerp(start, finish, amount)
-    Ω.math.lerpPerc // for a percent
-    Ω.math.smoothstep(start, finish, amount)
-    Ω.math.snap(value, snapSize) // Snap given value to snap size (floored)
-    Ω.math.snapRound(value, snapSize) // // Snap given value to snap size (rounded)
-    Ω.math.center(entity) // get the middle of a rectangle
-    Ω.math.constrain(pos, bounds) // given a [x,y] pos, keep inside a rectangle
-    Ω.math.degToRad()
-    Ω.math.radToDeg()
-
 *Ajax*
 
     Ω.utils.ajax(url, callback)
 
 *Fullscreen API*
 
-Needs to be done inside a user interaction (like a click, keypress) handler.
+Sends an element fullscreen (using HTML5 fullscreen API). Needs to be done inside a user interaction (like a click, keypress) handler:
+
+    document
+        .querySelector("#fsButton")
+        .addEventListener("click", function () {
+            Ω.utils.fullscreen.toggle("#myGameCanvas");
+        }, false);
+
+Mathods:
 
     Ω.utils.fullscreen.request("#board")
     Ω.utils.fullscreen.cancel()
     Ω.utils.fullscreen.toggle("#board") //toggle between request/cancel
 
-
 ### State helper
+
+[Ω/utils/State.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/utils/State.js)
 
     this.state = new Ω.utils.State("BORN") // Init to a state
     this.state.set("RUNNING"); // Set to a state

@@ -5,7 +5,7 @@
 	var Screen = Ω.Class.extend({
 
 		loaded: true,
-		frame: 0,
+		frame: 0, // incremented directly by game.js
 
 		tick: function () {},
 
