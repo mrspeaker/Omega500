@@ -96,6 +96,8 @@ The `canvas` property to sets the game canvas: can be a CSS selector to either t
 
 ### Screen
 
+[/screens/Screen.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Screen.js)
+
 Things inherited from `Ω.Screen` are scene containers to display stuff in. `tick` and `render` will be called automatically by the game if you set using `game.setScreen`. Changing screens will use a small fade transition between the current and the new:
 
     game.setScreen(new TitleScreen());
@@ -106,14 +108,16 @@ In render, you can clear the screen to a color (if you need to):
 
     this.clear(gfx, "#333"); // for clearing
 
+Screens have a property `frame` that is initialized to 0 and incremented by the game every tick.
+
 #### Transitions
 
 Default is straight crossfade, but you can choose a colour to fade to (or in/out of):
 
     game.setScreen(screen, {type: "inout", time:50, color: "#ffff00"});
 
-"out": // Fade out to a colour
-"inout": // Fade in/out to a colour
+`out` // Fade out to a colour
+`inout` // Fade in/out to a colour
 
 ### Entity
 
@@ -226,6 +230,8 @@ Reset all keys (stops stuck keys when transitioning screens):
 
 
 ### Image
+
+[/assets/Image.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Image.js)
 
 Usually you load the image as a class property (so it is preloaded). Don't be afraid to add the same image in many classes - it will only be loaded once.
 
@@ -571,7 +577,6 @@ High priority:
 - BUG: Load from image on retina devices
 - Maps: Auto-tiling
 - Maps: Tiled image background
-- Add frame count to screens.
 
 - Moar documentation
 
