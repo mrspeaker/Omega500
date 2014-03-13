@@ -4,6 +4,9 @@
 
 	var Image = Ω.Class.extend({
 
+		w: 0,
+		h: 0,
+
 		init: function (path, flipFlags, scale) {
 
 			var self = this;
@@ -13,6 +16,8 @@
 			Ω.gfx.loadImage(path, function (img){
 
 				self.img = img;
+				self.w = img.width * self.scale;
+				self.h = img.height * self.scale;
 
 			}, flipFlags);
 
