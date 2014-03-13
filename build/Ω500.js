@@ -1,5 +1,5 @@
 /*
-	Ω500 Game library v0.3.1
+	Ω500 Game library v0.5.0
 	by Mr Speaker
 */
 var Ω = (function() {
@@ -101,6 +101,9 @@ var Ω = (function() {
 		},
 
 		urlParams: (function () {
+			if (!window.location && !window.location.search) {
+				return {};
+			}
 			var params = {},
 				match,
 				pl = /\+/g,  // Regex for replacing addition symbol with a space

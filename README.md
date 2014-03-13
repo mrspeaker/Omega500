@@ -401,7 +401,7 @@ You can track the loading progress in your game object, for making a loading bar
 
 ### Font plotting
 
-Rather than using borin' old ctx text you can use a bitmap font.
+Rather than using borin' old ctx fillText you can use a bitmap font.
 
     font: new Ω.Font("myfont.png", 16, 16)
 
@@ -424,7 +424,15 @@ Just for hitting maps, not other entities.
 
 ### Effects
 
-shake.
+Shake. Flash. Particles
+
+    var p = new Ω.Particle({});
+    p.play(20, 20); // Starts the particles
+
+    ...
+    p.tick();
+    ...
+    p.render(gfx);
 
 ### Utils
 
@@ -517,29 +525,37 @@ I need to fix this up so it integrates seemlessly with Ejecta. For now, hack out
 * Replace all getAttribute and setAttribute (TODO: submit patch to Ejecta)
 * Replace querySelector with getElementById
 
-## WIP/TODO
+## WIP / TODO / Roadmap
 
-Most of the components in Ω500 are in their most basic form - just good enough for me to use as a base for writing games. As I need features, I add them. This is why you there are some weirder functions - like map ray casting... because I needed them!
+The development of Ω500 has thus-far followed a "games first" evolution: with a focus on getting games out the door, rather than making beautiful APIs. Hence, there are some warts around. Now that it has proven itself in the field, Ω500 will enter a grand period of refactoring, consolidation, and unit testing.
 
 Highest priority and bugs:
 
 - API: standardise and consolidate api methods, parameter types, and parameter order.
 - API: remove/fix references to global instantiated "game" object
+- API: Maybe... add the tick/renderable entity automagically:
+    - tick priority
+    - render z-index
+    - add individual or collection.
+- API: move traits to game object, maybe
+- Tests: add QUnit or other testing framework.
+- Tests: write basic test suite
+
 - BUG: bad map collision if entity taller/wider than block
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
-- move traits to game object, maybe
-- examples: add example incorporating Box2D or other physics lib (see "Oscillator" game)
+
+- Examples: add example using Box2D or other physics lib (see "Oscillator" game)
 
 High priority:
 
 - Perf: dirty rectangles
-- Perf: do some profiling
-- PHYSICS: Alternate hit box size for collisions
-- GUI: button implementation for canvas only games
-- Assets: Partial loader (don't load all resources on init - maybe a "no preload" flag)
+- Perf: profiling - offscreen canvas, collection methods
 - Perf: Object pooling
+- Physics: Alternate hit box size for collisions
+- GUI: button implementation for canvas only games
+- Assets: Partial loader - per-screen asset loading
 - Screens: Multiple screens (as layers)
 - BUG: Load from image on retina devices
 - Maps: Auto-tiling
@@ -552,16 +568,18 @@ Low prority:
 - Gfx: DSP on spritesheets (especially a "tint" for images)
 - Gfx: "Post" effects in webgl (see DIGIBOTS & CO.)
 - Utils: Serialize/deserialize levels
-- Math: Swarm/flock algo
 - Maps: block selecting (iso)
 - Jams: Not Ω; but script conversion from WAV/AIFF to MP3 & OGG.
 - Jams: Not Ω; quick set up for grunt/gulp.
-- EXPORT: defaults/conversions for Ejecta (export to iOS)
+- Export: defaults/conversions for Ejecta (export to iOS)
+- Better website and examples
+- Font - individual letter widths
 
-- Maybe... add the tick/renderable entity automagically:
-    - tick priority
-    - render z-index
-    - add individual or collection.
+Later (or when needed for a game):
+
+- Math: Swarm/flock algo
+- Polygon objects
+- WebGL renderer
 
 ## inFAQ:
 
@@ -569,7 +587,7 @@ Q. How do you do that omega symbol thing?
 A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
 
 Q. When do we get a version bump?
-A. Every time I finish a game with it. Version 1.0 in 7 more games!
+A. Every time I finish a game with it. Version 1.0 in 5 more games!
 
 Q. License?
 A. [Unlicense](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/UNLICENSE)!

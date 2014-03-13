@@ -1,5 +1,5 @@
 /*
-	Ω500 Game library v0.3.1
+	Ω500 Game library v0.5.0
 	by Mr Speaker
 */
 var Ω = (function() {
