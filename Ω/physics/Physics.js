@@ -67,6 +67,49 @@
 					}
 				}
 			}
+		},
+
+		checkPointsCollision: function (entityWithPoints, entities, cbName) {
+
+			var i,
+				j,
+				point,
+				points = entityWithPoints.points || [],
+				pLen = points.length,
+				ax,
+				ay,
+				b,
+				bx,
+				bLen = entities.length,
+				hit = false;
+
+			cbName = cbName || "hit";
+
+			for (i = 0; i < bLen; i++) {
+
+				b = entities[i];
+				bx = b.x + (b.xbb || 0);
+
+				for (j = 0; j < pLen; j++) {
+
+					point = points[j];
+					ax = point[0];
+					ay = point[1];
+
+					if (ax >= bx &&
+						ax <= bx + b.w &&
+						ay >= b.y &&
+						ay <= b.y + b.h) {
+						entityWithPoints[cbName] && entityWithPoints[cbName](b);
+						b[cbName] && b[cbName](entityWithPoints);
+						hit = true;
+						break;
+					}
+				}
+			}
+
+			return hit;
+
 		}
 
 	};
