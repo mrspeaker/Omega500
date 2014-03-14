@@ -652,7 +652,6 @@ Highest priority and bugs:
     - add individual or collection.
 - API: move traits to game object, maybe
 - API: Input should be a class, not a singleton
-- Tests: add QUnit or other testing framework.
 - Tests: write basic test suite
 - BUG: bad map collision if entity taller/wider than block
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)

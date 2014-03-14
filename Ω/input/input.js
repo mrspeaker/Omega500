@@ -139,11 +139,9 @@
 
 		isDown: function (action) {
 			var actionCodes = actions[action] || [];
-			var back = actionCodes.some(function (code) {
+			return actionCodes.some(function (code) {
 				return keys[code].isDown;
 			});
-			return back;
-
 		},
 
 		wasDown: function (action) {
