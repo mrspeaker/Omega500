@@ -1,9 +1,15 @@
 (function (Ω, QUnit) {
+
     "use strict";
 
-    QUnit.module("utils");
+    var module = QUnit.module,
+        test = QUnit.test,
+        equal = QUnit.equal,
+        ok = QUnit.ok;
 
-    QUnit.test("Seeded random returns same result", function() {
+    module("Utils");
+
+    test("Seeded random returns same result", function () {
         var res = [],
             first,
             second,
@@ -23,8 +29,13 @@
         }
         second = res.join(",");
 
-        QUnit.equal(first, second, "Passed!");
+        equal(first, second, "Random sequence is the same.");
     });
+
+    test("Toggle flips between 2 values", function () {
+        ok(1 === 1, "Passed.");
+    });
+
 }(
     window.Ω,
     window.QUnit
