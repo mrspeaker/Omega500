@@ -45,17 +45,17 @@ Best is to dive into the examples, and snippets...
 
 ## General idea/notes
 
-Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered.
+Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` methods. Each object manages its children and passes these calls on so the entire heirachy receives the messages. Everyone gets ticked, then rendered. For example:
 
-    .           game            // extend Ω.Game
+    .           Game            // extend Ω.Game
     .            |
-    .          screen           // extend Ω.Screen
+    .          Screen           // extend Ω.Screen
     .            |
-    .      ____________
-    .     |      |     |
-    .  player baddies  map      // extend Ω.Entity, Ω.Entity, and Ω.Map
+    .      _______________
+    .     |      |        |
+    .  Player [Baddies]  Map    // extend Ω.Entity, Array of [Ω.Entity], and Ω.Map
     .     |
-    .  bullets                  // extend Ω.Entity
+    . [Bullets]                 // Array of [extend Ω.Entity]
 
 Every loop  the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`.
 
@@ -219,7 +219,7 @@ Bind "actions" to key codes. The actions are just strings that make sense for yo
 Can map multiple at once:
 
 	Ω.input.bind({
-        "fire": ["space", "touch", 13], // Bind multiple keys to "fire"
+        "fire": ["space", "touch", 13], // Bind multiple keys to the action "fire"
 		"left": "left",
 		"right": "right",
 		"up": "up",
@@ -246,15 +246,15 @@ Reset all keys (stops stuck keys when transitioning screens):
 ## Image
 [Ω/assets/Image.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/assets/Image.js)
 
-Usually you load the image as a class property (so it is preloaded). Don't be afraid to add the same image in many classes - it will only be loaded once.
+Usually you load the image as a class property (so it is preloaded). If you preload it in many classes it will only be loaded once.
 
-    var img = new Ω.Image("res/minecraft.png")
+    var img = new Ω.Image("res/minecraft.png");
 
 In container render:
 
-    img.render(gfx, 10, 10)
+    img.render(gfx, 10, 10);
 
-The image can be loaded "flipped" (flip x=1, flip 2=2, flip both=3)
+The image can be loaded "flipped" (flip x = 1, flip y = 2, flip both = 3):
 
     // Load the image upside down
     new Ω.Image("res/minecraft.png", 2)
@@ -292,6 +292,7 @@ There's also a couple of static methods on Ω.Sound.
     Ω.Sound._setVolume(0.5); // sets all sounds 50% of thier original volume
 
 TODOs:
+
     - Why are these underscored?
     - Add fade out/fade in helpers
 
@@ -341,6 +342,7 @@ Render it inside the container's render:
     this.anims.render(gfx, this.x, this.y);
 
 TODOs:
+
     - Add more precise (per-frame) timing
     - Add ping-poing/reverse playback
 
