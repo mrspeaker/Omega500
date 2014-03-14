@@ -4,7 +4,8 @@
 
     var module = QUnit.module,
         test = QUnit.test,
-        equal = QUnit.equal;
+        equal = QUnit.equal,
+        notEqual = QUnit.notEqual;
 
     module("Utils");
 
@@ -28,7 +29,16 @@
         }
         second = res.join(",");
 
-        equal(first, second, "Random sequence is the same.");
+        equal(first, second, "Sequence with same seed is the same.");
+
+        // Reset seed
+        Ω.utils.rnd.seed = 43;
+        res = [];
+        for (i = 0; i < 10; i++) {
+            res.push(Ω.utils.rnd.rand(100));
+        }
+        second = res.join(",");
+        notEqual(first, second, "Sequence with different initial seed is different.");
     });
 
     test("Ω.utils.toggle flips between values over time", function () {
@@ -42,11 +52,29 @@
 
         vals = [];
         for (var i = 0; i < 10; i++) {
+            vals.push(Ω.utils.toggle(milliseconds, 2));
+            time += 5;
+        }
+
+        equal(vals.join(","), "0,0,1,1,0,0,1,1,0,0", "Toggles between 2 values");
+
+        vals = [];
+        time = 0;
+        for (i = 0; i < 10; i++) {
             vals.push(Ω.utils.toggle(milliseconds, 3));
             time += 5;
         }
 
-        equal(vals.join(","), "0,0,1,1,2,2,0,0,1,1", "Toggles that boggle");
+        equal(vals.join(","), "0,0,1,1,2,2,0,0,1,1", "Toggles between 3 values");
+
+        vals = [];
+        time = 0;
+        for (i = 0; i < 10; i++) {
+            vals.push(Ω.utils.toggle(milliseconds / 2, 4));
+            time += 5;
+        }
+
+        equal(vals.join(","), "0,1,2,3,0,1,2,3,0,1", "Toggles between 4 values");
     });
 
 }(
