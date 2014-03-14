@@ -19,15 +19,15 @@ Easiest way to start is to copy the `/ex/template` folder (and rename it), then 
             game.js
         index.html
 
-A real game will probably have a bunch of screens and a bunch of entites - but they will be wired up mostly like the demo. Check out the other examples and games to see how this scales.
+A real game will have a bunch of screens (TitleScreen, GameOverScreen...) and a bunch of entites (Baddie, Bullet, PowerUp...) - but they will be wired up mostly like the demo. Check out the other examples and games to see how this scales.
 
 ## Some games using Ω500
 
 - [Oscillator](http://mrspeaker.itch.io/oscillator): Cyberpunk missile command. [Source](https://github.com/mrspeaker/oscillator)
 - [Flappy Bird Typing Tutor](http://www.mrspeaker.net/dev/game/flappy): All the simplicity of <em>Flappy Bird</em> combined with a relaxing touch-typing  test [Source in /ex](https://github.com/mrspeaker/Omega500/tree/master/ex/flapjam).
-- [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where it's to become a real-life arcade machine. Neat-o! [Source on GitHub](https://github.com/mrspeaker/digibots).
-- [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source on GitHub](https://github.com/mrspeaker/ld27)
-- [Zmore](http://mrspeaker.net/dev/ld26): LD#26 entry on the theme "minimalism". Turn light into darkness and escape minimalist captivity [Source on GitHub](https://github.com/mrspeaker/ld26).
+- [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where became a real-life arcade machine. Neat-o! [Source](https://github.com/mrspeaker/digibots).
+- [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source](https://github.com/mrspeaker/ld27)
+- [Zmore](http://mrspeaker.net/dev/ld26): Turn light into darkness and escape minimalist captivity [Source](https://github.com/mrspeaker/ld26).
 
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/digibots-title.jpg).
 ![DIGIBOTS & CO](http://www.mrspeaker.net/images/omegaDigibots.jpg).
@@ -99,23 +99,35 @@ The `canvas` property to sets the game canvas: can be a CSS selector to either t
 ## Screen
 [/screens/Screen.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Screen.js)
 
-Things inherited from `Ω.Screen` are scene containers to display stuff in. `tick` and `render` will be called automatically by the game if you set using `game.setScreen`. Changing screens will use a small fade transition between the current and the new:
+Objects inherited from `Ω.Screen` are scene containers to display stuff in. `tick` and `render` will be called automatically by the game if you set using `game.setScreen`. Changing screens will use a small fade transition between the current and the new:
 
     game.setScreen(new TitleScreen());
 
-If you're just calling it from the game `load` function then it's `this.setScreen(...)`. If you need to do async stuff on load, then set the screen's `loaded` property to `false`. When you're done, set it to `true`.
+`setScreen` is a method on the `Game` class (so if you're just calling it from the game's `load` function then you can do `this.setScreen(...)`. Then for example, in the TitleScreen's `tick` method you can wait for input and move to the main game:
 
-In render, you can clear the screen to a color (if you need to):
+    if (Ω.input.pressed("space")) {
+        game.setScreen(new MainScreen());
+    }
+
+*Async operations*
+
+If you need to do async stuff on load (like ajax calls etc), then set the screen's `loaded` property to `false`. When you're done, set it to `true`.)
+
+*Clearing the screen*
+
+In `render`, you can clear the screen to a color (if you want):
 
     this.clear(gfx, "#333"); // for clearing
 
-Screens have a property `frame` that is initialized to 0 and incremented by the game every tick.
+*Current "Frame" number*
+
+Screens also have a property `frame` that is initialized to 0 and incremented by the game every tick.
 
 ### Transitions
 
-Default is straight crossfade, but you can choose a colour to fade to (or in/out of):
+The default transition is a straight crossfade, but you can choose a colour to fade to (or in/out of):
 
-    game.setScreen(screen, {type: "inout", time:50, color: "#ffff00"});
+    game.setScreen(screen, {type: "inout", time: 50, color: "#ffff00"});
 
 `out` // Fade out to a colour
 `inout` // Fade in/out to a colour
@@ -123,13 +135,13 @@ Default is straight crossfade, but you can choose a colour to fade to (or in/out
 ## Entity
 [Ω/entities/Entity.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/entities/Entity.js)
 
-Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know how to move inside maps, and can have collision detection with other entities.
+Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know how to move inside maps, and detect collisions with other entities.
 
     var player = new Ω.Entity(100, 100, 18, 24); // x, y, w, h
 
 Has x, y, w, h properties which is used for map/entity collision detection. Width and height are optional if you specify them in the class itself (default is w: 32, h: 32).
 
-There are a couple of conventions for updating collections of entities. For "ticking", call tick on each object - and inside the object's tick method return `true` if it's still alive, and `false` if it should be removed:
+There are a couple of conventions for updating collections of entities [TODO: build these conventions in to the engine]. For "ticking", call tick on each object - and inside the object's tick method return `true` if it's still alive, and `false` if it should be removed:
 
     this.baddies = this.baddies.filter(function (baddie) {
         return baddie.tick();
@@ -259,17 +271,29 @@ And scaled:
 
 Usually you load the sound as a class property (so it is preloaded).
 
-    var sound = new Ω.Sound("res/boink.wav");
+    {
+        ...
+        sound: new Ω.Sound("res/boink");
+    }
 
-If you don't put an extension it'll choose .mp3 if supported, else .ogg
+If you don't put an extension it'll choose .mp3 if supported, else it will play .ogg - so be sure to export in both formats!
 
-To set the volume - between 0 and 1
+To set the volume (between 0 and 1):
 
     var sound = new Ω.Sound("res/boink.wav", 0.5);
 
 To play a sound:
 
     sound.play();
+
+There's also a couple of static methods on Ω.Sound.
+
+    Ω.Sound._reset(); // stop and rewind all sounds
+    Ω.Sound._setVolume(0.5); // sets all sounds 50% of thier original volume
+
+TODOs:
+    - Why are these underscored?
+    - Add fade out/fade in helpers
 
 ## Sprite sheets
 [Ω/gfx/SpriteSheet](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/gfx/SpriteSheet.js)
@@ -293,9 +317,9 @@ This will create a spritesheet twice as wide, and twice as high as the original.
 [Ω/anim/Anim.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/anim/Anim.js)
 [Ω/anim/Anims.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/anim/Anims.js)
 
-Takes a name, a spritesheet, a time-per-frame, and an array of [x,y] offsets into the spritesheet.
+Animations are for flipbook-style sprite sheet animation. They take a name, a spritesheet, a time-per-frame, and an array of [x,y] indexes into the spritesheet.
 
-Can be grouped with `Ω.Anims`:
+They can be grouped with `Ω.Anims`:
 
     this.anims = new Ω.Anims([
         new Ω.Anim("idle", this.sheet, 500, [[8, 0], [9, 0]]),
@@ -316,10 +340,14 @@ Render it inside the container's render:
 
     this.anims.render(gfx, this.x, this.y);
 
+TODOs:
+    - Add more precise (per-frame) timing
+    - Add ping-poing/reverse playback
+
 ## Map
 [Ω/maps/Map.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/Map.js)
 
-Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to render.
+Maps take a `Ω.SpriteSheet`, and a bunch of 2D cells to show what to draw. Also, you'll usually give it a camera to render (for scrolling around a larger map).
 
     sheet: new Ω.SpriteSheet("../res/images/tiles.png", 32, 32)
 
@@ -333,23 +361,44 @@ Maps take a sprite sheet, and a bunch of 2D cells. Usually give it a camera to r
         [1,1,1,1,1,]
     ]);
 
-Optional 3rd parameter that indicates the last number that is "walkable" (or "not solid") for entity collision detection. Default is 0.
+Optional 3rd parameter that indicates the last number that is "walkable" (or "not solid") for entity collision detection. Default is 0 - so when you have an `Ω.Entity` and you call its `move` method it will collide with everything except "0" tiles (see "Collisions" below).
+
+Can check the `map.walkable` property to see.
 
 ### Debug Map
 [Ω/maps/DebugMap.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/DebugMap.js)
 
-Doesn't require a spritesheet - it's magically generated (for prototyping)
+Doesn't require a spritesheet - it's magically generated (for quick prototyping)
 
 ### Iso Map
 [Ω/maps/IsoMap.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/maps/IsoMap.js)
 
-There's *nothing* done for iso stuff yet.
+There's *nothing* done for iso stuff yet - renders an iso map, but that's about it.
+
+### Blocks
+
+    map.getBlock()
+    map.getBlocks()
+    map.setBlock()
+
+### Flags
+
+    map.repeat
+    map.parallax
 
 ### Collisions
 
 In your entity's tick method, determine the distance you want it to move for the frame and call `move`. If the entity would end up inside a wall, the move function will push the entity back to be snug up against it. The entity can slide along a wall.
 
     entity.move(xAmount, yAmount, map);
+
+If an entity hits a one or map cells then the entity's `hitBlocks` method will be triggered.
+
+    hitBlocks: function (xBlocks, yBlocks) {
+        // x/y is collisions when checking horizontal vs checking vertical
+        // blocks are array: [Top Left block, Bottom Left block, Top Right block, Bottom Right block]
+        // will be `undefined` if no collision
+    }
 
 ### Loading a map from an image*
 
@@ -423,13 +472,23 @@ There's also a **TrackingCamera** that will follow the entity you pass to it.
 [Ω/cameras/TrackingCamera.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/cameras/TrackingCamera.js)
 
 ## Preloading
+[Ω/Ω.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/%CE%A9.js)
 
-Put resources as properties in your classes - they'll get preloaded.
-You can track the loading progress in your game object, for making a loading bar:
+Instanciate resources as properties in your classes to preloaded them:
+
+    var me = new Ω.Entity({
+        img: new Ω.Image("res/images/me.png") // These will be preloaded
+        snd: new Ω.Sound("res/audio/hey")
+    });
+
+You can track the loading progress in your game object (for making a loading bar, for example):
 
     Ω.evt.progress.push(function (loadedSoFar, maxToLoad) {
         // console.log(loadedSoFar, maxToLoad);
     });
+
+TODOs:
+    - build in some kind of "incremental" loading - so not everything needs to be loaded at once.
 
 ## Font plotting
 [Ω/text/Font.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/text/Font.js)
@@ -584,7 +643,7 @@ The development of Ω500 has thus-far followed a "games first" evolution: with a
 Highest priority and bugs:
 
 - API: standardise and consolidate api methods, parameter types, and parameter order.
-- API: remove/fix references to global instantiated "game" object
+- API: remove/fix references to global instantiated "game" object (move to evt system)
 - API: Maybe... add the tick/renderable entity automagically:
     - tick priority
     - render z-index

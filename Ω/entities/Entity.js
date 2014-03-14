@@ -61,9 +61,9 @@
 
 		hit: function (entity) {},
 
-		hitBlocks: function(xBlocks, yBlocks) {},
+		hitBlocks: function (xBlocks, yBlocks) {},
 
-		moveBy: function(xo, yo) {
+		moveBy: function (xo, yo) {
 
 			this.xo = xo;
 			this.yo = yo;
