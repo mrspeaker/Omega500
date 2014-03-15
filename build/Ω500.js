@@ -284,7 +284,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-		draw: function (gfx, ox, oy, rayX, rayY, map) {
+		render: function (gfx, ox, oy, rayX, rayY, map) {
 
 			var c = gfx.ctx;
 
@@ -699,15 +699,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		this.state = state;
 		this.last = "";
 		this.count = -1;
-		this.locked = false;
+		this.locked = false; // Um, why is this feature necessary?
 
 	};
 
 	State.prototype = {
 
-		set: function (state) {
-
-			if (this.locked) {
+		set: function (state, resetIfSame) {
+			if (this.locked || (state === this.state && !resetIfSame)) {
 				return;
 			}
 
@@ -1182,11 +1181,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		isDown: function (action) {
 			var actionCodes = actions[action] || [];
-			var back = actionCodes.some(function (code) {
+			return actionCodes.some(function (code) {
 				return keys[code].isDown;
 			});
-			return back;
-
 		},
 
 		wasDown: function (action) {
@@ -1932,6 +1929,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			}
 		},
 
+		// Check an entity with points against entites with AABB
 		checkPointsCollision: function (entityWithPoints, entities, cbName) {
 
 			var i,
@@ -2213,6 +2211,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 	var Screen = Ω.Class.extend({
 
 		loaded: true,
+		frame: 0, // incremented directly by game.js
 
 		tick: function () {},
 
@@ -3687,9 +3686,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		hit: function (entity) {},
 
-		hitBlocks: function(xBlocks, yBlocks) {},
+		hitBlocks: function (xBlocks, yBlocks) {},
 
-		moveBy: function(xo, yo) {
+		moveBy: function (xo, yo) {
 
 			this.xo = xo;
 			this.yo = yo;
@@ -3919,7 +3918,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				this.dialog.tick(delta);
 			} else {
 				this.time += delta;
-				this.screen.loaded && this.screen.tick();
+				if (this.screen.loaded) {
+					this.screen.tick();
+					this.screen.frame++;
+				}
 				Ω.timers.tick();
 			}
 			Ω.input.tick();

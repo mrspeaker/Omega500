@@ -617,6 +617,11 @@ Testing state:
     if (this.state.in("BORN", "RUNNING")) // is any of these
     if (this.state.notIn("DEAD", "RUNNING")) // none of these
 
+TODOs:
+
+    - isIn, notIn uses multiple args: but most APIs take array. Should only accept array?
+    - has a `locked` property that prevents changing state. Why?
+
 ## Mixins
 
 Not quite a component/entity system - but will do in a pinch. Just experimenting with some mixins/traits... stay tuned.

@@ -5,7 +5,8 @@
     var module = QUnit.module,
         test = QUnit.test,
         equal = QUnit.equal,
-        notEqual = QUnit.notEqual;
+        notEqual = QUnit.notEqual,
+        ok = QUnit.ok;
 
     module("Utils");
 
@@ -75,6 +76,31 @@
         }
 
         equal(vals.join(","), "0,1,2,3,0,1,2,3,0,1", "Toggles between 4 values");
+    });
+
+    test("Ω.utils.State class helps with state", function () {
+        var state = new Ω.utils.State("BORN");
+
+        equal(state.count, -1, "Defaults to count -1");
+        state.tick();
+        ok(state.first(), "state.first() is true in first frame");
+        equal(state.count, 0, "state.count after first tick is frame 0");
+        state.tick();
+        ok(!state.first(), "state.first() false after first frame");
+
+        ok(state.is("BORN"), "state.is: Test current state");
+        ok(state.isNot("RUNNING"), "state.isNot: Test not current state");
+        ok(state.isIn("RUNNING", "DYING", "BORN"), "state.isIn: Test current state in set");
+        ok(state.isNotIn("RUNNING", "DYING", "FALLING"), "state.isNotIn: Test current state not in set");
+
+        var before = state.count;
+        state.set("BORN");
+        var after = state.count;
+        equal(before, after, "state does not reset if same as current");
+
+        state.set("BORN", true);
+        after = state.count;
+        equal(after, -1, "state only resets if resetFlag passed");
     });
 
 }(

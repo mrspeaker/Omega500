@@ -7,15 +7,14 @@
 		this.state = state;
 		this.last = "";
 		this.count = -1;
-		this.locked = false;
+		this.locked = false; // Um, why is this feature necessary?
 
 	};
 
 	State.prototype = {
 
-		set: function (state) {
-
-			if (this.locked) {
+		set: function (state, resetIfSame) {
+			if (this.locked || (state === this.state && !resetIfSame)) {
 				return;
 			}
 
