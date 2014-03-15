@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-Easiest way to start is to copy the `/ex/template` folder (and rename it), then run it in your browser. Game on! The "game" displays a screen containing a player, which you control left/right with the keyboard keys. The `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player).
+Easiest way to start is to copy the [`/ex/template`](https://github.com/mrspeaker/Omega500/tree/master/ex/template) folder (and rename it), then run it in your browser. Game on! The "game" displays a screen containing a player, which you control left/right with the keyboard keys. The `src` directory contains a main `Ω.Game` object, and a `Ω.Screen` object (called MainScreen) that contains a `Ω.Entity` object (called Player).
 
     - template
         - lib
