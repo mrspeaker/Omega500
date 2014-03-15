@@ -1,5 +1,5 @@
 /*
-	Ω500 Game library v0.5.0
+	Ω500 Game library v0.5.1
 	by Mr Speaker
 */
 var Ω = (function() {
@@ -2868,7 +2868,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-		write: function (gfx, msg, x, y) {
+		render: function (gfx, msg, x, y) {
 
 			if (!msg) {
 				return;

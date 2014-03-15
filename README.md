@@ -501,7 +501,7 @@ Rather than using borin' old `ctx.fillText` you can use a bitmap font.
 
 in render:
 
-    this.font.write(gfx, "hello, world!", 100, 100)
+    this.font.render(gfx, "hello, world!", 100, 100)
 
 The font assumes a specific ordering of letters (that seemed to show up on a bunch of different bitmapped fonts I found:
 
@@ -663,6 +663,7 @@ Highest priority and bugs:
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
 - Examples: add example using Box2D or other physics lib (see "Oscillator" game)
+- Examples: do a "how to make a game" tutorial.
 
 High priority:
 

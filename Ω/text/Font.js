@@ -19,7 +19,7 @@
 
 		},
 
-		write: function (gfx, msg, x, y) {
+		render: function (gfx, msg, x, y) {
 
 			if (!msg) {
 				return;

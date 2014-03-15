@@ -34,7 +34,7 @@
 
 			this.bg.render(gfx, 0, 0);
 
-			this.font.write(gfx, title, gfx.w / 2 - this.font.w * (title.length / 2), gfx.h * 0.4);
+			this.font.render(gfx, title, gfx.w / 2 - this.font.w * (title.length / 2), gfx.h * 0.4);
 			c.font = "8pt Monospace";
 			gfx.text.drawShadowed(start, gfx.w / 2 - gfx.text.getHalfWidth(start), gfx.h * 0.75, 1);
 
