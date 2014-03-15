@@ -91,7 +91,7 @@
 
 		},
 
-		draw: function (gfx, ox, oy, rayX, rayY, map) {
+		render: function (gfx, ox, oy, rayX, rayY, map) {
 
 			var c = gfx.ctx;
 

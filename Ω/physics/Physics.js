@@ -69,6 +69,7 @@
 			}
 		},
 
+		// Check an entity with points against entites with AABB
 		checkPointsCollision: function (entityWithPoints, entities, cbName) {
 
 			var i,

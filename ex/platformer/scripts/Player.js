@@ -144,7 +144,7 @@
 					var hit = Ω.rays.cast(i, this.x + this.w / 2, this.y + this.h / 2, this.map);
 
 					if (hit) {
-						Ω.rays.draw(gfx, this.x + this.w / 2, this.y + this.h / 2, hit.x, hit.y, this.map);
+						Ω.rays.render(gfx, this.x + this.w / 2, this.y + this.h / 2, hit.x, hit.y, this.map);
 					}
 				}
 			}

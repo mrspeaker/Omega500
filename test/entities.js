@@ -92,6 +92,22 @@
 
     });
 
+    test("Point collision", function () {
+        a.reset(0, 0);
+        b.reset(w, h);
+        a.points = [[w, h]];
+
+        Ω.Physics.checkPointsCollision(a, [b]);
+        ok(a.didCollide && b.didCollide, "Point collides with entity");
+
+        a.reset(0, 0);
+        b.reset(w, h);
+        a.points = [[w - 1, h]];
+
+        Ω.Physics.checkPointsCollision(a, [b]);
+        ok(!a.didCollide && !b.didCollide, "Point misses entity");
+    });
+
 }(
     window.Ω,
     window.QUnit
