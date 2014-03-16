@@ -2213,7 +2213,62 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		loaded: true,
 		frame: 0, // incremented directly by game.js
 
+		renderables: null,
+
+		_bodies: null, // Holds new bodies to be added next tick
+		bodies: null, // Current dictionary of active bodies
+
 		tick: function () {},
+		_tick: function () {
+			var self = this;
+
+			// this.frame++; TODO: if this new magic works, increment frame here instead of
+			// in game.
+
+			if (this.bodies) {
+				this._bodies = this._bodies.filter(function (r) {
+					var tag = r[1] || "default";
+
+					if (!self.bodies[tag]) {
+						self.bodies[tag] = [];
+					}
+					self.bodies[tag].push(r[0]);
+					return false;
+				});
+
+				for (var tag in this.bodies) {
+					this.bodies[tag] = this.bodies[tag].filter(function (body) {
+						var stillAlive = body.tick() && !(body.remove);
+						// Add children
+						if (body._bodies) {
+							body._bodies.forEach(function (innerBody) {
+								self.add(innerBody[0], innerBody[1]);
+							});
+							body._bodies.length = 0;
+						}
+						return stillAlive;
+					});
+				}
+			}
+
+			this.tick();
+		},
+
+		add: function (body, tag) {
+			if (!this.bodies) {
+				this._bodies = [];
+				this.bodies = {
+					"default": []
+				};
+			}
+			this._bodies.push([body, tag]);
+
+			return body;
+		},
+
+		get: function (tag) {
+			return this.bodies[tag] || [];
+		},
 
 		clear: function (gfx, col) {
 
@@ -2228,6 +2283,18 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			c.fillStyle = "hsl(0, 0%, 0%)";
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
+		},
+		renderFore: function () {},
+		_render: function (gfx) {
+			this.render(gfx);
+			if (this.bodies) {
+				for (var tag in this.bodies) {
+					this.bodies[tag].forEach(function (b) {
+						b.render(gfx);
+					});
+				}
+			}
+			this.renderFore(gfx);
 		}
 
 	});
@@ -3645,6 +3712,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		traits: null,
 
+		_bodies: null, // bodies to be added by the screen
+
 		init: function (x, y, w, h) {
 
 			this.x = x || this.x;
@@ -3669,6 +3738,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			return !(this.remove);
 
 		},
+
+        add: function (body, tag) {
+            if (!this._bodies) {
+                this._bodies = [];
+            }
+            this._bodies.push([body, tag]);
+            return body;
+        },
 
 		mixin: function (traits) {
 
@@ -3919,7 +3996,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			} else {
 				this.time += delta;
 				if (this.screen.loaded) {
-					this.screen.tick();
+					this.screen._tick();
 					this.screen.frame++;
 				}
 				Ω.timers.tick();
@@ -3939,31 +4016,31 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			}
 
 			if (this._fade.ratio <= 0) {
-				this.screen.render(gfx);
+				this.screen._render(gfx);
 			} else {
 				switch (this._fade.type) {
 				case "inout":
 					// Fade in/out to a colour
 					if (this._fade.ratio > 0.5) {
-						this.screenPrev.render(gfx);
+						this.screenPrev._render(gfx);
 						gfx.clear(this._fade.color, 1 - ((this._fade.ratio - 0.5) * 2));
 					} else {
-						this.screen.render(gfx);
+						this.screen._render(gfx);
 						gfx.clear(this._fade.color, this._fade.ratio * 2);
 					}
 					break;
 
 				case "out":
 					// Fade out to a colour
-					this.screenPrev.render(gfx);
+					this.screenPrev._render(gfx);
 					gfx.clear(this._fade.color, 1 - this._fade.ratio);
 					break;
 
 				default:
 					// Crossfade
-					this.screen.render(gfx);
+					this.screen._render(gfx);
 					c.globalAlpha = this._fade.ratio;
-					this.screenPrev.render(gfx);
+					this.screenPrev._render(gfx);
 					c.globalAlpha = 1;
 					break;
 				}

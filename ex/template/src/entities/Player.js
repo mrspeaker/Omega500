@@ -16,6 +16,7 @@
             if (Ω.input.isDown("right")) {
                 this.x += 3;
             }
+            return true;
 
         },
 
