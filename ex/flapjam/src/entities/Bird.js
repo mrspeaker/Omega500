@@ -146,11 +146,11 @@
 
             for (var i = 0; i < this.curWord.length; i++) {
                 var font = i === this.curIdx ? this.font2 : this.font;
-                font.render(gfx, this.curWord[i], w - ww + (i * 17), 10);
+                font.write(gfx, this.curWord[i], w - ww + (i * 17), 10);
             }
 
             for (i = 0; i < this.nextWord.length; i++) {
-                this.font.render(gfx, this.nextWord[i], w - ww2 + (i * 17), 40);
+                this.font.write(gfx, this.nextWord[i], w - ww2 + (i * 17), 40);
             }
 
         }

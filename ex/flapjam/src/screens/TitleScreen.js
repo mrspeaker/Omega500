@@ -32,8 +32,8 @@
 
             var ySin = Math.sin(now / 150) * 7;
             atlas.render(gfx, "title", 55, gfx.h * 0.18);
-            this.font.render(gfx, "typing tutor", 53, gfx.h * 0.30);
-            this.font.render(gfx, "typing tutor", 53 - 1, gfx.h * 0.30 - 1);
+            this.font.write(gfx, "typing tutor", 53, gfx.h * 0.30);
+            this.font.write(gfx, "typing tutor", 53 - 1, gfx.h * 0.30 - 1);
             atlas.render(
                 gfx,
                 "bird0_" + ((now / 100 | 0) % 3),

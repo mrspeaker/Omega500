@@ -57,7 +57,7 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .     |
     . [Bullets]                 // Array of [extend Ω.Entity]
 
-Every loop  the engine calls `tick` on the main game object. This (automatically) calls `tick` on its current screen. The screen (manually) calls `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`.
+Every loop  the engine calls `tick` on the main game object. This automatically calls `tick` on its current screen - but that's the end of the magic. After this the screen must manually call `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`.
 
 That's the rule: if you want something ticked, then `tick` it. If you want something rendered, then `render` it.
 
@@ -657,7 +657,6 @@ Highest priority and bugs:
     - add individual or collection.
 - API: move traits to game object, maybe
 - API: Input should be a class, not a singleton
-- Tests: write basic test suite
 - BUG: bad map collision if entity taller/wider than block
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
@@ -677,8 +676,6 @@ High priority:
 - BUG: Load from image on retina devices
 - Maps: Auto-tiling
 - Maps: Tiled image background
-
-- Moar documentation
 
 Low prority:
 
