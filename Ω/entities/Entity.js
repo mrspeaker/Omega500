@@ -20,6 +20,8 @@
 
 		traits: null,
 
+		_bodies: null, // bodies to be added by the screen
+
 		init: function (x, y, w, h) {
 
 			this.x = x || this.x;
@@ -44,6 +46,14 @@
 			return !(this.remove);
 
 		},
+
+        add: function (body, tag) {
+            if (!this._bodies) {
+                this._bodies = [];
+            }
+            this._bodies.push([body, tag]);
+            return body;
+        },
 
 		mixin: function (traits) {
 
