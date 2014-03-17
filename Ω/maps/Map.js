@@ -21,6 +21,10 @@
 
 		},
 
+		tick: function () {
+			return true;
+		},
+
 		populate: function (cells) {
 
 			this.cells = cells;

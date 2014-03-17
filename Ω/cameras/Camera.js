@@ -23,14 +23,41 @@
 
 		tick: function () {},
 
-		render: function (gfx, renderables) {
+		moveTo: function (x, y) {
+			this.x = x;
+			this.y = y;
+		},
 
-			var c = gfx.ctx,
-				self = this;
+		moveBy: function (x, y) {
+			this.x += x;
+			this.y += y;
+		},
+
+		renderPre: function (gfx) {
+			var c = gfx.ctx;
 
 			c.save();
 			c.scale(this.zoom, this.zoom);
 			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
+
+		},
+
+		renderPost: function (gfx) {
+			var c = gfx.ctx;
+
+			if (this.debug) {
+				c.strokeStyle = "red";
+				c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
+			}
+
+			c.restore();
+		},
+
+		render: function (gfx, renderables, noPrePost) {
+
+			var self = this;
+
+			!noPrePost && this.renderPre(gfx);
 
 			renderables
 				// Flatten to an array
@@ -60,12 +87,7 @@
 
 				});
 
-			if (this.debug) {
-				c.strokeStyle = "red";
-				c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
-			}
-
-			c.restore();
+			!noPrePost && this.renderPost(gfx);
 
 		}
 

@@ -7,10 +7,9 @@
 		loaded: true,
 		frame: 0, // incremented directly by game.js
 
-		renderables: null,
-
 		_bodies: null, // Holds new bodies to be added next tick
 		bodies: null, // Current dictionary of active bodies
+		camera: null,
 
 		tick: function () {},
 		_tick: function () {
@@ -66,7 +65,14 @@
 
 		clear: function (gfx, col) {
 
-			gfx.clear(col);
+			if (this.camera) {
+				var c = gfx.ctx;
+				c.fillStyle = col;
+				c.fillRect(this.camera.x, this.camera.y, this.camera.w, this.camera.h);
+			}
+			else {
+				gfx.clear(col);
+			}
 
 		},
 
@@ -78,17 +84,32 @@
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 		},
-		renderFore: function () {},
 		_render: function (gfx) {
-			this.render(gfx);
-			if (this.bodies) {
-				for (var tag in this.bodies) {
-					this.bodies[tag].forEach(function (b) {
-						b.render(gfx);
-					});
+			this.renderBG && this.renderBG(gfx);
+
+			if (this.camera) {
+				this.camera.renderPre(gfx);
+				this.render(gfx, this.camera);
+				if (this.bodies) {
+					var bodies = [];
+					for (var tag in this.bodies) {
+						bodies.push(this.bodies[tag]);
+					}
+					this.camera.render(gfx, bodies, true);
+				}
+				this.camera.renderPost(gfx);
+			} else {
+				this.render(gfx);
+				if (this.bodies) {
+					for (var tag in this.bodies) {
+						this.bodies[tag].forEach(function (b) {
+							b.render(gfx);
+						});
+					}
 				}
 			}
-			this.renderFore(gfx);
+
+			this.renderFG && this.renderFG(gfx);
 		}
 
 	});
