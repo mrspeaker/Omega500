@@ -5,19 +5,29 @@
     var Player = Ω.Entity.extend({
         w: 24,
         h: 32,
+        speed: 4,
+
+        init: function (x, y, map) {
+
+            this.map = map;
+            this._super(x, y);
+
+        },
 
         tick: function () {
 
-            this.y += Math.sin(Ω.utils.now() / 140) * 2;
+            var xo = 0,
+                yo = Math.sin(Ω.utils.now() / 140) * 2;
 
-            if (Ω.input.isDown("left")) { this.x -= 3; }
-            if (Ω.input.isDown("right")) { this.x += 3; }
-            if (Ω.input.isDown("up")) { this.y -= 3; }
-            if (Ω.input.isDown("down")) { this.y += 3; }
-
+            if (Ω.input.isDown("left")) { xo -= this.speed; }
+            if (Ω.input.isDown("right")) { xo += this.speed; }
+            if (Ω.input.isDown("up")) { yo -= this.speed; }
+            if (Ω.input.isDown("down")) { yo += this.speed; }
             if (Ω.input.pressed("space")) {
                 this.add(new Bullet(this.x + 10, this.y + 5), "player-bullet");
             }
+
+            this.move(xo, yo, this.map);
 
             return true;
         },
@@ -25,13 +35,17 @@
         render: function (gfx) {
 
             var c = gfx.ctx;
+
             c.fillStyle = "#333";
             c.fillRect(this.x, this.y, this.w, this.h);
+
         },
 
-        hit: function (b) {
+        hit: function () {
+
             this.x = Ω.env.w / 2;
             this.y = Ω.env.h / 2;
+
         }
 
     });

@@ -132,6 +132,12 @@ The default transition is a straight crossfade, but you can choose a colour to f
 `out` // Fade out to a colour
 `inout` // Fade in/out to a colour
 
+**In progress**
+
+NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render` cycle on objects. If you pass a freshly minted `tick/renderable` object to `screen.add` it will be magically ticked and rendered.
+
+    this.add(new Ω.Entity({})); // Enitity will be ticked and renderd by magic.
+
 ## Entity
 [Ω/entities/Entity.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/entities/Entity.js)
 
@@ -470,8 +476,17 @@ It accepts an array of entities, or arrays of entities to render. They are drawn
     // Draw the map, player and baddies (anything (or array of things) with a render function!)
     camera.render(gfx, [map, player, baddies]);
 
+To move a camera, change it's `x` and `y` properties, or use the helper methods:
+
+`moveTo(x, y)` // Move directly to an x/y location.
+`moveBy(x, y)` // Move relatively by x/y pixels.
+
 There's also a **TrackingCamera** that will follow the entity you pass to it.
 [Ω/cameras/TrackingCamera.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/cameras/TrackingCamera.js)
+
+**In Progress**
+
+Note: Cameras are part of the magic being added to Screens. Define a `Camera` object on a `Screen` and it will be applied to screen `bodies`. If you don't want the magic, don't call your camera `camera`. May I suggest `cam`?
 
 ## Preloading
 [Ω/Ω.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/%CE%A9.js)

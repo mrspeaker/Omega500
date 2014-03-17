@@ -53,7 +53,7 @@
 			this.para.repeat = true;
 			this.para.parallax = 0.5;
 
-			this.camera = new Ω.TrackingCamera(
+			this.cam = new Ω.TrackingCamera(
 				this.players[0],
 				0,
 				0,
@@ -78,7 +78,7 @@
 
 			var self = this;
 
-			this.camera.tick();
+			this.cam.tick();
 
 			this.players.forEach(function (p, i) {
 
@@ -104,7 +104,7 @@
 			// Handle some inputs
 			if (Ω.input.pressed("space")) {
 				// Track a random fellow!
-				this.camera.track(
+				this.cam.track(
 					this.players[Ω.utils.rand(this.players.length)]
 				);
 			}
@@ -131,7 +131,7 @@
 
 			this.shake && this.shake.render(gfx);
 
-			this.camera.render(gfx, [
+			this.cam.render(gfx, [
 				this.para,
 				this.map,
 				this.players,

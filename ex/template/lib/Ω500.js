@@ -1688,6 +1688,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		w: 0,
 		h: 0,
 
+		debug: false,
+
 		init: function (x, y, w, h) {
 
 			this.x = x;
@@ -1700,14 +1702,41 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		tick: function () {},
 
-		render: function (gfx, renderables) {
+		moveTo: function (x, y) {
+			this.x = x;
+			this.y = y;
+		},
 
-			var c = gfx.ctx,
-				self = this;
+		moveBy: function (x, y) {
+			this.x += x;
+			this.y += y;
+		},
+
+		renderPre: function (gfx) {
+			var c = gfx.ctx;
 
 			c.save();
 			c.scale(this.zoom, this.zoom);
 			c.translate(-(Math.round(this.x)), -(Math.round(this.y)));
+
+		},
+
+		renderPost: function (gfx) {
+			var c = gfx.ctx;
+
+			if (this.debug) {
+				c.strokeStyle = "red";
+				c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
+			}
+
+			c.restore();
+		},
+
+		render: function (gfx, renderables, noPrePost) {
+
+			var self = this;
+
+			!noPrePost && this.renderPre(gfx);
 
 			renderables
 				// Flatten to an array
@@ -1737,10 +1766,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 				});
 
-			c.strokeStyle = "red";
-			c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
-
-			c.restore();
+			!noPrePost && this.renderPost(gfx);
 
 		}
 
@@ -2213,10 +2239,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		loaded: true,
 		frame: 0, // incremented directly by game.js
 
-		renderables: null,
-
 		_bodies: null, // Holds new bodies to be added next tick
 		bodies: null, // Current dictionary of active bodies
+		camera: null,
 
 		tick: function () {},
 		_tick: function () {
@@ -2272,7 +2297,14 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		clear: function (gfx, col) {
 
-			gfx.clear(col);
+			if (this.camera) {
+				var c = gfx.ctx;
+				c.fillStyle = col;
+				c.fillRect(this.camera.x, this.camera.y, this.camera.w, this.camera.h);
+			}
+			else {
+				gfx.clear(col);
+			}
 
 		},
 
@@ -2284,17 +2316,31 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 		},
-		renderFore: function () {},
 		_render: function (gfx) {
-			this.render(gfx);
-			if (this.bodies) {
-				for (var tag in this.bodies) {
-					this.bodies[tag].forEach(function (b) {
-						b.render(gfx);
-					});
+			this.renderBG && this.renderBG(gfx);
+
+			if (this.camera) {
+				this.camera.renderPre(gfx);
+				this.render(gfx, this.camera);
+				if (this.bodies) {
+					var bodies = [];
+					for (var tag in this.bodies) {
+						bodies.push(this.bodies[tag]);
+					}
+					this.camera.render(gfx, bodies, true);
+				}
+				this.camera.renderPost(gfx);
+			} else {
+				this.render(gfx);
+				if (this.bodies) {
+					for (var tag in this.bodies) {
+						this.bodies[tag].forEach(function (b) {
+							b.render(gfx);
+						});
+					}
 				}
 			}
-			this.renderFore(gfx);
+			this.renderFG && this.renderG(gfx);
 		}
 
 	});
@@ -3145,6 +3191,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			this.populate(cells || [[]]);
 
+		},
+
+		tick: function () {
+			return true;
 		},
 
 		populate: function (cells) {

@@ -10,10 +10,6 @@
 
             this._super(w, h);
 
-            Ω.evt.progress.push(function (remaining, max) {
-                console.log((((max - remaining) / max) * 100 | 0) + "%");
-            });
-
             Ω.input.bind({
                 "space": "space",
                 "touch": "touch",

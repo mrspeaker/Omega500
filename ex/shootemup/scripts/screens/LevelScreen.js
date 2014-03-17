@@ -21,7 +21,7 @@
 			this.baddies = [];
 			this.cars = [];
 
-			this.camera = new Ω.TrackingCamera(this.player, 0, 0, Ω.env.w, Ω.env.h);
+			this.cam = new Ω.TrackingCamera(this.player, 0, 0, Ω.env.w, Ω.env.h);
 
 			Ω.utils.ajax("data/level00.js?" + Date.now(), function (xhr) {
 
@@ -42,7 +42,7 @@
 
 			var self = this;
 
-			this.camera.tick();
+			this.cam.tick();
 
 			this.player.tick();
 
@@ -106,7 +106,7 @@
 
 			this.clear(gfx, "hsl(195, 10%, 50%)");
 
-			this.camera.render(gfx, [
+			this.cam.render(gfx, [
 				this.map,
 				this.cars,
 				this.baddies,
