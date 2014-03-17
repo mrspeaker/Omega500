@@ -9,6 +9,8 @@
 		w: 0,
 		h: 0,
 
+		debug: false,
+
 		init: function (x, y, w, h) {
 
 			this.x = x;
@@ -58,8 +60,10 @@
 
 				});
 
-			c.strokeStyle = "red";
-			c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
+			if (this.debug) {
+				c.strokeStyle = "red";
+				c.strokeRect(this.x, this.y, this.w / this.zoom, this.h / this.zoom);
+			}
 
 			c.restore();
 
