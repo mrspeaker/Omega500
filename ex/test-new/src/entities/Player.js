@@ -17,14 +17,14 @@
         tick: function () {
 
             var xo = 0,
-                yo = Math.sin(Ω.utils.now() / 140) * 2;
+                yo = 0;
 
             if (Ω.input.isDown("left")) { xo -= this.speed; }
             if (Ω.input.isDown("right")) { xo += this.speed; }
             if (Ω.input.isDown("up")) { yo -= this.speed; }
             if (Ω.input.isDown("down")) { yo += this.speed; }
             if (Ω.input.pressed("space")) {
-                this.add(new Bullet(this.x + 10, this.y + 5), "player-bullet");
+                this.add(new Bullet(this.x + 10, this.y + 5, xo < 0 ? -1 : 1), "player-bullet", 50);
             }
 
             this.move(xo, yo, this.map);

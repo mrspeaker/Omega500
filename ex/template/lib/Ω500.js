@@ -2240,7 +2240,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		frame: 0, // incremented directly by game.js
 
 		_bodies: null, // Holds new bodies to be added next tick
+		_bodies_zindex: null, // Holds zIndex for bodies
 		bodies: null, // Current dictionary of active bodies
+
 		camera: null,
 
 		tick: function () {},
@@ -2251,11 +2253,26 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			// in game.
 
 			if (this.bodies) {
+
+				// Erfph... make this all nicer, yo.
 				this._bodies = this._bodies.filter(function (r) {
-					var tag = r[1] || "default";
+					var tag = r[1] || "default",
+						spliced = false,
+						idx;
 
 					if (!self.bodies[tag]) {
 						self.bodies[tag] = [];
+
+						for (idx = 0; idx < self._bodies_zindex.length; idx++) {
+							if (r[2] < self._bodies_zindex[idx][0]) {
+								self._bodies_zindex.splice(idx, 0, [r[2], r[1]]);
+								spliced = true;
+								break;
+							}
+						}
+						if (!spliced) {
+							self._bodies_zindex.push([r[2], r[1]]);
+						}
 					}
 					self.bodies[tag].push(r[0]);
 					return false;
@@ -2267,7 +2284,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 						// Add children
 						if (body._bodies) {
 							body._bodies.forEach(function (innerBody) {
-								self.add(innerBody[0], innerBody[1]);
+								self.add(innerBody[0], innerBody[1], innerBody[2]);
 							});
 							body._bodies.length = 0;
 						}
@@ -2279,14 +2296,15 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.tick();
 		},
 
-		add: function (body, tag) {
+		add: function (body, tag, zIndex) {
 			if (!this.bodies) {
 				this._bodies = [];
+				this._bodies_zindex = [[99, "default"]];
 				this.bodies = {
 					"default": []
 				};
 			}
-			this._bodies.push([body, tag]);
+			this._bodies.push([body, tag, zIndex || 99]);
 
 			return body;
 		},
@@ -2324,9 +2342,9 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				this.render(gfx, this.camera);
 				if (this.bodies) {
 					var bodies = [];
-					for (var tag in this.bodies) {
-						bodies.push(this.bodies[tag]);
-					}
+					this._bodies_zindex.forEach(function(bz) {
+						bodies.push(this.bodies[bz[1]]);
+					}, this);
 					this.camera.render(gfx, bodies, true);
 				}
 				this.camera.renderPost(gfx);
@@ -2340,7 +2358,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 					}
 				}
 			}
-			this.renderFG && this.renderG(gfx);
+
+			this.renderFG && this.renderFG(gfx);
 		}
 
 	});
@@ -3789,11 +3808,11 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
-        add: function (body, tag) {
+        add: function (body, tag, zIndex) {
             if (!this._bodies) {
                 this._bodies = [];
             }
-            this._bodies.push([body, tag]);
+            this._bodies.push([body, tag, zIndex]);
             return body;
         },
 

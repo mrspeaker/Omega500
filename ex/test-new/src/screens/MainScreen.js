@@ -17,7 +17,7 @@
                 [1,0,2,2,2,2,2,2,2,2,2,0,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1]
-            ]));
+            ]), "map", 1);
 
             this.player = this.add(new Player(Ω.env.w * 0.5, Ω.env.h * 0.2, map));
             this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
