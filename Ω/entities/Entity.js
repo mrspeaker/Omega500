@@ -47,11 +47,11 @@
 
 		},
 
-        add: function (body, tag) {
+        add: function (body, tag, zIndex) {
             if (!this._bodies) {
                 this._bodies = [];
             }
-            this._bodies.push([body, tag]);
+            this._bodies.push([body, tag, zIndex]);
             return body;
         },
 
