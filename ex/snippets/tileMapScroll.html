@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Tile Map</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<script src="../../build/Ω500.js"></script>
+
+		<script>
+
+			var TitleScreen = Ω.Screen.extend({
+
+				sheet: new Ω.SpriteSheet("../res/sheets/kenny_tiles.png", 70, 70, { padding: [2, 2] }),
+				camera: null,
+
+				init: function () {
+
+					this.camera = new Ω.Camera(0, 0, Ω.env.w, Ω.env.h);
+
+					this.map = new Ω.Map(this.sheet, [
+						[9,10,12,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+						[1, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1, 0, 3,5,5,5,5,5,5,5,5,5,5,5,2,0,1],
+						[1, 0, 0,4,0,0,0,0,0,0,0,0,0,0,4,0,1],
+						[1, 0, 2,0,3,0,5,0,3,0,5,0,3,0,2,0,1],
+						[1, 0, 2,0,0,4,0,4,0,0,0,4,0,0,2,0,1],
+						[1, 0, 2,0,0,0,0,0,0,0,0,0,0,0,2,0,1],
+						[1, 0, 2,2,2,2,2,2,2,2,2,2,2,2,2,0,1],
+						[1, 0, 3,5,5,5,5,5,5,5,5,5,5,5,2,0,1],
+						[1, 0, 0,4,0,0,0,0,0,0,0,0,0,0,4,0,1],
+						[1, 0, 2,0,3,0,5,0,3,0,5,0,3,0,2,0,1],
+						[1, 0, 2,0,0,4,0,4,0,0,0,4,0,0,2,0,1],
+						[1, 0, 2,0,0,0,0,0,0,0,0,0,0,0,2,0,1],
+						[1, 0, 2,2,2,2,2,2,2,2,2,2,2,2,2,0,1],
+						[1, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+						[1, 1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+					]);
+
+				},
+
+				tick: function () {
+
+					this.camera.x = Math.sin(Ω.utils.now() / 1000) * 300 + 300;
+					this.camera.y = Math.sin(Ω.utils.now() / 800) * 350 + 350;
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+					//this.map.render(gfx, this.camera);
+					this.camera.render(gfx, [this.map]);
+
+				}
+
+			});
+
+			// Game object
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new TitleScreen());
+
+				}
+
+			}))(600, 400);
+
+		</script>
+	</body>
+</html>
