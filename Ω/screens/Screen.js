@@ -4,23 +4,22 @@
 
 	var Screen = Ω.Class.extend({
 
-		loaded: true,
-		frame: 0, // incremented directly by game.js
+		loaded: true, // Set to false if you want to do async stuff
+		frame: 0,
 
 		bodies: null, // Holds new bodies to be added next tick
-
-		_bodies_zindex: null, // Holds zIndex for body dictionary
 		_bodies: null, // Current dictionary of active bodies
+		_bodies_zindex: null, // Holds zIndex for body dictionary
 
 		camera: null,
 
 		tick: function () {},
+
 		_tick: function () {
 
 			var self = this;
 
-			// this.frame++; TODO: if this new magic works, increment frame here instead of
-			// in game.
+			this.frame++;
 
 			if (this._bodies) {
 
@@ -56,7 +55,7 @@
 
 				}, this);
 
-				// Tick all the bodies
+				// Tick all the active bodies
 				for (var tag in this._bodies) {
 					this._bodies[tag] = this._bodies[tag].filter(function (body) {
 
@@ -66,8 +65,10 @@
 						// Add any children bodies
 						if (body.bodies) {
 							body.bodies = body.bodies.filter(function (b) {
+
 								self.add(b[0], b[1], b[2]);
 								return false;
+
 							});
 						}
 						return stillAlive;
@@ -127,24 +128,38 @@
 			this.renderBG && this.renderBG(gfx);
 
 			if (this.camera) {
+
+				// Render from camera position
 				this.camera.renderPre(gfx);
 				this.render(gfx, this.camera);
 				if (this._bodies) {
 					var bodies = [];
 					this._bodies_zindex.forEach(function(bz) {
+
 						bodies.push(this._bodies[bz[1]]);
+
 					}, this);
 					this.camera.render(gfx, bodies, true);
 				}
 				this.camera.renderPost(gfx);
+
 			} else {
+
+				// Render over entire view port
 				this.render(gfx);
+
 				if (this._bodies) {
-					for (var tag in this._bodies) {
-						this._bodies[tag].forEach(function (b) {
+
+					// Render the bodies in zIndex order
+					this._bodies_zindex.forEach(function(bz) {
+
+						this._bodies[bz[1]].forEach(function (b) {
+
 							b.render(gfx);
-						});
-					}
+
+						}, this);
+
+					}, this);
 				}
 			}
 

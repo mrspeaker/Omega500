@@ -113,7 +113,6 @@
 				this.time += delta;
 				if (this.screen.loaded) {
 					this.screen._tick();
-					this.screen.frame++;
 				}
 				Ω.timers.tick();
 			}
