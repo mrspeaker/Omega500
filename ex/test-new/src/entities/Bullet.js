@@ -1,4 +1,5 @@
 (function (Ω) {
+
     "use strict";
 
     var Bullet = Ω.Entity.extend({

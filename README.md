@@ -57,7 +57,7 @@ Old-school, super-simple architecture: Everything has `tick` and `render(gfx)` m
     .     |
     . [Bullets]                 // Array of [extend Ω.Entity]
 
-Every loop  the engine calls `tick` on the main game object. This automatically calls `tick` on its current screen - but that's the end of the magic. After this the screen must manually call `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`.
+Every loop  the engine calls `tick` on the main game object. This automatically calls `tick` on its current screen - but that's the end of the magic. After this the screen must manually call `tick` on its children (player, all the baddies in the baddie array, map) and so on. Once the tick is done, the same thing happens with `render`. [**In progress**: recently added some magic to automate the tick/rendering of children - see `Screen` and `Entity`.]
 
 That's the rule: if you want something ticked, then `tick` it. If you want something rendered, then `render` it.
 
