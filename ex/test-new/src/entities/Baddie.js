@@ -13,6 +13,12 @@
 
         hit: function () {
 
+            for (var i = 0; i < 5; i++) {
+                this.add(
+                    new Smoke(this.x + Ω.utils.rand(-40, 40), this.y - 15 + Ω.utils.rand(-40, 40))
+                );
+            }
+
             this.remove = true;
 
         }
