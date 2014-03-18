@@ -7,9 +7,10 @@
 		loaded: true,
 		frame: 0, // incremented directly by game.js
 
-		_bodies: null, // Holds new bodies to be added next tick
-		_bodies_zindex: null, // Holds zIndex for bodies
-		bodies: null, // Current dictionary of active bodies
+		bodies: null, // Holds new bodies to be added next tick
+
+		_bodies_zindex: null, // Holds zIndex for body dictionary
+		_bodies: null, // Current dictionary of active bodies
 
 		camera: null,
 
@@ -20,16 +21,16 @@
 			// this.frame++; TODO: if this new magic works, increment frame here instead of
 			// in game.
 
-			if (this.bodies) {
+			if (this._bodies) {
 
 				// Erfph... make this all nicer, yo.
-				this._bodies = this._bodies.filter(function (r) {
+				this.bodies = this.bodies.filter(function (r) {
 					var tag = r[1] || "default",
 						spliced = false,
 						idx;
 
-					if (!self.bodies[tag]) {
-						self.bodies[tag] = [];
+					if (!self._bodies[tag]) {
+						self._bodies[tag] = [];
 
 						for (idx = 0; idx < self._bodies_zindex.length; idx++) {
 							if (r[2] < self._bodies_zindex[idx][0]) {
@@ -42,19 +43,19 @@
 							self._bodies_zindex.push([r[2], r[1]]);
 						}
 					}
-					self.bodies[tag].push(r[0]);
+					self._bodies[tag].push(r[0]);
 					return false;
 				});
 
-				for (var tag in this.bodies) {
-					this.bodies[tag] = this.bodies[tag].filter(function (body) {
+				for (var tag in this._bodies) {
+					this._bodies[tag] = this._bodies[tag].filter(function (body) {
 						var stillAlive = body.tick() && !(body.remove);
 						// Add children
-						if (body._bodies) {
-							body._bodies.forEach(function (innerBody) {
+						if (body.bodies) {
+							body.bodies.forEach(function (innerBody) {
 								self.add(innerBody[0], innerBody[1], innerBody[2]);
 							});
-							body._bodies.length = 0;
+							body.bodies.length = 0;
 						}
 						return stillAlive;
 					});
@@ -65,20 +66,20 @@
 		},
 
 		add: function (body, tag, zIndex) {
-			if (!this.bodies) {
-				this._bodies = [];
+			if (!this._bodies) {
+				this.bodies = [];
 				this._bodies_zindex = [[99, "default"]];
-				this.bodies = {
+				this._bodies = {
 					"default": []
 				};
 			}
-			this._bodies.push([body, tag, zIndex || 99]);
+			this.bodies.push([body, tag, zIndex || 99]);
 
 			return body;
 		},
 
 		get: function (tag) {
-			return this.bodies[tag] || [];
+			return this._bodies[tag] || [];
 		},
 
 		clear: function (gfx, col) {
@@ -108,19 +109,19 @@
 			if (this.camera) {
 				this.camera.renderPre(gfx);
 				this.render(gfx, this.camera);
-				if (this.bodies) {
+				if (this._bodies) {
 					var bodies = [];
 					this._bodies_zindex.forEach(function(bz) {
-						bodies.push(this.bodies[bz[1]]);
+						bodies.push(this._bodies[bz[1]]);
 					}, this);
 					this.camera.render(gfx, bodies, true);
 				}
 				this.camera.renderPost(gfx);
 			} else {
 				this.render(gfx);
-				if (this.bodies) {
-					for (var tag in this.bodies) {
-						this.bodies[tag].forEach(function (b) {
+				if (this._bodies) {
+					for (var tag in this._bodies) {
+						this._bodies[tag].forEach(function (b) {
 							b.render(gfx);
 						});
 					}

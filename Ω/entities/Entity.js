@@ -20,7 +20,7 @@
 
 		traits: null,
 
-		_bodies: null, // bodies to be added by the screen
+		bodies: null, // bodies to be added by the screen
 
 		init: function (x, y, w, h) {
 
@@ -48,10 +48,10 @@
 		},
 
         add: function (body, tag, zIndex) {
-            if (!this._bodies) {
-                this._bodies = [];
+            if (!this.bodies) {
+                this.bodies = [];
             }
-            this._bodies.push([body, tag, zIndex]);
+            this.bodies.push([body, tag, zIndex]);
             return body;
         },
 
