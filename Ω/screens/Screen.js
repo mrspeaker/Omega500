@@ -16,6 +16,7 @@
 
 		tick: function () {},
 		_tick: function () {
+
 			var self = this;
 
 			// this.frame++; TODO: if this new magic works, increment frame here instead of
@@ -24,38 +25,50 @@
 			if (this._bodies) {
 
 				// Erfph... make this all nicer, yo.
+
+				// Add any new bodies
 				this.bodies = this.bodies.filter(function (r) {
-					var tag = r[1] || "default",
+
+					var body = r[0],
+						tag = r[1] || "default",
+						zIndex = r[2] || 99, //WARNING: index can't be falsey
 						spliced = false,
-						idx;
+						i;
 
-					if (!self._bodies[tag]) {
-						self._bodies[tag] = [];
+					if (!this._bodies[tag]) {
+						this._bodies[tag] = [];
 
-						for (idx = 0; idx < self._bodies_zindex.length; idx++) {
-							if (r[2] < self._bodies_zindex[idx][0]) {
-								self._bodies_zindex.splice(idx, 0, [r[2], r[1]]);
+						// Re-order the zIndexes
+						for (i = 0; i < this._bodies_zindex.length; i++) {
+							if (zIndex < this._bodies_zindex[i][0]) {
+								this._bodies_zindex.splice(i, 0, [zIndex, tag]);
 								spliced = true;
 								break;
 							}
 						}
 						if (!spliced) {
-							self._bodies_zindex.push([r[2], r[1]]);
+							this._bodies_zindex.push([zIndex, tag]);
 						}
 					}
-					self._bodies[tag].push(r[0]);
-					return false;
-				});
+					this._bodies[tag].push(body);
 
+					return false;
+
+				}, this);
+
+				// Tick all the bodies
 				for (var tag in this._bodies) {
 					this._bodies[tag] = this._bodies[tag].filter(function (body) {
+
+						// Automagically remove any "remove"d entities
 						var stillAlive = body.tick() && !(body.remove);
-						// Add children
+
+						// Add any children bodies
 						if (body.bodies) {
-							body.bodies.forEach(function (innerBody) {
-								self.add(innerBody[0], innerBody[1], innerBody[2]);
+							body.bodies = body.bodies.filter(function (b) {
+								self.add(b[0], b[1], b[2]);
+								return false;
 							});
-							body.bodies.length = 0;
 						}
 						return stillAlive;
 					});
@@ -63,9 +76,12 @@
 			}
 
 			this.tick();
+
 		},
 
 		add: function (body, tag, zIndex) {
+
+			// "Lazyily" Set up the bodies structure.
 			if (!this._bodies) {
 				this.bodies = [];
 				this._bodies_zindex = [[99, "default"]];
@@ -73,13 +89,15 @@
 					"default": []
 				};
 			}
-			this.bodies.push([body, tag, zIndex || 99]);
+			this.bodies.push([body, tag, zIndex]);
 
 			return body;
 		},
 
 		get: function (tag) {
+
 			return this._bodies[tag] || [];
+
 		},
 
 		clear: function (gfx, col) {
@@ -103,7 +121,9 @@
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 		},
+
 		_render: function (gfx) {
+
 			this.renderBG && this.renderBG(gfx);
 
 			if (this.camera) {
@@ -129,6 +149,7 @@
 			}
 
 			this.renderFG && this.renderFG(gfx);
+
 		}
 
 	});
