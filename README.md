@@ -134,9 +134,13 @@ The default transition is a straight crossfade, but you can choose a colour to f
 
 **In progress**
 
-NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render` cycle on objects. If you pass a freshly minted `tick/renderable` object to `screen.add` it will be magically ticked and rendered.
+NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render` cycle on objects. If you pass a freshly minted `tick/renderable` object (a `body`) to `screen.add` it will be magically ticked and rendered.
 
-    this.add(new Ω.Entity({})); // Enitity will be ticked and renderd by magic.
+    this.add(new Ω.Entity({})); // Entity will be ticked and renderd by magic.
+    this.add(new BadGuy(), "baddies"); // Entity added and rennderd with "baddies" group
+    this.add(new BadGuy(), "baddies", 10); // If first "baddies" member, sets the zIndex for the group to 10
+
+An `entity` also has the `add` method - which will be added by the screen (see `Entity`). This is just testing at the moment: it reduces a lot of boilerplate and makes it really simple to get stuff on screen - but I'm still seeing if it's flexible enough.
 
 ## Entity
 [Ω/entities/Entity.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/entities/Entity.js)
@@ -147,7 +151,7 @@ Players, bad guys, monsters etc should inherit from `Ω.Entity`. Entities know h
 
 Has x, y, w, h properties which is used for map/entity collision detection. Width and height are optional if you specify them in the class itself (default is w: 32, h: 32).
 
-There are a couple of conventions for updating collections of entities [TODO: build these conventions in to the engine]. For "ticking", call tick on each object - and inside the object's tick method return `true` if it's still alive, and `false` if it should be removed:
+There are a couple of conventions for updating collections of entities [**NOTE**: these conventions are currently being integrated into the system: if you use the magic `add` method then you don't need to filter to tick, or forEach to render.]. For "ticking", call tick on each object - and inside the object's tick method return `true` if it's still alive, and `false` if it should be removed:
 
     this.baddies = this.baddies.filter(function (baddie) {
         return baddie.tick();
@@ -172,6 +176,12 @@ For rendering, just `forEach` them:
     });
 
 How things are rendered is completely up to you. You get the passed the `gfx` object which has the 2D graphics context as property `ctx`. You can draw with canvas primitives, or render images (see images), sprite sheets (see sprite sheets), or animation frames (see animations).
+
+**In progress**
+
+NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render` cycle on objects (see `Screen`. If you pass a freshly minted `tick/renderable` object to `this.add()` it will be magically ticked and rendered.
+
+    add: function(body, tag, zIndex)
 
 *Bounding boxes*
 
@@ -666,16 +676,14 @@ Highest priority and bugs:
 
 - API: standardise and consolidate api methods, parameter types, and parameter order.
 - API: remove/fix references to global instantiated "game" object (move to evt system)
-- API: Maybe... add the tick/renderable entity automagically:
-    - tick priority
-    - render z-index
-    - add individual or collection.
+- API: Test the new `bodies` tick/render system against old games: make sure it can work everywhere(ish).
 - API: move traits to game object, maybe
 - API: Input should be a class, not a singleton
 - BUG: bad map collision if entity taller/wider than block
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
+- BUG: when showing outside map area with camera - show blank space, not repeat first row/column
 - Examples: add example using Box2D or other physics lib (see "Oscillator" game)
 - Examples: do a "how to make a game" tutorial.
 
