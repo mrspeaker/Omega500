@@ -9,8 +9,8 @@
 
         init: function (x, y, map) {
 
-            this.map = map;
             this._super(x, y);
+            this.map = map;
 
         },
 
@@ -24,7 +24,10 @@
             if (Ω.input.isDown("up")) { yo -= this.speed; }
             if (Ω.input.isDown("down")) { yo += this.speed; }
             if (Ω.input.pressed("space")) {
-                this.add(new Bullet(this.x + 10, this.y + 5, xo < 0 ? -1 : 1), "player-bullet", 50);
+                this.add(
+                    new Bullet(this.x + 10, this.y + 5, xo < 0 ? -1 : 1),
+                    "player-bullet"
+                );
             }
 
             this.move(xo, yo, this.map);

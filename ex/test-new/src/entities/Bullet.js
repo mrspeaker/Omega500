@@ -15,6 +15,9 @@
         tick: function () {
 
             this.x += this.dir * 8;
+            this.y += Math.sin(Ω.utils.now() / 100) * 0.5;
+            this.add(new Smoke(this.x, this.y, this.w, this.h, 15));
+
             return --this.life > 0;
 
         },

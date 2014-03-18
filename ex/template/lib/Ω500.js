@@ -2236,57 +2236,72 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 	var Screen = Ω.Class.extend({
 
-		loaded: true,
-		frame: 0, // incremented directly by game.js
+		loaded: true, // Set to false if you want to do async stuff
+		frame: 0,
 
-		_bodies: null, // Holds new bodies to be added next tick
-		_bodies_zindex: null, // Holds zIndex for bodies
-		bodies: null, // Current dictionary of active bodies
+		bodies: null, // Holds new bodies to be added next tick
+		_bodies: null, // Current dictionary of active bodies
+		_bodies_zindex: null, // Holds zIndex for body dictionary
 
 		camera: null,
 
 		tick: function () {},
+
 		_tick: function () {
+
 			var self = this;
 
-			// this.frame++; TODO: if this new magic works, increment frame here instead of
-			// in game.
+			this.frame++;
 
-			if (this.bodies) {
+			if (this._bodies) {
 
 				// Erfph... make this all nicer, yo.
-				this._bodies = this._bodies.filter(function (r) {
-					var tag = r[1] || "default",
+
+				// Add any new bodies
+				this.bodies = this.bodies.filter(function (r) {
+
+					var body = r[0],
+						tag = r[1] || "default",
+						zIndex = r[2] || 99, //WARNING: index can't be falsey
 						spliced = false,
-						idx;
+						i;
 
-					if (!self.bodies[tag]) {
-						self.bodies[tag] = [];
+					if (!this._bodies[tag]) {
+						this._bodies[tag] = [];
 
-						for (idx = 0; idx < self._bodies_zindex.length; idx++) {
-							if (r[2] < self._bodies_zindex[idx][0]) {
-								self._bodies_zindex.splice(idx, 0, [r[2], r[1]]);
+						// Re-order the zIndexes
+						for (i = 0; i < this._bodies_zindex.length; i++) {
+							if (zIndex < this._bodies_zindex[i][0]) {
+								this._bodies_zindex.splice(i, 0, [zIndex, tag]);
 								spliced = true;
 								break;
 							}
 						}
 						if (!spliced) {
-							self._bodies_zindex.push([r[2], r[1]]);
+							this._bodies_zindex.push([zIndex, tag]);
 						}
 					}
-					self.bodies[tag].push(r[0]);
-					return false;
-				});
+					this._bodies[tag].push(body);
 
-				for (var tag in this.bodies) {
-					this.bodies[tag] = this.bodies[tag].filter(function (body) {
+					return false;
+
+				}, this);
+
+				// Tick all the active bodies
+				for (var tag in this._bodies) {
+					this._bodies[tag] = this._bodies[tag].filter(function (body) {
+
+						// Automagically remove any "remove"d entities
 						var stillAlive = body.tick() && !(body.remove);
-						// Add children
-						if (body._bodies) {
-							body._bodies.forEach(function (innerBody) {
-								self.add(innerBody[0], innerBody[1], innerBody[2]);
+
+						// Add any children bodies
+						if (body.bodies) {
+							body.bodies = body.bodies.filter(function (b) {
+
+								self.add(b[0], b[1], b[2]);
+								return false;
+
 							});
-							body._bodies.length = 0;
 						}
 						return stillAlive;
 					});
@@ -2294,23 +2309,28 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			}
 
 			this.tick();
+
 		},
 
 		add: function (body, tag, zIndex) {
-			if (!this.bodies) {
-				this._bodies = [];
+
+			// "Lazyily" Set up the bodies structure.
+			if (!this._bodies) {
+				this.bodies = [];
 				this._bodies_zindex = [[99, "default"]];
-				this.bodies = {
+				this._bodies = {
 					"default": []
 				};
 			}
-			this._bodies.push([body, tag, zIndex || 99]);
+			this.bodies.push([body, tag, zIndex]);
 
 			return body;
 		},
 
 		get: function (tag) {
-			return this.bodies[tag] || [];
+
+			return this._bodies[tag] || [];
+
 		},
 
 		clear: function (gfx, col) {
@@ -2334,32 +2354,49 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			c.fillRect(0, 0, gfx.w, gfx.h);
 
 		},
+
 		_render: function (gfx) {
+
 			this.renderBG && this.renderBG(gfx);
 
 			if (this.camera) {
+
+				// Render from camera position
 				this.camera.renderPre(gfx);
 				this.render(gfx, this.camera);
-				if (this.bodies) {
+				if (this._bodies) {
 					var bodies = [];
 					this._bodies_zindex.forEach(function(bz) {
-						bodies.push(this.bodies[bz[1]]);
+
+						bodies.push(this._bodies[bz[1]]);
+
 					}, this);
 					this.camera.render(gfx, bodies, true);
 				}
 				this.camera.renderPost(gfx);
+
 			} else {
+
+				// Render over entire view port
 				this.render(gfx);
-				if (this.bodies) {
-					for (var tag in this.bodies) {
-						this.bodies[tag].forEach(function (b) {
+
+				if (this._bodies) {
+
+					// Render the bodies in zIndex order
+					this._bodies_zindex.forEach(function(bz) {
+
+						this._bodies[bz[1]].forEach(function (b) {
+
 							b.render(gfx);
-						});
-					}
+
+						}, this);
+
+					}, this);
 				}
 			}
 
 			this.renderFG && this.renderFG(gfx);
+
 		}
 
 	});
@@ -3781,7 +3818,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		traits: null,
 
-		_bodies: null, // bodies to be added by the screen
+		bodies: null, // bodies to be added by the screen
 
 		init: function (x, y, w, h) {
 
@@ -3809,10 +3846,10 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		},
 
         add: function (body, tag, zIndex) {
-            if (!this._bodies) {
-                this._bodies = [];
+            if (!this.bodies) {
+                this.bodies = [];
             }
-            this._bodies.push([body, tag, zIndex]);
+            this.bodies.push([body, tag, zIndex]);
             return body;
         },
 
@@ -4066,7 +4103,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 				this.time += delta;
 				if (this.screen.loaded) {
 					this.screen._tick();
-					this.screen.frame++;
 				}
 				Ω.timers.tick();
 			}

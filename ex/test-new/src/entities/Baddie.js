@@ -16,6 +16,7 @@
             this.remove = true;
 
         }
+
     });
 
     window.Baddie = Baddie;
