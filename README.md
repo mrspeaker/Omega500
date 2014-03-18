@@ -683,7 +683,6 @@ Highest priority and bugs:
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
-- BUG: when showing outside map area with camera - show blank space, not repeat first row/column
 - Examples: add example using Box2D or other physics lib (see "Oscillator" game)
 - Examples: do a "how to make a game" tutorial.
 

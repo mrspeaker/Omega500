@@ -65,11 +65,11 @@
 			}
 
 			for (j = sty; j <= endy; j++) {
-				if (j < 0 || (!this.repeat && j > this.cellH - 1)) {
+				if (j < 0 || !this.repeat && j > this.cellH - 1) {
 					continue;
 				}
 				for (i = stx; i <= endx; i++) {
-					if (!this.repeat && i > this.cellW - 1) {
+					if (i < 0 || !this.repeat && i > this.cellW - 1) {
 						continue;
 					}
 
