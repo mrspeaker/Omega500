@@ -24,7 +24,7 @@ A real game will have a bunch of screens (TitleScreen, GameOverScreen...) and a 
 ## Some games using Ω500
 
 - [Oscillator](http://mrspeaker.itch.io/oscillator): Cyberpunk missile command. [Source](https://github.com/mrspeaker/oscillator)
-- [Flappy Bird Typing Tutor](http://www.mrspeaker.net/dev/game/flappy): All the simplicity of <em>Flappy Bird</em> combined with a relaxing touch-typing  test [Source in /ex](https://github.com/mrspeaker/Omega500/tree/master/ex/flapjam).
+- [Wafty Man](https://itunes.apple.com/us/app/wafty-man/id824792309): Accurate Flappy Bird clone [Source](https://github.com/mrspeaker/wafty-man/) & [Flappy Bird Typing Tutor](http://www.mrspeaker.net/dev/game/flappy): All the simplicity of <em>Flappy Bird</em> combined with a relaxing touch-typing  test [Source in /ex](https://github.com/mrspeaker/Omega500/tree/master/ex/flapjam).
 - [DIGIBOTS & CO](http://www.mrspeaker.net/dev/game/digibots): inside-out Lemmings game where you need to build a path to complete the level. Finalist in the NoFuture contest where became a real-life arcade machine. Neat-o! [Source](https://github.com/mrspeaker/digibots).
 - [Time Flies Straight](http://mrspeaker.net/dev/ld27): Time Flies Straight. A non-usual game of fractal time - starring Carl Sagan. Made in 48 hours for LD#27 [Source](https://github.com/mrspeaker/ld27)
 - [Zmore](http://mrspeaker.net/dev/ld26): Turn light into darkness and escape minimalist captivity [Source](https://github.com/mrspeaker/ld26).
@@ -37,7 +37,7 @@ A real game will have a bunch of screens (TitleScreen, GameOverScreen...) and a 
 
 ## Ω500 Features:
 
-Main game loop. Screens, dialogs, and transitions. Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Velocity acceleration & gravity components. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding. Auto-genereated tile sets for prototyping. Text helpers. Trig helpers, Font plotter. Mixin system. State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Various "effects".
+Main game loop. Screens and dialogs (with transitions). Input handling (keys, mouse, touch, iCade). Image loading and display. SpriteSheet animations. Tile and isometric maps. Repeating maps, with parallax. Entity/Map and Entity/Entity collisions. Velocity acceleration & gravity components. Generate maps from images. Camera'd map, Tracked camera (with box). Audio load/play. Math/random/timer helpers. Asset preloader/progress. Simple particle controller. Raycast against maps. Path finding, QuadTree, Simplex Noise. Auto-genereated tile sets for prototyping. Text helpers. Trig helpers, Font plotter. Mixin system. State machine helper. "Tiled" map editor level support. Fullscreen API support. Flipped spritesheets and images. Spring algo (for camera & entities). Various "effects".
 
 # Using Ω500
 
@@ -94,7 +94,7 @@ The Game super class has some boilerplate, such as accepting a `screen` object t
 
 Canvas/DOM container:
 
-The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or height is set on the canvas element this will be used, otherwise it will use the values passed in - or defualt to 400x250.
+The `canvas` property to sets the game canvas: can be a CSS selector to either the canvas element you want to use, or the containing element you want the canvas to be created inside of. Defaults to `"body"`. If an explicit width or height is set on the canvas element this will be used, otherwise it will use the values passed in - or default to 400x250.
 
 ## Screen
 [/screens/Screen.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/screens/Screen.js)
@@ -134,13 +134,13 @@ The default transition is a straight crossfade, but you can choose a colour to f
 
 **In progress**
 
-NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render` cycle on objects. If you pass a freshly minted `tick/renderable` object (a `body`) to `screen.add` it will be magically ticked and rendered.
+NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render` cycle on objects. If you pass a `tick/renderable` object (a `body`) to `screen.add` it will be magically ticked and rendered. This is just testing at the moment: it reduces a lot of boilerplate and makes it really simple to get stuff on screen - but I'm still seeing if it's flexible enough.
 
     this.add(new Ω.Entity({})); // Entity will be ticked and renderd by magic.
     this.add(new BadGuy(), "baddies"); // Entity added and rennderd with "baddies" group
     this.add(new BadGuy(), "baddies", 10); // If first "baddies" member, sets the zIndex for the group to 10
 
-An `entity` also has the `add` method - which will be added by the screen (see `Entity`). This is just testing at the moment: it reduces a lot of boilerplate and makes it really simple to get stuff on screen - but I'm still seeing if it's flexible enough.
+An `entity` also now has a `add` method. Bodies added here will be processed by the screen (see `Entity`).
 
 ## Entity
 [Ω/entities/Entity.js](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/entities/Entity.js)
@@ -672,60 +672,48 @@ Then build add your project to the Ejecta `/App` folder, and build with Xcode.
 
 The development of Ω500 has thus-far followed a "games first" evolution: with a focus on getting games out the door, rather than making beautiful APIs. Hence, there are some warts around. Now that it has proven itself in the field, Ω500 will enter a grand period of refactoring, consolidation, and unit testing.
 
-Highest priority and bugs:
+High priority:
 
 - API: standardise and consolidate api methods, parameter types, and parameter order.
 - API: remove/fix references to global instantiated "game" object (move to evt system)
-- API: Test the new `bodies` tick/render system against old games: make sure it can work everywhere(ish).
 - API: move traits to game object, maybe
-- API: Input should be a class, not a singleton
-- BUG: bad map collision if entity taller/wider than block
+- API: Input should be a class, not an object
+- Examples: add example using Box2D or other physics lib (see "Oscillator" game)
+- Examples: do a "how to make a game" tutorial.
+- BUG: bad map collision if entity taller/wider than block (can work around with collision points)
 - BUG: bad map collision with velocity/gravity when jammed hard left into block (jump straight up and get stuck on upper block)
 - BUG: tracking camera box moves on zoom.
 - BUG: tracking camera box jumps when map is not as wide as screen, but needs to scroll.
-- Examples: add example using Box2D or other physics lib (see "Oscillator" game)
-- Examples: do a "how to make a game" tutorial.
-
-High priority:
-
 - Perf: dirty rectangles
 - Perf: profiling - offscreen canvas, collection methods
-- Perf: Object pooling
+- Perf: object pooling
 - Physics: Alternate hit box size for collisions
-- GUI: button implementation for canvas only games
 - Assets: Partial loader - per-screen asset loading
-- Screens: Multiple screens (as layers)
-- BUG: Load from image on retina devices
-- Maps: Auto-tiling
-- Maps: Tiled image background
 
-Low prority:
+Low priority:
 
 - Audio: add multi-voice sounds through some kind of pool.
 - Gfx: DSP on spritesheets (especially a "tint" for images)
-- Gfx: "Post" effects in webgl (see DIGIBOTS & CO.)
-- Utils: Serialize/deserialize levels
 - Maps: block selecting (iso)
-- Jams: Not Ω; but script conversion from WAV/AIFF to MP3 & OGG.
-- Jams: Not Ω; quick set up for grunt/gulp.
-- Export: defaults/conversions for Ejecta (export to iOS)
+- Maps: Tiled image background
 - Better website and examples
 - Font - individual letter widths
-
-Later (or when needed for a game):
-
+- GUI: button implementation for canvas only games
+- Screens: Multiple screens (as layers)
+- BUG: Load from image on retina devices (cross browser problems with picking a pixel colour)
 - Math: Swarm/flock algo
+- Maps: Auto-tiling
+- Gfx: "Post" effects in webgl (see DIGIBOTS & CO.)
 - Polygon objects
 - WebGL renderer
 
 ## inFAQ:
 
 Q. How do you do that omega symbol thing?
-A. Ω symbol is alt-z, on a mac. I promise to change this stupid name if the lib becomes any good.
+A. Ω symbol is alt-z, on a mac. I should probably change this stupid name if the lib becomes any good.
 
 Q. When do we get a version bump?
 A. Every time I finish a game with it. Version 1.0 in 5 more games!
 
 Q. License?
 A. [Unlicense](https://github.com/mrspeaker/Omega500/blob/master/%CE%A9/UNLICENSE)!
-
