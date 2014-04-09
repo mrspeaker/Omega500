@@ -9,10 +9,9 @@ body {
 
 header {
 	padding: 0;
-	background: #2578C5 url("../res/images/background.png") no-repeat;
+	background: #2578C5 url("../res/images/background2.png") repeat-x 0 -220px;
 
-	background-size: 100%;
-	height: 240px;
+	height: 90px;
 	border-bottom: 1px solid #999;
 	text-align: center;
 }
@@ -28,12 +27,17 @@ header h1 {
 	opacity: 0.9;
 	margin: 0;
 	color: #efefef;
-	padding: 0 0 0 5px;
+	padding: 3px 0 0 5px;
 	background-color: #222;
 }
 
 a {
 	color: hsl(200, 40%, 40%);
+	text-decoration: none;
+}
+
+h1 a {
+	color: hsl(200, 40%, 80%);
 	text-decoration: none;
 }
 
@@ -152,7 +156,11 @@ canvas:-webkit-full-screen {
 
 a.home {
 	display: block;
-	font-size: 7pt;
+	margin-top:20px;
 	text-align: left;
-	padding-left: 4px;
+	padding: 4px 6px;
+	background-color: #078cd7;
+	border-radius:  4px;
+	width: 30px;
+	color: #fff;
 }

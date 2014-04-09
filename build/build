@@ -55,3 +55,4 @@ cat - \
 
 # Copy the library to the template project
 cp Ω500.js ../ex/template/lib
+
