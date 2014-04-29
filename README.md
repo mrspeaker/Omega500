@@ -674,6 +674,10 @@ The development of Ω500 has thus-far followed a "games first" evolution: with a
 
 High priority:
 
+- auto system: add this commit? Screen.js: https://github.com/mrspeaker/ld29/commit/5d0b7909426fc6253a8323ce12877a5995f7f2e2
+- and this one? https://github.com/mrspeaker/ld29/commit/db480929aa9e300a89f7877c53f3948eb70d32b0
+- data to state? State.js: https://github.com/mrspeaker/ld29/commit/cb0f89d64316d2c5097c954390021c0687700de3
+
 - API: standardise and consolidate api methods, parameter types, and parameter order.
 - API: remove/fix references to global instantiated "game" object (move to evt system)
 - API: move traits to game object, maybe
