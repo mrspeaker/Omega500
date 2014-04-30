@@ -92,6 +92,27 @@
 
 		},
 
+		getBlockCell: function (block) {
+			var row = block[1] / this.sheet.h | 0,
+				col = block[0] / this.sheet.w | 0;
+
+			if (row < 0 || row > this.cellH - 1) {
+				row = -1;
+			}
+			if (col < 0 || col > this.cellW - 1) {
+				col = -1;
+			}
+
+			return [col, row];
+		},
+
+		getCellPixels: function (block) {
+			var row = block[1] * this.sheet.h,
+				col = block[0] * this.sheet.w;
+
+			return [col, row];
+		},
+
 		getBlock: function (block) {
 
 			var row = block[1] / this.sheet.h | 0,
@@ -123,6 +144,19 @@
 
 			var row = pos[1] / this.sheet.h | 0,
 				col = pos[0] / this.sheet.w | 0;
+
+			if (row < 0 || row > this.cellH - 1 || col < 0 || col > this.cellW - 1) {
+				return;
+			}
+
+			this.cells[row][col] = block;
+
+		},
+
+		setBlockCell: function (pos, block) {
+
+			var row = pos[1],
+				col = pos[0];
 
 			if (row < 0 || row > this.cellH - 1 || col < 0 || col > this.cellW - 1) {
 				return;

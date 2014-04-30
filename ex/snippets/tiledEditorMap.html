@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ω500 Tile Map</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../res/main.css">
+	</head>
+	<body>
+		<section>
+			<canvas id="board"></canvas>
+			<a class="home" href="./">back</a>
+		</section>
+
+		<script src="../../build/Ω500.js"></script>
+
+		<script>
+
+			var TitleScreen = Ω.Screen.extend({
+
+				sheet: new Ω.SpriteSheet("../res/sheets/tiles.png", 32, 32),
+
+				loaded: false,
+
+				init: function () {
+
+					var self = this;
+
+					// Loads a Tiled Editor file
+					this.tiled = new Ω.Tiled("../res/tiled/level.json", function (level) {
+
+						self.loaded = true;
+						self.populateMap(level);
+
+					});
+
+				},
+
+				populateMap: function (level) {
+
+					var mapLayer = level.layer("map"),
+						coins = mapLayer.type("coins"),
+						spawn = mapLayer.name("player_spawn");
+
+					this.map = new Ω.Map(this.sheet, mapLayer.get().data);
+
+				},
+
+				render: function (gfx) {
+
+					var c = gfx.ctx;
+
+					this.clear(gfx, "#000");
+					this.map.render(gfx);
+
+				}
+
+			});
+
+			// Game object
+			new (Ω.Game.extend({
+
+				canvas: "#board",
+
+				load: function () {
+
+					this.setScreen(new TitleScreen());
+
+				}
+
+			}))(600, 400);
+
+		</script>
+	</body>
+</html>

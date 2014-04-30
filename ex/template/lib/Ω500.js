@@ -1579,53 +1579,49 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
             this.layers = [];
             this.onload = onload;
 
+            // TODO: make sure not cached!
             Ω.utils.ajax(file, function (xhr) {
 
+                // TODO: handle xhr errors
                 self.processLevel(JSON.parse(xhr.responseText));
 
             });
         },
 
-        layerByName: function (name) {
+        layer: function (name) {
 
-            var layer = Ω.utils.getByKeyValue(this.layers, "name", name);
-            return layer ? [layer] : [];
-
-        },
-
-        objectByName: function (layer, name) {
-
-            // TODO: fix the .get(data) shit
-
-            return this.layerByName(layer).get("data").reduce(function(acc, el) {
-
-                // Just return one or zero matchs
-                if (acc.length === 0 && el.name === name) {
-                    acc = [el];
+            var layer = Ω.utils.getByKeyValue(this.layers, "name", name),
+                tileH = this.tileH,
+                adjustYPos = function (obj) {
+                    // Weird thing of Tiled when stamping objects
+                    if (obj.width === 0 && obj.height === 0) {
+                        obj.y -= tileH;
+                    }
+                    return obj;
                 }
-                return acc;
-            }, []);
 
-        },
+            return {
+                get: function () {
+                    return layer;
+                },
+                // Might add "optional" param and throw error if not found by default.
+                // Maybe param can be bool (if true, ok to be undefined - else if func, run it - else return as value
+                name: function (selector, defaultTo) {
+                    var objs = layer.data.filter(function (obj) {
+                            return obj.name === selector;
+                        })
+                        .map(adjustYPos);
+                    return objs.length ? objs[0] : defaultTo;
+                },
+                type: function (selector, defaultTo) {
+                    var objs = layer.data.filter(function (obj) {
+                            return obj.type === selector;
+                        })
+                        .map(adjustYPos);
 
-        objectsByName: function (layer, name) {
-
-            // TODO: fix the .get(data) shit
-
-            var layer = this.layerByName(layer).get("data");
-
-            if (!name) {
-                return layer;
+                    return objs.length === 0 && defaultTo ? defaultTo : objs;
+                }
             }
-
-            return !layer ? [] : layer.reduce(function(acc, el) {
-
-                if (el.name === name) {
-                    acc.push(el);
-                }
-                return acc;
-            }, []);
-
         },
 
         processLevel: function (json) {
@@ -1674,7 +1670,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
     });
 
-    window.Tiled = Tiled;
+    Ω.Tiled = Tiled;
 
 }(Ω));
 (function (Ω) {
@@ -3320,6 +3316,27 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 		},
 
+		getBlockCell: function (block) {
+			var row = block[1] / this.sheet.h | 0,
+				col = block[0] / this.sheet.w | 0;
+
+			if (row < 0 || row > this.cellH - 1) {
+				row = -1;
+			}
+			if (col < 0 || col > this.cellW - 1) {
+				col = -1;
+			}
+
+			return [col, row];
+		},
+
+		getCellPixels: function (block) {
+			var row = block[1] * this.sheet.h,
+				col = block[0] * this.sheet.w;
+
+			return [col, row];
+		},
+
 		getBlock: function (block) {
 
 			var row = block[1] / this.sheet.h | 0,
@@ -3351,6 +3368,19 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 
 			var row = pos[1] / this.sheet.h | 0,
 				col = pos[0] / this.sheet.w | 0;
+
+			if (row < 0 || row > this.cellH - 1 || col < 0 || col > this.cellW - 1) {
+				return;
+			}
+
+			this.cells[row][col] = block;
+
+		},
+
+		setBlockCell: function (pos, block) {
+
+			var row = pos[1],
+				col = pos[0];
 
 			if (row < 0 || row > this.cellH - 1 || col < 0 || col > this.cellW - 1) {
 				return;
