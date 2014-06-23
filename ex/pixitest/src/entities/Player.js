@@ -2,22 +2,15 @@
 
     "use strict";
 
-    var Player = Ω.Entity.extend({
-        w: 24,
-        h: 32,
+    var Player = Ω.Sprite.extend({
+        w: 46,
+        h: 54,
 
-        sprite: new PIXI.Sprite(
-            PIXI.Texture.fromImage("res/indy.png")
-        ),
-
-        init: function (x, y) {
-            var sprite = this.sprite;
-            this._super(x, y);
-
-            sprite.filters = [new PIXI.SepiaFilter()];
-            sprite.scale.x = sprite.scale.y = 0.3;
-
-            game.addChild(sprite);
+        opt: {
+            img: "res/indy.png",
+            scale: [0.3, 0.3],
+            filters: [new PIXI.SepiaFilter()],
+            offset: [0, 0]
         },
 
         tick: function () {
@@ -36,16 +29,15 @@
         },
 
         render: function (gfx, camera) {
+
+            this._super(gfx, camera);
+
             var c = gfx.ctx,
                 x = this.x - camera.x,
-                y = this.y - camera.y,
-                sprite = this.sprite;
+                y = this.y - camera.y;
 
             c.fillStyle = "#333";
             c.fillRect(x, y, this.w, this.h);
-
-            sprite.y = y;
-            sprite.x = x;
         }
 
     });
