@@ -183,6 +183,8 @@ NOTE: W.I.P! Currently adding some magic to screens to automate the `tick/render
 
     add: function(body, tag, zIndex)
 
+NOTE: Problem with this approach is that there is no "remove" at the moment - so refreshing is a problem. See my LD29 game how I hacked around it (and refactor this!)
+
 *Bounding boxes*
 
 Sometimes it's useful to see where the bounding box of your entity is. There's no debug mode, but the default rendering of an entity is something like this:
