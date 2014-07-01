@@ -2742,7 +2742,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 		flipImage: function (img, flags) {
 
 			// flip: x = 1, y = 2, both = 3, none = 0
-
 			var ctx = Ω.gfx.createCanvas(
 					img.width * (flags & 1 ? 2 : 1),
 					img.height * (flags & 2 ? 2 : 1)
@@ -3257,6 +3256,15 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 			this.h = this.cellH * this.sheet.h;
 			this.w = this.cellW * this.sheet.w;
 
+		},
+
+		isWalkable: function (col, row) {
+
+			if (row < 0 || row > this.cellH - 1 || col < 0 || col > this.cellW - 1) {
+				return false;
+			}
+
+			return this.cells[row][col] <= this.walkable;
 		},
 
 		render: function (gfx, camera) {
