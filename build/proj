@@ -14,13 +14,18 @@ while test $# -gt 0; do
             echo "options:"
             echo "-h, --help                show brief help"
             echo "-t, --title       		specify project title"
+            echo "-min                      use the minified version of the lib"
             echo "-o, --output-dir=DIR      specify a directory to store output in"
+            echo "libs:"
+            echo "-pf, --pathfind           include A* lib"
+            echo "-noise, --noise           include Simplex noise lib"
             exit 0
             ;;
         -t)
             shift
             if test $# -gt 0; then
-                    echo "Project name: $1"
+                    title=$1
+                    echo "Project name: $title"
             else
                     echo "no title specified"
                     exit 1
@@ -28,8 +33,8 @@ while test $# -gt 0; do
             shift
             ;;
         --title*)
-            echo "Project name: `echo $1 | sed -e 's/^[^=]*=//g'`"
-            #echo "Project name: $1"
+            title=`echo $1 | sed -e 's/^[^=]*=//g'`
+            echo "Project name: $title"
             shift
             ;;
         -o)
@@ -46,10 +51,18 @@ while test $# -gt 0; do
             echo "outpitut dir: `echo $1 | sed -e 's/^[^=]*=//g'`"
             shift
             ;;
+        -pf|--pathfind)
+            echo "Include the pathfinding"
+            shift
+            ;;
         *)
             break
             ;;
     esac
 done
 
-echo test $#
+echo parms: $# $title
+
+# Once options are set, copy stuff
+
+# Read "files", copy...
