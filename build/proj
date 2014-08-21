@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Creates a new project ready to go
+
+# doesn't work yet though.
+
+while test $# -gt 0; do
+    case "$1" in
+        -h|--help)
+            echo "Create new Ω500 project"
+            echo " "
+            echo "proj [options] path"
+            echo " "
+            echo "options:"
+            echo "-h, --help                show brief help"
+            echo "-t, --title       		specify project title"
+            echo "-o, --output-dir=DIR      specify a directory to store output in"
+            exit 0
+            ;;
+        -t)
+            shift
+            if test $# -gt 0; then
+                    echo "Project name: $1"
+            else
+                    echo "no title specified"
+                    exit 1
+            fi
+            shift
+            ;;
+        --title*)
+            echo "Project name: `echo $1 | sed -e 's/^[^=]*=//g'`"
+            #echo "Project name: $1"
+            shift
+            ;;
+        -o)
+            shift
+            if test $# -gt 0; then
+                    echo "Output dir: $1"
+            else
+                    echo "no output dir specified"
+                    exit 1
+            fi
+            shift
+            ;;
+        --output-dir*)
+            echo "outpitut dir: `echo $1 | sed -e 's/^[^=]*=//g'`"
+            shift
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+echo test $#
