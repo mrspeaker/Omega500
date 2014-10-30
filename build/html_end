@@ -1,0 +1,13 @@
+		
+		<!-- Game files -->
+		<!--
+		<script src="scripts/TitleScreen.js"></script>
+		-->
+
+		<script>
+
+			// var game = new Game(400, 300);
+
+		</script>
+	</body>
+</html>

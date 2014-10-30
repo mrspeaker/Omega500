@@ -66,3 +66,21 @@ echo parms: $# $title
 # Once options are set, copy stuff
 
 # Read "files", copy...
+outpath="tmp"
+rm -rf $outpath
+mkdir $outpath
+mkdir $outpath/lib
+
+cat "html_start">$outpath/index.html
+
+exec<"files"
+while read line
+do
+    cp "../$line" $outpath/lib
+    echo -e "\t\t<script src=\"lib/$line\"></script>">>$outpath/index.html
+done
+
+cat "html_end">>$outpath/index.html
+
+
+
