@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Ω500 color helpers</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="../res/main.css">
-    </head>
-    <body>
+  <head>
+    <title>Ω500 color helpers</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../res/main.css">
+  </head>
+  <body>
 
-        <section>
-            <canvas id="board"></canvas>
-            <a class="home" href="./">back</a>
-        </section>
+    <header>
+      <h1><a href="./">Ω500</a></h1>
+    </header>
 
-        <script src="../../build/Ω500.js"></script>
+    <section>
+      <canvas id="board"></canvas>
+      <a class="home" href="./">back</a>
+    </section>
 
-        <script>
+    <script src="../../build/Ω500.js"></script>
 
-            new (Ω.Game.extend({
+    <script>
 
-                canvas: "#board",
+      new (Ω.Game.extend({
 
-                init: function (w, h) {
-                    this._super(w, h);
-                    Ω.utils.colors.set("c64");
-                },
+        canvas: "#board",
 
-                render: function (gfx) {
-                    this._super(gfx);
+        init: function (w, h) {
+          this._super(w, h);
+          Ω.utils.colors.set("c64");
+        },
 
-                    var c = gfx.ctx,
-                        w = gfx.w / 4 | 0,
-                        h = gfx.h / 4 | 0,
-                        msg = "C64 COLOR PALETTE";
+        render: function (gfx) {
+          this._super(gfx);
 
-                    for (var i = 0; i < 16; i++) {
-                        c.fillStyle = Ω.utils.colors.get(i);
-                        c.fillRect(i % 4 * w, (i / 4 | 0) * h, w, h);
-                    }
+          var c = gfx.ctx,
+              w = gfx.w / 4 | 0,
+              h = gfx.h / 4 | 0,
+              msg = "C64 COLOR PALETTE";
 
-                    c.fillStyle = Ω.utils.colors.get(Ω.utils.toggle(500, 16));
-                    c.fillRect(0, gfx.h * 0.4 - 3, gfx.w, 45);
+          for (var i = 0; i < 16; i++) {
+            c.fillStyle = Ω.utils.colors.get(i);
+            c.fillRect(i % 4 * w, (i / 4 | 0) * h, w, h);
+          }
 
-                    c.font = "24pt monospace";
-                    c.fillStyle = Ω.utils.colors.get(0);
-                    c.fillText(msg, gfx.w * 0.1, gfx.h * 0.5);
-                    c.fillStyle = Ω.utils.colors.rnd();
-                    c.fillText(msg, gfx.w * 0.1 + 1, gfx.h * 0.5 + 1);
+          c.fillStyle = Ω.utils.colors.get(Ω.utils.toggle(500, 16));
+          c.fillRect(0, gfx.h * 0.4 - 3, gfx.w, 45);
 
+          c.font = "24pt monospace";
+          c.fillStyle = Ω.utils.colors.get(0);
+          c.fillText(msg, gfx.w * 0.1, gfx.h * 0.5);
+          c.fillStyle = Ω.utils.colors.rnd();
+          c.fillText(msg, gfx.w * 0.1 + 1, gfx.h * 0.5 + 1);
 
+        }
 
+      }))(400, 300);
 
-                }
-
-            }))(400, 300);
-
-        </script>
-    </body>
+    </script>
+  </body>
 </html>

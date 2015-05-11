@@ -1,7 +1,6 @@
 body {
 	background-color: #fff;
-	/*background-size: cover;*/
-	font-family:  'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	font-family:  "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-size: 11pt;
 	margin: 0;
 	padding: 0;
@@ -9,26 +8,17 @@ body {
 
 header {
 	padding: 0;
-	background: #2578C5 url("../res/images/background2.png") repeat-x 0 -220px;
-
-	height: 90px;
-	border-bottom: 1px solid #999;
-	text-align: center;
-}
-.inner {
-	padding-top: 30px;
-	margin: 0 auto;
-	text-align: left;
-	width: 80%;
+	background: #2578C5 url("../res/images/background2.png") repeat-x 0 -245px;
+	height: 160px;
+	border-bottom: 1px solid #000;
 }
 
 header h1 {
-	border-radius: 3px;
-	opacity: 0.9;
+	opacity: 0.5;
 	margin: 0;
 	color: #efefef;
-	padding: 3px 0 0 5px;
 	background-color: #222;
+	border-bottom: 1px solid #888;
 }
 
 a {
@@ -39,6 +29,7 @@ a {
 h1 a {
 	color: hsl(200, 40%, 80%);
 	text-decoration: none;
+	padding-left: 0.2em;
 }
 
 .note {
@@ -50,12 +41,13 @@ section {
 	width: 80%;
 	margin: 40px auto;
 	padding: 15px 15px 8px 15px;
-	/*text-align: center;*/
-	/*box-shadow: 0 15px 20px rgba(0,0,0,0.2)*/
 }
 
 section canvas {
-	border:1px solid #722;
+	box-shadow: 0px 5px 8px #aaa;
+	border-radius: 5px;
+	display: block;
+	margin: auto;
 }
 
 /*iPhone < 5*/:
