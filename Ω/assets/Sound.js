@@ -7,6 +7,7 @@
 
 	Sound = Ω.Class.extend({
 
+		// lol... never could have worked... canPlayType does not return bool!
 		ext: document.createElement('audio').canPlayType('audio/mpeg;') === "" ? ".ogg" : ".mp3",
 
 		init: function (path, volume, loop) {
